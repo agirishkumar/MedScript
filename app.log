@@ -1,0 +1,26 @@
+2024-09-29 14:47:34,038 - app.main - INFO - Root endpoint accessed
+2024-09-29 14:48:31,250 - app.main - INFO - Health check endpoint accessed. Request ID: cf738383-15da-4adc-99d9-aaffa5c0b939
+2024-09-29 14:49:45,179 - app.main - INFO - Health check endpoint accessed. Request ID: b8acd029-a003-4afb-b49b-b211e89b2dd1
+2024-09-29 14:59:19,767 - app.main - INFO - Health check endpoint accessed. Request ID: e03d1c0a-ab10-4b5d-ad3d-b409794e9cd0
+2024-09-29 14:59:42,899 - app.main - INFO - Health check endpoint accessed. Request ID: 45336d2f-fead-474b-8a77-3561388abf49
+2024-09-29 15:02:17,031 - app.main - INFO - Health check endpoint accessed. Request ID: 34831def-de6a-4efa-ad80-bbad761ec6e3
+2024-09-29 15:16:23,211 - app.main - INFO - Health check endpoint accessed. Request ID: 0dca531a-bb94-4bbd-bb1d-ff0d6c6d51a9
+2024-09-29 17:57:22,632 - app.main - INFO - Root endpoint accessed
+2024-09-29 17:57:31,123 - app.main - INFO - Health check endpoint accessed. Request ID: 2accfef9-7eaf-4b04-b2a7-f230faed8306
+2024-09-29 18:38:38,147 - app.main - ERROR - An unexpected error occurred: '_GeneratorContextManager' object has no attribute 'add'. Request ID: b389ca41-51fd-45bc-8e59-3183e062401c
+2024-09-29 18:42:55,849 - app.main - ERROR - An unexpected error occurred: '_GeneratorContextManager' object has no attribute 'add'. Request ID: 1254b00d-554f-4b7d-a774-a144821c0ad6
+2024-09-29 18:46:14,994 - app.main - ERROR - An unexpected error occurred: '_GeneratorContextManager' object has no attribute 'add'. Request ID: cf813766-2b13-4b01-aab8-01a9dca570fe
+2024-09-29 18:50:54,386 - app.main - ERROR - An unexpected error occurred: '_GeneratorContextManager' object has no attribute 'add'. Request ID: 84a9c0c8-4b1f-45d2-a55e-4f5195f779f9
+2024-09-29 18:53:58,105 - app.main - ERROR - An unexpected error occurred: 1 validation errors:
+  {'type': 'datetime_type', 'loc': ('response', 'updated_at'), 'msg': 'Input should be a valid datetime', 'input': None}
+. Request ID: 4347b8e3-40d5-48d6-9b21-0c17bdfe4ee9
+2024-09-29 18:55:40,909 - app.main - ERROR - Failed to create patient: (psycopg2.errors.UniqueViolation) duplicate key value violates unique constraint "ix_patients_email"
+DETAIL:  Key (email)=(user@example.com) already exists.
+
+[SQL: INSERT INTO patients (name, age, email, updated_at) VALUES (%(name)s, %(age)s, %(email)s, %(updated_at)s) RETURNING patients.id, patients.created_at]
+[parameters: {'name': 'Asuran', 'age': 20, 'email': 'user@example.com', 'updated_at': None}]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)
+2024-09-29 18:55:40,912 - app.main - ERROR - HTTP error occurred: Failed to create patient. Request ID: a852cbc7-b975-4f4d-853a-6ca729b65def
+2024-09-29 18:57:38,120 - app.main - ERROR - An unexpected error occurred: 1 validation errors:
+  {'type': 'datetime_type', 'loc': ('response', 'updated_at'), 'msg': 'Input should be a valid datetime', 'input': None}
+. Request ID: ac60f1a3-89cd-4476-905f-d63574d6a6c7

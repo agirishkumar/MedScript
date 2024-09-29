@@ -1,0 +1,3 @@
+MedEnv/
+app/__pycache__
+.env
