@@ -3,3 +3,338 @@
 2024-10-05 19:48:43,900 - app - INFO - Request: GET /favicon.ico | Status: 404 | Process Time: 0.00s | Request ID: 904a410a-025a-4f13-9d19-15efb1665f6b
 2024-10-05 21:34:40,381 - app - INFO - Request: GET /docs | Status: 200 | Process Time: 0.00s | Request ID: 062abe69-804e-4e11-87b3-658b9491110a
 2024-10-05 21:34:41,264 - app - INFO - Request: GET /openapi.json | Status: 200 | Process Time: 0.01s | Request ID: b5659a87-a3e7-4f0f-b89c-d83005a11049
+2024-10-06 16:49:46,738 - app - INFO - Request: GET /test-middleware | Status: 200 | Process Time: 0.00s | Request ID: d5c718da-9a56-469f-a036-43ae73de4bd8
+2024-10-06 16:49:46,738 - app - INFO - Request: GET /test-middleware | Status: 200 | Process Time: 0.00s | Request ID: d5c718da-9a56-469f-a036-43ae73de4bd8
+2024-10-06 16:49:46,744 - app - INFO - Request: GET /test-middleware | Status: 200 | Process Time: 0.00s | Request ID: 29497920-03b6-46d9-b0a5-8b92336c2b89
+2024-10-06 16:49:46,744 - app - INFO - Request: GET /test-middleware | Status: 200 | Process Time: 0.00s | Request ID: 29497920-03b6-46d9-b0a5-8b92336c2b89
+2024-10-06 16:51:13,274 - app - INFO - Request: GET /test-middleware | Status: 200 | Process Time: 0.00s | Request ID: de390f50-7a95-4279-abe9-41d22adcc2b9
+2024-10-06 16:51:13,274 - app - INFO - Request: GET /test-middleware | Status: 200 | Process Time: 0.00s | Request ID: de390f50-7a95-4279-abe9-41d22adcc2b9
+2024-10-06 16:51:13,278 - app - INFO - Request: GET /test-middleware | Status: 200 | Process Time: 0.00s | Request ID: 3a5b68a3-b051-4a60-807f-4a0f4eaf5682
+2024-10-06 16:51:13,278 - app - INFO - Request: GET /test-middleware | Status: 200 | Process Time: 0.00s | Request ID: 3a5b68a3-b051-4a60-807f-4a0f4eaf5682
+2024-10-06 16:54:17,286 - app - INFO - Request: GET /test-middleware | Status: 200 | Process Time: 0.00s | Request ID: ec07f062-4cbd-42f2-8263-750a5b150553
+2024-10-06 16:54:17,286 - app - INFO - Request: GET /test-middleware | Status: 200 | Process Time: 0.00s | Request ID: ec07f062-4cbd-42f2-8263-750a5b150553
+2024-10-06 16:54:17,291 - app - INFO - Request: GET /test-middleware | Status: 200 | Process Time: 0.00s | Request ID: 6ecffae0-c9f7-4426-acd7-9154a3174ee3
+2024-10-06 16:54:17,291 - app - INFO - Request: GET /test-middleware | Status: 200 | Process Time: 0.00s | Request ID: 6ecffae0-c9f7-4426-acd7-9154a3174ee3
+2024-10-06 16:57:05,674 - app - INFO - Request: GET /test-middleware | Status: 200 | Process Time: 0.00s | Request ID: 828651e5-59d0-4871-880c-1707b36fa7a7
+2024-10-06 16:57:05,674 - app - INFO - Request: GET /test-middleware | Status: 200 | Process Time: 0.00s | Request ID: 828651e5-59d0-4871-880c-1707b36fa7a7
+2024-10-06 16:57:05,679 - app - INFO - Request: GET /test-middleware | Status: 200 | Process Time: 0.00s | Request ID: 17e12b37-0941-4d80-b1fa-0960b01397ef
+2024-10-06 16:57:05,679 - app - INFO - Request: GET /test-middleware | Status: 200 | Process Time: 0.00s | Request ID: 17e12b37-0941-4d80-b1fa-0960b01397ef
+2024-10-06 16:58:22,363 - app - INFO - Request: GET /test-middleware | Status: 200 | Process Time: 0.00s | Request ID: 748e53e2-5a54-422f-859b-d44a4e1b4961
+2024-10-06 16:58:22,363 - app - INFO - Request: GET /test-middleware | Status: 200 | Process Time: 0.00s | Request ID: 748e53e2-5a54-422f-859b-d44a4e1b4961
+2024-10-06 16:58:22,368 - app - INFO - Request: GET /test-middleware | Status: 200 | Process Time: 0.00s | Request ID: c15c96e4-662f-409d-a735-9043ddad6557
+2024-10-06 16:58:22,368 - app - INFO - Request: GET /test-middleware | Status: 200 | Process Time: 0.00s | Request ID: c15c96e4-662f-409d-a735-9043ddad6557
+2024-10-06 16:58:57,163 - app - INFO - Request: GET /test-middleware | Status: 200 | Process Time: 0.00s | Request ID: 0a6400ec-47a1-4da4-996c-2ad174d02141
+2024-10-06 16:58:57,163 - app - INFO - Request: GET /test-middleware | Status: 200 | Process Time: 0.00s | Request ID: 0a6400ec-47a1-4da4-996c-2ad174d02141
+2024-10-06 16:58:57,167 - app - INFO - Request: GET /test-middleware | Status: 200 | Process Time: 0.00s | Request ID: 4e0ed0f9-cd7f-49a4-83f2-82d8e1c2c8e6
+2024-10-06 16:58:57,167 - app - INFO - Request: GET /test-middleware | Status: 200 | Process Time: 0.00s | Request ID: 4e0ed0f9-cd7f-49a4-83f2-82d8e1c2c8e6
+2024-10-06 17:06:16,174 - app - INFO - Request: GET /test-middleware | Status: 200 | Process Time: 0.00s | Request ID: 4f2c8e4b-b081-4543-892b-1f6298010dc6
+2024-10-06 17:06:16,178 - app - INFO - Request: GET /test-middleware | Status: 200 | Process Time: 0.00s | Request ID: 212f89ff-37fb-47ef-a0db-ae8c405cd736
+2024-10-06 17:12:01,395 - app - INFO - Request: GET /test-middleware | Status: 200 | Process Time: 0.01s | Request ID: None
+2024-10-06 17:12:01,435 - app - INFO - Request: GET /test-middleware | Status: 200 | Process Time: 0.01s | Request ID: None
+2024-10-06 17:12:01,477 - app - ERROR - Request: GET /test-error | Status: 500 | Process Time: 0.01s | Request ID: None | Error: Intentional Error
+2024-10-06 17:12:02,319 - app - INFO - Request: GET /test-middleware | Status: 200 | Process Time: 0.00s | Request ID: None
+2024-10-06 17:14:09,030 - app - INFO - Request: GET /test-middleware | Status: 200 | Process Time: 0.00s | Request ID: 9ba4cbab-ba22-4ca9-b3de-1d39ab63ba0d
+2024-10-06 17:14:09,034 - app - INFO - Request: GET /test-middleware | Status: 200 | Process Time: 0.00s | Request ID: d0922591-05f1-476c-897c-047e608d4a1f
+2024-10-06 17:14:09,038 - app - ERROR - Request: GET /test-error | Status: 500 | Process Time: 0.00s | Request ID: 9c63f3d5-f169-40d3-a13c-cf2f123401ee | Error: Intentional Error
+2024-10-06 17:14:09,051 - app - INFO - Request: GET /test-middleware | Status: 200 | Process Time: 0.00s | Request ID: 54750f98-dab4-449d-b491-d16beb031017
+2024-10-06 17:15:38,235 - app - INFO - Request: GET /test-middleware | Status: 200 | Process Time: 0.00s | Request ID: d46bfdaa-22f6-4003-941e-742e546e378a
+2024-10-06 17:15:38,239 - app - INFO - Request: GET /test-middleware | Status: 200 | Process Time: 0.00s | Request ID: b73836b4-7ef7-4cb2-804c-fc8d867111c9
+2024-10-06 17:15:38,246 - app - ERROR - Request: GET /test-error | Status: 500 | Process Time: 0.00s | Request ID: 01b5be45-899c-41f0-b9fd-a8afc32c5b71 | Error: Intentional Error
+2024-10-06 17:15:38,256 - app - INFO - Request: GET /test-middleware | Status: 200 | Process Time: 0.00s | Request ID: 2f1d26b0-a6b6-48f3-a445-3a28769b5f78
+2024-10-06 17:17:18,542 - app - ERROR - Request: GET /test-error | Status: 500 | Process Time: 0.00s | Request ID: 85c53f5c-f32f-445e-8e0b-9c89945e6c75 | Error: Intentional Error
+2024-10-06 17:17:18,546 - app - INFO - Request: GET /test-middleware | Status: 200 | Process Time: 0.00s | Request ID: 21f6f093-02dc-4e75-987b-cad2ece36796
+2024-10-06 17:17:18,549 - app - INFO - Request: GET /test-middleware | Status: 200 | Process Time: 0.00s | Request ID: 7b1db880-c31c-493a-b75d-ec8d17cb1641
+2024-10-06 17:17:18,555 - app - ERROR - Request: GET /test-error | Status: 500 | Process Time: 0.00s | Request ID: 52eb09be-c482-41e3-9b30-41b5f0b550af | Error: Intentional Error
+2024-10-06 17:18:05,049 - app - ERROR - Request: GET /test-error | Status: 500 | Process Time: 0.00s | Request ID: 453b6088-b6af-49a0-b8de-55aec35908a3 | Error: Intentional Error
+2024-10-06 17:18:05,049 - app - ERROR - Request: GET /test-error | Status: 500 | Process Time: 0.00s | Request ID: 453b6088-b6af-49a0-b8de-55aec35908a3 | Error: Intentional Error
+2024-10-06 17:18:05,053 - app - INFO - Request: GET /test-middleware | Status: 200 | Process Time: 0.00s | Request ID: ff1b1d52-a12a-4014-84e0-a56197dfa586
+2024-10-06 17:18:05,053 - app - INFO - Request: GET /test-middleware | Status: 200 | Process Time: 0.00s | Request ID: ff1b1d52-a12a-4014-84e0-a56197dfa586
+2024-10-06 17:18:05,062 - app - INFO - Request: GET /test-middleware | Status: 200 | Process Time: 0.00s | Request ID: 935a61de-95df-4b40-868e-c7c5fe49d804
+2024-10-06 17:18:05,062 - app - INFO - Request: GET /test-middleware | Status: 200 | Process Time: 0.00s | Request ID: 935a61de-95df-4b40-868e-c7c5fe49d804
+2024-10-06 17:18:05,072 - app - ERROR - Request: GET /test-error | Status: 500 | Process Time: 0.00s | Request ID: e7c79601-0221-4e3c-a627-3b70b6802b55 | Error: Intentional Error
+2024-10-06 17:18:05,072 - app - ERROR - Request: GET /test-error | Status: 500 | Process Time: 0.00s | Request ID: e7c79601-0221-4e3c-a627-3b70b6802b55 | Error: Intentional Error
+2024-10-06 17:20:28,305 - app - ERROR - Request: GET /test-error | Status: 500 | Process Time: 0.00s | Request ID: e083d099-7fba-42ed-8a2d-eb1778a0ad80 | Error: Intentional Error
+2024-10-06 17:20:28,305 - app - ERROR - Request: GET /test-error | Status: 500 | Process Time: 0.00s | Request ID: e083d099-7fba-42ed-8a2d-eb1778a0ad80 | Error: Intentional Error
+2024-10-06 17:20:28,310 - app - INFO - Request: GET /test-middleware | Status: 200 | Process Time: 0.00s | Request ID: 295468da-8062-421e-b1b6-a40fe133535a
+2024-10-06 17:20:28,310 - app - INFO - Request: GET /test-middleware | Status: 200 | Process Time: 0.00s | Request ID: 295468da-8062-421e-b1b6-a40fe133535a
+2024-10-06 17:20:28,315 - app - INFO - Request: GET /test-middleware | Status: 200 | Process Time: 0.00s | Request ID: 5a3f1de3-af17-4843-b159-6d5c715e5864
+2024-10-06 17:20:28,315 - app - INFO - Request: GET /test-middleware | Status: 200 | Process Time: 0.00s | Request ID: 5a3f1de3-af17-4843-b159-6d5c715e5864
+2024-10-06 17:20:28,321 - app - ERROR - Request: GET /test-error | Status: 500 | Process Time: 0.00s | Request ID: fdc0e97a-f424-4477-b289-53e85cf559b4 | Error: Intentional Error
+2024-10-06 17:20:28,321 - app - ERROR - Request: GET /test-error | Status: 500 | Process Time: 0.00s | Request ID: fdc0e97a-f424-4477-b289-53e85cf559b4 | Error: Intentional Error
+2024-10-06 17:21:23,925 - app - ERROR - Request: GET /test-error | Status: 500 | Process Time: 0.00s | Request ID: f75db2ab-5e39-4be0-8d76-cd4f424db32d | Error: Intentional Error
+2024-10-06 17:21:23,925 - app - ERROR - Request: GET /test-error | Status: 500 | Process Time: 0.00s | Request ID: f75db2ab-5e39-4be0-8d76-cd4f424db32d | Error: Intentional Error
+2024-10-06 17:21:23,929 - app - INFO - Request: GET /test-middleware | Status: 200 | Process Time: 0.00s | Request ID: 8a7b78ff-0afe-4c3d-8dcd-16a192371285
+2024-10-06 17:21:23,929 - app - INFO - Request: GET /test-middleware | Status: 200 | Process Time: 0.00s | Request ID: 8a7b78ff-0afe-4c3d-8dcd-16a192371285
+2024-10-06 17:21:23,933 - app - INFO - Request: GET /test-middleware | Status: 200 | Process Time: 0.00s | Request ID: 64ab2757-a6f5-407c-9bd2-be22afe67cb3
+2024-10-06 17:21:23,933 - app - INFO - Request: GET /test-middleware | Status: 200 | Process Time: 0.00s | Request ID: 64ab2757-a6f5-407c-9bd2-be22afe67cb3
+2024-10-06 17:21:23,937 - app - ERROR - Request: GET /test-error | Status: 500 | Process Time: 0.00s | Request ID: c9872f02-6076-4ae4-a25a-090999349d94 | Error: Intentional Error
+2024-10-06 17:21:23,937 - app - ERROR - Request: GET /test-error | Status: 500 | Process Time: 0.00s | Request ID: c9872f02-6076-4ae4-a25a-090999349d94 | Error: Intentional Error
+2024-10-06 17:23:36,428 - app - ERROR - Request: GET /test-error | Status: 500 | Process Time: 0.01s | Request ID: 2cc31492-c856-4c11-a4a4-0745a592fb96 | Error: Intentional Error
+2024-10-06 17:23:36,428 - app - ERROR - Request: GET /test-error | Status: 500 | Process Time: 0.01s | Request ID: 2cc31492-c856-4c11-a4a4-0745a592fb96 | Error: Intentional Error
+2024-10-06 17:23:36,459 - app - INFO - Request: GET /test-middleware | Status: 200 | Process Time: 0.01s | Request ID: 510bd58b-489b-4701-9f50-562b65edd5d8
+2024-10-06 17:23:36,459 - app - INFO - Request: GET /test-middleware | Status: 200 | Process Time: 0.01s | Request ID: 510bd58b-489b-4701-9f50-562b65edd5d8
+2024-10-06 17:23:36,496 - app - INFO - Request: GET /test-middleware | Status: 200 | Process Time: 0.01s | Request ID: e9a22b67-c3bf-4244-9fe5-fc0459e5b62c
+2024-10-06 17:23:36,496 - app - INFO - Request: GET /test-middleware | Status: 200 | Process Time: 0.01s | Request ID: e9a22b67-c3bf-4244-9fe5-fc0459e5b62c
+2024-10-06 17:23:36,525 - app - ERROR - Request: GET /test-error | Status: 500 | Process Time: 0.00s | Request ID: 09a25dc7-6216-43ab-94a0-3d4a052a1962 | Error: Intentional Error
+2024-10-06 17:23:36,525 - app - ERROR - Request: GET /test-error | Status: 500 | Process Time: 0.00s | Request ID: 09a25dc7-6216-43ab-94a0-3d4a052a1962 | Error: Intentional Error
+2024-10-06 17:23:36,788 - app - INFO - Request: GET /patients/ | Status: 404 | Process Time: 0.00s | Request ID: 2bd30132-b331-4d03-b755-496d94dd8472
+2024-10-06 17:23:36,788 - app - INFO - Request: GET /patients/ | Status: 404 | Process Time: 0.00s | Request ID: 2bd30132-b331-4d03-b755-496d94dd8472
+2024-10-06 17:23:36,791 - app - INFO - Request: GET /patients/ | Status: 404 | Process Time: 0.01s | Request ID: 2bd30132-b331-4d03-b755-496d94dd8472
+2024-10-06 17:23:36,791 - app - INFO - Request: GET /patients/ | Status: 404 | Process Time: 0.01s | Request ID: 2bd30132-b331-4d03-b755-496d94dd8472
+2024-10-06 17:23:36,966 - app - INFO - Request: GET /patients/1 | Status: 404 | Process Time: 0.00s | Request ID: 7d846f0f-2c45-4af9-9857-d1cedd78bb7d
+2024-10-06 17:23:36,966 - app - INFO - Request: GET /patients/1 | Status: 404 | Process Time: 0.00s | Request ID: 7d846f0f-2c45-4af9-9857-d1cedd78bb7d
+2024-10-06 17:23:36,967 - app - INFO - Request: GET /patients/1 | Status: 404 | Process Time: 0.00s | Request ID: 7d846f0f-2c45-4af9-9857-d1cedd78bb7d
+2024-10-06 17:23:36,967 - app - INFO - Request: GET /patients/1 | Status: 404 | Process Time: 0.00s | Request ID: 7d846f0f-2c45-4af9-9857-d1cedd78bb7d
+2024-10-06 17:23:37,000 - app - INFO - Request: POST /patients/ | Status: 404 | Process Time: 0.00s | Request ID: f114a3e1-13f5-41f9-8a2f-10f1993e4d87
+2024-10-06 17:23:37,000 - app - INFO - Request: POST /patients/ | Status: 404 | Process Time: 0.00s | Request ID: f114a3e1-13f5-41f9-8a2f-10f1993e4d87
+2024-10-06 17:23:37,003 - app - INFO - Request: POST /patients/ | Status: 404 | Process Time: 0.01s | Request ID: f114a3e1-13f5-41f9-8a2f-10f1993e4d87
+2024-10-06 17:23:37,003 - app - INFO - Request: POST /patients/ | Status: 404 | Process Time: 0.01s | Request ID: f114a3e1-13f5-41f9-8a2f-10f1993e4d87
+2024-10-06 17:23:37,045 - app - INFO - Request: PUT /patients/1 | Status: 404 | Process Time: 0.00s | Request ID: 0f46e07c-d1fe-4c80-bc72-eae1ae29b70c
+2024-10-06 17:23:37,045 - app - INFO - Request: PUT /patients/1 | Status: 404 | Process Time: 0.00s | Request ID: 0f46e07c-d1fe-4c80-bc72-eae1ae29b70c
+2024-10-06 17:23:37,048 - app - INFO - Request: PUT /patients/1 | Status: 404 | Process Time: 0.01s | Request ID: 0f46e07c-d1fe-4c80-bc72-eae1ae29b70c
+2024-10-06 17:23:37,048 - app - INFO - Request: PUT /patients/1 | Status: 404 | Process Time: 0.01s | Request ID: 0f46e07c-d1fe-4c80-bc72-eae1ae29b70c
+2024-10-06 17:23:37,090 - app - INFO - Request: DELETE /patients/1 | Status: 404 | Process Time: 0.00s | Request ID: bbbe5952-ab1d-40fa-a39f-64e5a696a199
+2024-10-06 17:23:37,090 - app - INFO - Request: DELETE /patients/1 | Status: 404 | Process Time: 0.00s | Request ID: bbbe5952-ab1d-40fa-a39f-64e5a696a199
+2024-10-06 17:23:37,093 - app - INFO - Request: DELETE /patients/1 | Status: 404 | Process Time: 0.01s | Request ID: bbbe5952-ab1d-40fa-a39f-64e5a696a199
+2024-10-06 17:23:37,093 - app - INFO - Request: DELETE /patients/1 | Status: 404 | Process Time: 0.01s | Request ID: bbbe5952-ab1d-40fa-a39f-64e5a696a199
+2024-10-06 17:29:25,339 - app - ERROR - Request: GET /test-error | Status: 500 | Process Time: 0.01s | Request ID: 46a5d785-12fc-4585-bdcb-93dc29f8684a | Error: Intentional Error
+2024-10-06 17:29:25,339 - app - ERROR - Request: GET /test-error | Status: 500 | Process Time: 0.01s | Request ID: 46a5d785-12fc-4585-bdcb-93dc29f8684a | Error: Intentional Error
+2024-10-06 17:29:25,374 - app - INFO - Request: GET /test-middleware | Status: 200 | Process Time: 0.01s | Request ID: b6a8c0a4-37ef-4a8e-ad0a-d398cf4cd3a7
+2024-10-06 17:29:25,374 - app - INFO - Request: GET /test-middleware | Status: 200 | Process Time: 0.01s | Request ID: b6a8c0a4-37ef-4a8e-ad0a-d398cf4cd3a7
+2024-10-06 17:29:25,406 - app - INFO - Request: GET /test-middleware | Status: 200 | Process Time: 0.01s | Request ID: b357c152-a486-4f3c-8e20-c725ca78e911
+2024-10-06 17:29:25,406 - app - INFO - Request: GET /test-middleware | Status: 200 | Process Time: 0.01s | Request ID: b357c152-a486-4f3c-8e20-c725ca78e911
+2024-10-06 17:29:25,437 - app - ERROR - Request: GET /test-error | Status: 500 | Process Time: 0.00s | Request ID: cb13a8d6-5414-4d8f-861f-6d08f3c41c59 | Error: Intentional Error
+2024-10-06 17:29:25,437 - app - ERROR - Request: GET /test-error | Status: 500 | Process Time: 0.00s | Request ID: cb13a8d6-5414-4d8f-861f-6d08f3c41c59 | Error: Intentional Error
+2024-10-06 17:29:25,614 - app - INFO - Request: GET /api/v1/patients/ | Status: 307 | Process Time: 0.00s | Request ID: 2f858b15-5dcf-44f7-b304-abdb1d5dccd0
+2024-10-06 17:29:25,614 - app - INFO - Request: GET /api/v1/patients/ | Status: 307 | Process Time: 0.00s | Request ID: 2f858b15-5dcf-44f7-b304-abdb1d5dccd0
+2024-10-06 17:29:25,636 - app - INFO - Request: GET /api/v1/patients | Status: 422 | Process Time: 0.02s | Request ID: 7992e80e-4f87-4a73-95c6-9aceb69002d3
+2024-10-06 17:29:25,636 - app - INFO - Request: GET /api/v1/patients | Status: 422 | Process Time: 0.02s | Request ID: 7992e80e-4f87-4a73-95c6-9aceb69002d3
+2024-10-06 17:29:25,766 - app - INFO - Request: GET /api/v1/patients/1 | Status: 404 | Process Time: 0.00s | Request ID: 990cd6c6-a390-4132-bd16-89f98b482056
+2024-10-06 17:29:25,766 - app - INFO - Request: GET /api/v1/patients/1 | Status: 404 | Process Time: 0.00s | Request ID: 990cd6c6-a390-4132-bd16-89f98b482056
+2024-10-06 17:29:25,789 - app - INFO - Request: POST /api/v1/patients/ | Status: 307 | Process Time: 0.00s | Request ID: 006c7f4d-0231-487e-ac9d-31b1fc781047
+2024-10-06 17:29:25,789 - app - INFO - Request: POST /api/v1/patients/ | Status: 307 | Process Time: 0.00s | Request ID: 006c7f4d-0231-487e-ac9d-31b1fc781047
+2024-10-06 17:29:25,809 - app - INFO - Request: POST /api/v1/patients | Status: 405 | Process Time: 0.00s | Request ID: badd09a9-6e56-4a8f-abeb-41a7420c3bd8
+2024-10-06 17:29:25,809 - app - INFO - Request: POST /api/v1/patients | Status: 405 | Process Time: 0.00s | Request ID: badd09a9-6e56-4a8f-abeb-41a7420c3bd8
+2024-10-06 17:29:25,852 - app - INFO - Request: PUT /api/v1/patients/1 | Status: 404 | Process Time: 0.01s | Request ID: 10e94b8c-b140-439d-b1ec-d610d2e93c6d
+2024-10-06 17:29:25,852 - app - INFO - Request: PUT /api/v1/patients/1 | Status: 404 | Process Time: 0.01s | Request ID: 10e94b8c-b140-439d-b1ec-d610d2e93c6d
+2024-10-06 17:29:25,892 - app - INFO - Request: DELETE /api/v1/patients/1 | Status: 404 | Process Time: 0.00s | Request ID: b7022dc3-f78f-47cc-b8e7-83717b6882b0
+2024-10-06 17:29:25,892 - app - INFO - Request: DELETE /api/v1/patients/1 | Status: 404 | Process Time: 0.00s | Request ID: b7022dc3-f78f-47cc-b8e7-83717b6882b0
+2024-10-06 17:40:00,043 - app - ERROR - Request: GET /test-error | Status: 500 | Process Time: 0.01s | Request ID: 7e43f79e-dc75-47f1-a870-44e8fd171a88 | Error: Intentional Error
+2024-10-06 17:40:00,043 - app - ERROR - Request: GET /test-error | Status: 500 | Process Time: 0.01s | Request ID: 7e43f79e-dc75-47f1-a870-44e8fd171a88 | Error: Intentional Error
+2024-10-06 17:40:00,074 - app - INFO - Request: GET /test-middleware | Status: 200 | Process Time: 0.00s | Request ID: b8acac5c-aa90-4396-a6d2-5a6ba89b87f2
+2024-10-06 17:40:00,074 - app - INFO - Request: GET /test-middleware | Status: 200 | Process Time: 0.00s | Request ID: b8acac5c-aa90-4396-a6d2-5a6ba89b87f2
+2024-10-06 17:40:00,101 - app - INFO - Request: GET /test-middleware | Status: 200 | Process Time: 0.00s | Request ID: 82c5f472-0147-4fe3-984e-aea2f60cd0eb
+2024-10-06 17:40:00,101 - app - INFO - Request: GET /test-middleware | Status: 200 | Process Time: 0.00s | Request ID: 82c5f472-0147-4fe3-984e-aea2f60cd0eb
+2024-10-06 17:40:00,126 - app - ERROR - Request: GET /test-error | Status: 500 | Process Time: 0.00s | Request ID: afa8a2f9-caa7-4c1b-a576-d344d56d4294 | Error: Intentional Error
+2024-10-06 17:40:00,126 - app - ERROR - Request: GET /test-error | Status: 500 | Process Time: 0.00s | Request ID: afa8a2f9-caa7-4c1b-a576-d344d56d4294 | Error: Intentional Error
+2024-10-06 17:40:00,239 - app - INFO - Request: GET /api/v1/patients/ | Status: 307 | Process Time: 0.00s | Request ID: fdbcf719-a965-4ddf-bac6-7247c9e925f0
+2024-10-06 17:40:00,239 - app - INFO - Request: GET /api/v1/patients/ | Status: 307 | Process Time: 0.00s | Request ID: fdbcf719-a965-4ddf-bac6-7247c9e925f0
+2024-10-06 17:40:00,256 - app - INFO - Request: GET /api/v1/patients | Status: 422 | Process Time: 0.01s | Request ID: 8b243480-77a3-4319-be5c-e14fcfb9c4a8
+2024-10-06 17:40:00,256 - app - INFO - Request: GET /api/v1/patients | Status: 422 | Process Time: 0.01s | Request ID: 8b243480-77a3-4319-be5c-e14fcfb9c4a8
+2024-10-06 17:40:00,447 - app - INFO - Request: GET /api/v1/patients/1 | Status: 404 | Process Time: 0.00s | Request ID: 7cbcb7d5-b716-4fbf-8c8b-e50792f40744
+2024-10-06 17:40:00,447 - app - INFO - Request: GET /api/v1/patients/1 | Status: 404 | Process Time: 0.00s | Request ID: 7cbcb7d5-b716-4fbf-8c8b-e50792f40744
+2024-10-06 17:40:00,482 - app - INFO - Request: POST /api/v1/patients/ | Status: 307 | Process Time: 0.00s | Request ID: 4b432aea-cffe-4184-8c54-2bcf174438fc
+2024-10-06 17:40:00,482 - app - INFO - Request: POST /api/v1/patients/ | Status: 307 | Process Time: 0.00s | Request ID: 4b432aea-cffe-4184-8c54-2bcf174438fc
+2024-10-06 17:40:00,503 - app - INFO - Request: POST /api/v1/patients | Status: 405 | Process Time: 0.00s | Request ID: b1049418-8b02-4b53-8350-ed0ecb6ab166
+2024-10-06 17:40:00,503 - app - INFO - Request: POST /api/v1/patients | Status: 405 | Process Time: 0.00s | Request ID: b1049418-8b02-4b53-8350-ed0ecb6ab166
+2024-10-06 17:40:00,544 - app - INFO - Request: PUT /api/v1/patients/1 | Status: 404 | Process Time: 0.00s | Request ID: 5973eff8-fa1e-438e-8373-9399debae132
+2024-10-06 17:40:00,544 - app - INFO - Request: PUT /api/v1/patients/1 | Status: 404 | Process Time: 0.00s | Request ID: 5973eff8-fa1e-438e-8373-9399debae132
+2024-10-06 17:40:00,582 - app - INFO - Request: DELETE /api/v1/patients/1 | Status: 404 | Process Time: 0.00s | Request ID: a164fa58-ec51-48dc-a715-677078cb4d4f
+2024-10-06 17:40:00,582 - app - INFO - Request: DELETE /api/v1/patients/1 | Status: 404 | Process Time: 0.00s | Request ID: a164fa58-ec51-48dc-a715-677078cb4d4f
+2024-10-06 17:41:00,845 - app - ERROR - Request: GET /test-error | Status: 500 | Process Time: 0.01s | Request ID: ea2e8224-be40-4cc4-8a38-1c57d2469e66 | Error: Intentional Error
+2024-10-06 17:41:00,845 - app - ERROR - Request: GET /test-error | Status: 500 | Process Time: 0.01s | Request ID: ea2e8224-be40-4cc4-8a38-1c57d2469e66 | Error: Intentional Error
+2024-10-06 17:41:00,882 - app - INFO - Request: GET /test-middleware | Status: 200 | Process Time: 0.00s | Request ID: 53b7f0ce-7a2f-4579-a30e-fa74e59988e2
+2024-10-06 17:41:00,882 - app - INFO - Request: GET /test-middleware | Status: 200 | Process Time: 0.00s | Request ID: 53b7f0ce-7a2f-4579-a30e-fa74e59988e2
+2024-10-06 17:41:00,895 - app - INFO - Request: GET /test-middleware | Status: 200 | Process Time: 0.00s | Request ID: f483e4a3-062e-4b27-a495-81b8665ad0df
+2024-10-06 17:41:00,895 - app - INFO - Request: GET /test-middleware | Status: 200 | Process Time: 0.00s | Request ID: f483e4a3-062e-4b27-a495-81b8665ad0df
+2024-10-06 17:41:00,905 - app - ERROR - Request: GET /test-error | Status: 500 | Process Time: 0.00s | Request ID: 06973502-5a1b-48aa-b1a9-bb681af0f690 | Error: Intentional Error
+2024-10-06 17:41:00,905 - app - ERROR - Request: GET /test-error | Status: 500 | Process Time: 0.00s | Request ID: 06973502-5a1b-48aa-b1a9-bb681af0f690 | Error: Intentional Error
+2024-10-06 17:41:01,015 - app - INFO - Request: GET /api/v1/patients/ | Status: 307 | Process Time: 0.00s | Request ID: 7cc373a1-0293-4c3b-a858-f3ddadf4d28d
+2024-10-06 17:41:01,015 - app - INFO - Request: GET /api/v1/patients/ | Status: 307 | Process Time: 0.00s | Request ID: 7cc373a1-0293-4c3b-a858-f3ddadf4d28d
+2024-10-06 17:41:01,038 - app - INFO - Request: GET /api/v1/patients | Status: 422 | Process Time: 0.01s | Request ID: a9c4420f-ace8-4c51-93fa-216861e92eab
+2024-10-06 17:41:01,038 - app - INFO - Request: GET /api/v1/patients | Status: 422 | Process Time: 0.01s | Request ID: a9c4420f-ace8-4c51-93fa-216861e92eab
+2024-10-06 17:41:01,177 - app - INFO - Request: GET /api/v1/patients/1 | Status: 404 | Process Time: 0.00s | Request ID: 97149a44-aba1-4b7d-ba35-097cacd1c063
+2024-10-06 17:41:01,177 - app - INFO - Request: GET /api/v1/patients/1 | Status: 404 | Process Time: 0.00s | Request ID: 97149a44-aba1-4b7d-ba35-097cacd1c063
+2024-10-06 17:41:01,200 - app - INFO - Request: POST /api/v1/patients/ | Status: 307 | Process Time: 0.00s | Request ID: a67b58c5-ab2f-4c6a-ad6b-bd7ad05939aa
+2024-10-06 17:41:01,200 - app - INFO - Request: POST /api/v1/patients/ | Status: 307 | Process Time: 0.00s | Request ID: a67b58c5-ab2f-4c6a-ad6b-bd7ad05939aa
+2024-10-06 17:41:01,217 - app - INFO - Request: POST /api/v1/patients | Status: 405 | Process Time: 0.00s | Request ID: 9a63152f-18f7-4fb6-8643-e7f6d665ead8
+2024-10-06 17:41:01,217 - app - INFO - Request: POST /api/v1/patients | Status: 405 | Process Time: 0.00s | Request ID: 9a63152f-18f7-4fb6-8643-e7f6d665ead8
+2024-10-06 17:41:01,263 - app - INFO - Request: PUT /api/v1/patients/1 | Status: 404 | Process Time: 0.00s | Request ID: 439f8f5c-9e86-4e4d-b642-0b0149a54db6
+2024-10-06 17:41:01,263 - app - INFO - Request: PUT /api/v1/patients/1 | Status: 404 | Process Time: 0.00s | Request ID: 439f8f5c-9e86-4e4d-b642-0b0149a54db6
+2024-10-06 17:41:01,307 - app - INFO - Request: DELETE /api/v1/patients/1 | Status: 404 | Process Time: 0.00s | Request ID: 638014a1-ef7a-4064-9528-f1d1adef4695
+2024-10-06 17:41:01,307 - app - INFO - Request: DELETE /api/v1/patients/1 | Status: 404 | Process Time: 0.00s | Request ID: 638014a1-ef7a-4064-9528-f1d1adef4695
+2024-10-06 17:41:19,621 - app - ERROR - Request: GET /test-error | Status: 500 | Process Time: 0.01s | Request ID: c5d87bf1-6c26-4f2a-915d-521cab187b14 | Error: Intentional Error
+2024-10-06 17:41:19,621 - app - ERROR - Request: GET /test-error | Status: 500 | Process Time: 0.01s | Request ID: c5d87bf1-6c26-4f2a-915d-521cab187b14 | Error: Intentional Error
+2024-10-06 17:41:19,657 - app - INFO - Request: GET /test-middleware | Status: 200 | Process Time: 0.01s | Request ID: 3f21186e-cf16-4f2d-8a85-7c3aaf815b01
+2024-10-06 17:41:19,657 - app - INFO - Request: GET /test-middleware | Status: 200 | Process Time: 0.01s | Request ID: 3f21186e-cf16-4f2d-8a85-7c3aaf815b01
+2024-10-06 17:41:19,688 - app - INFO - Request: GET /test-middleware | Status: 200 | Process Time: 0.00s | Request ID: d2a2ae0d-3360-46b3-bf59-649f4d39b5a1
+2024-10-06 17:41:19,688 - app - INFO - Request: GET /test-middleware | Status: 200 | Process Time: 0.00s | Request ID: d2a2ae0d-3360-46b3-bf59-649f4d39b5a1
+2024-10-06 17:41:19,725 - app - ERROR - Request: GET /test-error | Status: 500 | Process Time: 0.00s | Request ID: 7a733578-94a2-44ab-b753-d6a2a0d56f3c | Error: Intentional Error
+2024-10-06 17:41:19,725 - app - ERROR - Request: GET /test-error | Status: 500 | Process Time: 0.00s | Request ID: 7a733578-94a2-44ab-b753-d6a2a0d56f3c | Error: Intentional Error
+2024-10-06 17:41:19,966 - app - INFO - Request: GET /api/v1/patients/ | Status: 307 | Process Time: 0.00s | Request ID: 7a6c7f50-6978-414b-bf89-73adb11db208
+2024-10-06 17:41:19,966 - app - INFO - Request: GET /api/v1/patients/ | Status: 307 | Process Time: 0.00s | Request ID: 7a6c7f50-6978-414b-bf89-73adb11db208
+2024-10-06 17:41:19,992 - app - INFO - Request: GET /api/v1/patients | Status: 422 | Process Time: 0.01s | Request ID: cafdf52c-cdd7-4270-ac0a-3111c151f928
+2024-10-06 17:41:19,992 - app - INFO - Request: GET /api/v1/patients | Status: 422 | Process Time: 0.01s | Request ID: cafdf52c-cdd7-4270-ac0a-3111c151f928
+2024-10-06 17:41:20,171 - app - INFO - Request: GET /api/v1/patients/1 | Status: 404 | Process Time: 0.00s | Request ID: 45022c64-184e-458a-80ab-9de60e6587f8
+2024-10-06 17:41:20,171 - app - INFO - Request: GET /api/v1/patients/1 | Status: 404 | Process Time: 0.00s | Request ID: 45022c64-184e-458a-80ab-9de60e6587f8
+2024-10-06 17:41:20,212 - app - INFO - Request: POST /api/v1/patients/ | Status: 307 | Process Time: 0.00s | Request ID: a4b2cebd-09fe-4b6e-a58e-c209ede32c14
+2024-10-06 17:41:20,212 - app - INFO - Request: POST /api/v1/patients/ | Status: 307 | Process Time: 0.00s | Request ID: a4b2cebd-09fe-4b6e-a58e-c209ede32c14
+2024-10-06 17:41:20,228 - app - INFO - Request: POST /api/v1/patients | Status: 405 | Process Time: 0.00s | Request ID: b949d404-c200-4fda-8e86-5d916a66d670
+2024-10-06 17:41:20,228 - app - INFO - Request: POST /api/v1/patients | Status: 405 | Process Time: 0.00s | Request ID: b949d404-c200-4fda-8e86-5d916a66d670
+2024-10-06 17:41:20,268 - app - INFO - Request: PUT /api/v1/patients/1 | Status: 404 | Process Time: 0.00s | Request ID: c9cb2ea2-4641-46f8-89f6-c38da12c0f27
+2024-10-06 17:41:20,268 - app - INFO - Request: PUT /api/v1/patients/1 | Status: 404 | Process Time: 0.00s | Request ID: c9cb2ea2-4641-46f8-89f6-c38da12c0f27
+2024-10-06 17:41:20,315 - app - INFO - Request: DELETE /api/v1/patients/1 | Status: 404 | Process Time: 0.00s | Request ID: 53eb63ee-3ec8-4236-9543-ec7b4947fffd
+2024-10-06 17:41:20,315 - app - INFO - Request: DELETE /api/v1/patients/1 | Status: 404 | Process Time: 0.00s | Request ID: 53eb63ee-3ec8-4236-9543-ec7b4947fffd
+2024-10-06 17:44:15,236 - app - ERROR - Request: GET /test-error | Status: 500 | Process Time: 0.01s | Request ID: 164b6c3e-14ec-4976-a8e9-ead1a4236a43 | Error: Intentional Error
+2024-10-06 17:44:15,236 - app - ERROR - Request: GET /test-error | Status: 500 | Process Time: 0.01s | Request ID: 164b6c3e-14ec-4976-a8e9-ead1a4236a43 | Error: Intentional Error
+2024-10-06 17:44:15,271 - app - INFO - Request: GET /test-middleware | Status: 200 | Process Time: 0.01s | Request ID: 198b9374-6e16-4444-a194-6ba52ec46255
+2024-10-06 17:44:15,271 - app - INFO - Request: GET /test-middleware | Status: 200 | Process Time: 0.01s | Request ID: 198b9374-6e16-4444-a194-6ba52ec46255
+2024-10-06 17:44:15,303 - app - INFO - Request: GET /test-middleware | Status: 200 | Process Time: 0.00s | Request ID: a93f37c6-1487-4f51-a2d9-963807c7dcc8
+2024-10-06 17:44:15,303 - app - INFO - Request: GET /test-middleware | Status: 200 | Process Time: 0.00s | Request ID: a93f37c6-1487-4f51-a2d9-963807c7dcc8
+2024-10-06 17:44:15,330 - app - ERROR - Request: GET /test-error | Status: 500 | Process Time: 0.00s | Request ID: 358a56fb-f53b-4561-875b-74a2abf8a340 | Error: Intentional Error
+2024-10-06 17:44:15,330 - app - ERROR - Request: GET /test-error | Status: 500 | Process Time: 0.00s | Request ID: 358a56fb-f53b-4561-875b-74a2abf8a340 | Error: Intentional Error
+2024-10-06 17:44:15,481 - app - INFO - Request: GET /api/v1/patients/ | Status: 307 | Process Time: 0.00s | Request ID: 5ebce4f2-5088-4968-b35c-09cc4f55a4e9
+2024-10-06 17:44:15,481 - app - INFO - Request: GET /api/v1/patients/ | Status: 307 | Process Time: 0.00s | Request ID: 5ebce4f2-5088-4968-b35c-09cc4f55a4e9
+2024-10-06 17:44:15,504 - app - INFO - Request: GET /api/v1/patients | Status: 422 | Process Time: 0.01s | Request ID: 7c1e1cc2-56cb-4c2f-b5bf-fa3b97d3e56d
+2024-10-06 17:44:15,504 - app - INFO - Request: GET /api/v1/patients | Status: 422 | Process Time: 0.01s | Request ID: 7c1e1cc2-56cb-4c2f-b5bf-fa3b97d3e56d
+2024-10-06 17:44:15,669 - app - INFO - Request: GET /api/v1/patients/1 | Status: 404 | Process Time: 0.00s | Request ID: 97211d7f-e2de-4775-baa6-ab3029159d27
+2024-10-06 17:44:15,669 - app - INFO - Request: GET /api/v1/patients/1 | Status: 404 | Process Time: 0.00s | Request ID: 97211d7f-e2de-4775-baa6-ab3029159d27
+2024-10-06 17:44:15,699 - app - INFO - Request: POST /api/v1/patients/ | Status: 307 | Process Time: 0.00s | Request ID: a221bd56-c257-4034-b587-e13d269bb71d
+2024-10-06 17:44:15,699 - app - INFO - Request: POST /api/v1/patients/ | Status: 307 | Process Time: 0.00s | Request ID: a221bd56-c257-4034-b587-e13d269bb71d
+2024-10-06 17:44:15,717 - app - INFO - Request: POST /api/v1/patients | Status: 405 | Process Time: 0.00s | Request ID: a6ecf547-1fb8-46d5-a69a-ca9728f286ce
+2024-10-06 17:44:15,717 - app - INFO - Request: POST /api/v1/patients | Status: 405 | Process Time: 0.00s | Request ID: a6ecf547-1fb8-46d5-a69a-ca9728f286ce
+2024-10-06 17:44:15,768 - app - INFO - Request: PUT /api/v1/patients/1 | Status: 404 | Process Time: 0.01s | Request ID: d13b3c98-6c3e-44cb-9bc2-406cc1fe1dd2
+2024-10-06 17:44:15,768 - app - INFO - Request: PUT /api/v1/patients/1 | Status: 404 | Process Time: 0.01s | Request ID: d13b3c98-6c3e-44cb-9bc2-406cc1fe1dd2
+2024-10-06 17:44:15,830 - app - INFO - Request: DELETE /api/v1/patients/1 | Status: 404 | Process Time: 0.00s | Request ID: e23dbe37-6853-4f54-9d00-805135880162
+2024-10-06 17:44:15,830 - app - INFO - Request: DELETE /api/v1/patients/1 | Status: 404 | Process Time: 0.00s | Request ID: e23dbe37-6853-4f54-9d00-805135880162
+2024-10-06 17:49:08,033 - app - ERROR - Request: GET /test-error | Status: 500 | Process Time: 0.00s | Request ID: b4bea66c-89e3-44aa-8457-e4716693b65b | Error: Intentional Error
+2024-10-06 17:49:08,033 - app - ERROR - Request: GET /test-error | Status: 500 | Process Time: 0.00s | Request ID: b4bea66c-89e3-44aa-8457-e4716693b65b | Error: Intentional Error
+2024-10-06 17:49:08,060 - app - INFO - Request: GET /test-middleware | Status: 200 | Process Time: 0.00s | Request ID: 5593421b-a682-4963-a44c-313cc8ffce83
+2024-10-06 17:49:08,060 - app - INFO - Request: GET /test-middleware | Status: 200 | Process Time: 0.00s | Request ID: 5593421b-a682-4963-a44c-313cc8ffce83
+2024-10-06 17:49:08,092 - app - INFO - Request: GET /test-middleware | Status: 200 | Process Time: 0.01s | Request ID: 1125bc47-0005-4155-bd9f-b7049f0ea792
+2024-10-06 17:49:08,092 - app - INFO - Request: GET /test-middleware | Status: 200 | Process Time: 0.01s | Request ID: 1125bc47-0005-4155-bd9f-b7049f0ea792
+2024-10-06 17:49:08,122 - app - ERROR - Request: GET /test-error | Status: 500 | Process Time: 0.00s | Request ID: c6e87d4e-f853-486d-a136-6d975782d1e8 | Error: Intentional Error
+2024-10-06 17:49:08,122 - app - ERROR - Request: GET /test-error | Status: 500 | Process Time: 0.00s | Request ID: c6e87d4e-f853-486d-a136-6d975782d1e8 | Error: Intentional Error
+2024-10-06 17:49:08,350 - app - INFO - Request: GET /api/v1/patients/ | Status: 307 | Process Time: 0.00s | Request ID: 6f3d91b4-d8d2-48bc-8066-12811576f655
+2024-10-06 17:49:08,350 - app - INFO - Request: GET /api/v1/patients/ | Status: 307 | Process Time: 0.00s | Request ID: 6f3d91b4-d8d2-48bc-8066-12811576f655
+2024-10-06 17:49:08,372 - app - INFO - Request: GET /api/v1/patients | Status: 422 | Process Time: 0.01s | Request ID: 15c84399-8c2c-4f9d-85c9-e4ef3be52c38
+2024-10-06 17:49:08,372 - app - INFO - Request: GET /api/v1/patients | Status: 422 | Process Time: 0.01s | Request ID: 15c84399-8c2c-4f9d-85c9-e4ef3be52c38
+2024-10-06 17:49:08,602 - app - INFO - Request: GET /api/v1/patients/1 | Status: 404 | Process Time: 0.00s | Request ID: a2cf6531-b24b-4d64-873c-afffaee5a74a
+2024-10-06 17:49:08,602 - app - INFO - Request: GET /api/v1/patients/1 | Status: 404 | Process Time: 0.00s | Request ID: a2cf6531-b24b-4d64-873c-afffaee5a74a
+2024-10-06 17:49:08,639 - app - INFO - Request: POST /api/v1/patients/ | Status: 307 | Process Time: 0.00s | Request ID: 2a08ccaa-9da4-4ea4-830e-2be046e067a5
+2024-10-06 17:49:08,639 - app - INFO - Request: POST /api/v1/patients/ | Status: 307 | Process Time: 0.00s | Request ID: 2a08ccaa-9da4-4ea4-830e-2be046e067a5
+2024-10-06 17:49:08,656 - app - INFO - Request: POST /api/v1/patients | Status: 405 | Process Time: 0.00s | Request ID: 5feab10c-f205-4a9e-a416-89c617292024
+2024-10-06 17:49:08,656 - app - INFO - Request: POST /api/v1/patients | Status: 405 | Process Time: 0.00s | Request ID: 5feab10c-f205-4a9e-a416-89c617292024
+2024-10-06 17:49:08,699 - app - INFO - Request: PUT /api/v1/patients/1 | Status: 404 | Process Time: 0.00s | Request ID: 89766596-5bbb-4dbb-a3d0-263e519f7b31
+2024-10-06 17:49:08,699 - app - INFO - Request: PUT /api/v1/patients/1 | Status: 404 | Process Time: 0.00s | Request ID: 89766596-5bbb-4dbb-a3d0-263e519f7b31
+2024-10-06 17:49:08,745 - app - INFO - Request: DELETE /api/v1/patients/1 | Status: 404 | Process Time: 0.00s | Request ID: 62e9bc80-3168-412a-9743-708c5dd78a83
+2024-10-06 17:49:08,745 - app - INFO - Request: DELETE /api/v1/patients/1 | Status: 404 | Process Time: 0.00s | Request ID: 62e9bc80-3168-412a-9743-708c5dd78a83
+2024-10-06 17:59:30,714 - app - ERROR - Request: GET /test-error | Status: 500 | Process Time: 0.01s | Request ID: d8603000-21d7-4173-8bc1-63a1acb5601e | Error: Intentional Error
+2024-10-06 17:59:30,714 - app - ERROR - Request: GET /test-error | Status: 500 | Process Time: 0.01s | Request ID: d8603000-21d7-4173-8bc1-63a1acb5601e | Error: Intentional Error
+2024-10-06 17:59:30,754 - app - INFO - Request: GET /test-middleware | Status: 200 | Process Time: 0.01s | Request ID: 1cee7027-3b0c-4a99-b845-baca20738110
+2024-10-06 17:59:30,754 - app - INFO - Request: GET /test-middleware | Status: 200 | Process Time: 0.01s | Request ID: 1cee7027-3b0c-4a99-b845-baca20738110
+2024-10-06 17:59:30,788 - app - INFO - Request: GET /test-middleware | Status: 200 | Process Time: 0.00s | Request ID: 0d7b22f5-c1c7-487b-a03d-4119dd0698df
+2024-10-06 17:59:30,788 - app - INFO - Request: GET /test-middleware | Status: 200 | Process Time: 0.00s | Request ID: 0d7b22f5-c1c7-487b-a03d-4119dd0698df
+2024-10-06 17:59:30,828 - app - ERROR - Request: GET /test-error | Status: 500 | Process Time: 0.01s | Request ID: 56bcc981-832a-441d-8487-b159fd481cd5 | Error: Intentional Error
+2024-10-06 17:59:30,828 - app - ERROR - Request: GET /test-error | Status: 500 | Process Time: 0.01s | Request ID: 56bcc981-832a-441d-8487-b159fd481cd5 | Error: Intentional Error
+2024-10-06 17:59:31,114 - app - ERROR - Request: POST /api/v1/patients/ | Status: 500 | Process Time: 0.03s | Request ID: 4a8f5137-42a1-45e3-8664-5d473d61e537 | Error: (sqlite3.OperationalError) no such table: patients
+[SQL: INSERT INTO patients (name, age, email) VALUES (?, ?, ?) RETURNING id, created_at, updated_at]
+[parameters: ('John Doe', 35, 'john.doe@example.com')]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2024-10-06 17:59:31,114 - app - ERROR - Request: POST /api/v1/patients/ | Status: 500 | Process Time: 0.03s | Request ID: 4a8f5137-42a1-45e3-8664-5d473d61e537 | Error: (sqlite3.OperationalError) no such table: patients
+[SQL: INSERT INTO patients (name, age, email) VALUES (?, ?, ?) RETURNING id, created_at, updated_at]
+[parameters: ('John Doe', 35, 'john.doe@example.com')]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2024-10-06 17:59:31,329 - app - ERROR - Request: GET /api/v1/patients/ | Status: 500 | Process Time: 0.02s | Request ID: 25ec119f-743f-4ee2-8139-7fff0e6a4a6f | Error: (sqlite3.OperationalError) no such table: patients
+[SQL: SELECT patients.id AS patients_id, patients.name AS patients_name, patients.age AS patients_age, patients.email AS patients_email, patients.created_at AS patients_created_at, patients.updated_at AS patients_updated_at 
+FROM patients
+ LIMIT ? OFFSET ?]
+[parameters: (100, 0)]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2024-10-06 17:59:31,329 - app - ERROR - Request: GET /api/v1/patients/ | Status: 500 | Process Time: 0.02s | Request ID: 25ec119f-743f-4ee2-8139-7fff0e6a4a6f | Error: (sqlite3.OperationalError) no such table: patients
+[SQL: SELECT patients.id AS patients_id, patients.name AS patients_name, patients.age AS patients_age, patients.email AS patients_email, patients.created_at AS patients_created_at, patients.updated_at AS patients_updated_at 
+FROM patients
+ LIMIT ? OFFSET ?]
+[parameters: (100, 0)]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2024-10-06 17:59:32,006 - app - INFO - Request: POST /api/v1/patients/ | Status: 422 | Process Time: 0.00s | Request ID: c1c63102-5d81-4871-b1c0-5422734220ca
+2024-10-06 17:59:32,006 - app - INFO - Request: POST /api/v1/patients/ | Status: 422 | Process Time: 0.00s | Request ID: c1c63102-5d81-4871-b1c0-5422734220ca
+2024-10-06 17:59:32,010 - app - ERROR - Request: GET /api/v1/patients/9999 | Status: 500 | Process Time: 0.00s | Request ID: 6b16652e-fc03-4298-bdea-744e316fff30 | Error: (sqlite3.OperationalError) no such table: patients
+[SQL: SELECT patients.id AS patients_id, patients.name AS patients_name, patients.age AS patients_age, patients.email AS patients_email, patients.created_at AS patients_created_at, patients.updated_at AS patients_updated_at 
+FROM patients 
+WHERE patients.id = ?
+ LIMIT ? OFFSET ?]
+[parameters: (9999, 1, 0)]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2024-10-06 17:59:32,010 - app - ERROR - Request: GET /api/v1/patients/9999 | Status: 500 | Process Time: 0.00s | Request ID: 6b16652e-fc03-4298-bdea-744e316fff30 | Error: (sqlite3.OperationalError) no such table: patients
+[SQL: SELECT patients.id AS patients_id, patients.name AS patients_name, patients.age AS patients_age, patients.email AS patients_email, patients.created_at AS patients_created_at, patients.updated_at AS patients_updated_at 
+FROM patients 
+WHERE patients.id = ?
+ LIMIT ? OFFSET ?]
+[parameters: (9999, 1, 0)]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2024-10-06 17:59:32,019 - app - ERROR - Request: PUT /api/v1/patients/9999 | Status: 500 | Process Time: 0.00s | Request ID: d20d7f1e-7f6c-4f3d-ab40-97bcce480a15 | Error: (sqlite3.OperationalError) no such table: patients
+[SQL: SELECT patients.id AS patients_id, patients.name AS patients_name, patients.age AS patients_age, patients.email AS patients_email, patients.created_at AS patients_created_at, patients.updated_at AS patients_updated_at 
+FROM patients 
+WHERE patients.id = ?
+ LIMIT ? OFFSET ?]
+[parameters: (9999, 1, 0)]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2024-10-06 17:59:32,019 - app - ERROR - Request: PUT /api/v1/patients/9999 | Status: 500 | Process Time: 0.00s | Request ID: d20d7f1e-7f6c-4f3d-ab40-97bcce480a15 | Error: (sqlite3.OperationalError) no such table: patients
+[SQL: SELECT patients.id AS patients_id, patients.name AS patients_name, patients.age AS patients_age, patients.email AS patients_email, patients.created_at AS patients_created_at, patients.updated_at AS patients_updated_at 
+FROM patients 
+WHERE patients.id = ?
+ LIMIT ? OFFSET ?]
+[parameters: (9999, 1, 0)]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2024-10-06 17:59:32,029 - app - ERROR - Request: DELETE /api/v1/patients/9999 | Status: 500 | Process Time: 0.00s | Request ID: b0414a52-cf0b-431f-85f6-1a4f34e174f8 | Error: (sqlite3.OperationalError) no such table: patients
+[SQL: SELECT patients.id AS patients_id, patients.name AS patients_name, patients.age AS patients_age, patients.email AS patients_email, patients.created_at AS patients_created_at, patients.updated_at AS patients_updated_at 
+FROM patients 
+WHERE patients.id = ?
+ LIMIT ? OFFSET ?]
+[parameters: (9999, 1, 0)]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2024-10-06 17:59:32,029 - app - ERROR - Request: DELETE /api/v1/patients/9999 | Status: 500 | Process Time: 0.00s | Request ID: b0414a52-cf0b-431f-85f6-1a4f34e174f8 | Error: (sqlite3.OperationalError) no such table: patients
+[SQL: SELECT patients.id AS patients_id, patients.name AS patients_name, patients.age AS patients_age, patients.email AS patients_email, patients.created_at AS patients_created_at, patients.updated_at AS patients_updated_at 
+FROM patients 
+WHERE patients.id = ?
+ LIMIT ? OFFSET ?]
+[parameters: (9999, 1, 0)]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2024-10-06 18:09:22,044 - app - ERROR - Request: GET /test-error | Status: 500 | Process Time: 0.01s | Request ID: ba473efd-0f62-496e-ba67-6dc9a2b094d0 | Error: Intentional Error
+2024-10-06 18:09:22,044 - app - ERROR - Request: GET /test-error | Status: 500 | Process Time: 0.01s | Request ID: ba473efd-0f62-496e-ba67-6dc9a2b094d0 | Error: Intentional Error
+2024-10-06 18:09:22,078 - app - INFO - Request: GET /test-middleware | Status: 200 | Process Time: 0.01s | Request ID: fc02f39c-f650-404d-97ea-adb9e4cebeb8
+2024-10-06 18:09:22,078 - app - INFO - Request: GET /test-middleware | Status: 200 | Process Time: 0.01s | Request ID: fc02f39c-f650-404d-97ea-adb9e4cebeb8
+2024-10-06 18:09:22,105 - app - INFO - Request: GET /test-middleware | Status: 200 | Process Time: 0.00s | Request ID: 99367a9f-4136-4639-bd70-806d693b15e1
+2024-10-06 18:09:22,105 - app - INFO - Request: GET /test-middleware | Status: 200 | Process Time: 0.00s | Request ID: 99367a9f-4136-4639-bd70-806d693b15e1
+2024-10-06 18:09:22,136 - app - ERROR - Request: GET /test-error | Status: 500 | Process Time: 0.00s | Request ID: b7e7bcbc-f356-4042-92f9-5b8971b0ecbb | Error: Intentional Error
+2024-10-06 18:09:22,136 - app - ERROR - Request: GET /test-error | Status: 500 | Process Time: 0.00s | Request ID: b7e7bcbc-f356-4042-92f9-5b8971b0ecbb | Error: Intentional Error
+2024-10-06 18:09:22,353 - app - INFO - Request: POST /api/v1/patients/ | Status: 201 | Process Time: 0.05s | Request ID: 58c44d7a-358d-455d-9f7b-0c1c3d48c5a0
+2024-10-06 18:09:22,353 - app - INFO - Request: POST /api/v1/patients/ | Status: 201 | Process Time: 0.05s | Request ID: 58c44d7a-358d-455d-9f7b-0c1c3d48c5a0
+2024-10-06 18:09:22,414 - app - INFO - Request: GET /api/v1/patients/ | Status: 200 | Process Time: 0.03s | Request ID: c2d300d1-4a5e-4cb1-8484-77d8137983f6
+2024-10-06 18:09:22,414 - app - INFO - Request: GET /api/v1/patients/ | Status: 200 | Process Time: 0.03s | Request ID: c2d300d1-4a5e-4cb1-8484-77d8137983f6
+2024-10-06 18:09:22,475 - app - INFO - Request: GET /api/v1/patients/3 | Status: 200 | Process Time: 0.03s | Request ID: 9440051b-b091-4cfe-8566-203b175a1a08
+2024-10-06 18:09:22,475 - app - INFO - Request: GET /api/v1/patients/3 | Status: 200 | Process Time: 0.03s | Request ID: 9440051b-b091-4cfe-8566-203b175a1a08
+2024-10-06 18:09:22,563 - app - INFO - Request: PUT /api/v1/patients/4 | Status: 200 | Process Time: 0.05s | Request ID: 61126187-ada9-4ef3-8ccf-f1ec4d5801de
+2024-10-06 18:09:22,563 - app - INFO - Request: PUT /api/v1/patients/4 | Status: 200 | Process Time: 0.05s | Request ID: 61126187-ada9-4ef3-8ccf-f1ec4d5801de
+2024-10-06 18:09:22,621 - app - INFO - Request: DELETE /api/v1/patients/5 | Status: 204 | Process Time: 0.02s | Request ID: 21d415c0-324e-4c54-98f5-2ecc49c0a5ad
+2024-10-06 18:09:22,621 - app - INFO - Request: DELETE /api/v1/patients/5 | Status: 204 | Process Time: 0.02s | Request ID: 21d415c0-324e-4c54-98f5-2ecc49c0a5ad
+2024-10-06 18:09:22,644 - app - INFO - Request: GET /api/v1/patients/5 | Status: 404 | Process Time: 0.01s | Request ID: fd722321-1e54-4e21-91ed-fec26d9d8bfb
+2024-10-06 18:09:22,644 - app - INFO - Request: GET /api/v1/patients/5 | Status: 404 | Process Time: 0.01s | Request ID: fd722321-1e54-4e21-91ed-fec26d9d8bfb
+2024-10-06 18:09:22,674 - app - INFO - Request: GET /api/v1/patients/9999 | Status: 404 | Process Time: 0.01s | Request ID: ddb748e3-4b76-45f3-a7f7-6ad1952956a7
+2024-10-06 18:09:22,674 - app - INFO - Request: GET /api/v1/patients/9999 | Status: 404 | Process Time: 0.01s | Request ID: ddb748e3-4b76-45f3-a7f7-6ad1952956a7
+2024-10-06 18:09:22,709 - app - INFO - Request: PUT /api/v1/patients/9999 | Status: 404 | Process Time: 0.02s | Request ID: ffb18bc8-c456-480b-857f-44a38d3cba45
+2024-10-06 18:09:22,709 - app - INFO - Request: PUT /api/v1/patients/9999 | Status: 404 | Process Time: 0.02s | Request ID: ffb18bc8-c456-480b-857f-44a38d3cba45
+2024-10-06 18:09:22,753 - app - INFO - Request: DELETE /api/v1/patients/9999 | Status: 404 | Process Time: 0.02s | Request ID: 3cd2b1d5-4108-42b5-b312-e1f2790ecfd6
+2024-10-06 18:09:22,753 - app - INFO - Request: DELETE /api/v1/patients/9999 | Status: 404 | Process Time: 0.02s | Request ID: 3cd2b1d5-4108-42b5-b312-e1f2790ecfd6
+2024-10-06 18:09:22,781 - app - INFO - Request: POST /api/v1/patients/ | Status: 422 | Process Time: 0.01s | Request ID: 7dbbf174-7260-40bb-8b46-00989d152b54
+2024-10-06 18:09:22,781 - app - INFO - Request: POST /api/v1/patients/ | Status: 422 | Process Time: 0.01s | Request ID: 7dbbf174-7260-40bb-8b46-00989d152b54
+2024-10-06 18:11:36,409 - app - INFO - Request: GET /docs | Status: 200 | Process Time: 0.00s | Request ID: 740315dd-844a-408d-82a8-7cb4e9bb5730
+2024-10-06 18:11:36,958 - app - INFO - Request: GET /openapi.json | Status: 200 | Process Time: 0.00s | Request ID: 1a56a6b4-c2d0-49f4-a6fd-7c0b6eb51d4d
+2024-10-06 18:11:56,825 - app - INFO - Request: GET /api/v1/patients/1 | Status: 200 | Process Time: 0.28s | Request ID: d5f7b023-7f85-4d3c-ab25-add2e43bd355
+2024-10-06 18:12:33,324 - app - INFO - Request: POST /api/v1/patients/ | Status: 201 | Process Time: 0.25s | Request ID: cb107303-51e0-4d64-a71f-c969d0e03e26
+2024-10-06 18:13:00,966 - app - INFO - Request: GET / | Status: 404 | Process Time: 0.00s | Request ID: 51c668d6-ca59-419d-b23e-0aef2d778427
+2024-10-06 18:13:25,243 - app - INFO - Request: GET /api/v1/ | Status: 404 | Process Time: 0.00s | Request ID: 656f8220-52e3-400f-9812-2bb7e7116bdc
+2024-10-06 18:13:25,475 - app - INFO - Request: GET /favicon.ico | Status: 404 | Process Time: 0.00s | Request ID: e92735cc-bc0d-4598-a03c-02e3620df404
+2024-10-06 18:13:33,552 - app - INFO - Request: GET /api/v1/health | Status: 404 | Process Time: 0.00s | Request ID: 33a52ad5-c50d-407a-8cd6-e306d1b48520
+2024-10-06 18:13:33,733 - app - INFO - Request: GET /favicon.ico | Status: 404 | Process Time: 0.00s | Request ID: cb4bcbb5-afa8-40f1-b4b5-614de2df4d51

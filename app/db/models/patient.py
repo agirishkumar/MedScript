@@ -1,4 +1,4 @@
-# models/patient.py
+# app/db/models/patient.py
 
 from sqlalchemy import Column, Integer, String, DateTime
 from sqlalchemy.sql import func
