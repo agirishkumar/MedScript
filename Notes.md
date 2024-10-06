@@ -37,7 +37,7 @@ login with google account, select the project
 - `wget https://dl.google.com/cloudsql/cloud_sql_proxy.linux.amd64 -O cloud_sql_proxy`
 - `chmod +x cloud_sql_proxy`
 - `./cloud_sql_proxy -instances=medscript-437117:us-east4:medscript-db-1=tcp:5432` # change the port number if 5432 is already in use (5433).
-- Connect to the database using psql: `psql -h localhost -p 5433 -U <username> -d postgres` and enter the password.
+- Connect to the database using psql: `psql -h localhost -p 5433 -U <username> -d medcript` and enter the password.
 
 postgres=> CREATE DATABASE medscript;
 CREATE DATABASE

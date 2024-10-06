@@ -1,0 +1,5 @@
+2024-10-05 19:48:34,602 - app - INFO - Request: GET /api/v1/health | Status: 404 | Process Time: 0.00s | Request ID: d25f1b95-dbba-4df0-8f85-017f0a6037c7
+2024-10-05 19:48:34,786 - app - INFO - Request: GET /favicon.ico | Status: 404 | Process Time: 0.00s | Request ID: c4bc3ef5-d364-4590-97b3-0cdcffd7eb9d
+2024-10-05 19:48:43,900 - app - INFO - Request: GET /favicon.ico | Status: 404 | Process Time: 0.00s | Request ID: 904a410a-025a-4f13-9d19-15efb1665f6b
+2024-10-05 21:34:40,381 - app - INFO - Request: GET /docs | Status: 200 | Process Time: 0.00s | Request ID: 062abe69-804e-4e11-87b3-658b9491110a
+2024-10-05 21:34:41,264 - app - INFO - Request: GET /openapi.json | Status: 200 | Process Time: 0.01s | Request ID: b5659a87-a3e7-4f0f-b89c-d83005a11049

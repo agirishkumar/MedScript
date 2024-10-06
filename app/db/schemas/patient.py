@@ -1,4 +1,6 @@
-from pydantic import BaseModel, EmailStr, ConfigDict
+# app/db/schemas/patient.py
+
+from pydantic import BaseModel, EmailStr
 from typing import Optional
 from datetime import datetime
 
@@ -20,4 +22,5 @@ class Patient(PatientBase):
     created_at: datetime
     updated_at: datetime
 
-    model_config = ConfigDict(from_attributes=True)
+    class Config:
+        orm_mode = True

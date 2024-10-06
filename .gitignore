@@ -1,3 +1,5 @@
 MedEnv/
 app/__pycache__
+**/__pycache__/
+*.py[cod]
 .env
