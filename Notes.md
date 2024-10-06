@@ -47,45 +47,66 @@ login with google account, select the project
 
 ## Modules and Their Roles:
 
-    main.py:
-        - The entry point of the application.
-        - Sets up the FastAPI instance, adds middleware, and includes routers for endpoints.
-        - Initializes the database and starts the server using Uvicorn.
+__main.py:__
+ - The entry point of the application.
+- Sets up the FastAPI instance, adds middleware, and includes routers for endpoints.
+- Initializes the database and starts the server using Uvicorn.
 
-    config.py:
-        - Holds the configuration settings for the app, such as project metadata and database credentials.
-        - Reads from an environment file (.env), which is useful for securely managing sensitive information like database connection strings.
+__config.py:__
+- Holds the configuration settings for the app, such as project metadata and database credentials.
+- Reads from an environment file (.env), which is useful for securely managing sensitive information like database connection strings.
 
-    patients.py (API Endpoints):
-        - Defines the endpoints for interacting with patient records.
-        - Contains endpoints like:
-            POST /api/v1/patients/: Create a new patient.
-            GET /api/v1/patients/: Get a list of patients.
-            GET /api/v1/patients/{patient_id}: Get a specific patient by ID.
+__patients.py (API Endpoints):__
+- Defines the endpoints for interacting with patient records.
+- Contains endpoints like:
+    - POST /api/v1/patients/: Create a new patient.
+    - GET /api/v1/patients/: Get a list of patients.
+    - GET /api/v1/patients/{patient_id}: Get a specific patient by ID.
 
-    models/patient.py:
-        - Defines the SQLAlchemy model for the Patient table, including columns for id, name, age, email, and timestamps.
+__models/patient.py:__
+- Defines the SQLAlchemy model for the Patient table, including columns 
+- for id, name, age, email, and timestamps.~
 
-    schemas/patient.py:
-        - Provides Pydantic schemas for data validation and serialization when working with patient data.
-        - Contains models for PatientBase, PatientCreate, PatientUpdate, and Patient.
+__schemas/patient.py:__
+- Provides Pydantic schemas for data validation and serialization when working with patient data.
+- Contains models for PatientBase, PatientCreate, PatientUpdate, and Patient.
 
-    crud/patient.py:
-        - Contains the CRUD operations for interacting with the database using SQLAlchemy’s ORM. This includes functions like:
-            get_patient(): Retrieve a patient by ID.
-            get_patients(): Retrieve multiple patients with pagination support.
-            create_patient(): Add a new patient to the database.
-            update_patient(): Update an existing patient’s data.
-            delete_patient(): Remove a patient from the database.
+__crud/patient.py:__
+- Contains the CRUD operations for interacting with the database using SQLAlchemy’s ORM. This includes functions like:
+    - get_patient(): Retrieve a patient by ID.
+    - get_patients(): Retrieve multiple patients with pagination support.
+    - create_patient(): Add a new patient to the database.
+    - update_patient(): Update an existing patient’s data.
+    - delete_patient(): Remove a patient from the database.
 
-    Database Connection (session.py):
-        - Establishes a connection to the PostgreSQL database using SQLAlchemy’s create_engine.
-        - Provides a SessionLocal class to manage database sessions.
+**Database Connection (session.py):**
+- Establishes a connection to the PostgreSQL database using SQLAlchemy’s create_engine.
+- Provides a SessionLocal class to manage database sessions.
 
-    Logging (logging.py):
-        - Sets up a logger that logs application activities to both the console and a file.
-        - Uses a rotating file handler to manage logs and avoid excessive log size.
+__Logging (logging.py):__
+- Sets up a logger that logs application activities to both the console and a file.
+- Uses a rotating file handler to manage logs and avoid excessive log size.
 
-    Middleware (middleware.py):
-        - RequestIDMiddleware: Adds a unique request ID to each incoming request for traceability.
-        - LoggingMiddleware: Logs request details such as method, path, status code, and processing time.
+__Middleware (middleware.py):__
+- RequestIDMiddleware: Adds a unique request ID to each incoming request for traceability.
+- LoggingMiddleware: Logs request details such as method, path, status code, and processing time.
+
+## Git Workflow and Branching Strategy for the Project
+__main Branch:__
+- This branch is your production-ready branch.
+- Only stable, tested, and production-ready code should be present here.
+- Merges to main should only happen from dev after thorough testing and code review.
+
+__dev Branch:__
+- This branch is used for active development.
+- All features, bug fixes, and enhancements are merged into dev.
+- Once a feature or fix is complete, it’s merged back into dev via a pull request.
+
+__Feature Branches:__
+- Feature branches are created from the dev branch for any new feature, bug fix, or task.
+- Naming convention: feature/\<task-name>, bugfix/\<task-name>, enhancement/\<task-name>.
+__Examples:__
+    feature/user-authentication
+    bugfix/patient-age-validation
+    enhancement/api-logging
+Once the feature or fix is complete, a pull request is created to merge the feature branch into dev.

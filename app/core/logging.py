@@ -5,7 +5,17 @@ from logging.handlers import RotatingFileHandler
 import os
 
 def setup_logging():
-    # Create logs directory if it doesn't exist
+    """
+    Set up logging for the application.
+
+    Creates a logs directory if it doesn't exist.
+    Configures the root logger to log at the INFO level.
+    Creates a custom logger with name "app" and sets its level to INFO.
+    Creates two handlers: a StreamHandler for console output and a RotatingFileHandler for file output.
+    Creates a formatter for the handlers and adds it to each handler.
+    Adds the handlers to the logger.
+    Returns the logger.
+    """
     log_dir = "logs"
     if not os.path.exists(log_dir):
         os.makedirs(log_dir)

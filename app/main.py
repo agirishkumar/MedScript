@@ -10,7 +10,11 @@ from app.db.session import engine
 from app.db.base import Base 
 
 def init_db():
-    # Import all the models for creating tables
+    """
+    Initialize the database by creating all tables.
+
+    This function imports all the models to force the creation of the tables.
+    """
     from app.db import models  
     Base.metadata.create_all(bind=engine)
 

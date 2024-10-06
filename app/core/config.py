@@ -21,8 +21,7 @@ class Settings(BaseSettings):
         env_file = ".env"
         case_sensitive = True
 
-# Create an instance of the Settings class
+
 settings = Settings()
 
-# This line is crucial - it makes the 'settings' object importable
 __all__ = ["settings"]
