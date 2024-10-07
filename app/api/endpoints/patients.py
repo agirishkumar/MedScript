@@ -2,55 +2,53 @@
 
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
-from app.db import crud
-from app.db import schemas
-from app.db.schemas import Patient, PatientCreate, PatientUpdate
+from typing import List
+from app.db.crud import patient as patient_crud
+from app.db.schemas.patient import Patient, PatientCreate, PatientUpdate
 from app.api.deps import get_db
 
-router = APIRouter()
+router = APIRouter(prefix="/patients", tags=["patients"])
 
-@router.post("/", response_model=schemas.patient.Patient)
-def create_patient(patient: schemas.patient.PatientCreate, db: Session = Depends(get_db)):
+@router.post("/", response_model=Patient, status_code=201)
+def create_patient(patient: PatientCreate, db: Session = Depends(get_db)):
     """
     Create a new patient.
-
-    Args:
-    patient (schemas.patient.PatientCreate): The patient to be created.
-
-    Returns:
-    schemas.patient.Patient: The newly created patient.
     """
-    return crud.patient.create_patient(db=db, patient=patient)
+    return patient_crud.create_patient(db=db, patient=patient)
 
-@router.get("/", response_model=list[schemas.patient.Patient])
+@router.get("/", response_model=List[Patient])
 def read_patients(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
     """
     Retrieve a list of all patients.
-
-    Args:
-    skip (int, optional): The number of records to skip. Defaults to 0.
-    limit (int, optional): The number of records to limit to. Defaults to 100.
-
-    Returns:
-    List[schemas.patient.Patient]: A list of all patients.
     """
-    return crud.patient.get_patients(db, skip=skip, limit=limit)
+    return patient_crud.get_patients(db, skip=skip, limit=limit)
 
-@router.get("/{patient_id}", response_model=schemas.patient.Patient)
+@router.get("/{patient_id}", response_model=Patient)
 def read_patient(patient_id: int, db: Session = Depends(get_db)):
     """
     Retrieve a patient by ID.
-
-    Args:
-    patient_id (int): The ID of the patient to be retrieved.
-
-    Returns:
-    schemas.patient.Patient: The patient with the specified ID.
-
-    Raises:
-    HTTPException: 404 Not Found if the patient does not exist.
     """
-    db_patient = crud.patient.get_patient(db, patient_id=patient_id)
+    db_patient = patient_crud.get_patient(db, patient_id=patient_id)
     if db_patient is None:
         raise HTTPException(status_code=404, detail="Patient not found")
     return db_patient
+
+@router.put("/{patient_id}", response_model=Patient)
+def update_patient(patient_id: int, patient: PatientUpdate, db: Session = Depends(get_db)):
+    """
+    Update an existing patient.
+    """
+    db_patient = patient_crud.update_patient(db=db, patient_id=patient_id, patient=patient)
+    if db_patient is None:
+        raise HTTPException(status_code=404, detail="Patient not found")
+    return db_patient
+
+@router.delete("/{patient_id}", status_code=204)
+def delete_patient(patient_id: int, db: Session = Depends(get_db)):
+    """
+    Delete a patient by ID.
+    """
+    result = patient_crud.delete_patient(db=db, patient_id=patient_id)
+    if not result:
+        raise HTTPException(status_code=404, detail="Patient not found")
+    return None

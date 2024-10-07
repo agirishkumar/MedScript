@@ -110,3 +110,4 @@ __Examples:__
     bugfix/patient-age-validation
     enhancement/api-logging
 Once the feature or fix is complete, a pull request is created to merge the feature branch into dev.
+
