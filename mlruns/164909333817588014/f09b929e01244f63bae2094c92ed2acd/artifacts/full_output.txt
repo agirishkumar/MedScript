@@ -1,0 +1,112 @@
+system
+
+You are a highly skilled medical assistant. Provide detailed, accurate diagnostic reports including possible diagnoses, reasoning, recommended tests, and potential treatments. Use a step-by-step chain of thought approach to explain your reasoning.user
+
+Patient Information:
+
+Age: 35
+Gender: Female
+Medical History: No significant past medical issues
+Height: 5'6" (168 cm)
+Weight: 140 lbs (63.5 kg)
+Allergies: None known
+Current Medications: None
+
+
+Reported Symptoms:
+
+- Severe headache for the past 3 days, primarily on the right side
+- Sensitivity to light and sound
+- Nausea and vomiting (twice yesterday)
+- Blurred vision in the right eye, started about 24 hours ago
+- Dizziness when standing up quickly
+- Slight neck stiffness
+
+
+Please provide a comprehensive diagnostic report following these steps:
+
+
+# Comprehensive Diagnostic Report
+
+## 1. Initial Impression
+[Provide a summary of key points from patient information and symptoms]
+
+## 2. Possible Diagnoses
+### Primary Diagnosis:
+[State the most likely diagnosis]
+
+### Differential Diagnoses:
+[List other possible diagnoses]
+
+## 3. Reasoning Process
+[For each diagnosis, explain why it's being considered and how symptoms support or contradict it]
+
+## 4. Recommended Tests or Examinations
+[List and explain rationale for each recommended test]
+
+## 5. Potential Treatment Options
+[Suggest treatments for the most likely diagnoses and explain reasoning]
+
+## 6. Immediate Precautions or Recommendations
+[Provide urgent advice and explain its importance]
+
+## 7. Follow-up Plan
+[Suggest follow-up timeline and what to monitor]
+
+## 8. Summary
+[Provide a concise summary of likely diagnosis, key next steps, and important patient instructions]
+
+
+Please fill in each section of the report template with relevant information based on the patient's symptoms and medical history. Provide clear and detailed explanations throughout your chain of reasoning.assistant
+
+Comprehensive Diagnostic Report
+
+1. Initial Impression:
+The patient is a 35-year-old female presenting with severe headaches localized to the right side, sensitivity to light and sound, nausea and vomiting, blurred vision in the right eye, dizziness upon quick standing, and slight neck stiffness. These symptoms have been persistent over the past three days.
+
+2. Possible Diagnoses:
+Primary Diagnosis: Subarachnoid Hemorrhage (SAH)
+
+Differential Diagnoses:
+- Migraine 
+- Temporal arteritis 
+- Meningitis 
+- Brain tumor 
+
+3. Reasoning Process:
+The primary diagnosis of subarachnoid hemorrhage (SAH) is supported by several key factors: 
+- Severe headache, especially unilateral, which can be indicative of bleeding within the skull
+- Photophobia (sensitivity to light), phonophobia (sensitivity to sound), and nausea/vomiting, consistent with increased intracranial pressure due to SAH
+- Blurred vision in one eye could suggest involvement of the optic nerve or compression from blood accumulation around it
+- Dizziness upon quick standing may indicate orthostatic hypotension due to dehydration secondary to vomiting and potentially a drop in cerebral perfusion pressure
+- Neck stiffness, although mild, supports meningeal irritation, often present in SAH
+
+Migraine, temporal arteritis, meningitis, and brain tumor are differential diagnoses that need to be ruled out. However, the severity and localization of symptoms make SAH more plausible given the clinical presentation.
+
+4. Recommended Tests or Examinations:
+- CT scan without contrast: To confirm SAH by demonstrating blood in the subarachnoid space
+- Lumbar puncture: To measure opening pressure and collect cerebrospinal fluid for analysis to rule out meningitis and further evaluate for xanthochromia, an indicator of blood in CSF
+- MRI/MRA: If CT scan negative but suspicion remains high, this will help identify any structural abnormalities such as a ruptured aneurysm
+- Complete blood count (CBC): To rule out infection or inflammation
+- Electrolyte panel: To assess hydration status and correct electrolyte imbalances if necessary
+- Coagulation profile: To evaluate coagulation function due to SAH risk of rebleeding
+
+5. Potential Treatment Options:
+- For confirmed SAH, management includes pain control, anti-emetics, seizure prophylaxis, and monitoring for delayed ischemic neurological deficits (DINDS). Surgical intervention might be required depending on the location and extent of the bleed.
+- If migraine is suspected after ruling out SAH, standard treatment would include abortive therapy for acute attack and preventive measures for future episodes.
+
+6. Immediate Precautions or Recommendations:
+- Hospital admission for close monitoring and neurosurgical consultation if indicated
+- Strict bed rest to avoid sudden movements and prevent complications such as rebleeding or herniation
+- IV fluids to address dehydration and maintain adequate hydration
+- Avoid bright lights and loud noises to reduce photophobia and phonophobia
+- Educate patient on signs of worsening symptoms requiring immediate attention, such as decreased level of consciousness, increasing headache intensity, or new focal neurological deficits
+
+7. Follow-up Plan:
+- Daily neurological assessments by a healthcare provider
+- Repeat imaging studies as needed based on clinical progression or lack thereof
+- Neurosurgery consultation if indicated by imaging results or clinical course
+- Outpatient follow-up with a neurologist once stabilized to discuss long-term prevention strategies for SAH recurrence, if applicable
+
+8. Summary:
+This 35-year-old woman presents with concerning symptoms suggestive of a subarachnoid hemorrhage. Immediate diagnostic testing, including CT scan and lumbar puncture, along with supportive care, is crucial. The presence of neck stiffness and unilateral visual disturbance raises the index of suspicion for SAH rather than migraine or other differential diagnoses. Close monitoring and collaboration between emergency medicine, neurology, and neurosurgery teams are essential.

@@ -1,0 +1,15 @@
+artifact_uri: file:///home/asuran/Downloads/projects/MedScript/mlruns/164909333817588014/d7a0cdcb52854d3ebe442b150f1c3263/artifacts
+end_time: 1728632792152
+entry_point_name: ''
+experiment_id: '164909333817588014'
+lifecycle_stage: active
+run_id: d7a0cdcb52854d3ebe442b150f1c3263
+run_name: mercurial-lark-238
+run_uuid: d7a0cdcb52854d3ebe442b150f1c3263
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1728631453576
+status: 3
+tags: []
+user_id: asuran

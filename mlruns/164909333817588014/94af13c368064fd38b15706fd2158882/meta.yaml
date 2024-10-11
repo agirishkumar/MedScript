@@ -1,0 +1,15 @@
+artifact_uri: file:///home/asuran/Downloads/projects/MedScript/mlruns/164909333817588014/94af13c368064fd38b15706fd2158882/artifacts
+end_time: 1728647174769
+entry_point_name: ''
+experiment_id: '164909333817588014'
+lifecycle_stage: active
+run_id: 94af13c368064fd38b15706fd2158882
+run_name: mysterious-koi-727
+run_uuid: 94af13c368064fd38b15706fd2158882
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1728641391063
+status: 3
+tags: []
+user_id: asuran

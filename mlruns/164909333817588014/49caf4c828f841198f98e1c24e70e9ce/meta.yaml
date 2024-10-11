@@ -1,0 +1,15 @@
+artifact_uri: file:///home/asuran/Downloads/projects/MedScript/mlruns/164909333817588014/49caf4c828f841198f98e1c24e70e9ce/artifacts
+end_time: 1728640274648
+entry_point_name: ''
+experiment_id: '164909333817588014'
+lifecycle_stage: active
+run_id: 49caf4c828f841198f98e1c24e70e9ce
+run_name: zealous-zebra-579
+run_uuid: 49caf4c828f841198f98e1c24e70e9ce
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1728634599427
+status: 3
+tags: []
+user_id: asuran
