@@ -1,0 +1,113 @@
+system
+
+You are a highly skilled medical assistant. Provide detailed, accurate diagnostic reports including possible diagnoses, reasoning, recommended tests, and potential treatments. Use a step-by-step chain of thought approach to explain your reasoning.user
+
+Patient Information:
+
+Age: 35
+Gender: Female
+Medical History: No significant past medical issues
+Height: 5'6" (168 cm)
+Weight: 140 lbs (63.5 kg)
+Allergies: None known
+Current Medications: None
+
+
+Reported Symptoms:
+
+- Severe headache for the past 3 days, primarily on the right side
+- Sensitivity to light and sound
+- Nausea and vomiting (twice yesterday)
+- Blurred vision in the right eye, started about 24 hours ago
+- Dizziness when standing up quickly
+- Slight neck stiffness
+
+
+Please provide a comprehensive diagnostic report following these steps:
+
+
+# Comprehensive Diagnostic Report
+
+## 1. Initial Impression
+[Provide a summary of key points from patient information and symptoms]
+
+## 2. Possible Diagnoses
+### Primary Diagnosis:
+[State the most likely diagnosis]
+
+### Differential Diagnoses:
+[List other possible diagnoses]
+
+## 3. Reasoning Process
+[For each diagnosis, explain why it's being considered and how symptoms support or contradict it]
+
+## 4. Recommended Tests or Examinations
+[List and explain rationale for each recommended test]
+
+## 5. Potential Treatment Options
+[Suggest treatments for the most likely diagnoses and explain reasoning]
+
+## 6. Immediate Precautions or Recommendations
+[Provide urgent advice and explain its importance]
+
+## 7. Follow-up Plan
+[Suggest follow-up timeline and what to monitor]
+
+## 8. Summary
+[Provide a concise summary of likely diagnosis, key next steps, and important patient instructions]
+
+
+Please fill in each section of the report template with relevant information based on the patient's symptoms and medical history. Provide clear and detailed explanations throughout your chain of reasoning.assistant
+
+Comprehensive Diagnostic Report
+
+## 1. Initial Impression
+
+The patient is a 35-year-old female presenting with severe headaches localized to the right side, sensitivity to light and sound, nausea and vomiting, blurred vision in the right eye, dizziness upon standing, and slight neck stiffness. These symptoms have been present for three days and suggest an intracranial etiology.
+
+## 2. Possible Diagnoses
+
+### Primary Diagnosis: Subarachnoid Hemorrhage (SAH)
+
+The primary consideration is subarachnoid hemorrhage due to the sudden onset of severe headache, focal neurological deficits (blurred vision), and systemic symptoms such as nausea, vomiting, and dizziness. The localization of symptoms to one side also supports a localized lesion like SAH over more diffuse processes such as meningitis or encephalitis.
+
+### Differential Diagnoses:
+
+1. Migraine: Though migraines can cause unilateral headache and sensitivity to light/sound, they rarely present with vomiting and blurred vision.
+2. Temporal arteritis: Although this condition can cause severe headache and localized pain, it typically affects older adults (>50 years) and is not commonly associated with vomiting or visual disturbances.
+3. Cerebral venous sinus thrombosis: This diagnosis may be considered if imaging shows sinus thrombosis, but the rapid progression of symptoms makes SAH more likely given its acute presentation.
+
+## 3. Reasoning Process
+
+The combination of sudden onset of severe headache, nausea/vomiting, blurred vision, dizziness, and neck stiffness strongly suggests a space-occupying lesion within the cranium. The fact that the symptoms are localized to one side further narrows the differential to intracerebral or meningeal pathology, with SAH being the most probable diagnosis given the clinical picture.
+
+## 4. Recommended Tests or Examinations
+
+1. Non-Contrast CT Head: To evaluate for blood products within the subarachnoid space and rule out other intracranial pathologies like stroke or tumor.
+2. Lumbar Puncture: If CT does not show evidence of blood, LP can help detect xanthochromia (yellowish discoloration of CSF) indicative of SAH.
+3. MRI Brain: To assess for any additional structural abnormalities or signs of vasospasm.
+4. Transcranial Doppler (TCD): To evaluate cerebral blood flow velocities and detect early vasospasm.
+
+## 5. Potential Treatment Options
+
+If SAH confirmed by imaging and lumbar puncture results, immediate management will include:
+1. Analgesics for pain control
+2. Antiemetics for nausea and vomiting
+3. Steroids to manage inflammation
+4. Nimodipine for vasospasm prevention
+5. Close monitoring in an intensive care unit (ICU) setting
+6. Surgical intervention may be necessary depending on the size and location of the bleed.
+
+## 6. Immediate Precautions or Recommendations
+
+Immediate precautions include:
+1. Avoidance of anticoagulants, NSAIDs, and aspirin until bleeding risk has been assessed.
+2. Monitoring for signs of herniation or increased ICP, such as worsening headache, altered mental status, or papilledema.
+
+## 7. Follow-up Plan
+
+Follow-up should occur daily while the patient is hospitalized, with regular assessments of vital signs, neurological status, and imaging studies as needed to monitor for complications such as rebleeding or vasospasm. Outpatient follow-up should involve neurosurgery consultation and continued monitoring by a neurologist. 
+
+## 8. Summary
+
+This patient presents with a high index of suspicion for subarachnoid hemorrhage, particularly given her age, sex, and symptomatology. The recommended diagnostic workup includes non-contrast CT head and lumbar puncture to confirm SAH, followed by MRI brain and TCD to evaluate for secondary complications. Management would focus on pain control, antiemetics, steroids, and nimodipine, along with close monitoring in an ICU setting. The patient should avoid certain medications until bleeding risk is assessed, and careful attention should be paid to signs of herniation or increased ICP. Regular follow-up appointments with neurosurgery and neurology are essential during hospitalization and after discharge.

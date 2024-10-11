@@ -1,5 +1,5 @@
 artifact_uri: file:///home/asuran/Downloads/projects/MedScript/mlruns/164909333817588014/1c65711e01ed41ff87267f4e89c3466d/artifacts
-end_time: null
+end_time: 1728623461789
 entry_point_name: ''
 experiment_id: '164909333817588014'
 lifecycle_stage: active
@@ -10,6 +10,6 @@ source_name: ''
 source_type: 4
 source_version: ''
 start_time: 1728622331443
-status: 1
+status: 3
 tags: []
 user_id: asuran

@@ -1,3 +1,4 @@
+import re
 import transformers
 import torch
 import mlflow
@@ -107,24 +108,46 @@ def estimate_words_from_tokens(token_count):
     """
     return int(token_count * 0.75)
 
-def run_experiment(min_tokens, max_tokens, do_sample, temperature, top_k, top_p, repetition_penalty, length_penalty):
-
+def extract_generated_text(full_text, prompt):
+    
     """
-    Runs an experiment with the given parameters, logs metrics to MLflow, and writes the generated text to a file.
+    Extract the generated text from the full text of a response.
 
     Args:
-        min_tokens (int): The minimum number of tokens to generate.
-        max_tokens (int): The maximum number of tokens to generate.
-        do_sample (bool): Whether to use sampling or greedy decoding.
-        temperature (float): The temperature to use for sampling.
-        top_k (int): The number of tokens to consider for sampling.
-        top_p (float): The cumulative probability to use for sampling.
-        repetition_penalty (float): The penalty to use for repetition.
-        length_penalty (float): The penalty to use for length.
+        full_text (str): The full text of the response.
+        prompt (str): The prompt that was input to the model.
 
     Returns:
-        tuple: A tuple of (generated_text, inference_time) where generated_text is the generated text and inference_time is the time it took to generate the text.
+        str: The generated text, with any start patterns removed.
     """
+    prompt_end = full_text.find(prompt) + len(prompt)
+    generated_text = full_text[prompt_end:].strip()
+    
+    # If the generated text is empty, return the full text after the prompt
+    if not generated_text:
+        return full_text[prompt_end:].strip()
+    
+    start_patterns = [
+        r"#+\s*Comprehensive Diagnostic Report",
+        r"#+\s*1\.\s*Initial Impression",
+        r"#+\s*Initial Impression",
+        r"The patient is a"
+    ]
+    
+    # Find the earliest occurrence of any start pattern
+    start_indices = [generated_text.find(pattern) for pattern in start_patterns if re.search(pattern, generated_text, re.IGNORECASE)]
+    start_indices = [index for index in start_indices if index != -1]
+    
+    if start_indices:
+        earliest_start = min(start_indices)
+        return generated_text[earliest_start:]
+    
+    # If no start pattern is found, return the full generated text
+    return generated_text
+
+
+def run_experiment(min_tokens, max_tokens, do_sample, temperature, top_k, top_p, repetition_penalty, length_penalty):
+
     if mlflow.active_run():
         mlflow.end_run()
 
@@ -180,11 +203,12 @@ Please fill in each section of the report template with relevant information bas
                 output = model.generate(
                     input_ids,
                     attention_mask=attention_mask,
+                    min_new_tokens=min_tokens,
                     max_new_tokens=max_tokens,
                     do_sample=do_sample,
-                    temperature=temperature,
-                    top_k=top_k,
-                    top_p=top_p,
+                    temperature=temperature if do_sample else None,
+                    top_k=top_k if do_sample else None,
+                    top_p=top_p if do_sample else None,
                     repetition_penalty=repetition_penalty,
                     length_penalty=length_penalty,
                     pad_token_id=tokenizer.pad_token_id,
@@ -194,7 +218,20 @@ Please fill in each section of the report template with relevant information bas
             inference_time = time.time() - start_time
             print(f"Text generated in {inference_time:.2f} seconds", flush=True)
 
-            generated_text = tokenizer.decode(output[0], skip_special_tokens=True)[len(prompt):]
+            full_output = tokenizer.decode(output[0], skip_special_tokens=True)
+            generated_text = extract_generated_text(full_output, prompt)
+
+            if not generated_text:
+                print("Warning: No generated text extracted. Check the model output.", flush=True)
+                mlflow.log_param("extraction_warning", "No generated text extracted")
+            elif len(generated_text) < 100:  # Arbitrary threshold, adjust as needed
+                print("Warning: Extracted text is unusually short. It might be incomplete.", flush=True)
+                mlflow.log_param("extraction_warning", "Extracted text is unusually short")
+
+            # Log the full output and extracted text for debugging
+            with open("full_output.txt", "w") as f:
+                f.write(full_output)
+            mlflow.log_artifact("full_output.txt")
 
             with open("generated_text.txt", "w") as f:
                 f.write(generated_text)
@@ -221,30 +258,25 @@ Please fill in each section of the report template with relevant information bas
                 mlflow.end_run()
         
 def evaluate_chain_of_thought(generated_text):
-    """
-    Evaluates the completeness of a generated diagnostic report based on the presence of key sections.
-
-    Args:
-        generated_text (str): The generated text to evaluate.
-
-    Returns:
-        float: A score from 0 to 1 indicating the completeness of the report.
-    """
     sections = [
-        "# Comprehensive Diagnostic Report",
-        "## 1. Initial Impression",
-        "## 2. Possible Diagnoses",
-        "### Primary Diagnosis:",
-        "### Differential Diagnoses:",
-        "## 3. Reasoning Process",
-        "## 4. Recommended Tests or Examinations",
-        "## 5. Potential Treatment Options",
-        "## 6. Immediate Precautions or Recommendations",
-        "## 7. Follow-up Plan",
-        "## 8. Summary"
+        "Comprehensive Diagnostic Report",
+        "Initial Impression",
+        "Possible Diagnoses",
+        "Primary Diagnosis",
+        "Differential Diagnoses",
+        "Reasoning Process",
+        "Recommended Tests or Examinations",
+        "Potential Treatment Options",
+        "Immediate Precautions or Recommendations",
+        "Follow-up Plan",
+        "Summary"
     ]
     
-    score = sum(1 for section in sections if section in generated_text)
+    score = 0
+    for section in sections:
+        if re.search(r'\b' + re.escape(section) + r'\b', generated_text, re.IGNORECASE):
+            score += 1
+    
     completeness = score / len(sections)
     return completeness
 
@@ -263,7 +295,7 @@ baseline = {
 # Experiments
 experiments = [
     baseline,  # Baseline
-    {**baseline, "do_sample": False},  # Greedy decoding
+    {**baseline, "do_sample": False, "temperature": None, "top_k": None, "top_p": None},  # Greedy decoding
     {**baseline, "temperature": 0.5},  # Lower temperature
     {**baseline, "temperature": 0.9},  # Higher temperature
     {**baseline, "temperature": 1.2},  # Even higher temperature
@@ -271,7 +303,6 @@ experiments = [
     {**baseline, "top_k": 100},  # Higher top_k
     {**baseline, "top_p": 0.5},  # Lower top_p
     {**baseline, "top_p": 0.99},  # Higher top_p
-    {**baseline, "repetition_penalty": 1.0},  # No repetition penalty
     {**baseline, "repetition_penalty": 1.3},  # Higher repetition penalty
     {**baseline, "length_penalty": 0.8},  # Encourage shorter sequences
     {**baseline, "length_penalty": 1.2},  # Encourage longer sequences
@@ -293,11 +324,11 @@ if __name__ == "__main__":
             mlflow.log_metric("completeness_score", completeness_score)
             
             print("Generated text:", flush=True)
-            print(generated_text, flush=True)
+            print(generated_text[:500] + "..." if len(generated_text) > 500 else generated_text, flush=True)
         else:
             print("Experiment failed. Check logs for details.", flush=True)
         
         print("\n" + "="*50 + "\n", flush=True)
-        sys.stdout.flush()
+        sys.stdout.flush() 
 
     print("Experiments complete. View results in MLflow UI.", flush=True)

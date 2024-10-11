@@ -1,0 +1,15 @@
+artifact_uri: file:///home/asuran/Downloads/projects/MedScript/mlruns/164909333817588014/f09b929e01244f63bae2094c92ed2acd/artifacts
+end_time: 1728634599406
+entry_point_name: ''
+experiment_id: '164909333817588014'
+lifecycle_stage: active
+run_id: f09b929e01244f63bae2094c92ed2acd
+run_name: gifted-kite-553
+run_uuid: f09b929e01244f63bae2094c92ed2acd
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1728633184026
+status: 3
+tags: []
+user_id: asuran
