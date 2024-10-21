@@ -17,6 +17,10 @@ class Settings(BaseSettings):
     DB_HOST: str
     DB_PORT: str
 
+    # JWT Settings
+    JWT_SECRET_KEY: str
+    JWT_REFRESH_SECRET_KEY: str
+
     class Config:
         env_file = ".env"
         case_sensitive = True

@@ -19,6 +19,7 @@ class PatientUpdate(BaseModel):
 
 class Patient(PatientBase):
     id: int
+    user_id: int
     created_at: datetime
     updated_at: datetime
 
