@@ -6,7 +6,7 @@ from app.utils.http_errors import BadRequestError, NotFoundError
 import app.utils.auth_util as util
 from app.utils.auth_util import JWTTokenHelper
 from app.api.deps import get_db
-from app.db.crud import user_crud
+import app.db.crud.user as user_crud
 from app.utils.auth_util import Encrypt
 
 router = APIRouter(prefix="/user")
