@@ -13,35 +13,32 @@ from fastapi import HTTPException
 from app.utils.http_errors import BadRequestError, UnauthorizedError, ForbiddenError,NotFoundError
 
 # test database
-SQLALCHEMY_DATABASE_URL = "sqlite:///./test.db"
-engine = create_engine(SQLALCHEMY_DATABASE_URL, connect_args={"check_same_thread": False})
-TestingSessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+# SQLALCHEMY_DATABASE_URL = "sqlite:///./test.db"
+# engine = create_engine(SQLALCHEMY_DATABASE_URL, connect_args={"check_same_thread": False})
+# TestingSessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
 @pytest.fixture(scope="module")
-def test_db():
+def mock_db_session():
     """
-    Creates a test database and provides a database session for testing.
-
-    This fixture creates a test database, and provides a database session that
-    can be used for testing. The session is rolled back after each test, to
-    ensure the database is in a clean state for each test.
-
-    The scope of this fixture is "module", which means that the test database is
-    created and dropped once per test module. This is more efficient than
-    creating and dropping the database once per test.
-
-    Yields the test session.
+    A pytest fixture that creates a temporary in-memory database session
+    for testing purposes.  The session is created using the SQLite in-memory
+    database engine, and the tables are created using the Base.metadata.create_all()
+    method. The fixture yields the session object, and then closes it after the
+    test is finished.
     """
+    from sqlalchemy import create_engine
+    from sqlalchemy.orm import sessionmaker
+    engine = create_engine("sqlite:///:memory:")
+    SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+    db = SessionLocal()
+    # Create tables in the in-memory database
+    from app.db.base import Base
     Base.metadata.create_all(bind=engine)
-    db = TestingSessionLocal()
-    try:
-        yield db
-    finally:
-        db.close()
-    Base.metadata.drop_all(bind=engine)
+    yield db
+    db.close()
 
 @pytest.fixture(scope="module")
-def test_client(test_db):
+def test_client(mock_db_session):
     """
     Creates a FastAPI test client with a test database session.
 
@@ -59,9 +56,9 @@ def test_client(test_db):
         context.
         """
         try:
-            yield test_db
+            yield mock_db_session
         finally:
-            test_db.rollback()
+            mock_db_session.rollback()
 
     app.dependency_overrides[get_db] = override_get_db
     with TestClient(app) as client:

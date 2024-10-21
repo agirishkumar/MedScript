@@ -3,7 +3,7 @@ from passlib.context import CryptContext
 from app.utils.http_errors import BadRequestError, UnauthorizedError, ForbiddenError,NotFoundError
 from sqlalchemy.orm import Session
 from app.core.config import Settings
-from app.db.crud import user_crud
+import app.db.crud.user as user_crud
 from app.db.models.user import User
 import jwt
 from jwt import ExpiredSignatureError
