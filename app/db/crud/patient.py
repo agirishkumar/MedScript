@@ -4,6 +4,7 @@ from sqlalchemy.orm import Session
 from sqlalchemy.exc import IntegrityError
 from ..models.patient import Patient
 from ..schemas.patient import PatientCreate, PatientUpdate
+from ..crud import user as user_crud
 from fastapi import HTTPException
 
 def get_patient(db: Session, patient_id: int):
@@ -24,6 +25,7 @@ def get_patient(db: Session, patient_id: int):
     if patient is None:
         raise HTTPException(status_code=404, detail="Patient not found")
     return patient
+
 
 def get_patients(db: Session, skip: int = 0, limit: int = 100):
     """
@@ -51,7 +53,9 @@ def create_patient(db: Session, patient: PatientCreate):
     Raises:
     HTTPException: 400 Bad Request if the email is already registered.
     """
+    db_user = user_crud.get_user_by_email(patient.email)
     db_patient = Patient(**patient.dict())
+    db_patient.user_id = db_user.user_id
     try:
         db.add(db_patient)
         db.commit()
