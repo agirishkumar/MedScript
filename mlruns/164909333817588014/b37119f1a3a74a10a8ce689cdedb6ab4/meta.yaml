@@ -1,0 +1,15 @@
+artifact_uri: file:///home/asuran/Downloads/projects/MedScript/mlruns/164909333817588014/b37119f1a3a74a10a8ce689cdedb6ab4/artifacts
+end_time: 1728625776832
+entry_point_name: ''
+experiment_id: '164909333817588014'
+lifecycle_stage: active
+run_id: b37119f1a3a74a10a8ce689cdedb6ab4
+run_name: calm-tern-44
+run_uuid: b37119f1a3a74a10a8ce689cdedb6ab4
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1728624436878
+status: 3
+tags: []
+user_id: asuran

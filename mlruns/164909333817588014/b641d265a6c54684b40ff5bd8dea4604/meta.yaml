@@ -1,0 +1,15 @@
+artifact_uri: file:///home/asuran/Downloads/projects/MedScript/mlruns/164909333817588014/b641d265a6c54684b40ff5bd8dea4604/artifacts
+end_time: 1728654440417
+entry_point_name: ''
+experiment_id: '164909333817588014'
+lifecycle_stage: active
+run_id: b641d265a6c54684b40ff5bd8dea4604
+run_name: luminous-asp-637
+run_uuid: b641d265a6c54684b40ff5bd8dea4604
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1728648378608
+status: 3
+tags: []
+user_id: asuran
