@@ -2,20 +2,11 @@
 import pytest
 from fastapi.testclient import TestClient
 from unittest.mock import patch, MagicMock
-from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker
-from app.main import app
-from app.db.base import Base
 from app.api.deps import get_db
 from app.db.models.user import User
 from app.core.config import settings
 from fastapi import HTTPException
-from app.utils.http_errors import BadRequestError, UnauthorizedError, ForbiddenError,NotFoundError
-
-# test database
-# SQLALCHEMY_DATABASE_URL = "sqlite:///./test.db"
-# engine = create_engine(SQLALCHEMY_DATABASE_URL, connect_args={"check_same_thread": False})
-# TestingSessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+from app.utils.http_errors import BadRequestError, NotFoundError
 
 @pytest.fixture(scope="module")
 def mock_db_session():
@@ -59,11 +50,13 @@ def test_client(mock_db_session):
             yield mock_db_session
         finally:
             mock_db_session.rollback()
-
-    app.dependency_overrides[get_db] = override_get_db
-    with TestClient(app) as client:
-        yield client
-    app.dependency_overrides.clear()
+    
+    with patch("app.db.base.init"):
+        from app.main import app
+        app.dependency_overrides[get_db] = override_get_db
+        with TestClient(app) as client:
+            yield client
+        app.dependency_overrides.clear()
 
 def test_register(test_client):
     """

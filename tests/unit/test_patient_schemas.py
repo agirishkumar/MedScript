@@ -32,7 +32,9 @@ def test_patient_schema():
         age=30,
         email="john@example.com",
         created_at=datetime.now(),
-        updated_at=datetime.now()
+        updated_at=datetime.now(),
+        user_id = 1
     )
     assert patient.id == 1
     assert patient.email == "john@example.com"
+    assert patient.user_id == 1

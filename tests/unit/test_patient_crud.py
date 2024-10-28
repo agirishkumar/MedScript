@@ -2,8 +2,10 @@
 
 from app.db.crud.patient import create_patient, get_patient, update_patient, delete_patient
 from app.db.models.patient import Patient
+from app.db.models.user import User
 from app.db.schemas.patient import PatientCreate, PatientUpdate
 from sqlalchemy.orm import Session
+from unittest.mock import patch, MagicMock
 import pytest
 
 @pytest.fixture
@@ -30,18 +32,27 @@ def test_create_patient(mock_db_session: Session):
     """
     Tests that a new patient can be created successfully with valid data.
     """
-    patient_data = PatientCreate(name="Test Patient", age=25, email="test@example.com")
-    new_patient = create_patient(mock_db_session, patient_data)
+    patient_data = PatientCreate(name="Test Patient", age=25, email="test@example.com", user_id=1)
+    with patch("app.db.crud.user_crud.get_user_by_email") as mock_get_user_by_email:
+        mock_user = MagicMock(spec=User)
+        mock_user.user_id = 1
+        mock_get_user_by_email.return_value = mock_user
+        new_patient = create_patient(mock_db_session, patient_data)
     assert new_patient.name == "Test Patient"
     assert new_patient.age == 25
     assert new_patient.email == "test@example.com"
+    assert new_patient.user_id == 1
 
 def test_get_patient(mock_db_session: Session):
     """
     Tests that a patient can be retrieved from the database using its ID.
     """
     patient_data = PatientCreate(name="Jane Doe", age=30, email="jane@example.com")
-    new_patient = create_patient(mock_db_session, patient_data)
+    with patch("app.db.crud.user_crud.get_user_by_email") as mock_get_user_by_email:
+        mock_user = MagicMock(spec=User)
+        mock_user.user_id = 1
+        mock_get_user_by_email.return_value = mock_user
+        new_patient = create_patient(mock_db_session, patient_data)
     fetched_patient = get_patient(mock_db_session, new_patient.id)
     assert fetched_patient.name == "Jane Doe"
     assert fetched_patient.email == "jane@example.com"
@@ -51,7 +62,11 @@ def test_update_patient(mock_db_session: Session):
     Tests that a patient can be updated successfully with valid data.
     """
     patient_data = PatientCreate(name="John Doe", age=40, email="john@example.com")
-    new_patient = create_patient(mock_db_session, patient_data)
+    with patch("app.db.crud.user_crud.get_user_by_email") as mock_get_user_by_email:
+        mock_user = MagicMock(spec=User)
+        mock_user.user_id = 1
+        mock_get_user_by_email.return_value = mock_user
+        new_patient = create_patient(mock_db_session, patient_data)
     updated_data = PatientUpdate(age=45)
     updated_patient = update_patient(mock_db_session, new_patient.id, updated_data)
     assert updated_patient.age == 45
@@ -65,7 +80,11 @@ def test_delete_patient(mock_db_session: Session):
     in the database.
     """
     patient_data = PatientCreate(name="Alice", age=28, email="alice@example.com")
-    new_patient = create_patient(mock_db_session, patient_data)
+    with patch("app.db.crud.user_crud.get_user_by_email") as mock_get_user_by_email:
+        mock_user = MagicMock(spec=User)
+        mock_user.user_id = 1
+        mock_get_user_by_email.return_value = mock_user
+        new_patient = create_patient(mock_db_session, patient_data)
     deleted_patient = delete_patient(mock_db_session, new_patient.id)
     assert deleted_patient.name == "Alice"
     assert mock_db_session.query(Patient).filter(Patient.id == new_patient.id).first() is None

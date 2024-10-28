@@ -6,17 +6,18 @@ from app.core.config import settings
 from app.core.logging import logger
 from app.api.endpoints import patients, login
 from app.utils.middleware import LoggingMiddleware, RequestIDMiddleware
-from app.db.session import engine
-from app.db.base import Base 
+# from app.db.session import engine
+# from app.db.base import Base 
+import app.db.base as db_base
 
-def init_db():
-    """
-    Initialize the database by creating all tables.
+# def init_db():
+#     """
+#     Initialize the database by creating all tables.
 
-    This function imports all the models to force the creation of the tables.
-    """
-    from app.db import models  
-    Base.metadata.create_all(bind=engine)
+#     This function imports all the models to force the creation of the tables.
+#     """
+#     from app.db import models  
+#     Base.metadata.create_all(bind=engine)
 
 app = FastAPI(
     title=settings.PROJECT_NAME,
@@ -41,7 +42,7 @@ app.add_middleware(LoggingMiddleware)
 app.include_router(patients.router, prefix=settings.API_V1_STR)
 app.include_router(login.router, prefix=settings.API_V1_STR)
 
-init_db()
+db_base.init()
 
 if __name__ == "__main__":
     import uvicorn
