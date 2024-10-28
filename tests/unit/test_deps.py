@@ -2,14 +2,10 @@
 import unittest
 import pytest
 from unittest.mock import patch, MagicMock
-from sqlalchemy.orm import Session, sessionmaker
+from sqlalchemy.orm import Session
 from app.api.deps import get_db, authorize
-from sqlalchemy import create_engine
 from fastapi import HTTPException
-from app.utils.http_errors import UnauthorizedError, ForbiddenError
-from app.db.base import Base
-from app.main import app
-from fastapi.testclient import TestClient
+from app.utils.http_errors import UnauthorizedError
 
 def test_get_db():
     """

@@ -4,11 +4,12 @@ import pytest
 from fastapi.testclient import TestClient
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from app.main import app
 from app.db.base import Base
 from app.api.deps import get_db
 from app.db.models.patient import Patient
 from app.core.config import settings
+from unittest.mock import patch, MagicMock
+from app.db.models.user import User, Role
 
 SQLALCHEMY_DATABASE_URL = "sqlite:///./test.db"
 engine = create_engine(SQLALCHEMY_DATABASE_URL, connect_args={"check_same_thread": False})
@@ -60,10 +61,12 @@ def test_client(test_db):
         finally:
             test_db.rollback()
     
-    app.dependency_overrides[get_db] = override_get_db
-    with TestClient(app) as client:
-        yield client
-    app.dependency_overrides.clear()
+    with patch("app.db.base.init"):
+        from app.main import app
+        app.dependency_overrides[get_db] = override_get_db
+        with TestClient(app) as client:
+            yield client
+        app.dependency_overrides.clear()
 
 def test_create_patient(test_client):
     """
@@ -77,7 +80,11 @@ def test_create_patient(test_client):
         "age": 30,
         "email": "john@example.com"
     }
-    response = test_client.post(f"{settings.API_V1_STR}/patients/", json=patient_data)
+    with patch("app.db.crud.user.get_user_by_email") as mock_get_user_by_email:
+        mock_user = MagicMock(spec=User)
+        mock_user.user_id = 1
+        mock_get_user_by_email.return_value = mock_user
+        response = test_client.post(f"{settings.API_V1_STR}/patients/", json=patient_data)
     assert response.status_code == 201
     assert response.json()["name"] == patient_data["name"]
     assert response.json()["age"] == patient_data["age"]
@@ -91,8 +98,8 @@ def test_read_patients(test_client, test_db):
     Creates a new patient, then retrieves a list of all patients. Asserts that the
     response is a 200 OK and that the list of patients is not empty.
     """
-    
-    test_db.add(Patient(name="Test Patient", age=25, email="test@example.com"))
+    # test_db.add(User(user_id=1, email="test@example.com", password = "123", role=Role.PATIENT))
+    test_db.add(Patient(name="Test Patient", age=25, email="test@example.com", user_id = 1))
     test_db.commit()
 
     response = test_client.get(f"{settings.API_V1_STR}/patients/")
@@ -107,7 +114,7 @@ def test_read_patient(test_client, test_db):
     Creates a new patient, then fetches it by ID. Asserts that the patient's data
     matches the expected data.
     """
-    patient = Patient(name="Read Test", age=35, email="read@example.com")
+    patient = Patient(name="Test Patient", age=25, email="test1@example.com", user_id = 1)
     test_db.add(patient)
     test_db.commit()
 
@@ -126,7 +133,7 @@ def test_update_patient(test_client, test_db):
     returns a 200 OK response and that the patient's data has been updated in the
     database.
     """
-    patient = Patient(name="Update Test", age=40, email="update@example.com")
+    patient = Patient(name="Update Test", age=40, email="update@example.com", user_id=1)
     test_db.add(patient)
     test_db.commit()
 
