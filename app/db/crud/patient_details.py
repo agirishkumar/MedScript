@@ -20,7 +20,6 @@ def get_patient_details(db: Session, patient_id: int):
     Raises:
     HTTPException: 404 Not Found if the patient does not exist.
     """
-
     patient_details = db.query(PatientDetails).filter(PatientDetails.PatientID == patient_id).first()
     if patient_details is None:
         raise HTTPException(status_code=404, detail="Patient details not found")
@@ -46,14 +45,18 @@ def create_patient_details(db: Session, patient_details: PatientDetailsCreate):
     Create new patient details.
 
     Args:
-    patient_details (schemas.patient_details.PatientDetailsCreate): The patient details to be created.
+        patient_details (schemas.patient_details.PatientDetailsCreate): The patient details to be created.
 
     Returns:
-    schemas.patient_details.PatientDetails: The newly created patient details.
+        schemas.patient_details.PatientDetails: The newly created patient details.
 
     Raises:
-    HTTPException: 400 Bad Request if the email is already registered.
+        HTTPException: 400 Bad Request if the email is already registered.
     """
+    existing_patient = db.query(PatientDetails).filter(PatientDetails.Email == patient_details.Email).first()
+    if existing_patient:
+        raise HTTPException(status_code=400, detail="Email already registered")
+
     db_patient_details = PatientDetails(**patient_details.dict())
     try:
         db.add(db_patient_details)
@@ -62,7 +65,7 @@ def create_patient_details(db: Session, patient_details: PatientDetailsCreate):
         return db_patient_details
     except IntegrityError:
         db.rollback()
-        raise HTTPException(status_code=400, detail="Email already registered")
+        raise HTTPException(status_code=400, detail="An error occurred while creating patient details")
 
 
 def update_patient_details(db: Session, patient_id: int, patient_details: PatientDetailsUpdate):

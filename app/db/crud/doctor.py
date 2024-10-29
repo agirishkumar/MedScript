@@ -51,7 +51,22 @@ def create_doctor(db: Session, doctor: DoctorCreate):
     Raises:
     HTTPException: 400 Bad Request if the email or license number is already registered.
     """
+    existing_email = db.query(Doctor).filter(
+        Doctor.Email == doctor.Email
+    ).first()
+
+    if existing_email:
+        raise HTTPException(status_code=400, detail="Email already registered")
+
+    existing_license = db.query(Doctor).filter(
+        Doctor.LicenseNumber == doctor.LicenseNumber
+    ).first()
+
+    if existing_license:
+        raise HTTPException(status_code=400, detail="License number already registered")
+
     db_doctor = Doctor(**doctor.dict())
+
     try:
         db.add(db_doctor)
         db.commit()
@@ -59,7 +74,7 @@ def create_doctor(db: Session, doctor: DoctorCreate):
         return db_doctor
     except IntegrityError:
         db.rollback()
-        raise HTTPException(status_code=400, detail="Email or License Number already registered")
+        raise HTTPException(status_code=400, detail="Error creating doctor")
 
 
 def update_doctor(db: Session, doctor_id: int, doctor: DoctorUpdate):
@@ -78,15 +93,37 @@ def update_doctor(db: Session, doctor_id: int, doctor: DoctorUpdate):
     HTTPException: 400 Bad Request if the email or license number is already registered.
     """
     db_doctor = get_doctor(db, doctor_id)
-    for key, value in doctor.dict().items():
+    if db_doctor is None:
+        raise HTTPException(status_code=404, detail="Doctor not found")
+
+    if doctor.Email:
+        existing_email = db.query(Doctor).filter(
+            Doctor.Email == doctor.Email,
+            Doctor.DoctorID != doctor_id
+        ).first()
+
+        if existing_email:
+            raise HTTPException(status_code=400, detail="Email already registered")
+
+    if doctor.LicenseNumber:
+        existing_license = db.query(Doctor).filter(
+            Doctor.LicenseNumber == doctor.LicenseNumber,
+            Doctor.DoctorID != doctor_id
+        ).first()
+
+        if existing_license:
+            raise HTTPException(status_code=400, detail="License number already registered")
+
+    for key, value in doctor.dict(exclude_unset=True).items():
         setattr(db_doctor, key, value)
+
     try:
         db.commit()
         db.refresh(db_doctor)
         return db_doctor
     except IntegrityError:
         db.rollback()
-        raise HTTPException(status_code=400, detail="Email or License Number already registered")
+        raise HTTPException(status_code=400, detail="Error updating doctor details")
 
 
 def delete_doctor(db: Session, doctor_id: int):

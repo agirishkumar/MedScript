@@ -21,7 +21,7 @@ def read_doctors(skip: int = 0, limit: int = 100, db: Session = Depends(get_db))
     """
     Retrieve a list of all doctors.
     """
-    return doctor_crud.get_doctors(db, skip=skip, limit=limit)
+    return doctor_crud.get_all_doctors(db, skip=skip, limit=limit)
 
 @router.get("/{doctor_id}", response_model=Doctor)
 def read_doctor(doctor_id: int, db: Session = Depends(get_db)):

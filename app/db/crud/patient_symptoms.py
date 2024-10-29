@@ -2,6 +2,8 @@
 
 from sqlalchemy.orm import Session
 from sqlalchemy.exc import IntegrityError
+
+from ..models import PatientVisit
 from ..models.patient_symptoms import PatientSymptom
 from ..schemas.patient_symptoms import PatientSymptomCreate, PatientSymptomUpdate
 from fastapi import HTTPException
@@ -26,6 +28,10 @@ def get_patient_symptom(db: Session, symptom_id: int):
 
 def get_patient_symptoms_by_visit_id(db: Session, visit_id: int):
     return db.query(PatientSymptom).filter(PatientSymptom.VisitID == visit_id).all()
+
+def get_patient_symptoms_by_patient_id(db: Session, patient_id: int):
+    return db.query(PatientSymptom).join(PatientVisit).filter(PatientVisit.PatientID == patient_id).all()
+
 
 def get_all_patient_symptoms(db: Session, skip: int = 0, limit: int = 100):
     """

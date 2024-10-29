@@ -420,3 +420,178 @@ WHERE patients.id = ?
 2024-10-26 16:55:33,275 - app - INFO - Request: DELETE /api/v1/patient_details/2 | Status: 204 | Process Time: 0.02s | Request ID: 67ce4bc5-bab9-45ae-9e7c-6396049b92f7
 2024-10-26 16:56:30,453 - app - INFO - Request: GET /api/v1/patient_details/2 | Status: 404 | Process Time: 0.04s | Request ID: ce798871-9c2a-4ce8-91ba-1ab11e352d81
 2024-10-26 16:56:35,711 - app - INFO - Request: GET /api/v1/patient_details/ | Status: 200 | Process Time: 0.02s | Request ID: 3550ffa5-9790-45b1-9c03-c9f34b64a9ec
+2024-10-28 16:28:33,843 - app - INFO - Request: GET /docs | Status: 200 | Process Time: 0.00s | Request ID: c1461781-5194-4995-9911-2a7a7f688149
+2024-10-28 16:28:34,644 - app - INFO - Request: GET /openapi.json | Status: 200 | Process Time: 0.02s | Request ID: b4bebf8a-8ef5-488a-b581-44472a09745d
+2024-10-28 16:33:45,521 - app - INFO - Request: POST /api/v1/patient_details/ | Status: 201 | Process Time: 0.23s | Request ID: ceaddcab-fb5a-4da7-8c84-a38776dce215
+2024-10-28 16:34:04,750 - app - ERROR - Request: POST /api/v1/doctors/ | Status: 500 | Process Time: 0.01s | Request ID: 330dc330-675e-4c33-a947-5b6b7b1f74eb | Error: 'first_name' is an invalid keyword argument for Doctor
+2024-10-28 16:35:43,859 - app - INFO - Request: POST /api/v1/doctors/ | Status: 422 | Process Time: 0.01s | Request ID: 08c9acc4-3196-469f-b9ad-873cf816be21
+2024-10-28 16:36:05,768 - app - INFO - Request: GET /docs | Status: 200 | Process Time: 0.01s | Request ID: 99a50e25-e4be-4e1e-bb06-ea4ba7b4574f
+2024-10-28 16:36:06,246 - app - INFO - Request: GET /openapi.json | Status: 200 | Process Time: 0.07s | Request ID: f5c771bc-2413-45cf-bcb9-f9615e557e35
+2024-10-28 16:36:15,449 - app - INFO - Request: POST /api/v1/doctors/ | Status: 201 | Process Time: 0.45s | Request ID: 40f75f21-5094-4867-99da-5feb4e882dc3
+2024-10-28 16:36:35,658 - app - ERROR - Request: GET /api/v1/doctors/ | Status: 500 | Process Time: 0.02s | Request ID: 8c79ab36-3b94-46a4-b7f8-13737efad529 | Error: module 'app.db.crud.doctor' has no attribute 'get_doctors'
+2024-10-28 16:37:18,998 - app - INFO - Request: GET /docs | Status: 200 | Process Time: 0.00s | Request ID: 09897a04-0b48-4638-8cf4-a5af8f5d1712
+2024-10-28 16:37:19,305 - app - INFO - Request: GET /openapi.json | Status: 200 | Process Time: 0.03s | Request ID: 0d6bb5e2-82c9-44d3-827d-cb1d122c0ad1
+2024-10-28 16:37:29,742 - app - INFO - Request: POST /api/v1/doctors/ | Status: 400 | Process Time: 0.05s | Request ID: 05b52798-4772-45cb-bba3-0b7493c70fbc
+2024-10-28 16:37:39,057 - app - INFO - Request: POST /api/v1/doctors/ | Status: 201 | Process Time: 0.03s | Request ID: fbee55ae-b6e0-4129-9c0d-e4dfd41053ea
+2024-10-28 16:37:55,706 - app - INFO - Request: GET /api/v1/doctors/ | Status: 200 | Process Time: 0.04s | Request ID: ad40909a-3624-4ced-a168-a57b6a562cc3
+2024-10-28 16:38:15,848 - app - INFO - Request: GET /api/v1/doctors/3 | Status: 200 | Process Time: 0.02s | Request ID: 2bd87014-84f0-435d-b9b5-39b5502c72d2
+2024-10-28 16:38:44,915 - app - INFO - Request: PUT /api/v1/doctors/3 | Status: 400 | Process Time: 0.03s | Request ID: 1b6dba7a-7ddb-4151-b428-aab6d803733a
+2024-10-28 16:39:18,790 - app - INFO - Request: DELETE /api/v1/doctors/3 | Status: 204 | Process Time: 0.05s | Request ID: 4db41337-62ac-4459-97ee-eb2e13c56ecc
+2024-10-28 16:39:33,075 - app - INFO - Request: GET /api/v1/doctors/ | Status: 200 | Process Time: 0.02s | Request ID: bc895b55-20e5-40bf-877e-fe143bfce10f
+2024-10-28 16:48:23,386 - app - INFO - Request: GET /docs | Status: 200 | Process Time: 0.00s | Request ID: 672c743b-5215-4273-abf2-8276d312cb19
+2024-10-28 16:48:23,679 - app - INFO - Request: GET /openapi.json | Status: 200 | Process Time: 0.04s | Request ID: b4ab8b6f-f193-42db-a83e-a4069d677373
+2024-10-28 16:48:36,015 - app - INFO - Request: POST /api/v1/doctors/ | Status: 400 | Process Time: 3.26s | Request ID: 437e286f-3a08-4920-8506-fe50bcca180f
+2024-10-28 16:48:51,172 - app - INFO - Request: POST /api/v1/doctors/ | Status: 201 | Process Time: 0.12s | Request ID: 302b400d-c6fa-4b3c-983d-a734debe51e7
+2024-10-28 16:49:28,892 - app - INFO - Request: GET /api/v1/doctors/ | Status: 200 | Process Time: 0.04s | Request ID: f6379262-7a64-4459-a5b7-1594de0cb617
+2024-10-28 16:49:49,242 - app - INFO - Request: PUT /api/v1/doctors/5 | Status: 200 | Process Time: 0.11s | Request ID: 6b7ec092-5784-4d2b-bc6f-0f1d6614cbcd
+2024-10-28 16:49:56,239 - app - INFO - Request: GET /api/v1/doctors/ | Status: 200 | Process Time: 0.02s | Request ID: 93c52957-a147-4924-b36d-36c77c4bce0a
+2024-10-28 17:01:25,428 - app - INFO - Request: GET /docs | Status: 200 | Process Time: 0.00s | Request ID: 12d6dd0f-7ce9-47b6-b1f1-ac6410d67449
+2024-10-28 17:01:25,839 - app - INFO - Request: GET /openapi.json | Status: 200 | Process Time: 0.04s | Request ID: 384c22fb-c44c-4139-9b89-9784638fe787
+2024-10-28 17:01:44,988 - app - INFO - Request: GET /docs | Status: 200 | Process Time: 0.01s | Request ID: 761e617b-77ef-4f72-94a3-ce6f3c407a35
+2024-10-28 17:01:45,061 - app - INFO - Request: GET /openapi.json | Status: 200 | Process Time: 0.00s | Request ID: 67e2d0a9-6a92-41df-9b3e-22faf4ddbe23
+2024-10-28 17:01:56,023 - app - INFO - Request: GET /api/v1/doctors/ | Status: 200 | Process Time: 0.11s | Request ID: c488f321-fcf9-4a4d-a660-1b00eebde04d
+2024-10-28 17:02:16,027 - app - ERROR - Request: POST /api/v1/doctors/ | Status: 500 | Process Time: 0.02s | Request ID: f11e816f-9d1a-4351-9922-091d827f1bd2 | Error: 'DoctorCreate' object has no attribute 'email'
+2024-10-28 17:02:54,281 - app - INFO - Request: POST /api/v1/doctors/ | Status: 400 | Process Time: 0.07s | Request ID: 59d2c8ae-8a22-4107-b919-f5bb77d0c095
+2024-10-28 17:03:03,850 - app - INFO - Request: POST /api/v1/doctors/ | Status: 400 | Process Time: 0.04s | Request ID: df341710-ca65-40e1-b4d6-49b616f736a2
+2024-10-28 17:03:11,727 - app - INFO - Request: POST /api/v1/doctors/ | Status: 201 | Process Time: 0.05s | Request ID: f64fa78a-7c06-4f36-9a35-9b2c784cc1fe
+2024-10-28 17:03:21,568 - app - INFO - Request: GET /api/v1/doctors/ | Status: 200 | Process Time: 0.03s | Request ID: a16c2556-006f-4299-a832-5057b2c8f8d0
+2024-10-28 17:03:54,909 - app - INFO - Request: PUT /api/v1/doctors/6 | Status: 400 | Process Time: 0.03s | Request ID: 62eba735-6b28-4dc9-8b6e-b8fb9c799c38
+2024-10-28 17:04:02,263 - app - INFO - Request: PUT /api/v1/doctors/6 | Status: 200 | Process Time: 0.05s | Request ID: 2e31c29e-5272-4013-8e4c-1940b6b65e3e
+2024-10-28 17:05:02,922 - app - ERROR - Request: POST /api/v1/patient_details/ | Status: 500 | Process Time: 0.03s | Request ID: 389d01fa-88b8-47a1-ba51-2a948080990c | Error: 'PatientDetailsCreate' object has no attribute 'email'
+2024-10-28 17:05:25,791 - app - INFO - Request: POST /api/v1/patient_details/ | Status: 201 | Process Time: 0.16s | Request ID: e7aefdf5-9fe3-4b85-a08b-ac769e3a4579
+2024-10-28 17:05:32,696 - app - INFO - Request: POST /api/v1/patient_details/ | Status: 400 | Process Time: 0.02s | Request ID: a9826c9f-07b1-48be-b572-a463ed288846
+2024-10-28 17:05:48,885 - app - INFO - Request: GET /api/v1/patient_details/ | Status: 200 | Process Time: 0.02s | Request ID: 43b262d3-f4de-4705-8f36-288cc6bae405
+2024-10-28 17:11:32,127 - app - INFO - Request: GET /api/v1/doctors/ | Status: 200 | Process Time: 0.09s | Request ID: a5db7366-b039-498a-b016-583ab6ff5174
+2024-10-28 17:11:48,908 - app - INFO - Request: POST /api/v1/doctors/ | Status: 400 | Process Time: 0.12s | Request ID: f1bab958-d186-43d3-91fc-3ab4259d322f
+2024-10-28 17:21:49,851 - app - ERROR - Request: POST /api/v1/patient_symptoms/ | Status: 500 | Process Time: 0.07s | Request ID: a0c4fbaf-fd85-4f19-a564-d80f5b78a501 | Error: create_patient_symptom() got an unexpected keyword argument 'symptom'
+2024-10-28 19:09:30,240 - app - ERROR - Request: POST /api/v1/patient_symptoms/ | Status: 500 | Process Time: 0.02s | Request ID: 352ae302-3473-4e91-8fc4-a9abec9d1aaa | Error: 'patient_id' is an invalid keyword argument for PatientSymptom
+2024-10-28 19:13:45,562 - app - INFO - Request: POST /api/v1/patient_symptoms/ | Status: 422 | Process Time: 0.01s | Request ID: f937363c-7d7f-4fd4-8ac7-7542084dff20
+2024-10-28 19:13:51,335 - app - INFO - Request: GET /docs | Status: 200 | Process Time: 0.01s | Request ID: 22aec004-287a-4ccb-8da7-c9f8d4b3d17c
+2024-10-28 19:13:51,715 - app - INFO - Request: GET /openapi.json | Status: 200 | Process Time: 0.04s | Request ID: 55c792d1-b96a-4214-afbc-554164415214
+2024-10-28 19:14:04,171 - app - INFO - Request: POST /api/v1/patient_symptoms/ | Status: 400 | Process Time: 0.10s | Request ID: 679f0ca3-5f56-495d-b351-41beccec361c
+2024-10-28 19:14:53,721 - app - INFO - Request: POST /api/v1/patient_symptoms/ | Status: 400 | Process Time: 0.03s | Request ID: 880954a9-2039-4d4e-b51e-2d70936f1eb5
+2024-10-28 19:15:01,035 - app - INFO - Request: GET /docs | Status: 200 | Process Time: 0.00s | Request ID: 264283ee-f336-49fe-9aef-76c4f38322d5
+2024-10-28 19:15:01,176 - app - INFO - Request: GET /openapi.json | Status: 200 | Process Time: 0.00s | Request ID: 5309e396-df18-4841-a8e2-e3f7f65ca6cd
+2024-10-28 19:15:06,784 - app - INFO - Request: GET /api/v1/patient_details/ | Status: 200 | Process Time: 0.06s | Request ID: 3bc5f98b-1adb-4a89-8d6d-7beb723fc2ef
+2024-10-28 19:15:25,884 - app - ERROR - Request: POST /api/v1/patient_symptoms/ | Status: 500 | Process Time: 0.05s | Request ID: fea6c374-c9a9-4394-ba87-9ce73c44ca61 | Error: 1 validation errors:
+  {'type': 'missing', 'loc': ('response', 'SymptomId'), 'msg': 'Field required', 'input': <app.db.models.patient_symptoms.PatientSymptom object at 0x10b310b50>}
+
+2024-10-28 19:16:06,450 - app - INFO - Request: GET /docs | Status: 200 | Process Time: 0.00s | Request ID: 35edf2eb-046d-46e7-b10c-0d711368e8be
+2024-10-28 19:16:06,679 - app - INFO - Request: GET /openapi.json | Status: 200 | Process Time: 0.04s | Request ID: ee62c87a-e2e2-41e3-a094-ca8c1a59f76f
+2024-10-28 19:16:17,541 - app - INFO - Request: POST /api/v1/patient_symptoms/ | Status: 201 | Process Time: 0.06s | Request ID: 4f38b797-a9f6-4128-af27-3b4d3fb54df6
+2024-10-28 19:16:35,157 - app - INFO - Request: POST /api/v1/patient_symptoms/ | Status: 201 | Process Time: 0.03s | Request ID: fd700e90-062a-46d0-b0db-9737abb9863b
+2024-10-28 19:16:57,637 - app - ERROR - Request: GET /api/v1/patient_symptoms/ | Status: 500 | Process Time: 0.01s | Request ID: 4bb10c2a-f41d-4594-81ee-d846e46621a6 | Error: module 'app.db.crud.patient_symptoms' has no attribute 'get_patient_symptoms'
+2024-10-28 19:18:51,907 - app - ERROR - Request: GET /api/v1/patient_symptoms/ | Status: 500 | Process Time: 0.01s | Request ID: 4ac47f26-5a41-4361-9ef2-1ec9f7f6c8ef | Error: module 'app.db.crud.patient_symptoms' has no attribute 'get_patient_symptoms'
+2024-10-28 19:20:26,682 - app - INFO - Request: GET /api/v1/patient_symptoms/ | Status: 200 | Process Time: 0.02s | Request ID: f0f5a34c-ed7e-49fd-a659-409678e509ca
+2024-10-28 19:20:48,987 - app - INFO - Request: GET /api/v1/patient_symptoms/3 | Status: 200 | Process Time: 0.03s | Request ID: 9b4239d3-3f4e-4b07-9b91-4d3d7ec873ca
+2024-10-28 19:21:09,542 - app - ERROR - Request: PUT /api/v1/patient_symptoms/3 | Status: 500 | Process Time: 0.02s | Request ID: e238c45e-b294-4d96-aec1-454de367f637 | Error: update_patient_symptom() got an unexpected keyword argument 'symptom'
+2024-10-28 19:21:47,839 - app - INFO - Request: PUT /api/v1/patient_symptoms/3 | Status: 200 | Process Time: 0.03s | Request ID: 82e3fa8d-e3ba-4147-a4e8-e1b891635fef
+2024-10-28 19:21:57,429 - app - INFO - Request: GET /api/v1/patient_symptoms/ | Status: 200 | Process Time: 0.03s | Request ID: e9dea967-213c-4fe4-acad-09f2def5d611
+2024-10-28 19:22:08,860 - app - INFO - Request: DELETE /api/v1/patient_symptoms/3 | Status: 204 | Process Time: 0.05s | Request ID: 91969db1-d5a1-4f54-9c51-27cae5715109
+2024-10-28 19:27:58,129 - app - INFO - Request: GET /api/v1/patient_details/ | Status: 200 | Process Time: 0.04s | Request ID: 077685a8-a2ef-4702-891c-ab0eebd97c2e
+2024-10-28 19:28:18,629 - app - INFO - Request: GET /api/v1/doctors/ | Status: 200 | Process Time: 0.01s | Request ID: c1879516-c77d-48cb-80b0-16cb647d8787
+2024-10-28 19:29:14,694 - app - INFO - Request: GET /api/v1/patient_symptoms/ | Status: 200 | Process Time: 0.02s | Request ID: 2da0b561-f3fa-4c69-b709-df70ef9e16ec
+2024-10-28 19:29:29,087 - app - ERROR - Request: POST /api/v1/patient_visits/ | Status: 500 | Process Time: 0.03s | Request ID: 3ff84f76-2bd3-462f-81ec-bc6b5b46d4e8 | Error: 'patient_id' is an invalid keyword argument for PatientVisit
+2024-10-28 19:32:13,552 - app - ERROR - Request: POST /api/v1/patient_visits/ | Status: 500 | Process Time: 0.02s | Request ID: 19888361-9408-4a89-9fd0-f3de5c2d8255 | Error: 'patient_id' is an invalid keyword argument for PatientVisit
+2024-10-28 19:37:15,536 - app - INFO - Request: GET /docs | Status: 200 | Process Time: 0.00s | Request ID: a330b424-ea40-42aa-839e-10419e7874ef
+2024-10-28 19:37:16,178 - app - INFO - Request: GET /openapi.json | Status: 200 | Process Time: 0.04s | Request ID: fa3beeed-924a-4540-9896-0b33e4545267
+2024-10-28 19:38:11,376 - app - INFO - Request: GET /api/v1/patient_visits/ | Status: 200 | Process Time: 0.12s | Request ID: 8e6e89fb-5efe-45a2-8d34-d4383f5308b1
+2024-10-28 19:38:43,243 - app - ERROR - Request: POST /api/v1/patient_visits/ | Status: 500 | Process Time: 0.03s | Request ID: 158a2b0b-40bb-44aa-af84-eaf399874962 | Error: (psycopg2.ProgrammingError) can't adapt type 'pydantic_core._pydantic_core.Url'
+[SQL: INSERT INTO "PatientVisits" ("PatientID", "DoctorID", "SymptomID", "VisitDate", "DoctorsReportPdfLink", "PatientFriendlyReportPdfLink", "Notes") VALUES (%(PatientID)s, %(DoctorID)s, %(SymptomID)s, %(VisitDate)s, %(DoctorsReportPdfLink)s, %(PatientFriendlyReportPdfLink)s, %(Notes)s) RETURNING "PatientVisits"."VisitID", "PatientVisits"."CreatedAt"]
+[parameters: {'PatientID': 4, 'DoctorID': 5, 'SymptomID': 4, 'VisitDate': datetime.date(2024, 10, 28), 'DoctorsReportPdfLink': Url('https://example.com/'), 'PatientFriendlyReportPdfLink': Url('https://example.com/'), 'Notes': 'string'}]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2024-10-28 19:44:18,446 - app - ERROR - Request: POST /api/v1/patient_visits/ | Status: 500 | Process Time: 0.01s | Request ID: 0d905bd3-875e-4a17-8011-e07461a0f47a | Error: create_patient_visit() got an unexpected keyword argument 'patient_visit'
+2024-10-28 19:44:58,493 - app - INFO - Request: POST /api/v1/patient_visits/ | Status: 400 | Process Time: 0.04s | Request ID: fb5151c6-6f09-40d0-a5cd-1482e371dbdd
+2024-10-28 19:47:30,237 - app - INFO - Request: POST /api/v1/patient_visits/ | Status: 400 | Process Time: 0.03s | Request ID: b9190180-4309-486e-9aaa-41014ff0f744
+2024-10-28 19:48:58,623 - app - INFO - Request: POST /api/v1/patient_visits/ | Status: 400 | Process Time: 0.05s | Request ID: c7596aae-fb51-4b9a-8744-4d69cca3cc8b
+2024-10-28 19:49:23,599 - app - INFO - Request: GET /api/v1/doctors/ | Status: 200 | Process Time: 0.04s | Request ID: a8da8120-d907-4f9e-958b-bf72dd75feb5
+2024-10-28 19:49:41,671 - app - INFO - Request: GET /api/v1/patient_symptoms/ | Status: 200 | Process Time: 0.04s | Request ID: adac08e0-50d5-458b-8d2c-11f75b8535c5
+2024-10-28 19:49:55,178 - app - INFO - Request: POST /api/v1/patient_visits/ | Status: 201 | Process Time: 0.04s | Request ID: a4b4e0e1-f605-4523-a6a4-b202be2b3060
+2024-10-28 19:50:09,595 - app - INFO - Request: GET /api/v1/patient_visits/ | Status: 200 | Process Time: 0.02s | Request ID: 12da0f41-13f5-4777-82ad-a6f14845a7b8
+2024-10-28 19:50:21,381 - app - INFO - Request: GET /api/v1/patient_visits/5 | Status: 404 | Process Time: 0.02s | Request ID: 80d836ad-fc13-4d3b-ad33-0011af187c52
+2024-10-28 19:50:28,559 - app - INFO - Request: GET /api/v1/patient_visits/4 | Status: 200 | Process Time: 0.03s | Request ID: 0dea6af6-3b30-4404-a5ea-ef9633c01f2a
+2024-10-28 19:51:01,678 - app - INFO - Request: PUT /api/v1/patient_visits/4 | Status: 400 | Process Time: 0.07s | Request ID: c24e9ad7-3a44-4e32-94b5-7d673cc7ba9f
+2024-10-28 19:52:03,618 - app - INFO - Request: GET /api/v1/patient_visits/ | Status: 200 | Process Time: 0.03s | Request ID: 59cdf3c0-1339-4675-ad70-ff707be474c9
+2024-10-28 19:52:13,747 - app - INFO - Request: PUT /api/v1/patient_visits/4 | Status: 400 | Process Time: 0.03s | Request ID: 9698f1af-b523-40a7-9560-c37b7c1e0f37
+2024-10-28 19:53:49,450 - app - INFO - Request: PUT /api/v1/patient_visits/4 | Status: 400 | Process Time: 0.02s | Request ID: e632b95f-267f-417e-ab69-08c01b7d8a42
+2024-10-28 19:54:11,176 - app - INFO - Request: GET /docs | Status: 200 | Process Time: 0.00s | Request ID: ba3d1b96-20c5-40ab-96d0-7fb89abd1400
+2024-10-28 19:54:11,514 - app - INFO - Request: GET /openapi.json | Status: 200 | Process Time: 0.04s | Request ID: d0bb7b4b-477e-4a2c-a872-24a35b717d6b
+2024-10-28 19:54:24,368 - app - INFO - Request: GET /api/v1/patient_visits/ | Status: 200 | Process Time: 0.07s | Request ID: c9519d4c-39b7-470c-9582-5bbe3187fe13
+2024-10-28 19:54:59,884 - app - INFO - Request: PUT /api/v1/patient_visits/4 | Status: 400 | Process Time: 0.12s | Request ID: 2e7df65f-b78e-4b36-988c-a8feb57526f5
+2024-10-28 20:01:59,740 - app - ERROR - Integrity error during update: (psycopg2.errors.NotNullViolation) null value in column "VisitDate" of relation "PatientVisits" violates not-null constraint
+DETAIL:  Failing row contains (4, 4, 5, 5, null, string, string, stringuguyfyg, 2024-10-28 19:49:55.16902).
+
+[SQL: UPDATE "PatientVisits" SET "VisitDate"=%(VisitDate)s, "DoctorsReportPdfLink"=%(DoctorsReportPdfLink)s, "PatientFriendlyReportPdfLink"=%(PatientFriendlyReportPdfLink)s, "Notes"=%(Notes)s WHERE "PatientVisits"."VisitID" = %(PatientVisits_VisitID)s]
+[parameters: {'VisitDate': None, 'DoctorsReportPdfLink': 'string', 'PatientFriendlyReportPdfLink': 'string', 'Notes': 'stringuguyfyg', 'PatientVisits_VisitID': 4}]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)
+2024-10-28 20:01:59,741 - app - INFO - Request: PUT /api/v1/patient_visits/4 | Status: 400 | Process Time: 0.03s | Request ID: c2e2d51a-a113-4fd5-b647-057c0cbfbe74
+2024-10-28 20:04:14,988 - app - INFO - Request: PUT /api/v1/patient_visits/4 | Status: 200 | Process Time: 0.05s | Request ID: 7d34efce-5161-4932-b6ff-bf58a23ca982
+2024-10-28 20:04:30,019 - app - INFO - Request: PUT /api/v1/patient_visits/4 | Status: 200 | Process Time: 0.03s | Request ID: d38a3c3d-a52e-4bad-9958-b8d6ca162dc6
+2024-10-28 20:04:58,537 - app - INFO - Request: PUT /api/v1/patient_visits/4 | Status: 200 | Process Time: 0.02s | Request ID: 462a1b35-1b1b-4051-b742-f18b72addc1d
+2024-10-28 20:05:56,227 - app - INFO - Request: GET /api/v1/patient_symptoms/ | Status: 200 | Process Time: 0.04s | Request ID: f4ff80a1-b25f-4a43-a8f5-5de8cdd0d4f1
+2024-10-28 20:06:14,910 - app - INFO - Request: POST /api/v1/patient_symptoms/ | Status: 201 | Process Time: 0.05s | Request ID: 888a20aa-8879-4acc-beff-2d793aba2e56
+2024-10-28 20:06:18,503 - app - INFO - Request: GET /api/v1/patient_symptoms/ | Status: 200 | Process Time: 0.01s | Request ID: 12d272dd-806c-4a33-a82b-3d155e5b7b03
+2024-10-28 20:06:36,937 - app - INFO - Request: POST /api/v1/patient_visits/ | Status: 201 | Process Time: 0.05s | Request ID: 34c95afb-62e0-463a-8fe2-2fac9da01d68
+2024-10-28 20:06:44,830 - app - INFO - Request: GET /api/v1/patient_visits/ | Status: 200 | Process Time: 0.04s | Request ID: f1eb79a5-1b25-4c61-8552-1ad0356d6dd5
+2024-10-28 20:07:02,083 - app - INFO - Request: DELETE /api/v1/patient_visits/5 | Status: 204 | Process Time: 0.06s | Request ID: a730e145-7dc1-4555-a1a0-3906c3543560
+2024-10-28 20:07:20,268 - app - INFO - Request: POST /api/v1/patient_visits/ | Status: 400 | Process Time: 0.04s | Request ID: 3aaa73ce-47c8-4f04-b7f5-10fbcf1f67dd
+2024-10-28 20:07:27,695 - app - INFO - Request: GET /api/v1/patient_visits/ | Status: 200 | Process Time: 0.04s | Request ID: 400520aa-d34e-43a6-ad33-180339af8836
+2024-10-28 20:07:40,235 - app - INFO - Request: POST /api/v1/patient_visits/ | Status: 400 | Process Time: 0.03s | Request ID: edd9cd8e-e5b4-46c4-8a69-ab7560eab998
+2024-10-28 20:07:45,437 - app - INFO - Request: GET /api/v1/patient_visits/ | Status: 200 | Process Time: 0.01s | Request ID: e9fc147d-50ae-4744-bed6-ee767d23bc69
+2024-10-28 20:08:05,476 - app - INFO - Request: POST /api/v1/patient_visits/ | Status: 400 | Process Time: 0.02s | Request ID: a1d5e033-04c4-4c4a-8c6c-6bb483c8dfeb
+2024-10-28 20:08:13,736 - app - INFO - Request: GET /api/v1/patient_visits/ | Status: 200 | Process Time: 0.03s | Request ID: def898b8-bf4f-455e-b853-f9dd335f10cc
+2024-10-28 20:08:47,874 - app - INFO - Request: POST /api/v1/patient_visits/ | Status: 400 | Process Time: 0.04s | Request ID: fb5778de-6fb4-495a-b742-bcc6bac4cb65
+2024-10-28 20:09:20,970 - app - INFO - Request: GET /api/v1/doctors/ | Status: 200 | Process Time: 0.05s | Request ID: 4a3349cd-36c2-47fe-b248-2b7fc08bc52e
+2024-10-28 20:09:34,815 - app - INFO - Request: POST /api/v1/patient_visits/ | Status: 400 | Process Time: 0.01s | Request ID: 1daa7f77-192d-4aac-bd8d-f0d1b3fac23f
+2024-10-28 20:09:46,927 - app - INFO - Request: GET /api/v1/patient_details/ | Status: 200 | Process Time: 0.05s | Request ID: 2ee2a343-c0e4-4fad-8805-9fcb2c8e77c0
+2024-10-28 20:09:55,272 - app - INFO - Request: POST /api/v1/patient_details/ | Status: 201 | Process Time: 0.07s | Request ID: 786274af-f13f-473f-bf9c-cef51aa176fc
+2024-10-28 20:09:59,627 - app - INFO - Request: GET /api/v1/patient_details/ | Status: 200 | Process Time: 0.01s | Request ID: 7de4f327-706e-452d-9b87-56439006c8cb
+2024-10-28 20:10:12,011 - app - INFO - Request: POST /api/v1/patient_details/ | Status: 400 | Process Time: 0.03s | Request ID: b952d955-ceb4-4e00-930f-74e9c4760213
+2024-10-28 20:10:19,319 - app - INFO - Request: POST /api/v1/patient_details/ | Status: 201 | Process Time: 0.02s | Request ID: 58475b93-13fd-4dec-97bb-ff517c87d3c0
+2024-10-28 20:10:23,846 - app - INFO - Request: GET /api/v1/patient_details/ | Status: 200 | Process Time: 0.01s | Request ID: 396c7c99-e065-45b1-8bf7-09bee5809811
+2024-10-28 20:10:45,268 - app - INFO - Request: POST /api/v1/doctors/ | Status: 400 | Process Time: 0.04s | Request ID: cf06c50a-5a80-42f7-80e1-367d64e3544f
+2024-10-28 20:10:52,447 - app - INFO - Request: POST /api/v1/doctors/ | Status: 400 | Process Time: 0.04s | Request ID: 33af9912-5577-460d-925b-e2e5b1dca122
+2024-10-28 20:10:58,875 - app - INFO - Request: POST /api/v1/doctors/ | Status: 201 | Process Time: 0.03s | Request ID: 71f09f63-f4fa-4869-8460-292e991f9975
+2024-10-28 20:11:06,165 - app - INFO - Request: GET /api/v1/doctors/ | Status: 200 | Process Time: 0.05s | Request ID: 8ee56421-249c-4d7c-befe-b5c7fad5bdcd
+2024-10-28 20:11:40,710 - app - INFO - Request: POST /api/v1/patient_symptoms/ | Status: 201 | Process Time: 0.03s | Request ID: ecc48feb-a998-4cb4-a2a6-e2358ec8830c
+2024-10-28 20:12:27,204 - app - INFO - Request: GET /api/v1/patient_details/ | Status: 200 | Process Time: 0.03s | Request ID: 31ac3c69-75b7-4e71-b4e5-af8ce9c86787
+2024-10-28 20:12:50,387 - app - INFO - Request: POST /api/v1/patient_visits/ | Status: 400 | Process Time: 0.06s | Request ID: 9533f5fe-0dda-4abc-a867-943423475a2a
+2024-10-28 20:13:14,884 - app - INFO - Request: GET /api/v1/doctors/ | Status: 200 | Process Time: 0.03s | Request ID: 1e1fd3aa-7d21-49e3-8063-4b192de1e9ea
+2024-10-28 20:14:06,506 - app - INFO - Request: POST /api/v1/patient_symptoms/ | Status: 201 | Process Time: 0.09s | Request ID: 567d77dd-670a-4d64-a4b5-5f46ede2dcfc
+2024-10-28 20:14:12,239 - app - INFO - Request: GET /api/v1/patient_symptoms/ | Status: 200 | Process Time: 0.01s | Request ID: 09cf1a73-daa0-402e-bec5-1efccfdc7899
+2024-10-28 20:14:30,861 - app - INFO - Request: POST /api/v1/patient_visits/ | Status: 201 | Process Time: 0.02s | Request ID: 871c95ac-34fa-4caf-99b7-50771d7641c5
+2024-10-28 20:14:42,684 - app - INFO - Request: POST /api/v1/patient_visits/ | Status: 201 | Process Time: 0.02s | Request ID: e2448934-d5d8-427f-93d8-cbf226b9feb3
+2024-10-28 20:14:46,696 - app - INFO - Request: GET /api/v1/patient_visits/ | Status: 200 | Process Time: 0.02s | Request ID: 6078addb-8aea-460c-b633-7069130a59c7
+2024-10-28 20:15:15,529 - app - INFO - Request: GET /api/v1/patient_visits/ | Status: 200 | Process Time: 0.04s | Request ID: ffe166de-6c56-4f0f-9e6d-a37fa46c06a2
+2024-10-28 20:18:20,191 - app - ERROR - Request: GET /api/v1/patients/5/summary | Status: 500 | Process Time: 0.08s | Request ID: bcd88b2d-e5ff-43bd-97ec-218d04af649e | Error: type object 'PatientSymptom' has no attribute 'VisitID'
+2024-10-28 20:18:50,181 - app - INFO - Request: GET /docs | Status: 200 | Process Time: 0.00s | Request ID: 3dc1191f-217c-4120-b0bb-fbb94e6fa02b
+2024-10-28 20:18:50,548 - app - INFO - Request: GET /openapi.json | Status: 200 | Process Time: 0.04s | Request ID: ce5d2b1e-78d6-41f7-8d17-a2c39e4209fd
+2024-10-28 20:19:01,084 - app - ERROR - Request: GET /api/v1/patients/5/summary | Status: 500 | Process Time: 0.05s | Request ID: 13045dc0-7acf-4bb9-ab61-d3576de6cc26 | Error: type object 'PatientSymptom' has no attribute 'VisitID'
+2024-10-28 20:19:09,069 - app - INFO - Request: GET /api/v1/patient_details/ | Status: 200 | Process Time: 0.04s | Request ID: 41b71c91-4ce0-4f66-bd1a-731fa63beb80
+2024-10-28 20:19:19,931 - app - ERROR - Request: GET /api/v1/patients/5/summary | Status: 500 | Process Time: 0.04s | Request ID: 4097d5bb-f4de-46f3-b42b-5fcff9018652 | Error: type object 'PatientSymptom' has no attribute 'VisitID'
+2024-10-28 20:22:15,385 - app - INFO - Request: GET /docs | Status: 200 | Process Time: 0.00s | Request ID: 84431a9b-f07f-4aec-b22e-75aaf048a28d
+2024-10-28 20:22:15,931 - app - INFO - Request: GET /openapi.json | Status: 200 | Process Time: 0.11s | Request ID: bdb79658-14d6-4e3c-b59b-fdcdd0b8dd5d
+2024-10-28 20:22:28,401 - app - ERROR - Request: GET /api/v1/patient_summary/5/summary | Status: 500 | Process Time: 0.08s | Request ID: c9c21a3d-a206-4d57-9000-42c245bf48c1 | Error: type object 'PatientSymptom' has no attribute 'VisitID'
+2024-10-28 20:28:10,879 - app - ERROR - Request: GET /api/v1/patient_summary/5/summary | Status: 500 | Process Time: 0.04s | Request ID: 36c1865f-c44f-4411-a360-02ff01ab7b65 | Error: 7 validation errors for PatientSummaryResponse
+patient.name
+  Field required [type=missing, input_value=<app.db.models.patient_de...s object at 0x1085dca10>, input_type=PatientDetails]
+    For further information visit https://errors.pydantic.dev/2.9/v/missing
+patient.age
+  Field required [type=missing, input_value=<app.db.models.patient_de...s object at 0x1085dca10>, input_type=PatientDetails]
+    For further information visit https://errors.pydantic.dev/2.9/v/missing
+patient.email
+  Field required [type=missing, input_value=<app.db.models.patient_de...s object at 0x1085dca10>, input_type=PatientDetails]
+    For further information visit https://errors.pydantic.dev/2.9/v/missing
+patient.id
+  Field required [type=missing, input_value=<app.db.models.patient_de...s object at 0x1085dca10>, input_type=PatientDetails]
+    For further information visit https://errors.pydantic.dev/2.9/v/missing
+patient.user_id
+  Field required [type=missing, input_value=<app.db.models.patient_de...s object at 0x1085dca10>, input_type=PatientDetails]
+    For further information visit https://errors.pydantic.dev/2.9/v/missing
+patient.created_at
+  Field required [type=missing, input_value=<app.db.models.patient_de...s object at 0x1085dca10>, input_type=PatientDetails]
+    For further information visit https://errors.pydantic.dev/2.9/v/missing
+patient.updated_at
+  Field required [type=missing, input_value=<app.db.models.patient_de...s object at 0x1085dca10>, input_type=PatientDetails]
+    For further information visit https://errors.pydantic.dev/2.9/v/missing
+2024-10-28 20:30:13,635 - app - INFO - Request: GET /api/v1/patient_summary/5/summary | Status: 200 | Process Time: 0.05s | Request ID: 1774c154-8113-457e-8048-71507f0f9639

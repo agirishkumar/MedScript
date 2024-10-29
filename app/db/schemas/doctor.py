@@ -5,12 +5,12 @@ from typing import Optional
 from datetime import datetime
 
 class DoctorBase(BaseModel):
-    first_name: str
-    last_name: str
-    specialty: str
-    license_number: str
-    contact_number: str
-    email: EmailStr
+    FirstName: str
+    LastName: str
+    Specialty: str
+    LicenseNumber: str
+    ContactNumber: str
+    Email: EmailStr
 
 class DoctorCreate(DoctorBase):
     """Schema for creating a new doctor."""
@@ -18,17 +18,17 @@ class DoctorCreate(DoctorBase):
 
 class DoctorUpdate(BaseModel):
     """Schema for updating an existing doctor. All fields are optional."""
-    first_name: Optional[str] = None
-    last_name: Optional[str] = None
-    specialty: Optional[str] = None
-    license_number: Optional[str] = None
-    contact_number: Optional[str] = None
-    email: Optional[EmailStr] = None
+    FirstName: Optional[str] = None
+    LastName: Optional[str] = None
+    Specialty: Optional[str] = None
+    LicenseNumber: Optional[str] = None
+    ContactNumber: Optional[str] = None
+    Email: Optional[EmailStr] = None
 
 class Doctor(DoctorBase):
     """Schema for a complete doctor record."""
-    doctor_id: int
-    created_at: datetime
+    DoctorID: int
+    CreatedAt: datetime
 
     class Config:
         from_attributes = True
