@@ -33,6 +33,7 @@ To run the pipeline:
     ```bash
     docker-compose --env-file ../.env up
     ```
+The Airflow UI will run on port `8080`. It can be accessed at `http://localhost:8080`. 
 
 - To stop the data pipeline, run the following command:
 
