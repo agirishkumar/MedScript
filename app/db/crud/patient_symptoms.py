@@ -128,7 +128,11 @@ def update_patient_symptom(db: Session, symptom_id: int, patient_symptom: Patien
     Raises:
         HTTPException: 404 Not Found if the patient symptom does not exist.
     """
+<<<<<<< Updated upstream
     logger.info(f"Updating patient symptom with ID: {symptom_id}")
+=======
+
+>>>>>>> Stashed changes
     db_patient_symptom = get_patient_symptom(db, symptom_id)
     for key, value in patient_symptom.dict().items():
         setattr(db_patient_symptom, key, value)
