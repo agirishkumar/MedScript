@@ -5,3 +5,6 @@ app/__pycache__
 .env
 mlruns/.trash
 Med123/
+data-pipeline/secrets
+data-pipeline/logs/*
+data-pipeline/.DS_Store
