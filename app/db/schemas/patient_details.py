@@ -12,6 +12,9 @@ class PatientDetailsBase(BaseModel):
     Address: str
     ContactNumber: str
     Email: EmailStr
+    Height: float
+    Weight: float
+    BloodType: str
 
 class PatientDetailsCreate(PatientDetailsBase):
     pass
@@ -24,6 +27,9 @@ class PatientDetailsUpdate(PatientDetailsBase):
     Address: Optional[str] = None
     ContactNumber: Optional[str] = None
     Email: Optional[EmailStr] = None
+    Height: Optional[float] = None
+    Weight: Optional[float] = None
+    BloodType: Optional[str] = None
 
 class PatientDetails(PatientDetailsBase):
     PatientID: int
