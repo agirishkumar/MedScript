@@ -5,6 +5,8 @@ app/__pycache__
 .env
 mlruns/.trash
 Med123/
-my_notes.txt
 datasets/*
-raw_data
+!datasets/.gitkeep 
+processed_data/*
+rag/*
+!rag/constants.py
