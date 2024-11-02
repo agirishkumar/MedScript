@@ -595,3 +595,380 @@ patient.updated_at
   Field required [type=missing, input_value=<app.db.models.patient_de...s object at 0x1085dca10>, input_type=PatientDetails]
     For further information visit https://errors.pydantic.dev/2.9/v/missing
 2024-10-28 20:30:13,635 - app - INFO - Request: GET /api/v1/patient_summary/5/summary | Status: 200 | Process Time: 0.05s | Request ID: 1774c154-8113-457e-8048-71507f0f9639
+2024-10-28 21:39:25,790 - app - INFO - Request: GET /docs | Status: 200 | Process Time: 0.00s | Request ID: bef9adec-f1e8-49c8-a87a-c97f37e24127
+2024-10-28 21:39:26,004 - app - INFO - Request: GET /openapi.json | Status: 200 | Process Time: 0.03s | Request ID: 9248ee20-6e57-4879-94d9-088e236e5c81
+2024-10-28 21:39:41,131 - app - INFO - Request: GET /api/v1/patient_summary/5/summary | Status: 200 | Process Time: 0.11s | Request ID: 9f13e0bf-2faa-4157-bf75-2f8c654a97f9
+2024-11-01 20:40:34,003 - app - INFO - Request: GET / | Status: 404 | Process Time: 0.00s | Request ID: 891b14bb-b956-410b-8ef8-cfd631a7c8e9
+2024-11-01 20:40:34,787 - app - INFO - Request: GET /favicon.ico | Status: 404 | Process Time: 0.01s | Request ID: 1071a113-688d-487e-b9a4-625899de242d
+2024-11-01 20:40:39,817 - app - INFO - Request: GET /docs | Status: 200 | Process Time: 0.00s | Request ID: 4618fefe-9b07-4160-9c99-c8519bd7c5c3
+2024-11-01 20:40:40,175 - app - INFO - Request: GET /openapi.json | Status: 200 | Process Time: 0.03s | Request ID: 0cd56701-7770-4fde-9092-8eda27a0a39a
+2024-11-01 20:41:39,507 - app.db.crud.patient_details - INFO - Creating new patient details with email: pb@example.com
+2024-11-01 20:41:39,629 - app - ERROR - Request: POST /api/v1/patient_details/ | Status: 500 | Process Time: 0.16s | Request ID: 53dc61a9-d9e5-41a7-b1da-6cc58c685b23 | Error: (psycopg2.errors.UndefinedColumn) column PatientDetails.PatientID does not exist
+LINE 1: SELECT "PatientDetails"."PatientID" AS "PatientDetails_Patie...
+               ^
+HINT:  Perhaps you meant to reference the column "PatientDetails.patientid".
+
+[SQL: SELECT "PatientDetails"."PatientID" AS "PatientDetails_PatientID", "PatientDetails"."FirstName" AS "PatientDetails_FirstName", "PatientDetails"."LastName" AS "PatientDetails_LastName", "PatientDetails"."DateOfBirth" AS "PatientDetails_DateOfBirth", "PatientDetails"."Gender" AS "PatientDetails_Gender", "PatientDetails"."Address" AS "PatientDetails_Address", "PatientDetails"."ContactNumber" AS "PatientDetails_ContactNumber", "PatientDetails"."Email" AS "PatientDetails_Email", "PatientDetails"."Height" AS "PatientDetails_Height", "PatientDetails"."Weight" AS "PatientDetails_Weight", "PatientDetails"."BloodType" AS "PatientDetails_BloodType", "PatientDetails"."CreatedAt" AS "PatientDetails_CreatedAt" 
+FROM "PatientDetails" 
+WHERE "PatientDetails"."Email" = %(Email_1)s 
+ LIMIT %(param_1)s]
+[parameters: {'Email_1': 'pb@example.com', 'param_1': 1}]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2024-11-01 21:40:15,993 - app - INFO - Request: GET /docs | Status: 200 | Process Time: 0.00s | Request ID: 404e1778-c2d1-4098-978d-51de9f88bc09
+2024-11-01 21:40:16,269 - app - INFO - Request: GET /openapi.json | Status: 200 | Process Time: 0.03s | Request ID: 8258dc85-c056-4736-b9ee-adbf30e3bace
+2024-11-01 21:42:26,525 - app.db.crud.patient_details - INFO - Fetching patient details with skip=0 and limit=100
+2024-11-01 21:42:26,611 - app.db.crud.patient_details - INFO - Retrieved 0 patient details records
+2024-11-01 21:42:26,651 - app - INFO - Request: GET /api/v1/patient_details/ | Status: 200 | Process Time: 0.13s | Request ID: a36b4e3e-320a-41b8-8efb-276bffc0047a
+2024-11-01 21:43:04,907 - app.db.crud.patient_details - INFO - Creating new patient details with email: user@example.com
+2024-11-01 21:43:05,044 - app - ERROR - Request: POST /api/v1/patient_details/ | Status: 500 | Process Time: 0.17s | Request ID: f039c22d-c3c2-407c-8db1-4367b6f6f403 | Error: (psycopg2.errors.StringDataRightTruncation) value too long for type character varying(3)
+
+[SQL: INSERT INTO "PatientDetails" ("FirstName", "LastName", "DateOfBirth", "Gender", "Address", "ContactNumber", "Email", "Height", "Weight", "BloodType") VALUES (%(FirstName)s, %(LastName)s, %(DateOfBirth)s, %(Gender)s, %(Address)s, %(ContactNumber)s, %(Email)s, %(Height)s, %(Weight)s, %(BloodType)s) RETURNING "PatientDetails"."PatientID", "PatientDetails"."CreatedAt"]
+[parameters: {'FirstName': 'Pram', 'LastName': 'Bhat', 'DateOfBirth': datetime.date(2024, 11, 2), 'Gender': 'Female', 'Address': 'Parker St', 'ContactNumber': '857-381-3748', 'Email': 'user@example.com', 'Height': 0.0, 'Weight': 0.0, 'BloodType': 'string'}]
+(Background on this error at: https://sqlalche.me/e/20/9h9h)
+2024-11-01 21:44:22,423 - app.db.crud.patient_details - INFO - Creating new patient details with email: user@example.com
+2024-11-01 21:44:22,630 - app.db.crud.patient_details - INFO - Successfully created patient details with ID: 1
+2024-11-01 21:44:22,664 - app - INFO - Request: POST /api/v1/patient_details/ | Status: 201 | Process Time: 0.26s | Request ID: 851a1e25-efe3-4921-9ee6-a5b01386c749
+2024-11-01 21:44:52,438 - app.db.crud.patient_details - INFO - Fetching patient details with skip=0 and limit=100
+2024-11-01 21:44:52,513 - app.db.crud.patient_details - INFO - Retrieved 1 patient details records
+2024-11-01 21:44:52,543 - app - INFO - Request: GET /api/v1/patient_details/ | Status: 200 | Process Time: 0.11s | Request ID: 3d14d329-478f-4b49-a698-16829bcdab73
+2024-11-01 21:46:29,675 - app.db.crud.patient_details - INFO - Fetching patient details with ID: 1
+2024-11-01 21:46:29,847 - app.db.crud.patient_details - INFO - Successfully retrieved patient details with ID: 1
+2024-11-01 21:46:29,957 - app - INFO - Request: GET /api/v1/patient_details/1 | Status: 200 | Process Time: 0.28s | Request ID: 01c8ed3b-4ef1-4ad3-9e49-a24e9087fecd
+2024-11-01 21:46:55,200 - app.db.crud.patient_details - INFO - Updating patient details with ID: 1
+2024-11-01 21:46:55,200 - app.db.crud.patient_details - INFO - Fetching patient details with ID: 1
+2024-11-01 21:46:55,309 - app.db.crud.patient_details - INFO - Successfully retrieved patient details with ID: 1
+2024-11-01 21:46:55,542 - app.db.crud.patient_details - INFO - Successfully updated patient details with ID: 1
+2024-11-01 21:46:55,590 - app - INFO - Request: PUT /api/v1/patient_details/1 | Status: 200 | Process Time: 0.41s | Request ID: 9ae9d0f8-99ad-4d0f-8a20-79ce475d5afb
+2024-11-01 21:49:13,851 - app.db.crud.patient_details - INFO - Deleting patient details with ID: 1
+2024-11-01 21:49:13,852 - app.db.crud.patient_details - INFO - Fetching patient details with ID: 1
+2024-11-01 21:49:13,919 - app.db.crud.patient_details - INFO - Successfully retrieved patient details with ID: 1
+2024-11-01 21:49:14,098 - app.db.crud.patient_details - INFO - Successfully deleted patient details with ID: 1
+2024-11-01 21:49:14,100 - app - INFO - Request: DELETE /api/v1/patient_details/1 | Status: 204 | Process Time: 0.26s | Request ID: 82378f7c-498a-4f34-adc8-12803470352a
+2024-11-01 22:09:40,100 - app - INFO - Request: GET /docs | Status: 200 | Process Time: 0.01s | Request ID: bd6745fd-6d50-430d-ac74-9116a702e190
+2024-11-01 22:09:40,314 - app - INFO - Request: GET /openapi.json | Status: 200 | Process Time: 0.02s | Request ID: 409dbb69-5c43-46c1-8862-ec008f55e411
+2024-11-01 22:09:45,793 - app.db.crud.patient_details - INFO - Fetching patient details with skip=0 and limit=100
+2024-11-01 22:09:45,897 - app.db.crud.patient_details - INFO - Retrieved 10 patient details records
+2024-11-01 22:09:45,937 - app - INFO - Request: GET /api/v1/patient_details/ | Status: 200 | Process Time: 0.16s | Request ID: fcb62699-ef10-48cd-8f98-7bfeac0ad1ff
+2024-11-01 22:09:58,142 - app.db.crud.patient_details - INFO - Fetching patient details with ID: 2
+2024-11-01 22:09:58,334 - app.db.crud.patient_details - INFO - Successfully retrieved patient details with ID: 2
+2024-11-01 22:09:58,395 - app - INFO - Request: GET /api/v1/patient_details/2 | Status: 200 | Process Time: 0.25s | Request ID: da0ab8c0-6c07-4aab-b9e4-6fe465bd22d1
+2024-11-01 22:10:18,669 - app.db.crud.doctor - INFO - Fetching all doctors with skip=0 and limit=100
+2024-11-01 22:10:18,738 - app.db.crud.doctor - INFO - Retrieved 10 doctor records
+2024-11-01 22:10:18,770 - app - INFO - Request: GET /api/v1/doctors/ | Status: 200 | Process Time: 0.10s | Request ID: 824ebbd5-bf2a-499d-a055-55612bf3bb03
+2024-11-01 22:10:30,171 - app.db.crud.doctor - INFO - Fetching doctor with ID: 1
+2024-11-01 22:10:30,235 - app.db.crud.doctor - INFO - Successfully retrieved doctor with ID: 1
+2024-11-01 22:10:30,269 - app - INFO - Request: GET /api/v1/doctors/1 | Status: 200 | Process Time: 0.10s | Request ID: 95ddf2a5-e29d-4a96-91b3-58a72ee165fe
+2024-11-01 22:12:16,444 - app.db.crud.patient_details - INFO - Fetching patient details with ID: 2
+2024-11-01 22:12:16,537 - app.db.crud.patient_details - INFO - Successfully retrieved patient details with ID: 2
+2024-11-01 22:12:16,538 - app.db.crud.patient_symptoms - INFO - Fetching patient symptoms for patient ID: 2
+2024-11-01 22:12:16,578 - app.db.crud.patient_symptoms - INFO - Retrieved 1 symptoms for patient ID: 2
+2024-11-01 22:12:16,583 - app - INFO - Fetching visits with symptom ID: 1
+2024-11-01 22:12:16,614 - app - INFO - Retrieved 3 visits with symptom ID: 1
+2024-11-01 22:12:16,614 - app.db.crud.doctor - INFO - Fetching doctor with ID: 1
+2024-11-01 22:12:16,651 - app.db.crud.doctor - INFO - Successfully retrieved doctor with ID: 1
+2024-11-01 22:12:16,695 - app - ERROR - Request: GET /api/v1/patient_summary/2 | Status: 500 | Process Time: 0.25s | Request ID: 8cdbd7dd-56fb-4463-9ff1-ecb995cff847 | Error: 2 validation errors for VisitDetails
+symptoms.0.Severity
+  Input should be a valid string [type=string_type, input_value=8, input_type=int]
+    For further information visit https://errors.pydantic.dev/2.9/v/string_type
+symptoms.0.AssociatedConditions
+  Input should be a valid string [type=string_type, input_value=None, input_type=NoneType]
+    For further information visit https://errors.pydantic.dev/2.9/v/string_type
+2024-11-01 22:13:15,630 - app.db.crud.patient_symptoms - INFO - Fetching all patient symptoms with skip=0 and limit=100
+2024-11-01 22:13:15,715 - app.db.crud.patient_symptoms - INFO - Retrieved 10 patient symptoms
+2024-11-01 22:13:15,750 - app - ERROR - Request: GET /api/v1/patient_symptoms/ | Status: 500 | Process Time: 0.12s | Request ID: 6fdb5e0d-b921-40a0-98be-64e7793f06aa | Error: 11 validation errors:
+  {'type': 'string_type', 'loc': ('response', 0, 'Severity'), 'msg': 'Input should be a valid string', 'input': 8}
+  {'type': 'string_type', 'loc': ('response', 0, 'AssociatedConditions'), 'msg': 'Input should be a valid string', 'input': None}
+  {'type': 'string_type', 'loc': ('response', 1, 'Severity'), 'msg': 'Input should be a valid string', 'input': 7}
+  {'type': 'string_type', 'loc': ('response', 2, 'Severity'), 'msg': 'Input should be a valid string', 'input': 9}
+  {'type': 'string_type', 'loc': ('response', 3, 'Severity'), 'msg': 'Input should be a valid string', 'input': 10}
+  {'type': 'string_type', 'loc': ('response', 4, 'Severity'), 'msg': 'Input should be a valid string', 'input': 6}
+  {'type': 'string_type', 'loc': ('response', 5, 'Severity'), 'msg': 'Input should be a valid string', 'input': 5}
+  {'type': 'string_type', 'loc': ('response', 6, 'Severity'), 'msg': 'Input should be a valid string', 'input': 4}
+  {'type': 'string_type', 'loc': ('response', 7, 'Severity'), 'msg': 'Input should be a valid string', 'input': 8}
+  {'type': 'string_type', 'loc': ('response', 8, 'Severity'), 'msg': 'Input should be a valid string', 'input': 6}
+  {'type': 'string_type', 'loc': ('response', 9, 'Severity'), 'msg': 'Input should be a valid string', 'input': 5}
+
+2024-11-01 22:13:48,238 - app.db.crud.patient_symptoms - INFO - Fetching all patient symptoms with skip=0 and limit=100
+2024-11-01 22:13:48,323 - app.db.crud.patient_symptoms - INFO - Retrieved 10 patient symptoms
+2024-11-01 22:13:48,357 - app - ERROR - Request: GET /api/v1/patient_symptoms/ | Status: 500 | Process Time: 0.12s | Request ID: 8ebebfed-f0ab-45ff-bc38-43588372c64f | Error: 11 validation errors:
+  {'type': 'string_type', 'loc': ('response', 0, 'Severity'), 'msg': 'Input should be a valid string', 'input': 8}
+  {'type': 'string_type', 'loc': ('response', 0, 'AssociatedConditions'), 'msg': 'Input should be a valid string', 'input': None}
+  {'type': 'string_type', 'loc': ('response', 1, 'Severity'), 'msg': 'Input should be a valid string', 'input': 7}
+  {'type': 'string_type', 'loc': ('response', 2, 'Severity'), 'msg': 'Input should be a valid string', 'input': 9}
+  {'type': 'string_type', 'loc': ('response', 3, 'Severity'), 'msg': 'Input should be a valid string', 'input': 10}
+  {'type': 'string_type', 'loc': ('response', 4, 'Severity'), 'msg': 'Input should be a valid string', 'input': 6}
+  {'type': 'string_type', 'loc': ('response', 5, 'Severity'), 'msg': 'Input should be a valid string', 'input': 5}
+  {'type': 'string_type', 'loc': ('response', 6, 'Severity'), 'msg': 'Input should be a valid string', 'input': 4}
+  {'type': 'string_type', 'loc': ('response', 7, 'Severity'), 'msg': 'Input should be a valid string', 'input': 8}
+  {'type': 'string_type', 'loc': ('response', 8, 'Severity'), 'msg': 'Input should be a valid string', 'input': 6}
+  {'type': 'string_type', 'loc': ('response', 9, 'Severity'), 'msg': 'Input should be a valid string', 'input': 5}
+
+2024-11-01 22:15:39,729 - app.db.crud.patient_details - INFO - Fetching patient details with ID: 2
+2024-11-01 22:15:39,823 - app.db.crud.patient_details - INFO - Successfully retrieved patient details with ID: 2
+2024-11-01 22:15:39,823 - app.db.crud.patient_symptoms - INFO - Fetching patient symptoms for patient ID: 2
+2024-11-01 22:15:39,854 - app.db.crud.patient_symptoms - INFO - Retrieved 1 symptoms for patient ID: 2
+2024-11-01 22:15:39,854 - app - INFO - Fetching visits with symptom ID: 1
+2024-11-01 22:15:39,888 - app - INFO - Retrieved 3 visits with symptom ID: 1
+2024-11-01 22:15:39,888 - app.db.crud.doctor - INFO - Fetching doctor with ID: 1
+2024-11-01 22:15:39,925 - app.db.crud.doctor - INFO - Successfully retrieved doctor with ID: 1
+2024-11-01 22:15:39,975 - app - ERROR - Request: GET /api/v1/patient_summary/2 | Status: 500 | Process Time: 0.24s | Request ID: 9f0f5dfd-42da-448c-92c4-9937ce15f208 | Error: 3 validation errors for VisitDetails
+symptoms.0.Severity
+  Input should be a valid string [type=string_type, input_value=8, input_type=int]
+    For further information visit https://errors.pydantic.dev/2.9/v/string_type
+symptoms.0.Duration
+  Input should be a valid string [type=string_type, input_value=3, input_type=int]
+    For further information visit https://errors.pydantic.dev/2.9/v/string_type
+symptoms.0.AssociatedConditions
+  Input should be a valid string [type=string_type, input_value=None, input_type=NoneType]
+    For further information visit https://errors.pydantic.dev/2.9/v/string_type
+2024-11-01 22:26:05,699 - app.db.crud.patient_details - INFO - Fetching patient details with ID: 2
+2024-11-01 22:26:05,786 - app.db.crud.patient_details - INFO - Successfully retrieved patient details with ID: 2
+2024-11-01 22:26:05,786 - app.db.crud.patient_symptoms - INFO - Fetching patient symptoms for patient ID: 2
+2024-11-01 22:26:05,819 - app.db.crud.patient_symptoms - INFO - Retrieved 2 symptoms for patient ID: 2
+2024-11-01 22:26:05,820 - app - INFO - Fetching visits with symptom ID: 1
+2024-11-01 22:26:05,851 - app - INFO - Retrieved 1 visits with symptom ID: 1
+2024-11-01 22:26:05,851 - app.db.crud.doctor - INFO - Fetching doctor with ID: 1
+2024-11-01 22:26:05,883 - app.db.crud.doctor - INFO - Successfully retrieved doctor with ID: 1
+2024-11-01 22:26:05,925 - app - ERROR - Request: GET /api/v1/patient_summary/2 | Status: 500 | Process Time: 0.24s | Request ID: 9210ad72-61c3-4cf2-a632-53b9536295cb | Error: 1 validation error for VisitDetails
+symptoms.0.ModelInputDescription
+  Input should be a valid string [type=string_type, input_value=None, input_type=NoneType]
+    For further information visit https://errors.pydantic.dev/2.9/v/string_type
+2024-11-01 22:28:44,653 - app.db.crud.patient_details - INFO - Fetching patient details with ID: 2
+2024-11-01 22:28:44,735 - app.db.crud.patient_details - INFO - Successfully retrieved patient details with ID: 2
+2024-11-01 22:28:44,735 - app.db.crud.patient_symptoms - INFO - Fetching patient symptoms for patient ID: 2
+2024-11-01 22:28:44,767 - app.db.crud.patient_symptoms - INFO - Retrieved 2 symptoms for patient ID: 2
+2024-11-01 22:28:44,767 - app - INFO - Fetching visits with symptom ID: 1
+2024-11-01 22:28:44,799 - app - INFO - Retrieved 1 visits with symptom ID: 1
+2024-11-01 22:28:44,799 - app.db.crud.doctor - INFO - Fetching doctor with ID: 1
+2024-11-01 22:28:44,833 - app.db.crud.doctor - INFO - Successfully retrieved doctor with ID: 1
+2024-11-01 22:28:44,843 - app - INFO - Fetching visits with symptom ID: 2
+2024-11-01 22:28:44,885 - app - INFO - Retrieved 1 visits with symptom ID: 2
+2024-11-01 22:28:44,886 - app.db.crud.doctor - INFO - Fetching doctor with ID: 1
+2024-11-01 22:28:44,914 - app.db.crud.doctor - INFO - Successfully retrieved doctor with ID: 1
+2024-11-01 22:28:44,945 - app - INFO - Request: GET /api/v1/patient_summary/2 | Status: 200 | Process Time: 0.29s | Request ID: ed971271-3608-4304-a2df-235c2e98a1df
+2024-11-01 22:29:12,770 - app.db.crud.doctor - INFO - Creating new doctor with email: user@example.com
+2024-11-01 22:29:13,015 - app.db.crud.doctor - INFO - Successfully created doctor with ID: 11
+2024-11-01 22:29:13,043 - app - INFO - Request: POST /api/v1/doctors/ | Status: 201 | Process Time: 0.29s | Request ID: 0bc94418-e4ee-4404-80b4-112312a617ef
+2024-11-01 22:29:20,928 - app.db.crud.doctor - INFO - Fetching all doctors with skip=0 and limit=100
+2024-11-01 22:29:21,004 - app.db.crud.doctor - INFO - Retrieved 11 doctor records
+2024-11-01 22:29:21,036 - app - INFO - Request: GET /api/v1/doctors/ | Status: 200 | Process Time: 0.11s | Request ID: a863cd9b-524a-45b8-bd19-8ac9171383ec
+2024-11-01 22:29:30,044 - app.db.crud.doctor - INFO - Fetching doctor with ID: 11
+2024-11-01 22:29:30,107 - app.db.crud.doctor - INFO - Successfully retrieved doctor with ID: 11
+2024-11-01 22:29:30,144 - app - INFO - Request: GET /api/v1/doctors/11 | Status: 200 | Process Time: 0.10s | Request ID: 9d4bfdc1-1df5-4526-975e-884c3a647809
+2024-11-01 22:29:42,774 - app.db.crud.doctor - INFO - Updating doctor with ID: 11
+2024-11-01 22:29:42,775 - app.db.crud.doctor - INFO - Fetching doctor with ID: 11
+2024-11-01 22:29:42,846 - app.db.crud.doctor - INFO - Successfully retrieved doctor with ID: 11
+2024-11-01 22:29:43,014 - app.db.crud.doctor - INFO - Successfully updated doctor with ID: 11
+2024-11-01 22:29:43,049 - app - INFO - Request: PUT /api/v1/doctors/11 | Status: 200 | Process Time: 0.29s | Request ID: 7d55811e-5a91-4e12-9997-cefcc512e17f
+2024-11-01 22:30:14,770 - app.db.crud.patient_details - INFO - Creating new patient details with email: user@example.com
+2024-11-01 22:30:14,982 - app.db.crud.patient_details - INFO - Successfully created patient details with ID: 12
+2024-11-01 22:30:15,016 - app - INFO - Request: POST /api/v1/patient_details/ | Status: 201 | Process Time: 0.25s | Request ID: 934ae338-8eed-44ff-910b-56bedb08332c
+2024-11-01 22:30:21,245 - app.db.crud.patient_details - INFO - Fetching patient details with skip=0 and limit=100
+2024-11-01 22:30:21,462 - app.db.crud.patient_details - INFO - Retrieved 11 patient details records
+2024-11-01 22:30:21,495 - app - INFO - Request: GET /api/v1/patient_details/ | Status: 200 | Process Time: 0.25s | Request ID: 8fe1fe76-d46a-40f5-87bf-b681eeab60fd
+2024-11-01 22:30:32,363 - app.db.crud.patient_details - INFO - Fetching patient details with ID: 12
+2024-11-01 22:30:32,445 - app.db.crud.patient_details - INFO - Successfully retrieved patient details with ID: 12
+2024-11-01 22:30:32,488 - app - INFO - Request: GET /api/v1/patient_details/12 | Status: 200 | Process Time: 0.13s | Request ID: 586757df-f3a6-46ac-bd62-7d717c7cb5ae
+2024-11-01 22:30:53,781 - app.db.crud.patient_details - INFO - Updating patient details with ID: 11
+2024-11-01 22:30:53,781 - app.db.crud.patient_details - INFO - Fetching patient details with ID: 11
+2024-11-01 22:30:53,842 - app.db.crud.patient_details - INFO - Successfully retrieved patient details with ID: 11
+2024-11-01 22:30:53,974 - app.db.crud.patient_details - INFO - Successfully updated patient details with ID: 11
+2024-11-01 22:30:54,010 - app - INFO - Request: PUT /api/v1/patient_details/11 | Status: 200 | Process Time: 0.24s | Request ID: 579a9439-62e4-495f-9641-a012b35fbc76
+2024-11-01 22:32:29,939 - app.db.crud.patient_symptoms - INFO - Creating a new patient symptom
+2024-11-01 22:32:30,101 - app.db.crud.patient_symptoms - INFO - Successfully created patient symptom with ID: 13
+2024-11-01 22:32:30,149 - app - INFO - Request: POST /api/v1/patient_symptoms/ | Status: 201 | Process Time: 0.22s | Request ID: d252f957-a87d-43fe-9d94-1ee38e03e21f
+2024-11-01 22:33:06,942 - app.db.crud.patient_symptoms - INFO - Fetching all patient symptoms with skip=0 and limit=100
+2024-11-01 22:33:07,014 - app.db.crud.patient_symptoms - INFO - Retrieved 13 patient symptoms
+2024-11-01 22:33:07,044 - app - INFO - Request: GET /api/v1/patient_symptoms/ | Status: 200 | Process Time: 0.11s | Request ID: 5a1bf7dc-e12a-4ad6-9deb-e5fd34dc810d
+2024-11-01 22:33:28,930 - app.db.crud.patient_symptoms - INFO - Fetching patient symptom with ID: 13
+2024-11-01 22:33:29,002 - app.db.crud.patient_symptoms - INFO - Successfully retrieved patient symptom with ID: 13
+2024-11-01 22:33:29,028 - app - INFO - Request: GET /api/v1/patient_symptoms/13 | Status: 200 | Process Time: 0.10s | Request ID: f2cfceab-a67c-40fd-bae6-7484346de20d
+2024-11-01 22:34:04,122 - app.db.crud.patient_symptoms - INFO - Updating patient symptom with ID: 13
+2024-11-01 22:34:04,138 - app.db.crud.patient_symptoms - INFO - Fetching patient symptom with ID: 13
+2024-11-01 22:34:04,207 - app.db.crud.patient_symptoms - INFO - Successfully retrieved patient symptom with ID: 13
+2024-11-01 22:34:04,325 - app.db.crud.patient_symptoms - INFO - Successfully updated patient symptom with ID: 13
+2024-11-01 22:34:04,358 - app - ERROR - Request: PUT /api/v1/patient_symptoms/13 | Status: 500 | Process Time: 0.25s | Request ID: 2fe98f72-b73c-4eb4-848a-3de3b6bf1c45 | Error: 3 validation errors:
+  {'type': 'string_type', 'loc': ('response', 'SymptomDescription'), 'msg': 'Input should be a valid string', 'input': None}
+  {'type': 'string_type', 'loc': ('response', 'Severity'), 'msg': 'Input should be a valid string', 'input': None}
+  {'type': 'string_type', 'loc': ('response', 'Duration'), 'msg': 'Input should be a valid string', 'input': None}
+
+2024-11-01 22:35:05,862 - app - INFO - Request: GET /docs | Status: 200 | Process Time: 0.01s | Request ID: 3c4e7dc0-8f8a-4594-96db-720a00909187
+2024-11-01 22:35:06,061 - app - INFO - Request: GET /openapi.json | Status: 200 | Process Time: 0.04s | Request ID: f6374c25-1b31-46d4-8361-3dd529bb1a41
+2024-11-01 22:35:21,280 - app.db.crud.patient_symptoms - INFO - Updating patient symptom with ID: 13
+2024-11-01 22:35:21,280 - app.db.crud.patient_symptoms - INFO - Fetching patient symptom with ID: 13
+2024-11-01 22:35:21,346 - app.db.crud.patient_symptoms - INFO - Successfully retrieved patient symptom with ID: 13
+2024-11-01 22:35:21,431 - app.db.crud.patient_symptoms - INFO - Successfully updated patient symptom with ID: 13
+2024-11-01 22:35:21,467 - app - ERROR - Request: PUT /api/v1/patient_symptoms/13 | Status: 500 | Process Time: 0.19s | Request ID: 11ccca0a-2a6b-4bb3-b294-afb90843f21e | Error: 3 validation errors:
+  {'type': 'string_type', 'loc': ('response', 'SymptomDescription'), 'msg': 'Input should be a valid string', 'input': None}
+  {'type': 'string_type', 'loc': ('response', 'Severity'), 'msg': 'Input should be a valid string', 'input': None}
+  {'type': 'string_type', 'loc': ('response', 'Duration'), 'msg': 'Input should be a valid string', 'input': None}
+
+2024-11-01 22:36:20,639 - app.db.crud.patient_symptoms - INFO - Fetching patient symptom with ID: 13
+2024-11-01 22:36:20,714 - app.db.crud.patient_symptoms - INFO - Successfully retrieved patient symptom with ID: 13
+2024-11-01 22:36:20,749 - app - ERROR - Request: GET /api/v1/patient_symptoms/13 | Status: 500 | Process Time: 0.11s | Request ID: dda187a9-ab63-4520-9de2-9e49201e87d5 | Error: 3 validation errors:
+  {'type': 'string_type', 'loc': ('response', 'SymptomDescription'), 'msg': 'Input should be a valid string', 'input': None}
+  {'type': 'string_type', 'loc': ('response', 'Severity'), 'msg': 'Input should be a valid string', 'input': None}
+  {'type': 'string_type', 'loc': ('response', 'Duration'), 'msg': 'Input should be a valid string', 'input': None}
+
+2024-11-01 22:36:28,645 - app.db.crud.patient_symptoms - INFO - Fetching all patient symptoms with skip=0 and limit=100
+2024-11-01 22:36:28,720 - app.db.crud.patient_symptoms - INFO - Retrieved 13 patient symptoms
+2024-11-01 22:36:28,750 - app - ERROR - Request: GET /api/v1/patient_symptoms/ | Status: 500 | Process Time: 0.11s | Request ID: 752b543f-ef71-45cd-9b87-b900f0342436 | Error: 3 validation errors:
+  {'type': 'string_type', 'loc': ('response', 12, 'SymptomDescription'), 'msg': 'Input should be a valid string', 'input': None}
+  {'type': 'string_type', 'loc': ('response', 12, 'Severity'), 'msg': 'Input should be a valid string', 'input': None}
+  {'type': 'string_type', 'loc': ('response', 12, 'Duration'), 'msg': 'Input should be a valid string', 'input': None}
+
+2024-11-01 22:37:16,067 - app.db.crud.doctor - INFO - Fetching all doctors with skip=0 and limit=100
+2024-11-01 22:37:16,139 - app.db.crud.doctor - INFO - Retrieved 11 doctor records
+2024-11-01 22:37:16,173 - app - INFO - Request: GET /api/v1/doctors/ | Status: 200 | Process Time: 0.11s | Request ID: 6ab82553-1373-4d3d-a65e-fb23fe2dc374
+2024-11-01 22:37:26,287 - app.db.crud.patient_symptoms - INFO - Fetching all patient symptoms with skip=0 and limit=100
+2024-11-01 22:37:26,353 - app.db.crud.patient_symptoms - INFO - Retrieved 13 patient symptoms
+2024-11-01 22:37:26,385 - app - ERROR - Request: GET /api/v1/patient_symptoms/ | Status: 500 | Process Time: 0.10s | Request ID: 8e7db5ff-d5e9-4552-a4fd-73b1a3dbd66e | Error: 3 validation errors:
+  {'type': 'string_type', 'loc': ('response', 12, 'SymptomDescription'), 'msg': 'Input should be a valid string', 'input': None}
+  {'type': 'string_type', 'loc': ('response', 12, 'Severity'), 'msg': 'Input should be a valid string', 'input': None}
+  {'type': 'string_type', 'loc': ('response', 12, 'Duration'), 'msg': 'Input should be a valid string', 'input': None}
+
+2024-11-01 22:38:55,236 - app.db.crud.patient_symptoms - INFO - Fetching all patient symptoms with skip=0 and limit=100
+2024-11-01 22:38:55,303 - app.db.crud.patient_symptoms - INFO - Retrieved 13 patient symptoms
+2024-11-01 22:38:55,333 - app - ERROR - Request: GET /api/v1/patient_symptoms/ | Status: 500 | Process Time: 0.10s | Request ID: 722263c0-8e38-433d-83b8-1480000de8a5 | Error: 1 validation errors:
+  {'type': 'string_type', 'loc': ('response', 12, 'SymptomDescription'), 'msg': 'Input should be a valid string', 'input': None}
+
+2024-11-01 22:38:58,307 - app - INFO - Request: GET /docs | Status: 200 | Process Time: 0.00s | Request ID: 8f9f5a5b-909d-412c-9c1b-c1f12c7d8812
+2024-11-01 22:38:58,492 - app - INFO - Request: GET /openapi.json | Status: 200 | Process Time: 0.03s | Request ID: 11eacc2f-665b-4d61-a7b6-5f4cb78c76a2
+2024-11-01 22:39:20,560 - app.db.crud.patient_symptoms - INFO - Fetching all patient symptoms with skip=0 and limit=100
+2024-11-01 22:39:20,636 - app.db.crud.patient_symptoms - INFO - Retrieved 13 patient symptoms
+2024-11-01 22:39:20,664 - app - ERROR - Request: GET /api/v1/patient_symptoms/ | Status: 500 | Process Time: 0.11s | Request ID: 81f8a677-af7e-4da5-85c8-f96b993167c4 | Error: 1 validation errors:
+  {'type': 'string_type', 'loc': ('response', 12, 'SymptomDescription'), 'msg': 'Input should be a valid string', 'input': None}
+
+2024-11-01 22:40:26,406 - app - INFO - Request: GET /docs | Status: 200 | Process Time: 0.00s | Request ID: db08cb31-3d78-440c-8d33-3cdc9085348f
+2024-11-01 22:40:26,572 - app - INFO - Request: GET /openapi.json | Status: 200 | Process Time: 0.03s | Request ID: b0bbaf5d-9d30-4606-81a0-ba75c5bd42a6
+2024-11-01 22:40:30,184 - app.db.crud.patient_symptoms - INFO - Fetching all patient symptoms with skip=0 and limit=100
+2024-11-01 22:40:30,322 - app.db.crud.patient_symptoms - INFO - Retrieved 13 patient symptoms
+2024-11-01 22:40:30,366 - app - INFO - Request: GET /api/v1/patient_symptoms/ | Status: 200 | Process Time: 0.19s | Request ID: f5e53e4a-9d7c-41bf-85a0-f532e143da76
+2024-11-01 22:40:54,867 - app.db.crud.patient_symptoms - INFO - Creating a new patient symptom
+2024-11-01 22:40:55,580 - app.db.crud.patient_symptoms - INFO - Successfully created patient symptom with ID: 14
+2024-11-01 22:40:55,634 - app - INFO - Request: POST /api/v1/patient_symptoms/ | Status: 201 | Process Time: 0.78s | Request ID: 97f0f6ca-c0d9-462e-83e7-cfd85cf4422a
+2024-11-01 22:41:02,921 - app.db.crud.patient_symptoms - INFO - Fetching all patient symptoms with skip=0 and limit=100
+2024-11-01 22:41:03,030 - app.db.crud.patient_symptoms - INFO - Retrieved 14 patient symptoms
+2024-11-01 22:41:03,108 - app - INFO - Request: GET /api/v1/patient_symptoms/ | Status: 200 | Process Time: 0.19s | Request ID: fe2e425d-8703-43de-b8db-6d92d188b09c
+2024-11-01 22:41:17,830 - app.db.crud.patient_symptoms - INFO - Fetching patient symptom with ID: 12
+2024-11-01 22:41:18,038 - app.db.crud.patient_symptoms - INFO - Successfully retrieved patient symptom with ID: 12
+2024-11-01 22:41:18,138 - app - INFO - Request: GET /api/v1/patient_symptoms/12 | Status: 200 | Process Time: 0.31s | Request ID: 21ad0544-09d3-4a2e-9f29-8cd1f18d8931
+2024-11-01 22:41:34,165 - app.db.crud.patient_symptoms - INFO - Updating patient symptom with ID: 12
+2024-11-01 22:41:34,165 - app.db.crud.patient_symptoms - INFO - Fetching patient symptom with ID: 12
+2024-11-01 22:41:34,280 - app.db.crud.patient_symptoms - INFO - Successfully retrieved patient symptom with ID: 12
+2024-11-01 22:41:34,529 - app.db.crud.patient_symptoms - INFO - Successfully updated patient symptom with ID: 12
+2024-11-01 22:41:34,565 - app - INFO - Request: PUT /api/v1/patient_symptoms/12 | Status: 200 | Process Time: 0.41s | Request ID: 3485dfff-40d9-4674-bcbd-cc52375eca91
+2024-11-01 22:42:04,488 - app - INFO - Creating a new patient visit
+2024-11-01 22:42:04,652 - app - INFO - Successfully created patient visit with ID: 9
+2024-11-01 22:42:04,684 - app - INFO - Request: POST /api/v1/patient_visits/ | Status: 201 | Process Time: 0.21s | Request ID: 246c46c3-f9c6-468d-8c80-046430497761
+2024-11-01 22:42:20,241 - app - INFO - Fetching all patient visits with skip=0 and limit=100
+2024-11-01 22:42:20,317 - app - INFO - Retrieved 9 patient visits
+2024-11-01 22:42:20,348 - app - INFO - Request: GET /api/v1/patient_visits/ | Status: 200 | Process Time: 0.11s | Request ID: ea3818b3-c475-48c7-9baa-5a1d265829e7
+2024-11-01 22:42:30,242 - app - INFO - Fetching patient visit with ID: 9
+2024-11-01 22:42:30,311 - app - INFO - Successfully retrieved patient visit with ID: 9
+2024-11-01 22:42:30,348 - app - INFO - Request: GET /api/v1/patient_visits/9 | Status: 200 | Process Time: 0.11s | Request ID: 464fc9e7-f9c7-4628-b163-089b047897ef
+2024-11-01 22:42:49,364 - app - INFO - Updating patient visit with ID: 9
+2024-11-01 22:42:49,364 - app - INFO - Fetching patient visit with ID: 9
+2024-11-01 22:42:49,423 - app - INFO - Successfully retrieved patient visit with ID: 9
+2024-11-01 22:42:49,544 - app - INFO - Successfully updated patient visit with ID: 9
+2024-11-01 22:42:49,579 - app - INFO - Request: PUT /api/v1/patient_visits/9 | Status: 200 | Process Time: 0.22s | Request ID: 4191c00a-de96-4d92-842f-95de1acac166
+2024-11-01 22:43:04,297 - app.db.crud.patient_details - INFO - Fetching patient details with ID: 2
+2024-11-01 22:43:04,372 - app.db.crud.patient_details - INFO - Successfully retrieved patient details with ID: 2
+2024-11-01 22:43:04,373 - app.db.crud.patient_symptoms - INFO - Fetching patient symptoms for patient ID: 2
+2024-11-01 22:43:04,405 - app.db.crud.patient_symptoms - INFO - Retrieved 3 symptoms for patient ID: 2
+2024-11-01 22:43:04,406 - app - INFO - Fetching visits with symptom ID: 1
+2024-11-01 22:43:04,445 - app - INFO - Retrieved 1 visits with symptom ID: 1
+2024-11-01 22:43:04,446 - app.db.crud.doctor - INFO - Fetching doctor with ID: 1
+2024-11-01 22:43:04,474 - app.db.crud.doctor - INFO - Successfully retrieved doctor with ID: 1
+2024-11-01 22:43:04,491 - app - INFO - Fetching visits with symptom ID: 2
+2024-11-01 22:43:04,523 - app - INFO - Retrieved 1 visits with symptom ID: 2
+2024-11-01 22:43:04,523 - app.db.crud.doctor - INFO - Fetching doctor with ID: 1
+2024-11-01 22:43:04,559 - app.db.crud.doctor - INFO - Successfully retrieved doctor with ID: 1
+2024-11-01 22:43:04,560 - app - INFO - Fetching visits with symptom ID: 12
+2024-11-01 22:43:04,590 - app - INFO - Retrieved 1 visits with symptom ID: 12
+2024-11-01 22:43:04,590 - app.db.crud.doctor - INFO - Fetching doctor with ID: 1
+2024-11-01 22:43:04,627 - app.db.crud.doctor - INFO - Successfully retrieved doctor with ID: 1
+2024-11-01 22:43:04,660 - app - INFO - Request: GET /api/v1/patient_summary/2 | Status: 200 | Process Time: 0.37s | Request ID: 2287b532-9c3c-491b-8061-d7b295f40519
+2024-11-01 22:43:33,540 - app - INFO - Deleting patient visit with ID: 9
+2024-11-01 22:43:33,542 - app - INFO - Fetching patient visit with ID: 9
+2024-11-01 22:43:33,608 - app - INFO - Successfully retrieved patient visit with ID: 9
+2024-11-01 22:43:36,083 - app - INFO - Successfully deleted patient visit with ID: 9
+2024-11-01 22:43:36,087 - app - INFO - Request: DELETE /api/v1/patient_visits/9 | Status: 204 | Process Time: 2.57s | Request ID: 3f176cdf-18a6-4c30-bccb-608f94a19f43
+2024-11-01 22:43:52,721 - app - INFO - Fetching patient visit with ID: 9
+2024-11-01 22:43:52,810 - app - WARNING - Patient visit with ID 9 not found
+2024-11-01 22:43:52,845 - app - INFO - Request: GET /api/v1/patient_visits/9 | Status: 404 | Process Time: 0.13s | Request ID: 5df9de65-6a79-49fe-8beb-65a191cd8d60
+2024-11-01 22:44:10,236 - app.db.crud.patient_symptoms - INFO - Deleting patient symptom with ID: 12
+2024-11-01 22:44:10,237 - app.db.crud.patient_symptoms - INFO - Fetching patient symptom with ID: 12
+2024-11-01 22:44:10,306 - app.db.crud.patient_symptoms - WARNING - Patient symptom with ID 12 not found
+2024-11-01 22:44:10,336 - app - INFO - Request: DELETE /api/v1/patient_symptoms/12 | Status: 404 | Process Time: 0.11s | Request ID: b2130330-5262-476b-a381-e26aa4930f7e
+2024-11-01 22:44:16,960 - app.db.crud.patient_symptoms - INFO - Deleting patient symptom with ID: 13
+2024-11-01 22:44:16,960 - app.db.crud.patient_symptoms - INFO - Fetching patient symptom with ID: 13
+2024-11-01 22:44:17,031 - app.db.crud.patient_symptoms - INFO - Successfully retrieved patient symptom with ID: 13
+2024-11-01 22:44:17,260 - app.db.crud.patient_symptoms - INFO - Successfully deleted patient symptom with ID: 13
+2024-11-01 22:44:17,263 - app - INFO - Request: DELETE /api/v1/patient_symptoms/13 | Status: 204 | Process Time: 0.30s | Request ID: b4654bd1-d8e7-455f-8198-151ddabeaa79
+2024-11-01 22:44:42,827 - app.db.crud.doctor - INFO - Deleting doctor with ID: 11
+2024-11-01 22:44:42,827 - app.db.crud.doctor - INFO - Fetching doctor with ID: 11
+2024-11-01 22:44:42,891 - app.db.crud.doctor - INFO - Successfully retrieved doctor with ID: 11
+2024-11-01 22:44:42,986 - app.db.crud.doctor - INFO - Successfully deleted doctor with ID: 11
+2024-11-01 22:44:42,988 - app - INFO - Request: DELETE /api/v1/doctors/11 | Status: 204 | Process Time: 0.16s | Request ID: 2ba62627-35ca-41d6-a4bc-864325958dcd
+2024-11-01 22:44:54,314 - app.db.crud.patient_details - INFO - Deleting patient details with ID: 12
+2024-11-01 22:44:54,314 - app.db.crud.patient_details - INFO - Fetching patient details with ID: 12
+2024-11-01 22:44:54,384 - app.db.crud.patient_details - WARNING - Patient details with ID 12 not found
+2024-11-01 22:44:54,416 - app - INFO - Request: DELETE /api/v1/patient_details/12 | Status: 404 | Process Time: 0.11s | Request ID: 7d7e7869-d994-4db9-b173-133211bb1d6d
+2024-11-01 22:45:02,596 - app.db.crud.patient_details - INFO - Fetching patient details with skip=0 and limit=100
+2024-11-01 22:45:02,666 - app.db.crud.patient_details - INFO - Retrieved 3 patient details records
+2024-11-01 22:45:02,701 - app - INFO - Request: GET /api/v1/patient_details/ | Status: 200 | Process Time: 0.11s | Request ID: 515a8489-73e8-4149-aa6d-dbc61e211d8c
+2024-11-01 22:46:42,552 - app - INFO - Request: GET /docs | Status: 200 | Process Time: 0.00s | Request ID: 77393141-0a0d-4a8f-a882-f85ef4816b5b
+2024-11-01 22:46:42,696 - app - INFO - Request: GET /openapi.json | Status: 200 | Process Time: 0.00s | Request ID: 4376af4a-96de-4244-b40e-fb1fc941df01
+2024-11-01 22:46:44,824 - app - INFO - Request: GET /docs | Status: 200 | Process Time: 0.01s | Request ID: ba43efb6-937e-44a1-b283-ec900fb4a0b3
+2024-11-01 22:46:45,003 - app - INFO - Request: GET /openapi.json | Status: 200 | Process Time: 0.01s | Request ID: 65a01aeb-2f33-4a91-9bc5-0ca1b74abf5d
+2024-11-01 22:46:53,583 - app.db.crud.patient_details - INFO - Creating new patient details with email: user@example.com
+2024-11-01 22:46:53,798 - app - ERROR - Request: POST /api/v1/patient_details/ | Status: 500 | Process Time: 0.30s | Request ID: 9cb42b14-25b4-48b2-bae1-94f5b531e5f7 | Error: (psycopg2.errors.StringDataRightTruncation) value too long for type character varying(3)
+
+[SQL: INSERT INTO "PatientDetails" ("FirstName", "LastName", "DateOfBirth", "Gender", "Address", "ContactNumber", "Email", "Height", "Weight", "BloodType") VALUES (%(FirstName)s, %(LastName)s, %(DateOfBirth)s, %(Gender)s, %(Address)s, %(ContactNumber)s, %(Email)s, %(Height)s, %(Weight)s, %(BloodType)s) RETURNING "PatientDetails"."PatientID", "PatientDetails"."CreatedAt"]
+[parameters: {'FirstName': 'string', 'LastName': 'string', 'DateOfBirth': datetime.date(2024, 11, 2), 'Gender': 'string', 'Address': 'string', 'ContactNumber': 'string', 'Email': 'user@example.com', 'Height': 0.0, 'Weight': 0.0, 'BloodType': 'string'}]
+(Background on this error at: https://sqlalche.me/e/20/9h9h)
+2024-11-01 22:47:17,471 - app.db.crud.patient_details - INFO - Creating new patient details with email: user@example.com
+2024-11-01 22:47:17,684 - app.db.crud.patient_details - INFO - Successfully created patient details with ID: 28
+2024-11-01 22:47:17,714 - app - INFO - Request: POST /api/v1/patient_details/ | Status: 201 | Process Time: 0.26s | Request ID: 9b2bad31-e6f2-433e-8e82-c20eb342d302
+2024-11-01 22:47:39,705 - app.db.crud.patient_details - INFO - Fetching patient details with skip=0 and limit=100
+2024-11-01 22:47:39,797 - app.db.crud.patient_details - INFO - Retrieved 11 patient details records
+2024-11-01 22:47:39,828 - app - INFO - Request: GET /api/v1/patient_details/ | Status: 200 | Process Time: 0.13s | Request ID: 32cdfac7-28ec-4db3-97ca-1c4caf66239a
+2024-11-01 22:47:54,305 - app.db.crud.patient_details - INFO - Fetching patient details with ID: 28
+2024-11-01 22:47:54,371 - app.db.crud.patient_details - INFO - Successfully retrieved patient details with ID: 28
+2024-11-01 22:47:54,417 - app - INFO - Request: GET /api/v1/patient_details/28 | Status: 200 | Process Time: 0.11s | Request ID: c30b7bf6-a5db-4fbb-b8a8-ecc4ad5dc5c2
+2024-11-01 22:48:32,915 - app.db.crud.patient_details - INFO - Updating patient details with ID: 28
+2024-11-01 22:48:32,916 - app.db.crud.patient_details - INFO - Fetching patient details with ID: 28
+2024-11-01 22:48:33,000 - app.db.crud.patient_details - INFO - Successfully retrieved patient details with ID: 28
+2024-11-01 22:48:33,135 - app.db.crud.patient_details - INFO - Successfully updated patient details with ID: 28
+2024-11-01 22:48:33,167 - app - INFO - Request: PUT /api/v1/patient_details/28 | Status: 200 | Process Time: 0.29s | Request ID: a645b70e-5cb8-40ef-a470-bc2774ad891d
+2024-11-01 22:48:46,012 - app.db.crud.patient_details - INFO - Deleting patient details with ID: 28
+2024-11-01 22:48:46,012 - app.db.crud.patient_details - INFO - Fetching patient details with ID: 28
+2024-11-01 22:48:46,089 - app.db.crud.patient_details - INFO - Successfully retrieved patient details with ID: 28
+2024-11-01 22:48:46,223 - app.db.crud.patient_details - INFO - Successfully deleted patient details with ID: 28
+2024-11-01 22:48:46,226 - app - INFO - Request: DELETE /api/v1/patient_details/28 | Status: 204 | Process Time: 0.22s | Request ID: 477e030b-01ca-4931-917d-0f48e9442327
+2024-11-01 22:53:21,386 - app.db.crud.patient_symptoms - INFO - Fetching all patient symptoms with skip=0 and limit=100
+2024-11-01 22:53:21,465 - app.db.crud.patient_symptoms - INFO - Retrieved 12 patient symptoms
+2024-11-01 22:53:21,499 - app - INFO - Request: GET /api/v1/patient_symptoms/ | Status: 200 | Process Time: 0.13s | Request ID: 0e47c61a-fd42-4c46-8b8d-27a0f1b5952e
+2024-11-01 22:53:35,157 - app - INFO - Request: GET /api/v1/patient_summary/9/summary | Status: 404 | Process Time: 0.01s | Request ID: 0487dc70-4fed-4e4d-83cd-a4088d81c484
+2024-11-01 22:54:35,667 - app.db.crud.patient_details - INFO - Fetching patient details with ID: 9
+2024-11-01 22:54:35,756 - app.db.crud.patient_details - INFO - Successfully retrieved patient details with ID: 9
+2024-11-01 22:54:35,757 - app.db.crud.patient_symptoms - INFO - Fetching patient symptoms for patient ID: 9
+2024-11-01 22:54:35,785 - app.db.crud.patient_symptoms - INFO - Retrieved 4 symptoms for patient ID: 9
+2024-11-01 22:54:35,785 - app - INFO - Fetching visits with symptom ID: 27
+2024-11-01 22:54:35,824 - app - INFO - Retrieved 1 visits with symptom ID: 27
+2024-11-01 22:54:35,824 - app.db.crud.doctor - INFO - Fetching doctor with ID: 5
+2024-11-01 22:54:35,854 - app.db.crud.doctor - INFO - Successfully retrieved doctor with ID: 5
+2024-11-01 22:54:35,861 - app - INFO - Fetching visits with symptom ID: 28
+2024-11-01 22:54:35,892 - app - INFO - Retrieved 1 visits with symptom ID: 28
+2024-11-01 22:54:35,892 - app.db.crud.doctor - INFO - Fetching doctor with ID: 6
+2024-11-01 22:54:35,926 - app.db.crud.doctor - INFO - Successfully retrieved doctor with ID: 6
+2024-11-01 22:54:35,926 - app - INFO - Fetching visits with symptom ID: 33
+2024-11-01 22:54:35,957 - app - INFO - Retrieved 1 visits with symptom ID: 33
+2024-11-01 22:54:35,958 - app.db.crud.doctor - INFO - Fetching doctor with ID: 5
+2024-11-01 22:54:35,992 - app.db.crud.doctor - INFO - Successfully retrieved doctor with ID: 5
+2024-11-01 22:54:35,993 - app - INFO - Fetching visits with symptom ID: 36
+2024-11-01 22:54:36,025 - app - INFO - Retrieved 1 visits with symptom ID: 36
+2024-11-01 22:54:36,025 - app.db.crud.doctor - INFO - Fetching doctor with ID: 8
+2024-11-01 22:54:36,056 - app.db.crud.doctor - INFO - Successfully retrieved doctor with ID: 8
+2024-11-01 22:54:36,094 - app - INFO - Request: GET /api/v1/patient_summary/9 | Status: 200 | Process Time: 0.43s | Request ID: 85caf35d-5f06-4366-a615-6e9a5b93c16e

@@ -1,11 +1,15 @@
 # app/db/crud/patient_details.py
 
+import logging
 from sqlalchemy.orm import Session
 from sqlalchemy.exc import IntegrityError
 from ..models.patient_details import PatientDetails
 from ..schemas.patient_details import PatientDetailsCreate, PatientDetailsUpdate
 from fastapi import HTTPException
 
+# Set up logger
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.INFO)
 
 def get_patient_details(db: Session, patient_id: int):
     """
@@ -20,9 +24,12 @@ def get_patient_details(db: Session, patient_id: int):
     Raises:
     HTTPException: 404 Not Found if the patient does not exist.
     """
+    logger.info(f"Fetching patient details with ID: {patient_id}")
     patient_details = db.query(PatientDetails).filter(PatientDetails.PatientID == patient_id).first()
     if patient_details is None:
+        logger.warning(f"Patient details with ID {patient_id} not found")
         raise HTTPException(status_code=404, detail="Patient details not found")
+    logger.info(f"Successfully retrieved patient details with ID: {patient_id}")
     return patient_details
 
 
@@ -37,7 +44,10 @@ def get_all_patient_details(db: Session, skip: int = 0, limit: int = 100):
     Returns:
     List[PatientDetails]: A list of patient details.
     """
-    return db.query(PatientDetails).offset(skip).limit(limit).all()
+    logger.info(f"Fetching patient details with skip={skip} and limit={limit}")
+    patient_details = db.query(PatientDetails).offset(skip).limit(limit).all()
+    logger.info(f"Retrieved {len(patient_details)} patient details records")
+    return patient_details
 
 
 def create_patient_details(db: Session, patient_details: PatientDetailsCreate):
@@ -53,8 +63,10 @@ def create_patient_details(db: Session, patient_details: PatientDetailsCreate):
     Raises:
         HTTPException: 400 Bad Request if the email is already registered.
     """
+    logger.info(f"Creating new patient details with email: {patient_details.Email}")
     existing_patient = db.query(PatientDetails).filter(PatientDetails.Email == patient_details.Email).first()
     if existing_patient:
+        logger.warning(f"Email {patient_details.Email} already registered")
         raise HTTPException(status_code=400, detail="Email already registered")
 
     db_patient_details = PatientDetails(**patient_details.dict())
@@ -62,9 +74,11 @@ def create_patient_details(db: Session, patient_details: PatientDetailsCreate):
         db.add(db_patient_details)
         db.commit()
         db.refresh(db_patient_details)
+        logger.info(f"Successfully created patient details with ID: {db_patient_details.PatientID}")
         return db_patient_details
-    except IntegrityError:
+    except IntegrityError as e:
         db.rollback()
+        logger.error(f"Integrity error during patient details creation: {e}")
         raise HTTPException(status_code=400, detail="An error occurred while creating patient details")
 
 
@@ -84,8 +98,10 @@ def update_patient_details(db: Session, patient_id: int, patient_details: Patien
         HTTPException: 404 Not Found if the patient does not exist.
         HTTPException: 400 Bad Request if the email is already registered.
     """
+    logger.info(f"Updating patient details with ID: {patient_id}")
     db_patient_details = get_patient_details(db, patient_id)
     if db_patient_details is None:
+        logger.warning(f"Patient with ID {patient_id} not found for update")
         raise HTTPException(status_code=404, detail="Patient not found")
 
     for key, value in patient_details.dict(exclude_unset=True).items():
@@ -98,15 +114,18 @@ def update_patient_details(db: Session, patient_id: int, patient_details: Patien
         ).first()
 
         if existing_patient:
+            logger.warning(f"Email {patient_details.Email} already registered by another patient")
             raise HTTPException(status_code=400, detail="Email already registered")
 
     try:
         db.commit()
         db.refresh(db_patient_details)
+        logger.info(f"Successfully updated patient details with ID: {patient_id}")
         return db_patient_details
-    except IntegrityError:
+    except IntegrityError as e:
         db.rollback()
-        raise HTTPException(status_code=400, detail="Email already registered")
+        logger.error(f"Integrity error during patient details update: {e}")
+        raise HTTPException(status_code=400, detail="An error occurred while updating patient details")
 
 
 def delete_patient_details(db: Session, patient_id: int):
@@ -122,7 +141,9 @@ def delete_patient_details(db: Session, patient_id: int):
     Raises:
     HTTPException: 404 Not Found if the patient does not exist.
     """
+    logger.info(f"Deleting patient details with ID: {patient_id}")
     db_patient_details = get_patient_details(db, patient_id)
     db.delete(db_patient_details)
     db.commit()
+    logger.info(f"Successfully deleted patient details with ID: {patient_id}")
     return db_patient_details

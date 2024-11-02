@@ -12,7 +12,7 @@ from app.db.schemas.patient_summary import PatientSummaryResponse, VisitDetails
 router = APIRouter(prefix="/patient_summary", tags=["patient_summary"])
 
 
-@router.get("/{patient_id}/summary", response_model=PatientSummaryResponse)
+@router.get("/{patient_id}", response_model=PatientSummaryResponse)
 def get_patient_summary(patient_id: int, db: Session = Depends(get_db)):
     """
     Retrieve detailed summary for a patient including visits, symptoms, and doctor details.

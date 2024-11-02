@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, Date, DateTime
+from sqlalchemy import Column, Integer, String, Date, DateTime, Float
 from sqlalchemy.sql import func
 from sqlalchemy.orm import relationship
 from ..base import Base
@@ -15,6 +15,9 @@ class PatientDetails(Base):
     Address = Column(String(255), nullable=False)
     ContactNumber = Column(String(15), nullable=False)
     Email = Column(String(100), unique=True, index=True)
+    Height = Column(Float, nullable=True)
+    Weight = Column(Float, nullable=True)
+    BloodType = Column(String(3), nullable=True)
     CreatedAt = Column(DateTime, server_default=func.now())
 
     symptoms = relationship("PatientSymptom", back_populates="patient", cascade="all, delete")

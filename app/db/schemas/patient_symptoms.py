@@ -6,8 +6,11 @@ from datetime import datetime
 
 class PatientSymptomBase(BaseModel):
     PatientID: int
-    SymptomDescription: str
-    ModelInputDescription: str
+    SymptomDescription: Optional[str] = None
+    ModelInputDescription: Optional[str] = None
+    Severity: Optional[str] = None
+    Duration: Optional[str] = None
+    AssociatedConditions: Optional[str] = None
 
 class PatientSymptomCreate(PatientSymptomBase):
     """Schema for creating a new patient symptom."""
@@ -17,6 +20,9 @@ class PatientSymptomUpdate(BaseModel):
     """Schema for updating an existing patient symptom. All fields are optional."""
     SymptomDescription: Optional[str] = None
     ModelInputDescription: Optional[str] = None
+    Severity: Optional[str] = None
+    Duration: Optional[str] = None
+    AssociatedConditions: Optional[str] = None
 
 class PatientSymptom(PatientSymptomBase):
     """Schema for a complete patient symptom record."""
