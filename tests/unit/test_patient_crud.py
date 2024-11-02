@@ -5,7 +5,7 @@ from app.db.models.patient import Patient
 from app.db.models.user import User
 from app.db.schemas.patient import PatientCreate, PatientUpdate
 from sqlalchemy.orm import Session
-from unittest.mock import patch, MagicMock
+from unittest.mock import patch, MagicMock, Mock
 import pytest
 
 @pytest.fixture
@@ -88,3 +88,25 @@ def test_delete_patient(mock_db_session: Session):
     deleted_patient = delete_patient(mock_db_session, new_patient.id)
     assert deleted_patient.name == "Alice"
     assert mock_db_session.query(Patient).filter(Patient.id == new_patient.id).first() is None
+
+# def test_create_patient_missing_name(mock_db_session: Session):
+#     patient_data = PatientCreate(name="", age=25, email="test@example.com", user_id=1)  # Missing name
+#     with pytest.raises(Exception) as excinfo:
+#         create_patient(mock_db_session, patient_data)
+#     assert "Name is required" in str(excinfo.value)  # Adjust based on actual error handling
+
+
+@patch("app.db.crud.user_crud.get_user_by_email")
+# def test_create_patient_missing_name(mock_get_user_by_email,mock_db_session: Session):
+#     mock_get_user_by_email.return_value = None
+def test_create_patient_missing_name(mock_get_user_by_email, mock_db_session: Session):
+    # Mock a user object with a user_id attribute
+    mock_user = Mock()
+    mock_user.user_id = 1
+    mock_get_user_by_email.return_value = mock_user
+    patient_data = PatientCreate(name="", age=25, email="test@example.com", user_id=1)  # Missing name
+
+    with pytest.raises(ValueError) as excinfo:  # Use a specific exception if applicable
+        create_patient(mock_db_session, patient_data)
+
+    assert "Name is required" in str(excinfo.value)  # Adjust based on actual error handling
