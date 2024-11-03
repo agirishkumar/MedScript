@@ -21,6 +21,18 @@ class Settings(BaseSettings):
     JWT_SECRET_KEY: str
     JWT_REFRESH_SECRET_KEY: str
 
+    # Airflow settings
+    AIRFLOW_UID: int
+    POSTGRES_USER: str
+    POSTGRES_PASSWORD: str
+    POSTGRES_DB: str
+    AIRFLOW_WWW_USER_USERNAME: str
+    AIRFLOW_WWW_USER_PASSWORD: str
+
+    # GCP Settings
+    CLOUD_SQL_INSTANCE: str
+    GOOGLE_APPLICATION_CREDENTIALS:str
+
     class Config:
         env_file = ".env"
         case_sensitive = True
