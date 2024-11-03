@@ -6,10 +6,10 @@ from sqlalchemy.orm import relationship
 from ..base import Base 
 
 class Patient(Base):
-    __tablename__ = "patients"
+    __tablename__ = "Patients"
     
     id = Column(Integer, primary_key=True, index=True)
-    user_id = Column(Integer, ForeignKey('users.user_id'))
+    user_id = Column(Integer, ForeignKey('AppUsers.user_id'))
     name = Column(String, index=True)
     age = Column(Integer)
     email = Column(String, unique=True, index=True)
