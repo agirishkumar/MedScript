@@ -1782,3 +1782,327 @@ WHERE patients.id = %(id_1)s
 2024-11-02 23:30:38,288 - app - ERROR - Request: POST /api/v1/user/login | Status: 500 | Process Time: 0.32s | Request ID: 75de8807-8dea-433d-84da-a03cf1ad92db | Error: 'str' object has no attribute 'generate_token'
 2024-11-02 23:30:54,506 - app - ERROR - Request: POST /api/v1/user/login | Status: 500 | Process Time: 0.35s | Request ID: e928a028-6d13-49be-8568-43d8d62dcb2d | Error: Object of type Role is not JSON serializable
 >>>>>>> f122a4685fe24764f5c3073f68231f20cea46715
+2024-11-03 15:12:54,990 - app.db.crud.doctor - INFO - Creating new doctor with email: test@example.com
+2024-11-03 15:12:55,038 - app.db.crud.doctor - INFO - Successfully created doctor with ID: 1
+2024-11-03 15:12:55,043 - app.db.crud.doctor - INFO - Creating new doctor with email: test_john@example.com
+2024-11-03 15:12:55,048 - app.db.crud.doctor - INFO - Successfully created doctor with ID: 1
+2024-11-03 15:12:55,048 - app.db.crud.doctor - INFO - Fetching doctor with ID: 1
+2024-11-03 15:12:55,049 - app.db.crud.doctor - INFO - Successfully retrieved doctor with ID: 1
+2024-11-03 15:12:55,054 - app.db.crud.doctor - INFO - Creating new doctor with email: test_john@example.com
+2024-11-03 15:12:55,059 - app.db.crud.doctor - INFO - Successfully created doctor with ID: 1
+2024-11-03 15:12:55,059 - app.db.crud.doctor - INFO - Updating doctor with ID: 1
+2024-11-03 15:12:55,059 - app.db.crud.doctor - INFO - Fetching doctor with ID: 1
+2024-11-03 15:12:55,060 - app.db.crud.doctor - INFO - Successfully retrieved doctor with ID: 1
+2024-11-03 15:12:55,062 - app.db.crud.doctor - INFO - Successfully updated doctor with ID: 1
+2024-11-03 15:12:55,067 - app.db.crud.doctor - INFO - Creating new doctor with email: alice@example.com
+2024-11-03 15:12:55,072 - app.db.crud.doctor - INFO - Successfully created doctor with ID: 1
+2024-11-03 15:12:55,072 - app.db.crud.doctor - INFO - Deleting doctor with ID: 1
+2024-11-03 15:12:55,072 - app.db.crud.doctor - INFO - Fetching doctor with ID: 1
+2024-11-03 15:12:55,073 - app.db.crud.doctor - INFO - Successfully retrieved doctor with ID: 1
+2024-11-03 15:12:55,076 - app.db.crud.doctor - INFO - Successfully deleted doctor with ID: 1
+2024-11-03 15:12:55,082 - app.db.crud.doctor - INFO - Creating new doctor with email: test_123@example.com
+2024-11-03 15:12:55,087 - app.db.crud.doctor - INFO - Successfully created doctor with ID: 1
+2024-11-03 15:12:55,087 - app.db.crud.doctor - INFO - Creating new doctor with email: test_123@example.com
+2024-11-03 15:12:55,087 - app.db.crud.doctor - WARNING - Email test_123@example.com already registered
+2024-11-03 15:12:55,093 - app.db.crud.doctor - INFO - Creating new doctor with email: test1@example.com
+2024-11-03 15:12:55,098 - app.db.crud.doctor - INFO - Successfully created doctor with ID: 1
+2024-11-03 15:12:55,098 - app.db.crud.doctor - INFO - Creating new doctor with email: test123@example.com
+2024-11-03 15:12:55,099 - app.db.crud.doctor - WARNING - License number 12345 already registered
+2024-11-03 15:12:55,104 - app.db.crud.doctor - INFO - Updating doctor with ID: 999
+2024-11-03 15:12:55,104 - app.db.crud.doctor - INFO - Fetching doctor with ID: 999
+2024-11-03 15:12:55,106 - app.db.crud.doctor - WARNING - Doctor with ID 999 not found
+2024-11-03 15:12:55,113 - app.db.crud.doctor - INFO - Deleting doctor with ID: 999
+2024-11-03 15:12:55,113 - app.db.crud.doctor - INFO - Fetching doctor with ID: 999
+2024-11-03 15:12:55,115 - app.db.crud.doctor - WARNING - Doctor with ID 999 not found
+2024-11-03 15:12:55,238 - app - INFO - Request: POST /api/v1/user/register | Status: 201 | Process Time: 0.00s | Request ID: 323b69c9-8c2e-406b-848b-c02f5fa302f2
+2024-11-03 15:12:55,238 - app - INFO - Request: POST /api/v1/user/register | Status: 201 | Process Time: 0.00s | Request ID: 323b69c9-8c2e-406b-848b-c02f5fa302f2
+2024-11-03 15:12:55,244 - app - INFO - Request: POST /api/v1/user/register | Status: 400 | Process Time: 0.00s | Request ID: 494f9236-7912-4524-a76f-7f6106b7f60f
+2024-11-03 15:12:55,244 - app - INFO - Request: POST /api/v1/user/register | Status: 400 | Process Time: 0.00s | Request ID: 494f9236-7912-4524-a76f-7f6106b7f60f
+2024-11-03 15:12:55,254 - app - INFO - Request: POST /api/v1/user/login | Status: 200 | Process Time: 0.01s | Request ID: c29cbe8b-8265-4fbd-a404-d7fb615fb0ab
+2024-11-03 15:12:55,254 - app - INFO - Request: POST /api/v1/user/login | Status: 200 | Process Time: 0.01s | Request ID: c29cbe8b-8265-4fbd-a404-d7fb615fb0ab
+2024-11-03 15:12:55,263 - app - INFO - Request: POST /api/v1/user/login | Status: 400 | Process Time: 0.01s | Request ID: ac037680-8d73-450b-aafb-048d18c54e27
+2024-11-03 15:12:55,263 - app - INFO - Request: POST /api/v1/user/login | Status: 400 | Process Time: 0.01s | Request ID: ac037680-8d73-450b-aafb-048d18c54e27
+2024-11-03 15:12:55,271 - app - INFO - Request: POST /api/v1/user/login | Status: 403 | Process Time: 0.01s | Request ID: e9e2a0ef-2581-4ba0-a62e-bd735a7f4d85
+2024-11-03 15:12:55,271 - app - INFO - Request: POST /api/v1/user/login | Status: 403 | Process Time: 0.01s | Request ID: e9e2a0ef-2581-4ba0-a62e-bd735a7f4d85
+2024-11-03 15:12:55,278 - app - ERROR - Request: GET /test-error | Status: 500 | Process Time: 0.00s | Request ID: 0934135e-e565-4566-b4d4-b0f56af5b6b1 | Error: Intentional Error
+2024-11-03 15:12:55,278 - app - ERROR - Request: GET /test-error | Status: 500 | Process Time: 0.00s | Request ID: 0934135e-e565-4566-b4d4-b0f56af5b6b1 | Error: Intentional Error
+2024-11-03 15:12:55,283 - app - INFO - Request: GET /test-middleware | Status: 200 | Process Time: 0.00s | Request ID: 2344c88a-7c2d-4a00-9a8d-2f22f8ecd0c9
+2024-11-03 15:12:55,283 - app - INFO - Request: GET /test-middleware | Status: 200 | Process Time: 0.00s | Request ID: 2344c88a-7c2d-4a00-9a8d-2f22f8ecd0c9
+2024-11-03 15:12:55,286 - app - INFO - Request: GET /test-middleware | Status: 200 | Process Time: 0.00s | Request ID: bd7efd27-6105-4462-bc7a-9a424a29d017
+2024-11-03 15:12:55,286 - app - INFO - Request: GET /test-middleware | Status: 200 | Process Time: 0.00s | Request ID: bd7efd27-6105-4462-bc7a-9a424a29d017
+2024-11-03 15:12:55,290 - app - ERROR - Request: GET /test-error | Status: 500 | Process Time: 0.00s | Request ID: f213ab7c-7605-4f49-9313-ba11fc8c25d1 | Error: Intentional Error
+2024-11-03 15:12:55,290 - app - ERROR - Request: GET /test-error | Status: 500 | Process Time: 0.00s | Request ID: f213ab7c-7605-4f49-9313-ba11fc8c25d1 | Error: Intentional Error
+2024-11-03 15:12:55,393 - app.db.crud.patient_details - INFO - Fetching patient details with ID: 1
+2024-11-03 15:12:55,393 - app.db.crud.patient_details - INFO - Fetching patient details with ID: 1
+2024-11-03 15:12:55,394 - app.db.crud.patient_details - INFO - Successfully retrieved patient details with ID: 1
+2024-11-03 15:12:55,394 - app.db.crud.patient_details - INFO - Successfully retrieved patient details with ID: 1
+2024-11-03 15:12:55,400 - app.db.crud.patient_details - INFO - Fetching patient details with ID: 9999
+2024-11-03 15:12:55,400 - app.db.crud.patient_details - INFO - Fetching patient details with ID: 9999
+2024-11-03 15:12:55,402 - app.db.crud.patient_details - WARNING - Patient details with ID 9999 not found
+2024-11-03 15:12:55,402 - app.db.crud.patient_details - WARNING - Patient details with ID 9999 not found
+2024-11-03 15:12:55,407 - app.db.crud.patient_details - INFO - Creating new patient details with email: johndoe@example.com
+2024-11-03 15:12:55,407 - app.db.crud.patient_details - INFO - Creating new patient details with email: johndoe@example.com
+2024-11-03 15:12:55,412 - app.db.crud.patient_details - INFO - Successfully created patient details with ID: 1
+2024-11-03 15:12:55,412 - app.db.crud.patient_details - INFO - Successfully created patient details with ID: 1
+2024-11-03 15:12:55,419 - app.db.crud.patient_details - INFO - Creating new patient details with email: johndoe@example.com
+2024-11-03 15:12:55,419 - app.db.crud.patient_details - INFO - Creating new patient details with email: johndoe@example.com
+2024-11-03 15:12:55,421 - app.db.crud.patient_details - WARNING - Email johndoe@example.com already registered
+2024-11-03 15:12:55,421 - app.db.crud.patient_details - WARNING - Email johndoe@example.com already registered
+2024-11-03 15:12:55,429 - app.db.crud.patient_details - INFO - Updating patient details with ID: 1
+2024-11-03 15:12:55,429 - app.db.crud.patient_details - INFO - Updating patient details with ID: 1
+2024-11-03 15:12:55,430 - app.db.crud.patient_details - INFO - Fetching patient details with ID: 1
+2024-11-03 15:12:55,430 - app.db.crud.patient_details - INFO - Fetching patient details with ID: 1
+2024-11-03 15:12:55,431 - app.db.crud.patient_details - INFO - Successfully retrieved patient details with ID: 1
+2024-11-03 15:12:55,431 - app.db.crud.patient_details - INFO - Successfully retrieved patient details with ID: 1
+2024-11-03 15:12:55,433 - app.db.crud.patient_details - INFO - Successfully updated patient details with ID: 1
+2024-11-03 15:12:55,433 - app.db.crud.patient_details - INFO - Successfully updated patient details with ID: 1
+2024-11-03 15:12:55,442 - app.db.crud.patient_details - INFO - Updating patient details with ID: 2
+2024-11-03 15:12:55,442 - app.db.crud.patient_details - INFO - Updating patient details with ID: 2
+2024-11-03 15:12:55,442 - app.db.crud.patient_details - INFO - Fetching patient details with ID: 2
+2024-11-03 15:12:55,442 - app.db.crud.patient_details - INFO - Fetching patient details with ID: 2
+2024-11-03 15:12:55,443 - app.db.crud.patient_details - INFO - Successfully retrieved patient details with ID: 2
+2024-11-03 15:12:55,443 - app.db.crud.patient_details - INFO - Successfully retrieved patient details with ID: 2
+2024-11-03 15:12:55,447 - app.db.crud.patient_details - WARNING - Email johndoe@example.com already registered by another patient
+2024-11-03 15:12:55,447 - app.db.crud.patient_details - WARNING - Email johndoe@example.com already registered by another patient
+2024-11-03 15:12:55,452 - app.db.crud.patient_details - INFO - Updating patient details with ID: 9999
+2024-11-03 15:12:55,452 - app.db.crud.patient_details - INFO - Updating patient details with ID: 9999
+2024-11-03 15:12:55,452 - app.db.crud.patient_details - INFO - Fetching patient details with ID: 9999
+2024-11-03 15:12:55,452 - app.db.crud.patient_details - INFO - Fetching patient details with ID: 9999
+2024-11-03 15:12:55,454 - app.db.crud.patient_details - WARNING - Patient details with ID 9999 not found
+2024-11-03 15:12:55,454 - app.db.crud.patient_details - WARNING - Patient details with ID 9999 not found
+2024-11-03 15:12:55,463 - app.db.crud.patient_details - INFO - Deleting patient details with ID: 1
+2024-11-03 15:12:55,463 - app.db.crud.patient_details - INFO - Deleting patient details with ID: 1
+2024-11-03 15:12:55,463 - app.db.crud.patient_details - INFO - Fetching patient details with ID: 1
+2024-11-03 15:12:55,463 - app.db.crud.patient_details - INFO - Fetching patient details with ID: 1
+2024-11-03 15:12:55,464 - app.db.crud.patient_details - INFO - Successfully retrieved patient details with ID: 1
+2024-11-03 15:12:55,464 - app.db.crud.patient_details - INFO - Successfully retrieved patient details with ID: 1
+2024-11-03 15:12:55,468 - app.db.crud.patient_details - INFO - Successfully deleted patient details with ID: 1
+2024-11-03 15:12:55,468 - app.db.crud.patient_details - INFO - Successfully deleted patient details with ID: 1
+2024-11-03 15:12:55,468 - app.db.crud.patient_details - INFO - Fetching patient details with ID: 1
+2024-11-03 15:12:55,468 - app.db.crud.patient_details - INFO - Fetching patient details with ID: 1
+2024-11-03 15:12:55,469 - app.db.crud.patient_details - WARNING - Patient details with ID 1 not found
+2024-11-03 15:12:55,469 - app.db.crud.patient_details - WARNING - Patient details with ID 1 not found
+2024-11-03 15:12:55,474 - app.db.crud.patient_details - INFO - Deleting patient details with ID: 9999
+2024-11-03 15:12:55,474 - app.db.crud.patient_details - INFO - Deleting patient details with ID: 9999
+2024-11-03 15:12:55,474 - app.db.crud.patient_details - INFO - Fetching patient details with ID: 9999
+2024-11-03 15:12:55,474 - app.db.crud.patient_details - INFO - Fetching patient details with ID: 9999
+2024-11-03 15:12:55,476 - app.db.crud.patient_details - WARNING - Patient details with ID 9999 not found
+2024-11-03 15:12:55,476 - app.db.crud.patient_details - WARNING - Patient details with ID 9999 not found
+2024-11-03 15:12:55,503 - app - INFO - Request: POST /api/v1/patients/ | Status: 201 | Process Time: 0.01s | Request ID: d5e63b1b-a592-4c99-892d-dfbc04b9a861
+2024-11-03 15:12:55,503 - app - INFO - Request: POST /api/v1/patients/ | Status: 201 | Process Time: 0.01s | Request ID: d5e63b1b-a592-4c99-892d-dfbc04b9a861
+2024-11-03 15:12:55,510 - app - INFO - Request: GET /api/v1/patients/ | Status: 200 | Process Time: 0.00s | Request ID: 363adddf-d699-4b97-b063-a50040c92fd1
+2024-11-03 15:12:55,510 - app - INFO - Request: GET /api/v1/patients/ | Status: 200 | Process Time: 0.00s | Request ID: 363adddf-d699-4b97-b063-a50040c92fd1
+2024-11-03 15:12:55,518 - app - INFO - Request: GET /api/v1/patients/3 | Status: 200 | Process Time: 0.00s | Request ID: 8edb1a9c-4771-4bd0-9b0c-f80639906dcf
+2024-11-03 15:12:55,518 - app - INFO - Request: GET /api/v1/patients/3 | Status: 200 | Process Time: 0.00s | Request ID: 8edb1a9c-4771-4bd0-9b0c-f80639906dcf
+2024-11-03 15:12:55,530 - app - INFO - Request: PUT /api/v1/patients/4 | Status: 200 | Process Time: 0.01s | Request ID: adef4bcd-50ed-40d9-b734-010115ff147b
+2024-11-03 15:12:55,530 - app - INFO - Request: PUT /api/v1/patients/4 | Status: 200 | Process Time: 0.01s | Request ID: adef4bcd-50ed-40d9-b734-010115ff147b
+2024-11-03 15:12:55,537 - app - INFO - Request: DELETE /api/v1/patients/5 | Status: 204 | Process Time: 0.00s | Request ID: d5f57a12-28be-4b9b-9b9e-a20a5e509395
+2024-11-03 15:12:55,537 - app - INFO - Request: DELETE /api/v1/patients/5 | Status: 204 | Process Time: 0.00s | Request ID: d5f57a12-28be-4b9b-9b9e-a20a5e509395
+2024-11-03 15:12:55,540 - app - INFO - Request: GET /api/v1/patients/5 | Status: 404 | Process Time: 0.00s | Request ID: 4aa4f893-8306-486e-a51b-0ec7babe0d47
+2024-11-03 15:12:55,540 - app - INFO - Request: GET /api/v1/patients/5 | Status: 404 | Process Time: 0.00s | Request ID: 4aa4f893-8306-486e-a51b-0ec7babe0d47
+2024-11-03 15:12:55,544 - app - INFO - Request: GET /api/v1/patients/9999 | Status: 404 | Process Time: 0.00s | Request ID: 2a8cd3a7-6196-4c93-bbde-a0948be55531
+2024-11-03 15:12:55,544 - app - INFO - Request: GET /api/v1/patients/9999 | Status: 404 | Process Time: 0.00s | Request ID: 2a8cd3a7-6196-4c93-bbde-a0948be55531
+2024-11-03 15:12:55,549 - app - INFO - Request: PUT /api/v1/patients/9999 | Status: 404 | Process Time: 0.00s | Request ID: 52f590df-fdee-4ab9-ad88-36441778cb55
+2024-11-03 15:12:55,549 - app - INFO - Request: PUT /api/v1/patients/9999 | Status: 404 | Process Time: 0.00s | Request ID: 52f590df-fdee-4ab9-ad88-36441778cb55
+2024-11-03 15:12:55,554 - app - INFO - Request: DELETE /api/v1/patients/9999 | Status: 404 | Process Time: 0.00s | Request ID: 53ff9681-64aa-4b4a-96f2-a6d0aa371ba6
+2024-11-03 15:12:55,554 - app - INFO - Request: DELETE /api/v1/patients/9999 | Status: 404 | Process Time: 0.00s | Request ID: 53ff9681-64aa-4b4a-96f2-a6d0aa371ba6
+2024-11-03 15:12:55,558 - app - INFO - Request: POST /api/v1/patients/ | Status: 422 | Process Time: 0.00s | Request ID: 1fc79f3e-8921-4f3b-9e68-40f687ff6997
+2024-11-03 15:12:55,558 - app - INFO - Request: POST /api/v1/patients/ | Status: 422 | Process Time: 0.00s | Request ID: 1fc79f3e-8921-4f3b-9e68-40f687ff6997
+2024-11-03 15:12:55,572 - app.db.crud.patient_symptoms - INFO - Creating a new patient symptom
+2024-11-03 15:12:55,572 - app.db.crud.patient_symptoms - INFO - Creating a new patient symptom
+2024-11-03 15:12:55,576 - app.db.crud.patient_symptoms - INFO - Successfully created patient symptom with ID: 1
+2024-11-03 15:12:55,576 - app.db.crud.patient_symptoms - INFO - Successfully created patient symptom with ID: 1
+2024-11-03 15:12:55,581 - app.db.crud.patient_symptoms - INFO - Creating a new patient symptom
+2024-11-03 15:12:55,581 - app.db.crud.patient_symptoms - INFO - Creating a new patient symptom
+2024-11-03 15:12:55,586 - app.db.crud.patient_symptoms - INFO - Successfully created patient symptom with ID: 1
+2024-11-03 15:12:55,586 - app.db.crud.patient_symptoms - INFO - Successfully created patient symptom with ID: 1
+2024-11-03 15:12:55,586 - app.db.crud.patient_symptoms - INFO - Fetching patient symptom with ID: 1
+2024-11-03 15:12:55,586 - app.db.crud.patient_symptoms - INFO - Fetching patient symptom with ID: 1
+2024-11-03 15:12:55,587 - app.db.crud.patient_symptoms - INFO - Successfully retrieved patient symptom with ID: 1
+2024-11-03 15:12:55,587 - app.db.crud.patient_symptoms - INFO - Successfully retrieved patient symptom with ID: 1
+2024-11-03 15:12:55,592 - app.db.crud.patient_symptoms - INFO - Creating a new patient symptom
+2024-11-03 15:12:55,592 - app.db.crud.patient_symptoms - INFO - Creating a new patient symptom
+2024-11-03 15:12:55,595 - app.db.crud.patient_symptoms - INFO - Successfully created patient symptom with ID: 1
+2024-11-03 15:12:55,595 - app.db.crud.patient_symptoms - INFO - Successfully created patient symptom with ID: 1
+2024-11-03 15:12:55,595 - app.db.crud.patient_symptoms - INFO - Updating patient symptom with ID: 1
+2024-11-03 15:12:55,595 - app.db.crud.patient_symptoms - INFO - Updating patient symptom with ID: 1
+2024-11-03 15:12:55,595 - app.db.crud.patient_symptoms - INFO - Fetching patient symptom with ID: 1
+2024-11-03 15:12:55,595 - app.db.crud.patient_symptoms - INFO - Fetching patient symptom with ID: 1
+2024-11-03 15:12:55,596 - app.db.crud.patient_symptoms - INFO - Successfully retrieved patient symptom with ID: 1
+2024-11-03 15:12:55,596 - app.db.crud.patient_symptoms - INFO - Successfully retrieved patient symptom with ID: 1
+2024-11-03 15:12:55,598 - app.db.crud.patient_symptoms - INFO - Successfully updated patient symptom with ID: 1
+2024-11-03 15:12:55,598 - app.db.crud.patient_symptoms - INFO - Successfully updated patient symptom with ID: 1
+2024-11-03 15:12:55,603 - app.db.crud.patient_symptoms - INFO - Creating a new patient symptom
+2024-11-03 15:12:55,603 - app.db.crud.patient_symptoms - INFO - Creating a new patient symptom
+2024-11-03 15:12:55,606 - app.db.crud.patient_symptoms - INFO - Successfully created patient symptom with ID: 1
+2024-11-03 15:12:55,606 - app.db.crud.patient_symptoms - INFO - Successfully created patient symptom with ID: 1
+2024-11-03 15:12:55,606 - app.db.crud.patient_symptoms - INFO - Deleting patient symptom with ID: 1
+2024-11-03 15:12:55,606 - app.db.crud.patient_symptoms - INFO - Deleting patient symptom with ID: 1
+2024-11-03 15:12:55,606 - app.db.crud.patient_symptoms - INFO - Fetching patient symptom with ID: 1
+2024-11-03 15:12:55,606 - app.db.crud.patient_symptoms - INFO - Fetching patient symptom with ID: 1
+2024-11-03 15:12:55,607 - app.db.crud.patient_symptoms - INFO - Successfully retrieved patient symptom with ID: 1
+2024-11-03 15:12:55,607 - app.db.crud.patient_symptoms - INFO - Successfully retrieved patient symptom with ID: 1
+2024-11-03 15:12:55,611 - app.db.crud.patient_symptoms - INFO - Successfully deleted patient symptom with ID: 1
+2024-11-03 15:12:55,611 - app.db.crud.patient_symptoms - INFO - Successfully deleted patient symptom with ID: 1
+2024-11-03 15:14:59,108 - app.db.crud.doctor - INFO - Creating new doctor with email: test@example.com
+2024-11-03 15:14:59,157 - app.db.crud.doctor - INFO - Successfully created doctor with ID: 1
+2024-11-03 15:14:59,162 - app.db.crud.doctor - INFO - Creating new doctor with email: test_john@example.com
+2024-11-03 15:14:59,167 - app.db.crud.doctor - INFO - Successfully created doctor with ID: 1
+2024-11-03 15:14:59,167 - app.db.crud.doctor - INFO - Fetching doctor with ID: 1
+2024-11-03 15:14:59,168 - app.db.crud.doctor - INFO - Successfully retrieved doctor with ID: 1
+2024-11-03 15:14:59,174 - app.db.crud.doctor - INFO - Creating new doctor with email: test_john@example.com
+2024-11-03 15:14:59,178 - app.db.crud.doctor - INFO - Successfully created doctor with ID: 1
+2024-11-03 15:14:59,178 - app.db.crud.doctor - INFO - Updating doctor with ID: 1
+2024-11-03 15:14:59,178 - app.db.crud.doctor - INFO - Fetching doctor with ID: 1
+2024-11-03 15:14:59,179 - app.db.crud.doctor - INFO - Successfully retrieved doctor with ID: 1
+2024-11-03 15:14:59,181 - app.db.crud.doctor - INFO - Successfully updated doctor with ID: 1
+2024-11-03 15:14:59,187 - app.db.crud.doctor - INFO - Creating new doctor with email: alice@example.com
+2024-11-03 15:14:59,191 - app.db.crud.doctor - INFO - Successfully created doctor with ID: 1
+2024-11-03 15:14:59,191 - app.db.crud.doctor - INFO - Deleting doctor with ID: 1
+2024-11-03 15:14:59,192 - app.db.crud.doctor - INFO - Fetching doctor with ID: 1
+2024-11-03 15:14:59,193 - app.db.crud.doctor - INFO - Successfully retrieved doctor with ID: 1
+2024-11-03 15:14:59,196 - app.db.crud.doctor - INFO - Successfully deleted doctor with ID: 1
+2024-11-03 15:14:59,202 - app.db.crud.doctor - INFO - Creating new doctor with email: test_123@example.com
+2024-11-03 15:14:59,206 - app.db.crud.doctor - INFO - Successfully created doctor with ID: 1
+2024-11-03 15:14:59,207 - app.db.crud.doctor - INFO - Creating new doctor with email: test_123@example.com
+2024-11-03 15:14:59,207 - app.db.crud.doctor - WARNING - Email test_123@example.com already registered
+2024-11-03 15:14:59,212 - app.db.crud.doctor - INFO - Creating new doctor with email: test1@example.com
+2024-11-03 15:14:59,217 - app.db.crud.doctor - INFO - Successfully created doctor with ID: 1
+2024-11-03 15:14:59,218 - app.db.crud.doctor - INFO - Creating new doctor with email: test123@example.com
+2024-11-03 15:14:59,219 - app.db.crud.doctor - WARNING - License number 12345 already registered
+2024-11-03 15:14:59,224 - app.db.crud.doctor - INFO - Updating doctor with ID: 999
+2024-11-03 15:14:59,224 - app.db.crud.doctor - INFO - Fetching doctor with ID: 999
+2024-11-03 15:14:59,225 - app.db.crud.doctor - WARNING - Doctor with ID 999 not found
+2024-11-03 15:14:59,231 - app.db.crud.doctor - INFO - Deleting doctor with ID: 999
+2024-11-03 15:14:59,231 - app.db.crud.doctor - INFO - Fetching doctor with ID: 999
+2024-11-03 15:14:59,233 - app.db.crud.doctor - WARNING - Doctor with ID 999 not found
+2024-11-03 15:14:59,365 - app - INFO - Request: POST /api/v1/user/register | Status: 201 | Process Time: 0.01s | Request ID: 37d6bf49-d717-4672-b030-e6a46c8affb6
+2024-11-03 15:14:59,365 - app - INFO - Request: POST /api/v1/user/register | Status: 201 | Process Time: 0.01s | Request ID: 37d6bf49-d717-4672-b030-e6a46c8affb6
+2024-11-03 15:14:59,371 - app - INFO - Request: POST /api/v1/user/register | Status: 400 | Process Time: 0.00s | Request ID: 3c0dee23-a171-4fba-96b2-5edba260ceba
+2024-11-03 15:14:59,371 - app - INFO - Request: POST /api/v1/user/register | Status: 400 | Process Time: 0.00s | Request ID: 3c0dee23-a171-4fba-96b2-5edba260ceba
+2024-11-03 15:14:59,382 - app - INFO - Request: POST /api/v1/user/login | Status: 200 | Process Time: 0.01s | Request ID: 058a75f5-87da-49a6-83ef-4f9fc4e8c764
+2024-11-03 15:14:59,382 - app - INFO - Request: POST /api/v1/user/login | Status: 200 | Process Time: 0.01s | Request ID: 058a75f5-87da-49a6-83ef-4f9fc4e8c764
+2024-11-03 15:14:59,390 - app - INFO - Request: POST /api/v1/user/login | Status: 400 | Process Time: 0.01s | Request ID: 1cbc2e94-28af-41ef-a029-0f82dbcf9e3e
+2024-11-03 15:14:59,390 - app - INFO - Request: POST /api/v1/user/login | Status: 400 | Process Time: 0.01s | Request ID: 1cbc2e94-28af-41ef-a029-0f82dbcf9e3e
+2024-11-03 15:14:59,399 - app - INFO - Request: POST /api/v1/user/login | Status: 403 | Process Time: 0.01s | Request ID: 6cf1f64c-6ef4-4fb8-be8f-9496c46f73fd
+2024-11-03 15:14:59,399 - app - INFO - Request: POST /api/v1/user/login | Status: 403 | Process Time: 0.01s | Request ID: 6cf1f64c-6ef4-4fb8-be8f-9496c46f73fd
+2024-11-03 15:14:59,405 - app - ERROR - Request: GET /test-error | Status: 500 | Process Time: 0.00s | Request ID: 355b210e-cad7-480c-b9d4-15a823d8e936 | Error: Intentional Error
+2024-11-03 15:14:59,405 - app - ERROR - Request: GET /test-error | Status: 500 | Process Time: 0.00s | Request ID: 355b210e-cad7-480c-b9d4-15a823d8e936 | Error: Intentional Error
+2024-11-03 15:14:59,409 - app - INFO - Request: GET /test-middleware | Status: 200 | Process Time: 0.00s | Request ID: fffa76b6-99eb-4a7d-8257-6b49ea6f31e7
+2024-11-03 15:14:59,409 - app - INFO - Request: GET /test-middleware | Status: 200 | Process Time: 0.00s | Request ID: fffa76b6-99eb-4a7d-8257-6b49ea6f31e7
+2024-11-03 15:14:59,413 - app - INFO - Request: GET /test-middleware | Status: 200 | Process Time: 0.00s | Request ID: 8c6e324d-1e53-401b-a2f2-b1c078b84ddb
+2024-11-03 15:14:59,413 - app - INFO - Request: GET /test-middleware | Status: 200 | Process Time: 0.00s | Request ID: 8c6e324d-1e53-401b-a2f2-b1c078b84ddb
+2024-11-03 15:14:59,418 - app - ERROR - Request: GET /test-error | Status: 500 | Process Time: 0.00s | Request ID: 5150151f-7b09-46a7-b5d2-f4f500db85d6 | Error: Intentional Error
+2024-11-03 15:14:59,418 - app - ERROR - Request: GET /test-error | Status: 500 | Process Time: 0.00s | Request ID: 5150151f-7b09-46a7-b5d2-f4f500db85d6 | Error: Intentional Error
+2024-11-03 15:14:59,473 - app.db.crud.patient_details - INFO - Fetching patient details with ID: 1
+2024-11-03 15:14:59,473 - app.db.crud.patient_details - INFO - Fetching patient details with ID: 1
+2024-11-03 15:14:59,475 - app.db.crud.patient_details - INFO - Successfully retrieved patient details with ID: 1
+2024-11-03 15:14:59,475 - app.db.crud.patient_details - INFO - Successfully retrieved patient details with ID: 1
+2024-11-03 15:14:59,480 - app.db.crud.patient_details - INFO - Fetching patient details with ID: 9999
+2024-11-03 15:14:59,480 - app.db.crud.patient_details - INFO - Fetching patient details with ID: 9999
+2024-11-03 15:14:59,482 - app.db.crud.patient_details - WARNING - Patient details with ID 9999 not found
+2024-11-03 15:14:59,482 - app.db.crud.patient_details - WARNING - Patient details with ID 9999 not found
+2024-11-03 15:14:59,487 - app.db.crud.patient_details - INFO - Creating new patient details with email: johndoe@example.com
+2024-11-03 15:14:59,487 - app.db.crud.patient_details - INFO - Creating new patient details with email: johndoe@example.com
+2024-11-03 15:14:59,491 - app.db.crud.patient_details - INFO - Successfully created patient details with ID: 1
+2024-11-03 15:14:59,491 - app.db.crud.patient_details - INFO - Successfully created patient details with ID: 1
+2024-11-03 15:14:59,498 - app.db.crud.patient_details - INFO - Creating new patient details with email: johndoe@example.com
+2024-11-03 15:14:59,498 - app.db.crud.patient_details - INFO - Creating new patient details with email: johndoe@example.com
+2024-11-03 15:14:59,500 - app.db.crud.patient_details - WARNING - Email johndoe@example.com already registered
+2024-11-03 15:14:59,500 - app.db.crud.patient_details - WARNING - Email johndoe@example.com already registered
+2024-11-03 15:14:59,508 - app.db.crud.patient_details - INFO - Updating patient details with ID: 1
+2024-11-03 15:14:59,508 - app.db.crud.patient_details - INFO - Updating patient details with ID: 1
+2024-11-03 15:14:59,508 - app.db.crud.patient_details - INFO - Fetching patient details with ID: 1
+2024-11-03 15:14:59,508 - app.db.crud.patient_details - INFO - Fetching patient details with ID: 1
+2024-11-03 15:14:59,509 - app.db.crud.patient_details - INFO - Successfully retrieved patient details with ID: 1
+2024-11-03 15:14:59,509 - app.db.crud.patient_details - INFO - Successfully retrieved patient details with ID: 1
+2024-11-03 15:14:59,511 - app.db.crud.patient_details - INFO - Successfully updated patient details with ID: 1
+2024-11-03 15:14:59,511 - app.db.crud.patient_details - INFO - Successfully updated patient details with ID: 1
+2024-11-03 15:14:59,520 - app.db.crud.patient_details - INFO - Updating patient details with ID: 2
+2024-11-03 15:14:59,520 - app.db.crud.patient_details - INFO - Updating patient details with ID: 2
+2024-11-03 15:14:59,521 - app.db.crud.patient_details - INFO - Fetching patient details with ID: 2
+2024-11-03 15:14:59,521 - app.db.crud.patient_details - INFO - Fetching patient details with ID: 2
+2024-11-03 15:14:59,522 - app.db.crud.patient_details - INFO - Successfully retrieved patient details with ID: 2
+2024-11-03 15:14:59,522 - app.db.crud.patient_details - INFO - Successfully retrieved patient details with ID: 2
+2024-11-03 15:14:59,523 - app.db.crud.patient_details - WARNING - Email johndoe@example.com already registered by another patient
+2024-11-03 15:14:59,523 - app.db.crud.patient_details - WARNING - Email johndoe@example.com already registered by another patient
+2024-11-03 15:14:59,528 - app.db.crud.patient_details - INFO - Updating patient details with ID: 9999
+2024-11-03 15:14:59,528 - app.db.crud.patient_details - INFO - Updating patient details with ID: 9999
+2024-11-03 15:14:59,529 - app.db.crud.patient_details - INFO - Fetching patient details with ID: 9999
+2024-11-03 15:14:59,529 - app.db.crud.patient_details - INFO - Fetching patient details with ID: 9999
+2024-11-03 15:14:59,531 - app.db.crud.patient_details - WARNING - Patient details with ID 9999 not found
+2024-11-03 15:14:59,531 - app.db.crud.patient_details - WARNING - Patient details with ID 9999 not found
+2024-11-03 15:14:59,539 - app.db.crud.patient_details - INFO - Deleting patient details with ID: 1
+2024-11-03 15:14:59,539 - app.db.crud.patient_details - INFO - Deleting patient details with ID: 1
+2024-11-03 15:14:59,539 - app.db.crud.patient_details - INFO - Fetching patient details with ID: 1
+2024-11-03 15:14:59,539 - app.db.crud.patient_details - INFO - Fetching patient details with ID: 1
+2024-11-03 15:14:59,540 - app.db.crud.patient_details - INFO - Successfully retrieved patient details with ID: 1
+2024-11-03 15:14:59,540 - app.db.crud.patient_details - INFO - Successfully retrieved patient details with ID: 1
+2024-11-03 15:14:59,546 - app.db.crud.patient_details - INFO - Successfully deleted patient details with ID: 1
+2024-11-03 15:14:59,546 - app.db.crud.patient_details - INFO - Successfully deleted patient details with ID: 1
+2024-11-03 15:14:59,547 - app.db.crud.patient_details - INFO - Fetching patient details with ID: 1
+2024-11-03 15:14:59,547 - app.db.crud.patient_details - INFO - Fetching patient details with ID: 1
+2024-11-03 15:14:59,547 - app.db.crud.patient_details - WARNING - Patient details with ID 1 not found
+2024-11-03 15:14:59,547 - app.db.crud.patient_details - WARNING - Patient details with ID 1 not found
+2024-11-03 15:14:59,552 - app.db.crud.patient_details - INFO - Deleting patient details with ID: 9999
+2024-11-03 15:14:59,552 - app.db.crud.patient_details - INFO - Deleting patient details with ID: 9999
+2024-11-03 15:14:59,553 - app.db.crud.patient_details - INFO - Fetching patient details with ID: 9999
+2024-11-03 15:14:59,553 - app.db.crud.patient_details - INFO - Fetching patient details with ID: 9999
+2024-11-03 15:14:59,555 - app.db.crud.patient_details - WARNING - Patient details with ID 9999 not found
+2024-11-03 15:14:59,555 - app.db.crud.patient_details - WARNING - Patient details with ID 9999 not found
+2024-11-03 15:14:59,583 - app - INFO - Request: POST /api/v1/patients/ | Status: 201 | Process Time: 0.01s | Request ID: 18de0b0a-5b06-4b82-bdd6-9e88bf9739d7
+2024-11-03 15:14:59,583 - app - INFO - Request: POST /api/v1/patients/ | Status: 201 | Process Time: 0.01s | Request ID: 18de0b0a-5b06-4b82-bdd6-9e88bf9739d7
+2024-11-03 15:14:59,590 - app - INFO - Request: GET /api/v1/patients/ | Status: 200 | Process Time: 0.00s | Request ID: 34f324c2-9103-44fc-9bec-7a7500cb68e0
+2024-11-03 15:14:59,590 - app - INFO - Request: GET /api/v1/patients/ | Status: 200 | Process Time: 0.00s | Request ID: 34f324c2-9103-44fc-9bec-7a7500cb68e0
+2024-11-03 15:14:59,599 - app - INFO - Request: GET /api/v1/patients/3 | Status: 200 | Process Time: 0.00s | Request ID: 5dee21a0-f7b4-464f-bca6-5e43caad7221
+2024-11-03 15:14:59,599 - app - INFO - Request: GET /api/v1/patients/3 | Status: 200 | Process Time: 0.00s | Request ID: 5dee21a0-f7b4-464f-bca6-5e43caad7221
+2024-11-03 15:14:59,612 - app - INFO - Request: PUT /api/v1/patients/4 | Status: 200 | Process Time: 0.01s | Request ID: 32fb8f2f-a2d7-4abd-9f8a-8fc20cd7e0c5
+2024-11-03 15:14:59,612 - app - INFO - Request: PUT /api/v1/patients/4 | Status: 200 | Process Time: 0.01s | Request ID: 32fb8f2f-a2d7-4abd-9f8a-8fc20cd7e0c5
+2024-11-03 15:14:59,620 - app - INFO - Request: DELETE /api/v1/patients/5 | Status: 204 | Process Time: 0.00s | Request ID: 2c1ed102-bf4c-4793-ab4f-bd83ea3bbbdc
+2024-11-03 15:14:59,620 - app - INFO - Request: DELETE /api/v1/patients/5 | Status: 204 | Process Time: 0.00s | Request ID: 2c1ed102-bf4c-4793-ab4f-bd83ea3bbbdc
+2024-11-03 15:14:59,623 - app - INFO - Request: GET /api/v1/patients/5 | Status: 404 | Process Time: 0.00s | Request ID: dbc0e272-03a9-46a4-83cf-e154c14577a0
+2024-11-03 15:14:59,623 - app - INFO - Request: GET /api/v1/patients/5 | Status: 404 | Process Time: 0.00s | Request ID: dbc0e272-03a9-46a4-83cf-e154c14577a0
+2024-11-03 15:14:59,627 - app - INFO - Request: GET /api/v1/patients/9999 | Status: 404 | Process Time: 0.00s | Request ID: 1b416860-ba57-40e7-b707-1a6ceb140ec2
+2024-11-03 15:14:59,627 - app - INFO - Request: GET /api/v1/patients/9999 | Status: 404 | Process Time: 0.00s | Request ID: 1b416860-ba57-40e7-b707-1a6ceb140ec2
+2024-11-03 15:14:59,633 - app - INFO - Request: PUT /api/v1/patients/9999 | Status: 404 | Process Time: 0.00s | Request ID: c9735fc6-7987-4bc1-84e3-364ce70c00cf
+2024-11-03 15:14:59,633 - app - INFO - Request: PUT /api/v1/patients/9999 | Status: 404 | Process Time: 0.00s | Request ID: c9735fc6-7987-4bc1-84e3-364ce70c00cf
+2024-11-03 15:14:59,637 - app - INFO - Request: DELETE /api/v1/patients/9999 | Status: 404 | Process Time: 0.00s | Request ID: 1f04f143-fb7e-42bb-b9fd-9acd00777bff
+2024-11-03 15:14:59,637 - app - INFO - Request: DELETE /api/v1/patients/9999 | Status: 404 | Process Time: 0.00s | Request ID: 1f04f143-fb7e-42bb-b9fd-9acd00777bff
+2024-11-03 15:14:59,642 - app - INFO - Request: POST /api/v1/patients/ | Status: 422 | Process Time: 0.00s | Request ID: 4a8b4b17-91d6-4321-826d-166c109028a8
+2024-11-03 15:14:59,642 - app - INFO - Request: POST /api/v1/patients/ | Status: 422 | Process Time: 0.00s | Request ID: 4a8b4b17-91d6-4321-826d-166c109028a8
+2024-11-03 15:14:59,657 - app.db.crud.patient_symptoms - INFO - Creating a new patient symptom
+2024-11-03 15:14:59,657 - app.db.crud.patient_symptoms - INFO - Creating a new patient symptom
+2024-11-03 15:14:59,661 - app.db.crud.patient_symptoms - INFO - Successfully created patient symptom with ID: 1
+2024-11-03 15:14:59,661 - app.db.crud.patient_symptoms - INFO - Successfully created patient symptom with ID: 1
+2024-11-03 15:14:59,666 - app.db.crud.patient_symptoms - INFO - Creating a new patient symptom
+2024-11-03 15:14:59,666 - app.db.crud.patient_symptoms - INFO - Creating a new patient symptom
+2024-11-03 15:14:59,669 - app.db.crud.patient_symptoms - INFO - Successfully created patient symptom with ID: 1
+2024-11-03 15:14:59,669 - app.db.crud.patient_symptoms - INFO - Successfully created patient symptom with ID: 1
+2024-11-03 15:14:59,669 - app.db.crud.patient_symptoms - INFO - Fetching patient symptom with ID: 1
+2024-11-03 15:14:59,669 - app.db.crud.patient_symptoms - INFO - Fetching patient symptom with ID: 1
+2024-11-03 15:14:59,671 - app.db.crud.patient_symptoms - INFO - Successfully retrieved patient symptom with ID: 1
+2024-11-03 15:14:59,671 - app.db.crud.patient_symptoms - INFO - Successfully retrieved patient symptom with ID: 1
+2024-11-03 15:14:59,676 - app.db.crud.patient_symptoms - INFO - Creating a new patient symptom
+2024-11-03 15:14:59,676 - app.db.crud.patient_symptoms - INFO - Creating a new patient symptom
+2024-11-03 15:14:59,678 - app.db.crud.patient_symptoms - INFO - Successfully created patient symptom with ID: 1
+2024-11-03 15:14:59,678 - app.db.crud.patient_symptoms - INFO - Successfully created patient symptom with ID: 1
+2024-11-03 15:14:59,679 - app.db.crud.patient_symptoms - INFO - Updating patient symptom with ID: 1
+2024-11-03 15:14:59,679 - app.db.crud.patient_symptoms - INFO - Updating patient symptom with ID: 1
+2024-11-03 15:14:59,679 - app.db.crud.patient_symptoms - INFO - Fetching patient symptom with ID: 1
+2024-11-03 15:14:59,679 - app.db.crud.patient_symptoms - INFO - Fetching patient symptom with ID: 1
+2024-11-03 15:14:59,680 - app.db.crud.patient_symptoms - INFO - Successfully retrieved patient symptom with ID: 1
+2024-11-03 15:14:59,680 - app.db.crud.patient_symptoms - INFO - Successfully retrieved patient symptom with ID: 1
+2024-11-03 15:14:59,682 - app.db.crud.patient_symptoms - INFO - Successfully updated patient symptom with ID: 1
+2024-11-03 15:14:59,682 - app.db.crud.patient_symptoms - INFO - Successfully updated patient symptom with ID: 1
+2024-11-03 15:14:59,687 - app.db.crud.patient_symptoms - INFO - Creating a new patient symptom
+2024-11-03 15:14:59,687 - app.db.crud.patient_symptoms - INFO - Creating a new patient symptom
+2024-11-03 15:14:59,691 - app.db.crud.patient_symptoms - INFO - Successfully created patient symptom with ID: 1
+2024-11-03 15:14:59,691 - app.db.crud.patient_symptoms - INFO - Successfully created patient symptom with ID: 1
+2024-11-03 15:14:59,691 - app.db.crud.patient_symptoms - INFO - Deleting patient symptom with ID: 1
+2024-11-03 15:14:59,691 - app.db.crud.patient_symptoms - INFO - Deleting patient symptom with ID: 1
+2024-11-03 15:14:59,692 - app.db.crud.patient_symptoms - INFO - Fetching patient symptom with ID: 1
+2024-11-03 15:14:59,692 - app.db.crud.patient_symptoms - INFO - Fetching patient symptom with ID: 1
+2024-11-03 15:14:59,693 - app.db.crud.patient_symptoms - INFO - Successfully retrieved patient symptom with ID: 1
+2024-11-03 15:14:59,693 - app.db.crud.patient_symptoms - INFO - Successfully retrieved patient symptom with ID: 1
+2024-11-03 15:14:59,696 - app.db.crud.patient_symptoms - INFO - Successfully deleted patient symptom with ID: 1
+2024-11-03 15:14:59,696 - app.db.crud.patient_symptoms - INFO - Successfully deleted patient symptom with ID: 1
