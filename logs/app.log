@@ -596,6 +596,7 @@ patient.updated_at
     For further information visit https://errors.pydantic.dev/2.9/v/missing
 2024-10-28 20:30:13,635 - app - INFO - Request: GET /api/v1/patient_summary/5/summary | Status: 200 | Process Time: 0.05s | Request ID: 1774c154-8113-457e-8048-71507f0f9639
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 2024-10-28 21:39:25,790 - app - INFO - Request: GET /docs | Status: 200 | Process Time: 0.00s | Request ID: bef9adec-f1e8-49c8-a87a-c97f37e24127
 2024-10-28 21:39:26,004 - app - INFO - Request: GET /openapi.json | Status: 200 | Process Time: 0.03s | Request ID: 9248ee20-6e57-4879-94d9-088e236e5c81
 2024-10-28 21:39:41,131 - app - INFO - Request: GET /api/v1/patient_summary/5/summary | Status: 200 | Process Time: 0.11s | Request ID: 9f13e0bf-2faa-4157-bf75-2f8c654a97f9
@@ -974,6 +975,8 @@ symptoms.0.ModelInputDescription
 2024-11-01 22:54:36,056 - app.db.crud.doctor - INFO - Successfully retrieved doctor with ID: 8
 2024-11-01 22:54:36,094 - app - INFO - Request: GET /api/v1/patient_summary/9 | Status: 200 | Process Time: 0.43s | Request ID: 85caf35d-5f06-4366-a615-6e9a5b93c16e
 =======
+=======
+>>>>>>> Stashed changes
 2024-10-31 18:18:03,077 - app - INFO - Request: POST /api/v1/user/register | Status: 201 | Process Time: 0.00s | Request ID: ee3ea83b-57a3-4800-91d2-40c80edceb30
 2024-10-31 18:18:03,077 - app - INFO - Request: POST /api/v1/user/register | Status: 201 | Process Time: 0.00s | Request ID: ee3ea83b-57a3-4800-91d2-40c80edceb30
 2024-10-31 18:18:03,084 - app - INFO - Request: POST /api/v1/user/register | Status: 400 | Process Time: 0.00s | Request ID: 1e0dabaf-8202-4844-929c-ab612678cfd8
@@ -1543,4 +1546,7 @@ symptoms.0.ModelInputDescription
 2024-11-02 13:38:17,031 - app - INFO - Request: DELETE /api/v1/patients/9999 | Status: 404 | Process Time: 0.00s | Request ID: 018760fc-5315-48a4-afad-660c9c4bf5b3
 2024-11-02 13:38:17,036 - app - INFO - Request: POST /api/v1/patients/ | Status: 422 | Process Time: 0.00s | Request ID: aaccc04f-8a52-4b50-b097-56c22df96d87
 2024-11-02 13:38:17,036 - app - INFO - Request: POST /api/v1/patients/ | Status: 422 | Process Time: 0.00s | Request ID: aaccc04f-8a52-4b50-b097-56c22df96d87
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes

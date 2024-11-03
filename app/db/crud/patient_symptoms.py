@@ -129,7 +129,11 @@ def update_patient_symptom(db: Session, symptom_id: int, patient_symptom: Patien
         HTTPException: 404 Not Found if the patient symptom does not exist.
     """
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
     logger.info(f"Updating patient symptom with ID: {symptom_id}")
+=======
+
+>>>>>>> Stashed changes
 =======
 
 >>>>>>> Stashed changes
