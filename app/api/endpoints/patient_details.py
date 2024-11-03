@@ -29,8 +29,6 @@ def read_patient_detail(patient_id: int, db: Session = Depends(get_db)):
     Retrieve patient details by ID.
     """
     db_details = patient_details_crud.get_patient_details(db, patient_id=patient_id)
-    if db_details is None:
-        raise HTTPException(status_code=404, detail="Patient details not found")
     return db_details
 
 @router.put("/{patient_id}", response_model=PatientDetails)
@@ -39,8 +37,6 @@ def update_patient_detail(patient_id: int, patient_details: PatientDetailsUpdate
     Update an existing patient details record.
     """
     db_details = patient_details_crud.update_patient_details(db=db, patient_id=patient_id, patient_details=patient_details)
-    if db_details is None:
-        raise HTTPException(status_code=404, detail="Patient details not found")
     return db_details
 
 @router.delete("/{patient_id}", status_code=204)
@@ -48,7 +44,5 @@ def delete_patient_detail(patient_id: int, db: Session = Depends(get_db)):
     """
     Delete patient details by ID.
     """
-    result = patient_details_crud.delete_patient_details(db=db, patient_id=patient_id)
-    if not result:
-        raise HTTPException(status_code=404, detail="Patient details not found")
+    patient_details_crud.delete_patient_details(db=db, patient_id=patient_id)
     return {"message": "Deleted successfully"}
