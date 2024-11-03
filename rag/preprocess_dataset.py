@@ -280,7 +280,7 @@ if __name__ == '__main__':
 
 
     local_processed_data_path = '../datasets/'
-    processed_dataset_filename = 'preprocessed_dataset_1.csv'
+    processed_dataset_filename = 'preprocessed_dataset.csv'
 
     SERVICE_KEY_FILE = "D:/Rohan/Northeastern/Courses/MLOPS/GCP Service Keys/medscript-437117-e1e48d1242ef.json"
     CREDENTIALS = service_account.Credentials.from_service_account_file(SERVICE_KEY_FILE)
