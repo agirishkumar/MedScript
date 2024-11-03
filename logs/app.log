@@ -595,7 +595,6 @@ patient.updated_at
   Field required [type=missing, input_value=<app.db.models.patient_de...s object at 0x1085dca10>, input_type=PatientDetails]
     For further information visit https://errors.pydantic.dev/2.9/v/missing
 2024-10-28 20:30:13,635 - app - INFO - Request: GET /api/v1/patient_summary/5/summary | Status: 200 | Process Time: 0.05s | Request ID: 1774c154-8113-457e-8048-71507f0f9639
-<<<<<<< Updated upstream
 2024-10-28 21:39:25,790 - app - INFO - Request: GET /docs | Status: 200 | Process Time: 0.00s | Request ID: bef9adec-f1e8-49c8-a87a-c97f37e24127
 2024-10-28 21:39:26,004 - app - INFO - Request: GET /openapi.json | Status: 200 | Process Time: 0.03s | Request ID: 9248ee20-6e57-4879-94d9-088e236e5c81
 2024-10-28 21:39:41,131 - app - INFO - Request: GET /api/v1/patient_summary/5/summary | Status: 200 | Process Time: 0.11s | Request ID: 9f13e0bf-2faa-4157-bf75-2f8c654a97f9
@@ -973,6 +972,73 @@ symptoms.0.ModelInputDescription
 2024-11-01 22:54:36,025 - app.db.crud.doctor - INFO - Fetching doctor with ID: 8
 2024-11-01 22:54:36,056 - app.db.crud.doctor - INFO - Successfully retrieved doctor with ID: 8
 2024-11-01 22:54:36,094 - app - INFO - Request: GET /api/v1/patient_summary/9 | Status: 200 | Process Time: 0.43s | Request ID: 85caf35d-5f06-4366-a615-6e9a5b93c16e
+2024-11-02 01:07:25,931 - app - ERROR - Request: POST /api/v1/patients/ | Status: 500 | Process Time: 0.14s | Request ID: 4f27594d-27c0-402e-aee4-19a657381507 | Error: get_user_by_email() missing 1 required positional argument: 'email'
+2024-11-02 01:24:10,645 - app - INFO - Request: GET /docs | Status: 200 | Process Time: 0.00s | Request ID: 62d29755-4b4f-4029-b450-e76743bc39d5
+2024-11-02 01:24:10,801 - app - INFO - Request: GET /openapi.json | Status: 200 | Process Time: 0.02s | Request ID: ca71a98b-beb1-470d-add9-524e336abd8e
+2024-11-02 01:24:26,780 - app - ERROR - Request: POST /api/v1/patients/ | Status: 500 | Process Time: 0.04s | Request ID: 84820792-322b-4fed-8fc8-70d68bf5709b | Error: get_user_by_email() missing 1 required positional argument: 'email'
+2024-11-02 01:31:47,344 - app - INFO - Request: GET /docs | Status: 200 | Process Time: 0.00s | Request ID: d1f4a016-10f5-4873-83ee-c11dd7952d3d
+2024-11-02 01:31:47,475 - app - INFO - Request: GET /openapi.json | Status: 200 | Process Time: 0.02s | Request ID: 609f5a6a-edb6-4412-aeb6-ff650a766be2
+2024-11-02 01:32:09,901 - app - INFO - Request: POST /api/v1/patients/ | Status: 404 | Process Time: 0.18s | Request ID: a5f112c5-d8d0-42f8-8cca-e07c7c0f9488
+2024-11-02 01:34:38,220 - app - INFO - Request: POST /api/v1/user/register | Status: 400 | Process Time: 0.34s | Request ID: ce7c6a5d-9659-4139-8073-51e888075c7f
+2024-11-02 01:34:49,460 - app - INFO - Request: POST /api/v1/user/register | Status: 400 | Process Time: 0.31s | Request ID: 7d3d374a-7af2-4c1a-aebe-706a388845e7
+2024-11-02 01:37:01,658 - app - INFO - Request: GET /docs | Status: 200 | Process Time: 0.00s | Request ID: 104697e0-5078-41bf-adff-7d5cac1f522f
+2024-11-02 01:37:01,872 - app - INFO - Request: GET /openapi.json | Status: 200 | Process Time: 0.04s | Request ID: d4d793b5-afab-4426-9e89-b4e9f9ac39a6
+2024-11-02 01:37:19,702 - app - INFO - Request: POST /api/v1/user/register | Status: 400 | Process Time: 0.34s | Request ID: a64672ea-872d-4a7e-a5ce-3290ab92b394
+2024-11-02 01:40:52,493 - app - ERROR - Request: GET /api/v1/patients/ | Status: 500 | Process Time: 0.12s | Request ID: 98f0fb04-d5cc-4529-92c4-6f10abda80d4 | Error: (psycopg2.errors.UndefinedColumn) column patients.user_id does not exist
+LINE 1: SELECT patients.id AS patients_id, patients.user_id AS patie...
+                                           ^
+
+[SQL: SELECT patients.id AS patients_id, patients.user_id AS patients_user_id, patients.name AS patients_name, patients.age AS patients_age, patients.email AS patients_email, patients.created_at AS patients_created_at, patients.updated_at AS patients_updated_at
+FROM patients
+ LIMIT %(param_1)s OFFSET %(param_2)s]
+[parameters: {'param_1': 100, 'param_2': 0}]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2024-11-02 01:45:32,825 - app - ERROR - Request: GET /api/v1/patients/1 | Status: 500 | Process Time: 0.10s | Request ID: bf875036-c311-49fa-a6f0-b27ee49a2d87 | Error: (psycopg2.errors.UndefinedColumn) column patients.user_id does not exist
+LINE 1: SELECT patients.id AS patients_id, patients.user_id AS patie...
+                                           ^
+
+[SQL: SELECT patients.id AS patients_id, patients.user_id AS patients_user_id, patients.name AS patients_name, patients.age AS patients_age, patients.email AS patients_email, patients.created_at AS patients_created_at, patients.updated_at AS patients_updated_at
+FROM patients
+WHERE patients.id = %(id_1)s
+ LIMIT %(param_1)s]
+[parameters: {'id_1': 1, 'param_1': 1}]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2024-11-02 23:05:38,715 - app - INFO - Request: GET /docs | Status: 200 | Process Time: 0.00s | Request ID: 1d0a5aab-14f6-47a8-8e4b-854feda9cb1f
+2024-11-02 23:05:39,488 - app - INFO - Request: GET /openapi.json | Status: 200 | Process Time: 0.03s | Request ID: 68dacd25-cfc6-4ccc-a89a-920d865b26cf
+2024-11-02 23:06:16,271 - app - INFO - Request: POST /api/v1/user/login | Status: 422 | Process Time: 0.03s | Request ID: 3fb89fea-ed77-4ffd-97a1-0afc1a0f1e7d
+2024-11-02 23:06:37,444 - app - INFO - Request: GET /docs | Status: 200 | Process Time: 0.00s | Request ID: 6d71e610-77b6-478d-a432-26a3d8e760e9
+2024-11-02 23:06:37,686 - app - INFO - Request: GET /openapi.json | Status: 200 | Process Time: 0.00s | Request ID: bf301224-9d6e-4d58-97e9-f845e73962e6
+2024-11-02 23:07:05,585 - app - INFO - Request: POST /api/v1/user/register | Status: 201 | Process Time: 0.53s | Request ID: af15648c-3aef-41ba-8c31-7b949b6c4067
+2024-11-02 23:07:43,397 - app - ERROR - Request: POST /api/v1/user/login | Status: 500 | Process Time: 0.35s | Request ID: 6522ddcd-da2b-41fc-937e-c9dd8dbb3447 | Error: Object of type Role is not JSON serializable
+2024-11-02 23:08:01,910 - app - INFO - Request: POST /api/v1/user/login | Status: 422 | Process Time: 0.01s | Request ID: 18f83ef9-7610-468d-b037-08fe5252a58e
+2024-11-02 23:08:16,309 - app - INFO - Request: POST /api/v1/user/login | Status: 422 | Process Time: 0.00s | Request ID: 88ca04da-fc8c-4dc0-9662-3cd09cf8a42e
+2024-11-02 23:09:22,505 - app - ERROR - Request: POST /api/v1/user/login | Status: 500 | Process Time: 0.33s | Request ID: a68667d4-8320-4556-ab71-63bd2f09d52b | Error: Object of type Role is not JSON serializable
+2024-11-02 23:10:43,836 - app - INFO - Request: POST /api/v1/user/login | Status: 422 | Process Time: 0.01s | Request ID: 20a7a0f7-54b4-4b9e-88b6-85b7be5e395e
+2024-11-02 23:11:29,652 - app - ERROR - Request: POST /api/v1/user/login | Status: 500 | Process Time: 0.36s | Request ID: f66fa647-5500-4fa5-8bd7-06fa9cbebd3f | Error: Object of type Role is not JSON serializable
+2024-11-02 23:12:58,258 - app - INFO - Request: POST /api/v1/user/login | Status: 422 | Process Time: 0.02s | Request ID: 5f71e306-8c47-4084-b30f-618eaf95eb57
+2024-11-02 23:13:13,086 - app - INFO - Request: POST /api/v1/user/login | Status: 422 | Process Time: 0.00s | Request ID: e2526139-cb2c-47f7-8121-2b8153d101dd
+2024-11-02 23:13:15,693 - app - INFO - Request: POST /api/v1/user/login | Status: 422 | Process Time: 0.01s | Request ID: bfc91c6f-88c2-4d6c-a306-ae69ac0f22fc
+2024-11-02 23:14:33,270 - app - ERROR - Request: POST /api/v1/user/login | Status: 500 | Process Time: 0.37s | Request ID: ad32d046-8d30-4975-8b36-738cc2bb0850 | Error: Object of type Role is not JSON serializable
+2024-11-02 23:17:39,515 - app - ERROR - Request: POST /api/v1/user/login | Status: 500 | Process Time: 0.31s | Request ID: 5fa595ed-28ae-4f33-8cc1-1c2ee802a719 | Error: 'str' object has no attribute 'generate_token'
+2024-11-02 23:19:28,063 - app - ERROR - Request: POST /api/v1/patients/ | Status: 500 | Process Time: 0.07s | Request ID: 30ec7dfa-6fb1-45f1-894b-be20244e7410 | Error: get_user_by_email() missing 1 required positional argument: 'email'
+2024-11-02 23:21:12,578 - app - INFO - Request: GET /docs | Status: 200 | Process Time: 0.00s | Request ID: ef64afe2-1950-4dcd-93c0-80660c253950
+2024-11-02 23:21:12,836 - app - INFO - Request: GET /openapi.json | Status: 200 | Process Time: 0.03s | Request ID: aee5c384-e5de-4d46-a763-707e80831151
+2024-11-02 23:21:21,217 - app - INFO - Request: POST /api/v1/patients/ | Status: 404 | Process Time: 0.13s | Request ID: f82b240f-bc45-4616-b921-91fed19a79a9
+2024-11-02 23:21:34,293 - app - INFO - Request: POST /api/v1/patients/ | Status: 201 | Process Time: 0.31s | Request ID: 3c5d3706-fcf6-4660-875d-87331a5a1107
+2024-11-02 23:21:46,379 - app - INFO - Request: GET /api/v1/patients/ | Status: 200 | Process Time: 0.10s | Request ID: 1ffd0360-57f6-447e-9bcc-0a92ca52801f
+2024-11-02 23:22:01,751 - app - INFO - Request: GET /api/v1/patients/1 | Status: 200 | Process Time: 0.11s | Request ID: da6dbe21-b017-4d5e-8116-e6de37b4751d
+2024-11-02 23:22:17,953 - app - INFO - Request: PUT /api/v1/patients/1 | Status: 200 | Process Time: 0.24s | Request ID: bb0d0d8b-e9ce-41c3-bffc-5387d7f482c5
+2024-11-02 23:22:34,638 - app - INFO - Request: DELETE /api/v1/patients/1 | Status: 204 | Process Time: 0.24s | Request ID: efd59602-b4a9-4898-ac90-e91f41ca1f50
+2024-11-02 23:22:41,122 - app - INFO - Request: GET /api/v1/patients/ | Status: 200 | Process Time: 0.10s | Request ID: a22d57c1-49b3-4fb4-a79b-9385970405c3
+2024-11-02 23:22:55,966 - app - INFO - Request: POST /api/v1/patients/ | Status: 404 | Process Time: 0.10s | Request ID: 5769ed22-c4ae-4f27-afd9-527d1f6a4ff2
+2024-11-02 23:23:26,044 - app - INFO - Request: POST /api/v1/user/register | Status: 201 | Process Time: 0.43s | Request ID: 4c9bbcad-c48d-4c29-93a2-aef31d86c849
+2024-11-02 23:23:36,899 - app - INFO - Request: POST /api/v1/patients/ | Status: 201 | Process Time: 0.22s | Request ID: 778102c9-fbee-4b25-81f7-db0e46b4ae40
+2024-11-02 23:24:22,706 - app - ERROR - Request: POST /api/v1/user/login | Status: 500 | Process Time: 0.32s | Request ID: 290db844-563e-4f42-a665-66c7a9d0625a | Error: Object of type Role is not JSON serializable
+2024-11-02 23:24:49,058 - app - ERROR - Request: POST /api/v1/user/login | Status: 500 | Process Time: 0.35s | Request ID: 014f91ca-b1cb-44dd-8296-bbdc51f362ba | Error: 'str' object has no attribute 'generate_token'
+2024-11-02 23:27:51,890 - app - ERROR - Request: POST /api/v1/user/login | Status: 500 | Process Time: 0.33s | Request ID: 4c83fec1-71f7-4595-9bdb-2fd31c726c72 | Error: 'str' object has no attribute 'generate_token'
+2024-11-02 23:30:30,598 - app - ERROR - Request: POST /api/v1/user/login | Status: 500 | Process Time: 0.49s | Request ID: da0e105c-fbcf-4f95-aad7-a6bcf9049bc8 | Error: 'str' object has no attribute 'generate_token'
+2024-11-02 23:30:38,288 - app - ERROR - Request: POST /api/v1/user/login | Status: 500 | Process Time: 0.32s | Request ID: 75de8807-8dea-433d-84da-a03cf1ad92db | Error: 'str' object has no attribute 'generate_token'
+2024-11-02 23:30:54,506 - app - ERROR - Request: POST /api/v1/user/login | Status: 500 | Process Time: 0.35s | Request ID: e928a028-6d13-49be-8568-43d8d62dcb2d | Error: Object of type Role is not JSON serializable
 =======
 2024-10-31 18:18:03,077 - app - INFO - Request: POST /api/v1/user/register | Status: 201 | Process Time: 0.00s | Request ID: ee3ea83b-57a3-4800-91d2-40c80edceb30
 2024-10-31 18:18:03,077 - app - INFO - Request: POST /api/v1/user/register | Status: 201 | Process Time: 0.00s | Request ID: ee3ea83b-57a3-4800-91d2-40c80edceb30

@@ -38,6 +38,10 @@ app.include_router(patient_summary.router, prefix=settings.API_V1_STR)
 
 db_base.init()
 
+@app.get("/health", status_code=200)
+def default():
+    return {"message": "Server is up!"}
+
 if __name__ == "__main__":
     import uvicorn
     logger.info("Starting application")

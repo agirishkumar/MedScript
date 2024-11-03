@@ -53,7 +53,7 @@ def create_patient(db: Session, patient: PatientCreate):
     Raises:
     HTTPException: 400 Bad Request if the email is already registered.
     """
-    db_user = user_crud.get_user_by_email(patient.email)
+    db_user = user_crud.get_user_by_email(db, patient.email)
     db_patient = Patient(**patient.dict())
     db_patient.user_id = db_user.user_id
     try:
