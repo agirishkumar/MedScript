@@ -108,7 +108,9 @@ def test_login(test_client):
     with patch("app.utils.auth_util.JWTTokenHelper.generate_token") as mock_generate_token, patch("app.utils.auth_util.authenticate_user")as mock_authenticate_user:
         mock_user = MagicMock(spec=User)
         mock_user.email = "test@test.com"
-        mock_user.role = "1"
+        mock_role = MagicMock()
+        mock_role.name = "PATIENT"
+        mock_user.role = mock_role
         mock_authenticate_user.return_value = mock_user
         mock_generate_token.return_value = "Bearer token"
 
