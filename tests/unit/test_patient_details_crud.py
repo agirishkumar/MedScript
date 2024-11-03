@@ -17,7 +17,10 @@ mock_patient_data = PatientDetailsCreate(
     Gender="Male",
     Address="123 Main St",
     ContactNumber="1234567890",
-    Email="johndoe@example.com"
+    Email="johndoe@example.com",
+    Height= 5.6,
+    Weight = 76,
+    BloodType= "B+"
 )
 
 @pytest.fixture
@@ -109,7 +112,10 @@ def test_update_patient_details_email_duplicate(mock_db_session: Session):
         Gender="Female",
         Address="789 Oak Ave",
         ContactNumber="9876543210",
-        Email="alice@example.com"
+        Email="alice@example.com",
+        Height= 5.2,
+        Weight = 90,
+        BloodType= "AB-"
     )
     patient2 = PatientDetails(**patient2_data.dict())
     mock_db_session.add_all([patient1, patient2])
