@@ -41,12 +41,19 @@ def embed_to_str(embedding):
     str_emb = '[' + ','.join(map(str, embedding.flatten().numpy())) + ']'
     return str_emb
 
-def embed(data, tokenizer, model, device, csv_filename, batch_size=4):
+def embed(data, tokenizer, model, device, csv_filename = '', batch_size=4):
     """
     Generates embeddings for data using GPU acceleration
     Smaller batch size and more memory management for 6GB VRAM
     Appends each batch of embeddings to a CSV file for recovery if interrupted.
     """
+
+    if isinstance(data, str):
+        embedding = get_embedding(data,tokenizer, model, device)
+        embedding = embedding.detach().numpy()
+        return embedding
+        
+
     total_batches = len(data) // batch_size + (1 if len(data) % batch_size != 0 else 0)
     
     try:

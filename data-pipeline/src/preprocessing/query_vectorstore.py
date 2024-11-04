@@ -22,14 +22,17 @@ def get_relevant_points(query, tokenizer, model, client, collection_name, top_k=
         return None
 
     # Ensure the embedding is a flat list of floats
-    query_embedding = embed(query, tokenizer, model, device="cpu")
+    query_embedding = embed(query, tokenizer, model,   device="cpu")
+    print("Query embedding is done ")
     query_embedding = query_embedding.flatten().tolist()  # Flatten and convert to list of floats
+    print("Flatten embedding is done ")
 
     search_results = client.search(
         collection_name=collection_name,
         query_vector=query_embedding,
         limit=top_k
     )
+    print("Search is done, length ", len(search_results))
     return search_results
 
 if __name__ == '__main__':
@@ -55,7 +58,7 @@ if __name__ == '__main__':
     
     # Example Usage
     query = "What are the symptoms of hemophilia?" 
-    results = get_relevant_points(query, tokenizer, model, client, collection_name)
+    results = get_relevant_points(query, tokenizer, model, client, collection_name, top_k=3)
 
     # Display results
     if results is not None:
