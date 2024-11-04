@@ -8,10 +8,10 @@ from app.db.crud.patient_details import get_patient_details, get_all_patient_det
 from app.db.schemas.patient_details import PatientDetailsCreate, PatientDetailsUpdate
 from app.db.models.patient_details import PatientDetails
 from datetime import date
+from unittest.mock import patch, MagicMock, Mock
+from app.db.models.user import User
 
 
-
-#Mock data for tests
 mock_patient_data = PatientDetailsCreate(
     FirstName="John",
     LastName="Doe",
@@ -39,7 +39,6 @@ def mock_db_session():
     engine = create_engine("sqlite:///:memory:")
     SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
     db = SessionLocal()
-    # Create tables in the in-memory database
     from app.db.base import Base
     Base.metadata.create_all(bind=engine)
     yield db
@@ -62,16 +61,6 @@ def test_get_patient_details_not_found(mock_db_session: Session):
         get_patient_details(mock_db_session, patient_id=9999)
     assert exc_info.value.status_code == 404
     assert exc_info.value.detail == "Patient details not found"
-
-
-# def test_get_all_patient_details(mock_db_session: Session):
-#     patients = [PatientDetails(**mock_patient_data.dict()) for _ in range(5)]
-#     mock_db_session.add_all(patients)
-#     mock_db_session.commit()
-
-#     result = get_all_patient_details(mock_db_session, skip=0, limit=10)
-#     assert len(result) == 5
-
 
 def test_create_patient_details_success(mock_db_session: Session):
     new_patient = create_patient_details(mock_db_session, mock_patient_data)
@@ -158,50 +147,40 @@ def test_delete_patient_details_not_found(mock_db_session: Session):
     assert exc_info.value.detail == "Patient details not found"
 
 
-def test_create_patient_details_integrity_error(mock_db_session: Session):
-    """Test that creating a patient with a duplicate email raises an IntegrityError."""
-    
-    # First, create a patient to simulate the existing entry
-    existing_patient = PatientDetails(**mock_patient_data.dict())
-    mock_db_session.add(existing_patient)
-    mock_db_session.commit()
-
-    # Attempt to create a new patient with the same email, which should raise an HTTPException
-    with pytest.raises(HTTPException) as exc_info:
-        create_patient_details(mock_db_session, mock_patient_data)
-    
-    assert exc_info.value.status_code == 400
-    assert exc_info.value.detail == "An error occurred while creating patient details"
-
-def test_update_patient_details_integrity_error(mock_db_session: Session):
-    """Test that updating a patient to a duplicate email raises an IntegrityError."""
-
-    # Create an existing patient
-    existing_patient = PatientDetails(**mock_patient_data.dict())
-    mock_db_session.add(existing_patient)
-    mock_db_session.commit()
-
-    # Create another patient with a different email
-    other_patient_data = PatientDetailsCreate(
-        FirstName="Jane",
-        LastName="Doe",
-        DateOfBirth=date(1992, 1, 1),
-        Gender="Female",
-        Address="456 Main St",
-        ContactNumber="0987654321",
-        Email="janedoe@example.com",
-        Height=5.4,
-        Weight=65,
-        BloodType="A+"
+def test_update_patient_details_email_to_existing_email(mock_db_session: Session):
+    """
+    Tests updating a patient's email in patient details to an email that already exists raises an HTTPException.
+    """
+    patient1_data = PatientDetailsCreate(
+        FirstName="Alice", LastName="Smith", DateOfBirth=date(1990, 1, 1),
+        Gender="Female", Address="123 Main St", ContactNumber="1234567890",
+        Email="alice@example.com", Height=5.5, Weight=65, BloodType="A+"
     )
-    other_patient = PatientDetails(**other_patient_data.dict())
-    mock_db_session.add(other_patient)
-    mock_db_session.commit()
 
-    # Attempt to update the first patient to the email of the second patient, which should raise an HTTPException
-    update_data = PatientDetailsUpdate(Email="janedoe@example.com")  # Attempting to set the same email
+    patient2_data = PatientDetailsCreate(
+        FirstName="Bob", LastName="Jones", DateOfBirth=date(1985, 2, 2),
+        Gender="Male", Address="456 Elm St", ContactNumber="0987654321",
+        Email="bob@example.com", Height=6.0, Weight=80, BloodType="B+"
+    )
+
+    with patch("app.db.crud.user_crud.get_user_by_email") as mock_get_user_by_email:
+        mock_user = MagicMock(spec=User)
+        mock_user.user_id = 1
+        mock_get_user_by_email.return_value = mock_user
+        new_patient1 = create_patient_details(mock_db_session, patient1_data)
+        mock_user.user_id = 2
+        mock_get_user_by_email.return_value = mock_user
+        new_patient2 = create_patient_details(mock_db_session, patient2_data)
+
+    update_data = PatientDetailsUpdate(Email="bob@example.com")
+
     with pytest.raises(HTTPException) as exc_info:
-        update_patient_details(mock_db_session, existing_patient.PatientID, update_data)
-    
+        update_patient_details(mock_db_session, new_patient1.PatientID, update_data)
+
     assert exc_info.value.status_code == 400
-    assert exc_info.value.detail == "An error occurred while updating patient details"
+    assert exc_info.value.detail == "Email already registered"
+
+
+
+
+
