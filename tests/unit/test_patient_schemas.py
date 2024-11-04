@@ -38,3 +38,4 @@ def test_patient_schema():
     assert patient.id == 1
     assert patient.email == "john@example.com"
     assert patient.user_id == 1
+

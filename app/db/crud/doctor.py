@@ -6,6 +6,8 @@ from sqlalchemy.exc import IntegrityError
 from ..models.doctor import Doctor
 from ..schemas.doctor import DoctorCreate, DoctorUpdate
 from fastapi import HTTPException
+from app.db import models, schemas  # Ensure these paths are correct
+from sqlalchemy.exc import IntegrityError
 
 # Set up logger
 logger = logging.getLogger(__name__)
@@ -110,9 +112,6 @@ def update_doctor(db: Session, doctor_id: int, doctor: DoctorUpdate):
     """
     logger.info(f"Updating doctor with ID: {doctor_id}")
     db_doctor = get_doctor(db, doctor_id)
-    if db_doctor is None:
-        logger.warning(f"Doctor with ID {doctor_id} not found for update")
-        raise HTTPException(status_code=404, detail="Doctor not found")
 
     if doctor.Email:
         existing_email = db.query(Doctor).filter(
@@ -162,9 +161,6 @@ def delete_doctor(db: Session, doctor_id: int):
     """
     logger.info(f"Deleting doctor with ID: {doctor_id}")
     db_doctor = get_doctor(db, doctor_id)
-    if db_doctor is None:
-        logger.warning(f"Doctor with ID {doctor_id} not found for deletion")
-        raise HTTPException(status_code=404, detail="Doctor not found")
 
     db.delete(db_doctor)
     db.commit()
