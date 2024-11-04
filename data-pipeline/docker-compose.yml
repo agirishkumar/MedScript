@@ -41,7 +41,7 @@ services:
     environment:
       GOOGLE_APPLICATION_CREDENTIALS: "/secrets/service-account-key.json"
     volumes:
-      - ${GOOGLE_APPLICATION_CREDENTIALS}:/secrets
+      - ../data-pipeline/secrets:/secrets
     
   # fast api server
   fastapi:
