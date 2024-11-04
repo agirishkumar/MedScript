@@ -7,6 +7,7 @@ from app.db.schemas.patient import PatientCreate, PatientUpdate
 from sqlalchemy.orm import Session
 from unittest.mock import patch, MagicMock, Mock
 import pytest
+from fastapi import HTTPException
 
 @pytest.fixture
 def mock_db_session():
@@ -43,6 +44,7 @@ def test_create_patient(mock_db_session: Session):
     assert new_patient.email == "test@example.com"
     assert new_patient.user_id == 1
 
+
 def test_get_patient(mock_db_session: Session):
     """
     Tests that a patient can be retrieved from the database using its ID.
@@ -57,6 +59,7 @@ def test_get_patient(mock_db_session: Session):
     assert fetched_patient.name == "Jane Doe"
     assert fetched_patient.email == "jane@example.com"
 
+
 def test_update_patient(mock_db_session: Session):
     """
     Tests that a patient can be updated successfully with valid data.
@@ -70,6 +73,7 @@ def test_update_patient(mock_db_session: Session):
     updated_data = PatientUpdate(age=45)
     updated_patient = update_patient(mock_db_session, new_patient.id, updated_data)
     assert updated_patient.age == 45
+
 
 def test_delete_patient(mock_db_session: Session):
     """
@@ -89,24 +93,82 @@ def test_delete_patient(mock_db_session: Session):
     assert deleted_patient.name == "Alice"
     assert mock_db_session.query(Patient).filter(Patient.id == new_patient.id).first() is None
 
-# def test_create_patient_missing_name(mock_db_session: Session):
-#     patient_data = PatientCreate(name="", age=25, email="test@example.com", user_id=1)  # Missing name
-#     with pytest.raises(Exception) as excinfo:
-#         create_patient(mock_db_session, patient_data)
-#     assert "Name is required" in str(excinfo.value)  # Adjust based on actual error handling
+def test_create_patient_duplicate_email(mock_db_session: Session):
+    """
+    Tests that attempting to create a patient with a duplicate email raises an exception.
+    """
+    patient_data = PatientCreate(name="John Doe", age=35, email="duplicate@example.com", user_id=1)
+    with patch("app.db.crud.user.get_user_by_email") as mock_get_user_by_email:
+        mock_user = MagicMock(spec=User)
+        mock_user.user_id = 1
+        mock_get_user_by_email.return_value = mock_user
+        create_patient(mock_db_session, patient_data)
+        with pytest.raises(HTTPException) as exc_info:
+            create_patient(mock_db_session, patient_data)
+        assert exc_info.value.status_code == 400
+        assert exc_info.value.detail == "Email already registered"
+
+def test_get_patient(mock_db_session: Session):
+    """
+    Tests that a patient can be retrieved from the database using its ID.
+    """
+    patient_data = PatientCreate(name="Jane Doe", age=30, email="jane@example.com", user_id=1)
+    with patch("app.db.crud.user.get_user_by_email") as mock_get_user_by_email:
+        mock_user = MagicMock(spec=User)
+        mock_user.user_id = 1
+        mock_get_user_by_email.return_value = mock_user
+        new_patient = create_patient(mock_db_session, patient_data)
+    fetched_patient = get_patient(mock_db_session, new_patient.id)
+    assert fetched_patient.name == "Jane Doe"
+    assert fetched_patient.email == "jane@example.com"
+
+def test_get_patient_not_found(mock_db_session: Session):
+    """
+    Tests that attempting to retrieve a non-existent patient raises an HTTPException.
+    """
+    with pytest.raises(HTTPException) as exc_info:
+        get_patient(mock_db_session, patient_id=999)
+    assert exc_info.value.status_code == 404
+    assert exc_info.value.detail == "Patient not found"
 
 
-# @patch("app.db.crud.user_crud.get_user_by_email")
-# # def test_create_patient_missing_name(mock_get_user_by_email,mock_db_session: Session):
-# #     mock_get_user_by_email.return_value = None
-# def test_create_patient_missing_name(mock_get_user_by_email, mock_db_session: Session):
-#     # Mock a user object with a user_id attribute
-#     mock_user = Mock()
-#     mock_user.user_id = 1
-#     mock_get_user_by_email.return_value = mock_user
-#     patient_data = PatientCreate(name="", age=25, email="test@example.com", user_id=1)  # Missing name
+def test_create_patient_integrity_error(mock_db_session: Session):
+    """
+    Tests that an IntegrityError is raised when attempting to create a patient with an email
+    that is already registered.
+    """
+    # Set up initial patient data
+    patient_data_1 = PatientCreate(name="Existing Patient", age=30, email="duplicate@example.com", user_id=1)
+    patient_data_2 = PatientCreate(name="New Patient", age=35, email="duplicate@example.com", user_id=1)
+    
+    with patch("app.db.crud.user_crud.get_user_by_email") as mock_get_user_by_email:
+        # Mocking user for association
+        mock_user = MagicMock(spec=User)
+        mock_user.user_id = 1
+        mock_get_user_by_email.return_value = mock_user
+        
+        # Create the initial patient
+        create_patient(mock_db_session, patient_data_1)
+        
+        # Attempt to create a second patient with the same email, expecting an IntegrityError
+        with pytest.raises(HTTPException) as exc_info:
+            create_patient(mock_db_session, patient_data_2)
+        
+        # Assert that the exception has the expected status code and message
+        assert exc_info.value.status_code == 400
+        assert exc_info.value.detail == "Email already registered"
 
-#     with pytest.raises(ValueError) as excinfo:  # Use a specific exception if applicable
-#         create_patient(mock_db_session, patient_data)
 
-#     assert "Name is required" in str(excinfo.value)  # Adjust based on actual error handling
+def test_get_patient_not_found(mock_db_session: Session):
+    """
+    Tests that an HTTPException with a 404 status code is raised when trying to
+    retrieve a patient that does not exist in the database.
+    """
+    non_existent_patient_id = 999  # An ID that does not exist in the database
+    
+    with pytest.raises(HTTPException) as exc_info:
+        get_patient(mock_db_session, non_existent_patient_id)
+    
+    # Assert that the exception has the expected status code and message
+    assert exc_info.value.status_code == 404
+    assert exc_info.value.detail == "Patient not found"
