@@ -6,6 +6,8 @@ from sqlalchemy.exc import IntegrityError
 from ..models.doctor import Doctor
 from ..schemas.doctor import DoctorCreate, DoctorUpdate
 from fastapi import HTTPException
+from app.db import models, schemas  # Ensure these paths are correct
+from sqlalchemy.exc import IntegrityError
 
 # Set up logger
 logger = logging.getLogger(__name__)
