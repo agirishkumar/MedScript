@@ -75,6 +75,31 @@ def test_update_patient(mock_db_session: Session):
     assert updated_patient.age == 45
 
 
+def test_update_patient_email_to_existing_email(mock_db_session: Session):
+    """
+    Tests updating a patient's email to an email that already exists raises an IntegrityError.
+    """
+    patient1_data = PatientCreate(name="Alice", age=30, email="alice@example.com")
+    patient2_data = PatientCreate(name="Bob", age=40, email="bob@example.com")
+
+    with patch("app.db.crud.user_crud.get_user_by_email") as mock_get_user_by_email:
+        mock_user = MagicMock(spec=User)
+        mock_user.user_id = 1
+        mock_get_user_by_email.return_value = mock_user
+        new_patient1 = create_patient(mock_db_session, patient1_data)
+        mock_user.user_id = 2
+        mock_get_user_by_email.return_value = mock_user
+        new_patient2 = create_patient(mock_db_session, patient2_data)
+
+    update_data = PatientUpdate(email="bob@example.com")
+
+    with pytest.raises(HTTPException) as exc_info:
+        update_patient(mock_db_session, new_patient1.id, update_data)
+
+    # Confirm exception details
+    assert exc_info.value.status_code == 400
+    assert exc_info.value.detail == "Email already registered"
+
 def test_delete_patient(mock_db_session: Session):
     """
     Tests that a patient can be deleted successfully from the database.
