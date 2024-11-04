@@ -9,3 +9,7 @@ data-pipeline/secrets
 data-pipeline/logs/*
 data-pipeline/.DS_Store
 logs/app.log
+/data-pipeline/data
+.dvc/tmp
+.dvc/cache
+*.dvc
