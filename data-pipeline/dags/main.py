@@ -9,8 +9,8 @@ from src.base import *
 
 # define the arguments for the DAG
 default_args = {
-    'retries': 5,
-    'retry_delay': timedelta(minutes=2)
+    'retries': 3,
+    'retry_delay': timedelta(minutes=1)
 }
 
 # Create the DAG
@@ -18,7 +18,7 @@ dag = DAG(
     dag_id='data_pipeline',
     default_args = default_args,
     description='A DAG to fetch data from api endpoints, preprocess and query the vector database to generate a prompt',
-    start_date = datetime(2024, 11, 1, 2),
+    start_date =  datetime(2024, 11, 2),
 )
 
 # TASKS
@@ -27,7 +27,7 @@ dag = DAG(
 load_data_task = PythonOperator(
     task_id="load_data_task",
     python_callable=get_summary,
-    op_kwargs={'patient_id': 1},
+    op_kwargs={'patient_id': 9},
     dag=dag
 )
 
@@ -39,11 +39,13 @@ data_preprocessing_task = PythonOperator(
     dag=dag
 )
 
-# TASK 3: Query the vector database
-# write output to file?
+# TASK 3: Embeddings for similarity search
 
 
-# TASK 4: Generate prompt 
+# TASK 4: Query the vector database
+
+
+# TASK 5: Generate prompt 
 # generate_prompt_task = PythonOperator(
 
 # )
