@@ -5,6 +5,7 @@ from create_embedding import embed
 import torch
 import numpy as np
 import os
+from add_to_vectorstore import get_qdrant_instance_ip
 
 # def get_embedding(query, tokenizer, model):
 #     inputs = tokenizer(query, return_tensors="pt", truncation=True, padding=True, max_length=512)
@@ -37,7 +38,7 @@ def get_relevant_points(query, tokenizer, model, client, collection_name, top_k=
 
 if __name__ == '__main__':
     port = QDRANT_PORT
-    ip = "35.239.211.74" #VECTORSTORE_IP
+    ip = get_qdrant_instance_ip()
     client = QdrantClient(host=ip, port=port)
     collection_name = QDRANT_COLLECTION
     

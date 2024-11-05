@@ -1,3 +1,5 @@
+from googleapiclient import discovery
+from google.oauth2 import service_account
 from qdrant_client import QdrantClient, models
 import pandas as pd
 from constants import (
@@ -5,7 +7,10 @@ from constants import (
     QDRANT_COLLECTION, 
     QDRANT_PORT, 
     EMBEDDING_SIZE,
-    SERVICE_ACCOUNT_FILEPATH
+    SERVICE_ACCOUNT_FILEPATH,
+    PROJECT_ID,
+    QDRANT_INSTANCE_NAME,
+    QDRANT_INSTANCE_ZONE
 )
 from google.cloud import storage
 import os
@@ -125,5 +130,13 @@ def update_to_vectordb(qdrant_host):
     )
     print("Upload complete")
 
+def get_qdrant_instance_ip():
+    credentials = service_account.Credentials.from_service_account_file(SERVICE_ACCOUNT_FILEPATH)
+    compute = discovery.build('compute', 'v1', credentials=credentials)
+    instance = compute.instances().get(project=PROJECT_ID, zone=QDRANT_INSTANCE_ZONE, instance=QDRANT_INSTANCE_NAME).execute()
+    ip_address = instance['networkInterfaces'][0]['accessConfigs'][0]['natIP']
+    print(f"Instance IP: {ip_address}")
+    return ip_address
+
 if __name__ == '__main__':
-    update_to_vectordb(qdrant_host='35.239.211.74')
+    update_to_vectordb(qdrant_host=get_qdrant_instance_ip())

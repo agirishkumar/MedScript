@@ -2,6 +2,8 @@ PROJECT_ID = "medscript-437117"
 MIMIC_DATASET_BUCKET_NAME = "medscript-mimic4-dataset"
 BASE_DATASET_FILENAME = "mimic4-dataset.csv"
 
+QDRANT_INSTANCE_ZONE = "us-central1-a"
+QDRANT_INSTANCE_NAME = "instance-20241101-155133"
 
 EMBEDDING_SIZE = 768
 EMBEDDING_TOKENIZER = "microsoft/BiomedNLP-PubMedBERT-base-uncased-abstract"
