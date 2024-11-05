@@ -1,4 +1,4 @@
-# data-pipeline/dags/main.py
+# data_pipeline/dags/main.py
 
 from airflow import DAG
 from airflow.operators.python import PythonOperator

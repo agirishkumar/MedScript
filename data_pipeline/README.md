@@ -4,10 +4,10 @@ Airflow orchestrates the execution of tasks in the pipeline by managing the sche
 
 To run the pipeline:
 
-- Navigate to the data-pipeline directory from the root folder
+- Navigate to the data_pipeline directory from the root folder
 
     ```bash
-    cd data-pipeline
+    cd data_pipeline
     ```
 
 - Create a secrets folder to store the service account key

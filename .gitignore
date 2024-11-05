@@ -5,11 +5,11 @@ app/__pycache__
 .env
 mlruns/.trash
 Med123/
-data-pipeline/secrets
-data-pipeline/logs/*
-data-pipeline/.DS_Store
+data_pipeline/secrets
+data_pipeline/logs/*
+data_pipeline/.DS_Store
 logs/app.log
-/data-pipeline/data
+/data_pipeline/data
 .dvc/tmp
 .dvc/cache
 *.dvc
