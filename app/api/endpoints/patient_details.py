@@ -1,13 +1,18 @@
 # app/api/endpoints/patient_details.py
 
+'''
+this file contains all the endpoints for the patient_details resource
+'''
+
+from typing import List
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
-from typing import List
 from app.db.crud import patient_details as patient_details_crud
 from app.db.schemas.patient_details import PatientDetails, PatientDetailsCreate, PatientDetailsUpdate
 from app.api.deps import get_db
 
 router = APIRouter(prefix="/patient_details", tags=["patient_details"])
+
 
 @router.post("/", response_model=PatientDetails, status_code=201)
 def create_patient_details(patient_details: PatientDetailsCreate, db: Session = Depends(get_db)):
@@ -16,6 +21,7 @@ def create_patient_details(patient_details: PatientDetailsCreate, db: Session = 
     """
     return patient_details_crud.create_patient_details(db=db, patient_details=patient_details)
 
+
 @router.get("/", response_model=List[PatientDetails])
 def read_patient_details(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
     """
@@ -23,32 +29,41 @@ def read_patient_details(skip: int = 0, limit: int = 100, db: Session = Depends(
     """
     return patient_details_crud.get_all_patient_details(db, skip=skip, limit=limit)
 
+
 @router.get("/{patient_id}", response_model=PatientDetails)
 def read_patient_detail(patient_id: int, db: Session = Depends(get_db)):
     """
     Retrieve patient details by ID.
     """
-    db_details = patient_details_crud.get_patient_details(db, patient_id=patient_id)
+    db_details = patient_details_crud.get_patient_details(
+        db, patient_id=patient_id)
     if db_details is None:
-        raise HTTPException(status_code=404, detail="Patient details not found")
+        raise HTTPException(
+            status_code=404, detail="Patient details not found")
     return db_details
+
 
 @router.put("/{patient_id}", response_model=PatientDetails)
 def update_patient_detail(patient_id: int, patient_details: PatientDetailsUpdate, db: Session = Depends(get_db)):
     """
     Update an existing patient details record.
     """
-    db_details = patient_details_crud.update_patient_details(db=db, patient_id=patient_id, patient_details=patient_details)
+    db_details = patient_details_crud.update_patient_details(
+        db=db, patient_id=patient_id, patient_details=patient_details)
     if db_details is None:
-        raise HTTPException(status_code=404, detail="Patient details not found")
+        raise HTTPException(
+            status_code=404, detail="Patient details not found")
     return db_details
+
 
 @router.delete("/{patient_id}", status_code=204)
 def delete_patient_detail(patient_id: int, db: Session = Depends(get_db)):
     """
     Delete patient details by ID.
     """
-    result = patient_details_crud.delete_patient_details(db=db, patient_id=patient_id)
+    result = patient_details_crud.delete_patient_details(
+        db=db, patient_id=patient_id)
     if not result:
-        raise HTTPException(status_code=404, detail="Patient details not found")
+        raise HTTPException(
+            status_code=404, detail="Patient details not found")
     return {"message": "Deleted successfully"}

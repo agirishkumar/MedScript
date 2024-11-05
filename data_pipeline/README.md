@@ -39,7 +39,9 @@ The Airflow UI will run on port `8080`. It can be accessed at `http://localhost:
 
     ```bash
     docker-compose --env-file ../.env down
+    
     ```
+
 
 ### Folder structure
 

@@ -1,8 +1,12 @@
 # app/api/endpoints/patient_visits.py
 
+''' 
+this file contains all the endpoints for the patient_visits resource 
+'''
+
+from typing import List
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
-from typing import List
 from app.db.crud import patient_visits as patient_visit_crud
 from app.db.schemas.patient_visits import PatientVisit, PatientVisitCreate, PatientVisitUpdate
 from app.api.deps import get_db

@@ -1,6 +1,12 @@
-from airflow import DAG
-from airflow.operators.bash import BashOperator
+# data_pipeline/dags/preprocess_dag.py
+
+''' 
+DAG for running data preprocessing'''
+
 from datetime import datetime, timedelta
+from airflow import DAG
+from airflow.operators.bash import BashOperator 
+
 
 default_args = {
     'retries': 1,

@@ -1,12 +1,14 @@
+# app/api/endpoints/patient_summary.py
+
+'''
+this file contains all the endpoints for the patient_summary resource
+'''
+
+
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
-from typing import List
 from app.db.crud import patient_details, patient_symptoms, patient_visits, doctor
 from app.api.deps import get_db
-from app.db.schemas.patient import Patient
-from app.db.schemas.patient_symptoms import PatientSymptom
-from app.db.schemas.patient_visits import PatientVisit
-from app.db.schemas.doctor import Doctor
 from app.db.schemas.patient_summary import PatientSummaryResponse, VisitDetails
 
 router = APIRouter(prefix="/patient_summary", tags=["patient_summary"])

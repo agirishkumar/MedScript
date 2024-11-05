@@ -12,9 +12,9 @@ from constants import (
     QDRANT_INSTANCE_NAME,
     QDRANT_INSTANCE_ZONE
 )
-from google.cloud import storage
 import os
 import ast
+from google.cloud import storage
 from typing import List
 import time
 from tqdm import tqdm

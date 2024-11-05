@@ -1,11 +1,14 @@
 # app/db/crud/doctor.py
+'''
+this file contains all the crud operations for the doctor resource'''
 
 import logging
 from sqlalchemy.orm import Session
 from sqlalchemy.exc import IntegrityError
+from fastapi import HTTPException
 from ..models.doctor import Doctor
 from ..schemas.doctor import DoctorCreate, DoctorUpdate
-from fastapi import HTTPException
+
 
 # Set up logger
 logger = logging.getLogger(__name__)
@@ -26,12 +29,12 @@ def get_doctor(db: Session, doctor_id: int):
     Raises:
         HTTPException: 404 Not Found if the doctor does not exist.
     """
-    logger.info(f"Fetching doctor with ID: {doctor_id}")
+    logger.info("Fetching doctor with ID: %s", doctor_id)
     doctor = db.query(Doctor).filter(Doctor.DoctorID == doctor_id).first()
     if doctor is None:
-        logger.warning(f"Doctor with ID {doctor_id} not found")
+        logger.warning("Doctor with ID %s not found", doctor_id)
         raise HTTPException(status_code=404, detail="Doctor not found")
-    logger.info(f"Successfully retrieved doctor with ID: {doctor_id}")
+    logger.info("Successfully retrieved doctor with ID: %s", doctor_id)
     return doctor
 
 
@@ -47,9 +50,9 @@ def get_all_doctors(db: Session, skip: int = 0, limit: int = 100):
     Returns:
         List[Doctor]: A list of doctors.
     """
-    logger.info(f"Fetching all doctors with skip={skip} and limit={limit}")
+    logger.info("Fetching all doctors with skip=%s and limit=%s", skip, limit)
     doctors = db.query(Doctor).offset(skip).limit(limit).all()
-    logger.info(f"Retrieved {len(doctors)} doctor records")
+    logger.info("Retrieved %s doctor records", len(doctors))
     return doctors
 
 
@@ -67,15 +70,15 @@ def create_doctor(db: Session, doctor: DoctorCreate):
     Raises:
         HTTPException: 400 Bad Request if the email or license number is already registered.
     """
-    logger.info(f"Creating new doctor with email: {doctor.Email}")
+    logger.info("Creating new doctor with email: %s", doctor.Email)
     existing_email = db.query(Doctor).filter(Doctor.Email == doctor.Email).first()
     if existing_email:
-        logger.warning(f"Email {doctor.Email} already registered")
+        logger.warning("Email %s already registered", doctor.Email)
         raise HTTPException(status_code=400, detail="Email already registered")
 
     existing_license = db.query(Doctor).filter(Doctor.LicenseNumber == doctor.LicenseNumber).first()
     if existing_license:
-        logger.warning(f"License number {doctor.LicenseNumber} already registered")
+        logger.warning("License number %s already registered", doctor.LicenseNumber)
         raise HTTPException(status_code=400, detail="License number already registered")
 
     db_doctor = Doctor(**doctor.dict())
@@ -84,12 +87,12 @@ def create_doctor(db: Session, doctor: DoctorCreate):
         db.add(db_doctor)
         db.commit()
         db.refresh(db_doctor)
-        logger.info(f"Successfully created doctor with ID: {db_doctor.DoctorID}")
+        logger.info("Successfully created doctor with ID: %s", db_doctor.DoctorID)
         return db_doctor
     except IntegrityError as e:
         db.rollback()
-        logger.error(f"Integrity error during doctor creation: {e}")
-        raise HTTPException(status_code=400, detail="Error creating doctor")
+        logger.error("Integrity error during doctor creation: %s", e)
+        raise HTTPException(status_code=400, detail="Error creating doctor") from e
 
 
 def update_doctor(db: Session, doctor_id: int, doctor: DoctorUpdate):
