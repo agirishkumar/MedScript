@@ -37,7 +37,7 @@ def get_relevant_points(query, tokenizer, model, client, collection_name, top_k=
 
 if __name__ == '__main__':
     port = QDRANT_PORT
-    ip = "34.134.169.70" #VECTORSTORE_IP
+    ip = "35.239.211.74" #VECTORSTORE_IP
     client = QdrantClient(host=ip, port=port)
     collection_name = QDRANT_COLLECTION
     

@@ -63,8 +63,7 @@ def add_to_vectordb(df: pd.DataFrame,
                 try:
                     client.upsert(
                         collection_name=collection_name,
-                        points=chunk,
-                        timeout=30
+                        points=chunk
                     )
                     break
                 except Exception as e:
@@ -73,6 +72,7 @@ def add_to_vectordb(df: pd.DataFrame,
                         raise Exception(f"Upload failed after {max_retries} attempts")
                     time.sleep(retry_delay * retries)
             pbar.update(1)
+
 
 def setup_qdrant_collection(client: QdrantClient, collection_name: str):
     """Set up Qdrant collection with minimal logging."""
@@ -88,7 +88,7 @@ def setup_qdrant_collection(client: QdrantClient, collection_name: str):
             )
         )
 
-def add_to_vectordb(qdrant_host): 
+def update_to_vectordb(qdrant_host): 
     # Qdrant connection settings
     QDRANT_HOST = qdrant_host
     
@@ -108,7 +108,7 @@ def add_to_vectordb(qdrant_host):
     
     # Download data from Google Cloud Storage
     bucket = storage_client.get_bucket(MIMIC_DATASET_BUCKET_NAME)
-    blob = bucket.blob('processed_data/embeddings_10k/embed_df_10k.csv')
+    blob = bucket.blob('processed_data/embeddings_100/embed_df_10k.csv')
     data = blob.download_as_text()
     data_io = StringIO(data)
     df = pd.read_csv(data_io) 
@@ -126,4 +126,4 @@ def add_to_vectordb(qdrant_host):
     print("Upload complete")
 
 if __name__ == '__main__':
-    add_to_vectordb(qdrant_host='35.239.211.74')
+    update_to_vectordb(qdrant_host='35.239.211.74')

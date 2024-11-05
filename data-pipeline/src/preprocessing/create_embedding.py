@@ -107,7 +107,7 @@ def upload_embeddings(data, tokenizer, model, device, bucket, csv_filename = '',
     print("Completed embedding generation and saving")
     
     # Upload to a different path to keep full dataset separate
-    upload_blob = bucket.blob('processed_data/embeddings_10k/' + csv_filename)
+    upload_blob = bucket.blob('processed_data/embeddings_100/' + csv_filename)
     upload_blob.upload_from_filename(csv_filename)
     print("Uploaded embedding dataframe to bucket")
     
@@ -148,9 +148,9 @@ if __name__ == '__main__':
         content = download_blob.download_as_text()
         csv_file = io.StringIO(content)
         
-        # Read only first 10000 records
-        print("Loading first 10000 records...")
-        df = pd.read_csv(csv_file, nrows=10000)
+        # Read only first 100 records
+        print("Loading first 100 records...")
+        df = pd.read_csv(csv_file, nrows=100)
         print(f"Loaded {len(df)} records")
         
 
