@@ -82,7 +82,7 @@ pip install -r requirements.txt
 
 - check the urls `http://127.0.0.1:8000`, `http://127.0.0.1:8000/api/v1/health`
 
-**Step 8: Set up Airflow
+**Step 8: Set up Airflow**
 
 1. Initialize Airflow:
    ```bash
@@ -165,7 +165,7 @@ These factors collectively improve patient outcomes, make healthcare workflows m
 
 ## Data Information
 
-1. For a General Diagnostic Model:
+#### 1. For a General Diagnostic Model:
    
 **Model: Med42
 Data Card:**
@@ -187,9 +187,9 @@ etc.)
 License: PhysioNet Credentialed Health Data License 1.5.0
 URL: https://physionet.org/content/mimiciii/1.4/
 
-Data Rights and Privacy: De-identified data, requires completion of training course for access
+/*Note: Data Rights and Privacy: De-identified data, requires completion of training course for access*/
 
-2. X-ray Diagosis Model:
+#### 2. X-ray Diagosis Model:
    
 **Model: CheXNet (open-source implementation)]
 Data Card:**
@@ -199,6 +199,90 @@ Data Card:**
 - Performance: Exceeds radiologist performance on pneumonia detection
 - License: MIT License
 - URL: https://github.com/zoogzog/chexnet
+
+**Dataset: ChestX-ray14
+Data Card:**
+- Type: Medical Imaging
+- Size: 112,120 frontal-view chest X-ray images
+- Format: PNG images
+- Subjects: 30,805 unique patients
+- Labels: 14 disease classes
+- License: Open access for research
+- URL: https://nihcc.app.box.com/v/ChestXray-NIHCC
+  
+/*Note: Data Rights and Privacy: De-identified data, free for research use*/
+
+#### 3. ECG Diagnosis Model:
+
+**Model: ECG-DenseNet (open-source implementation)
+Data Card:**
+- Type: Convolutional Neural Network
+- Base: DenseNet
+- Specialization: ECG interpretation
+- License: MIT License
+- URL: https://github.com/helme/ecg_ptbxl_benchmarking
+
+**Dataset: PTB-XL ECG Dataset
+Data Card:**
+● Type: ECG Recordings
+● Size: 21,837 ECG records
+● Format: WFDB format
+● Subjects: 18,885 patients
+● Labels: 71 different ECG statements
+● License: Open access
+● URL: https://physionet.org/content/ptb-xl/1.0.1/
+Data Rights and Privacy: De-identified data, free for research use
+
+
+#### 4. RAG Implementation Dataset:
+**Dataset: PubMed Central Open Access Subset
+Data Card:**
+- Type: Biomedical Literature
+- Size: Millions of full-text articles
+- Format: XML and plain text
+- Content: Peer-reviewed biomedical literature
+- License: Open Access
+- URL: https://www.ncbi.nlm.nih.gov/pmc/tools/openftlist/
+
+/*Note: Data Rights and Privacy: Open access, no restrictions on use*/
+
+## Data Schema
+There are 8 tables 
+TABLE NAME : **DOCTOR** 
+| Attribute Name              | Description                                                                                   | Data Type |
+|-----------------------------|-----------------------------------------------------------------------------------------------|-----------|
+| `DoctorID`              | Unique identifier for each Doctor                                                          | String     |
+| `FirstName`             | First Name of the doctor                                                          | String      |
+| `LastName`             | Last Name of the doctor                                                         | String     |
+| `Specialty`     | Specialty                                                | Integer     |
+| `LicenseNumber`                 | Consumer's answer to "what happened" from the complaint. Consumers must opt-in to share their narrative. The  narrative is not published unless the consumer consents, and consumers can opt-out at any time. The CFPB takes reasonable steps to scrub personal information from each complaint that could be used to identify the consumer.                                                    | String    |
+| `ContactNumber`           | Text content of the complaint (in Hindi)                                                      | String    |
+| `Email`                   | The type of product the consumer identified in the complaint                       | String    |
+| `department`                | The department responsible for handling the complaint                                         | String    |
+| `sub_product`               | The type of sub-product the consumer identified in the complaint                                       | String    |
+| `issue`                     | The issue the consumer identified in the complain                                                            | String    |
+| `sub_issue`                 | The sub-issue the consumer identified in the complaint                                                             | String    |
+| `company`                   | Company associated with the complaint                                                         | String    |
+| `state`                     | The state of the mailing address provided by the consumer                                                   | String    |
+| `zipcode`                   | The mailing ZIP code provided by the consumer                                                    | String    |
+| `tags`                      | Complaints are tagged based on submitter details: those involving consumers aged 62+ are tagged “Older American,” while complaints from servicemembers or their families are tagged “Servicemember.” This category includes active duty, National Guard, Reservists, Veterans, and retirees.               | String    |
+| `company_response_public`   | The company's optional, public-facing response to a consumer's complaint. Companies can choose to select a response from a pre-set list of options that will be posted on the public database. For example, "Company believes complaint is the result of an isolated error."                                        | String    |
+| `company_response_consumer` | This is how the company responded. For example, "Closed with explanation"                                                     | String    |
+| `consumer_consent_provided` | Identifies whether the consumer opted in to publish their complaint narrative. The narrative is not published unless the consumer consents and consumers can opt-out at any time                                     | String    |
+| `submitted_via`             | How the complaint was submitted to the CFPB                          | String    |
+| `date_sent_to_company`      | The date when CFPB sent the complaint to the company                                 | String    |
+| `timely_response`           | Whether the company gave a timely response                                 | String    |
+| `consumer_disputed`         | Whether the consumer disputed the company’s response                                     | String    |
+
+
+## Data Preprocessing Pipeline
+
+
+
+
+
+
+
 
 
 
