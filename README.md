@@ -247,8 +247,8 @@ Data Card:**
 /*Note: Data Rights and Privacy: Open access, no restrictions on use*/
 
 ## Data Schema
-There are 8 tables 
-
+There are 8 tables. The ER Diagram is :
+<img width="1294" alt="ERDiagram" src="https://github.com/user-attachments/assets/9d5c625e-5e20-494b-9563-d69a5eeff62d">
 
 
 ## Data Preprocessing Pipeline
