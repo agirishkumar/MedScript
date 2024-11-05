@@ -38,8 +38,17 @@ def embed_to_str(embedding):
     """Converts a single embedding to string representation"""
     if embedding is None:
         return "[]"
-    str_emb = '[' + ','.join(map(str, embedding.flatten().numpy())) + ']'
-    return str_emb
+    # str_emb = '[' + ','.join(map(str, embedding.flatten().numpy())) + ']'
+    # return str_emb
+    res = []
+    for emb in embedding:
+        # str_emb = '[' + ','.join(map(str, emb)) + ']'
+        str_emb = str(emb.tolist())
+        res.append(str_emb)
+
+    final = '[' + ','.join(map(str, res)) + ']'
+
+    return final
 
 def embed(data, tokenizer, model, device, csv_filename = '', batch_size=4):
     """
@@ -84,6 +93,28 @@ def embed(data, tokenizer, model, device, csv_filename = '', batch_size=4):
         print(f"Error during embedding generation: {str(e)}")
         raise
 
+def upload_embeddings(data, tokenizer, model, device, bucket, csv_filename = '', batch_size=4):
+    try:
+        data.drop(['input_tokens', 'target_tokens'], axis='columns', inplace=True)
+        data['input'] = data['input'].apply(lambda x: ast.literal_eval(x))
+    except Exception as e:
+        print(f"An error occurred: {str(e)}")
+        raise
+    
+    # Generate and save embeddings incrementally
+    print("Generating embeddings and saving incrementally...")
+    embed(df, tokenizer, model, device, csv_filename=csv_filename, batch_size=batch_size)
+    print("Completed embedding generation and saving")
+    
+    # Upload to a different path to keep full dataset separate
+    upload_blob = bucket.blob('processed_data/embeddings_10k/' + csv_filename)
+    upload_blob.upload_from_filename(csv_filename)
+    print("Uploaded embedding dataframe to bucket")
+    
+    # Cleanup
+    os.remove(csv_filename)
+    print("Deleted local embedding dataframe")
+
 if __name__ == '__main__':
     try:
         # Set up device
@@ -122,23 +153,27 @@ if __name__ == '__main__':
         df = pd.read_csv(csv_file, nrows=10000)
         print(f"Loaded {len(df)} records")
         
-        # Preprocess
-        df.drop(['input_tokens', 'target_tokens'], axis='columns', inplace=True)
-        df['input'] = df['input'].apply(lambda x: ast.literal_eval(x))
+
+
+        upload_embeddings(df, tokenizer, model, device, bucket, csv_filename = embed_df_filename, batch_size=4)
+
+        # # Preprocess
+        # df.drop(['input_tokens', 'target_tokens'], axis='columns', inplace=True)
+        # df['input'] = df['input'].apply(lambda x: ast.literal_eval(x))
         
-        # Generate and save embeddings incrementally
-        print("Generating embeddings and saving incrementally...")
-        embed(df, tokenizer, model, device, csv_filename=embed_df_filename, batch_size=4)
-        print("Completed embedding generation and saving")
+        # # Generate and save embeddings incrementally
+        # print("Generating embeddings and saving incrementally...")
+        # embed(df, tokenizer, model, device, csv_filename=embed_df_filename, batch_size=4)
+        # print("Completed embedding generation and saving")
         
-        # Upload to a different path to keep full dataset separate
-        upload_blob = bucket.blob('processed_data/embeddings_10k/' + embed_df_filename)
-        upload_blob.upload_from_filename(embed_df_filename)
-        print("Uploaded embedding dataframe to bucket")
+        # # Upload to a different path to keep full dataset separate
+        # upload_blob = bucket.blob('processed_data/embeddings_10k/' + embed_df_filename)
+        # upload_blob.upload_from_filename(embed_df_filename)
+        # print("Uploaded embedding dataframe to bucket")
         
-        # Cleanup
-        os.remove(embed_df_filename)
-        print("Deleted local embedding dataframe")
+        # # Cleanup
+        # os.remove(embed_df_filename)
+        # print("Deleted local embedding dataframe")
 
     except Exception as e:
         print(f"An error occurred: {str(e)}")

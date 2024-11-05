@@ -13,7 +13,7 @@ import os
 #     embeddings = outputs.last_hidden_state.mean(dim=1).squeeze().numpy()
 #     return embeddings
 
-def get_relevant_points(query, tokenizer, model, client, collection_name, top_k=5):
+def get_relevant_points(query, tokenizer, model, client, collection_name, top_k=5, device='cpu'):
     try:
         if client.collection_exists(collection_name=collection_name):
             print(f"Qdrant collection {collection_name} exists")
@@ -22,7 +22,7 @@ def get_relevant_points(query, tokenizer, model, client, collection_name, top_k=
         return None
 
     # Ensure the embedding is a flat list of floats
-    query_embedding = embed(query, tokenizer, model,   device="cpu")
+    query_embedding = embed(query, tokenizer, model, device=device)
     print("Query embedding is done ")
     query_embedding = query_embedding.flatten().tolist()  # Flatten and convert to list of floats
     print("Flatten embedding is done ")

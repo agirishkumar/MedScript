@@ -13,6 +13,7 @@ import ast
 from typing import List
 import time
 from tqdm import tqdm
+from io import StringIO
 
 def chunk_points(points: List[models.PointStruct], chunk_size: int = 100):
     """Split points into smaller chunks for batch processing."""
@@ -87,9 +88,9 @@ def setup_qdrant_collection(client: QdrantClient, collection_name: str):
             )
         )
 
-def main():
+def add_to_vectordb(qdrant_host): 
     # Qdrant connection settings
-    QDRANT_HOST = "34.134.169.70"
+    QDRANT_HOST = qdrant_host
     
     # Initialize Qdrant client
     client = QdrantClient(
@@ -108,7 +109,10 @@ def main():
     # Download data from Google Cloud Storage
     bucket = storage_client.get_bucket(MIMIC_DATASET_BUCKET_NAME)
     blob = bucket.blob('processed_data/embeddings_10k/embed_df_10k.csv')
-    df = pd.read_csv(blob.download_as_text())
+    data = blob.download_as_text()
+    data_io = StringIO(data)
+    df = pd.read_csv(data_io) 
+    # df = pd.read_csv(blob.download_as_text())
     
     # Upload to Qdrant
     add_to_vectordb(
@@ -122,4 +126,4 @@ def main():
     print("Upload complete")
 
 if __name__ == '__main__':
-    main()
+    add_to_vectordb(qdrant_host='35.239.211.74')
