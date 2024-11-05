@@ -8,5 +8,5 @@ Med123/
 datasets/*
 !datasets/.gitkeep 
 processed_data/*
-rag/*
-!rag/constants.py
+rag/Data/*
+models/embedding/*

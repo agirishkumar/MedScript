@@ -3,7 +3,7 @@ from google.cloud import storage
 import os
 import sys
 from dotenv import load_dotenv
-
+from constants import MIMIC_DATASET_BUCKET_NAME, SERVICE_ACCOUNT_FILEPATH
 import time 
 
 load_dotenv()
@@ -85,10 +85,11 @@ if __name__ == "__main__":
     dataset_url = "https://physionet.org/files/labelled-notes-hospital-course/1.1.0/mimic-iv-bhc.csv"
 
     # # Google Cloud Storage bucket name and base filename for storage
-    gcs_bucket_name = "medscript-mimic4-dataset"
+    gcs_bucket_name = MIMIC_DATASET_BUCKET_NAME #"medscript-mimic4-dataset"
     base_filename = "mimic4-dataset.csv"
     local_path = os.path.join('datasets', base_filename)
 
+    os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = SERVICE_ACCOUNT_FILEPATH
 
     download_dataset(dataset_url, local_path)
     upload_to_bucket(gcs_bucket_name, base_filename, local_path, 'raw_data/')

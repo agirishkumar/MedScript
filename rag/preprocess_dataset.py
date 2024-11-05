@@ -1,10 +1,15 @@
 import re
-from constants import ABBREVIATIONS, SECTION_NAMES, MIMIC_DATASET_BUCKET_NAME
+
+from exceptiongroup import catch
+from google.oauth2 import service_account
+from constants import ABBREVIATIONS, SECTION_NAMES, MIMIC_DATASET_BUCKET_NAME, SERVICE_ACCOUNT_FILEPATH
+
 import pandas as pd
 import json
 from io import StringIO
 from google.cloud import storage
 import os
+# from rag.logging import data_logger
 
 # sample_data = [
 #     "<SEX> F <SERVICE> MEDICINE <ALLERGIES> No Known Allergies / Adverse Drug Reactions <ATTENDING> ___ <CHIEF COMPLAINT> Worsening ABD distension and pain <MAJOR SURGICAL OR INVASIVE PROCEDURE> Paracentesis <HISTORY OF PRESENT ILLNESS> ___ HCV cirrhosis c/b ascites, hiv on ART, h/o IVDU, COPD, bioplar, PTSD, presented from OSH ED with worsening abd distension over past week. Pt reports self-discontinuing lasix and spirnolactone ___ weeks ago, because she feels like ""they don't do anything"" and that she ""doesn't want to put more chemicals in her."" She does not follow Na-restricted diets. In the past week, she notes that she has been having worsening abd distension and discomfort. She denies ___ edema, or SOB, or orthopnea. She denies f/c/n/v, d/c, dysuria. She had food poisoning a week ago from eating stale cake (n/v 20 min after food ingestion), which resolved the same day. She denies other recent illness or sick contacts. She notes that she has been noticing gum bleeding while brushing her teeth in recent weeks. she denies easy bruising, melena, BRBPR, hemetesis, hemoptysis, or hematuria. Because of her abd pain, she went to OSH ED and was transferred to ___ for further care. Per ED report, pt has brief period of confusion - she did not recall the ultrasound or bloodwork at osh. She denies recent drug use or alcohol use. She denies feeling confused, but reports that she is forgetful at times. In the ED, initial vitals were 98.4 70 106/63 16 97%RA Labs notable for ALT/AST/AP ___ __: ___, Tbili1.6, WBC 5K, platelet 77, INR 1.6 <PAST MEDICAL HISTORY> 1. HCV Cirrhosis 2. No history of abnormal Pap smears. 3. She had calcification in her breast, which was removed previously and per patient not, it was benign. 4. For HIV disease, she is being followed by Dr. ___ Dr. ___. 5. COPD 6. Past history of smoking. 7. She also had a skin lesion, which was biopsied and showed skin cancer per patient report and is scheduled for a complete removal of the skin lesion in ___ of this year. 8. She also had another lesion in her forehead with purple discoloration. It was biopsied to exclude the possibility of ___'s sarcoma, the results is pending. 9. A 15 mm hypoechoic lesion on her ultrasound on ___ and is being monitored by an MRI. 10. History of dysplasia of anus in ___. 11. Bipolar affective disorder, currently manic, mild, and PTSD. 12. History of cocaine and heroin use. <SOCIAL HISTORY> ___ <FAMILY HISTORY> She a total of five siblings, but she is not talking to most of them. She only has one brother that she is in touch with and lives in ___. She is not aware of any known GI or liver disease in her family. Her last alcohol consumption was one drink two months ago. No regular alcohol consumption. Last drug use ___ years ago. She quit smoking a couple of years ago. <PHYSICAL EXAM> VS: 98.1 107/61 78 18 97RA General: in NAD HEENT: CTAB, anicteric sclera, OP clear Neck: supple, no LAD CV: RRR,S1S2, no m/r/g Lungs: CTAb, prolonged expiratory phase, no w/r/r Abdomen: distended, mild diffuse tenderness, +flank dullness, cannot percuss liver/spleen edge ___ distension GU: no foley Ext: wwp, no c/e/e, + clubbing Neuro: AAO3, converse normally, able to recall 3 times after 5 minutes, CN II-XII intact Discharge: PHYSICAL EXAMINATION: VS: 98 105/70 95 General: in NAD HEENT: anicteric sclera, OP clear Neck: supple, no LAD CV: RRR,S1S2, no m/r/g Lungs: CTAb, prolonged expiratory phase, no w/r/r Abdomen: distended but improved, TTP in RUQ, GU: no foley Ext: wwp, no c/e/e, + clubbing Neuro: AAO3, CN II-XII intact <PERTINENT RESULTS> ___ 10: 25PM GLUCOSE-109* UREA N-25* CREAT-0.3* SODIUM-138 POTASSIUM-3.4 CHLORIDE-105 TOTAL CO2-27 ANION GAP-9 ___ 10: 25PM estGFR-Using this ___ 10: 25PM ALT(SGPT)-100* AST(SGOT)-114* ALK PHOS-114* TOT BILI-1.6* ___ 10: 25PM LIPASE-77* ___ 10: 25PM ALBUMIN-3.3* ___ 10: 25PM WBC-5.0# RBC-4.29 HGB-14.3 HCT-42.6 MCV-99* MCH-33.3* MCHC-33.5 RDW-15.7* ___ 10: 25PM NEUTS-70.3* LYMPHS-16.5* MONOS-8.1 EOS-4.2* BASOS-0.8 ___ 10: 25PM PLT COUNT-71* ___ 10: 25PM ___ PTT-30.9 ___ ___ 10: 25PM ___ . CXR: No acute cardiopulmonary process. U/S: 1. Nodular appearance of the liver compatible with cirrhosis. Signs of portal hypertension including small amount of ascites and splenomegaly. 2. Cholelithiasis. 3. Patent portal veins with normal hepatopetal flow. Diagnostic para attempted in the ED, unsuccessful. On the floor, pt c/o abd distension and discomfort. <MEDICATIONS ON ADMISSION> The Preadmission Medication list is accurate and complete. 1. Furosemide 20 mg PO DAILY 2. Spironolactone 50 mg PO DAILY 3. Albuterol Inhaler 2 PUFF IH Q4H: PRN wheezing, SOB 4. Raltegravir 400 mg PO BID 5. Emtricitabine-Tenofovir (Truvada) 1 TAB PO DAILY 6. Nicotine Patch 14 mg TD DAILY 7. Ipratropium Bromide Neb 1 NEB IH Q6H SOB <DISCHARGE MEDICATIONS> 1. Albuterol Inhaler 2 PUFF IH Q4H: PRN wheezing, SOB 2. Emtricitabine-Tenofovir (Truvada) 1 TAB PO DAILY 3. Furosemide 40 mg PO DAILY RX *furosemide 40 mg 1 tablet(s) by mouth Daily Disp #*30 Tablet Refills: *3 4. Ipratropium Bromide Neb 1 NEB IH Q6H SOB 5. Nicotine Patch 14 mg TD DAILY 6. Raltegravir 400 mg PO BID 7. Spironolactone 50 mg PO DAILY 8. Acetaminophen 500 mg PO Q6H: PRN pain <DISCHARGE DISPOSITION> Home <DISCHARGE DIAGNOSIS> Ascites from Portal HTN <DISCHARGE CONDITION> Mental Status: Clear and coherent. Level of Consciousness: Alert and interactive. Activity Status: Ambulatory - Independent. <FOLLOWUP INSTRUCTIONS> ___ <DISCHARGE INSTRUCTIONS> Dear Ms. ___, It was a pleasure taking care of you! You came to us with stomach pain and worsening distension. While you were here we did a paracentesis to remove 1.5L of fluid from your belly. We also placed you on you 40 mg of Lasix and 50 mg of Aldactone to help you urinate the excess fluid still in your belly. As we discussed, everyone has a different dose of lasix required to make them urinate and it's likely that you weren't taking a high enough dose. Please take these medications daily to keep excess fluid off and eat a low salt diet. You will follow up with Dr. ___ in liver clinic and from there have your colonoscopy and EGD scheduled. Of course, we are always here if you need us. We wish you all the best! Your ___ Team. ",
@@ -30,9 +35,11 @@ def get_section_names(dataset):
         names = re.findall("<([\w{2,}\s]+)>", text)
         section_names.update(names)
 
-    
-    section_names.remove('ATTENDING')
-    section_names.remove('SOCIAL HISTORY')
+    try:
+        section_names.remove('ATTENDING')
+        section_names.remove('SOCIAL HISTORY')
+    except KeyError as e:
+        data_logger.warning(f"Section not found for removal: {e}")
     
     section_names = list(section_names)
     section_names = [tag.upper() for tag in section_names]
@@ -44,12 +51,15 @@ def segment_by_sections(text, section_names):
     Segments a medical record into structured sections for easier processing and retrieval.
     """
     sections = {name: "None" for name in section_names}
-    
+
     for tag in sections.keys():
-        pattern = f"<{tag.upper().replace('_', ' ')}> (.+?)(?=\s*<|$)"
-        match = re.search(pattern, text, re.DOTALL)
-        if match:
-            sections[tag] = match.group(1).strip()
+        try:
+            pattern = f"<{tag.upper().replace('_', ' ')}> (.+?)(?=\s*<|$)"
+            match = re.search(pattern, text, re.DOTALL)
+            if match:
+                sections[tag] = match.group(1).strip()
+        except Exception as e:
+            data_logger.warning(f"Could not segment medical record {tag}: {e}")
 
     return sections
 
@@ -58,9 +68,12 @@ def remove_irrelevant_information(text):
     Removes placeholders and standardizes common abbreviations.
     """
     # text = re.sub(r'<[A-Z_]+>', '', text)  # Remove placeholders like <___>
-    for k, v in ABBREVIATIONS.items():
-        text = text.replace(k, v)
-    return text
+    try:
+        for k, v in ABBREVIATIONS.items():
+            text = text.replace(k, v)
+        return text
+    except Exception as e:
+        data_logger.warning(f"Could not remove irrelevant information: {e}")
 
 # def normalize_text(text):
 #     """
@@ -82,10 +95,13 @@ def remove_irrelevant_information(text):
 def replace_blanks(text):
     # print("Replace Blanks type: ", type(text))
     # print(text)
-    if text is not None:
-        text = re.sub(r"_+", "", text)
-        text = text.strip()
-    return text
+    try:
+        if text is not None:
+            text = re.sub(r"_+", "", text)
+            text = text.strip()
+        return text
+    except Exception as e:
+        data_logger.warning(f"Could not remove blanks: {e}")
 
 def numbers_to_array(text):
     reg = r"\d+\.\s"
@@ -101,6 +117,7 @@ def numbers_to_array(text):
         no_numbers = False
 
     text = str(text) #f"{text}"
+
     return text, no_numbers
 
 def ordered_list_to_string(text):
@@ -110,9 +127,9 @@ def ordered_list_to_string(text):
         text = re.split(reg, text)
         text[0] = re.sub(r"-\s", "", text[0])
         text = str(text)
+    data_logger.debug("Ordered list converted to string")
     return text
 
-    return text
 
 def sex(text):
     # print("Sex type: ", type(text))
@@ -171,20 +188,22 @@ def preprocess(text, section_names):
     output_dict = {}
 
     for section_name, section_value in sections.items():
-        # print(f"____{section_name}______")
-        if section_name in function_dict:
-            result = section_value
-            for func in function_dict[section_name]:
-                result = func(result)
-            output_dict[section_name] = result
+        try:
+            # print(f"____{section_name}______")
+            if section_name in function_dict:
+                result = section_value
+                for func in function_dict[section_name]:
+                    result = func(result)
+                output_dict[section_name] = result
 
-            if section_name == "FOLLOWUP INSTRUCTIONS" and len(result)==0:
-                output_dict[section_name] = "None"
-            # output_dict[section_name] = function_dict[section_name](section_value)
-        else:
-            output_dict[section_name] = 'Function not defined'
+                if section_name == "FOLLOWUP INSTRUCTIONS" and len(result)==0:
+                    output_dict[section_name] = "None"
+                # output_dict[section_name] = function_dict[section_name](section_value)
+            else:
+                output_dict[section_name] = 'Function not defined'
+        except Exception as e:
+            data_logger.warning(f"Could not preprocess {section_name}: {e}")
 
-    
     return output_dict
 
 def flatten_dict(d, parent_key='', sep='.'):
@@ -193,11 +212,14 @@ def flatten_dict(d, parent_key='', sep='.'):
     """
     items = []
     for k, v in d.items():
-        new_key = f"{parent_key}{sep}{k}" if parent_key else k
-        if isinstance(v, dict):
-            items.extend(flatten_dict(v, new_key, sep=sep).items())
-        else:
-            items.append((new_key, v))
+        try:
+            new_key = f"{parent_key}{sep}{k}" if parent_key else k
+            if isinstance(v, dict):
+                items.extend(flatten_dict(v, new_key, sep=sep).items())
+            else:
+                items.append((new_key, v))
+        except Exception as e:
+            data_logger.warning(f"Could not flatten {k}: {e}")
     return dict(items)
 
 def chunk_json_string(flattened_data, max_chunk_size):
@@ -232,7 +254,7 @@ def chunk_json_string(flattened_data, max_chunk_size):
     # Add the final chunk
     if current_chunk:
         chunks.append(json.dumps(current_chunk))
-    
+
     return chunks
 
 def transform_text(text, section_names, chunk_size=MAX_CHUNK_SIZE):
@@ -253,13 +275,17 @@ def transform_text(text, section_names, chunk_size=MAX_CHUNK_SIZE):
     return chunks
 
 if __name__ == '__main__':
+
     section_names = SECTION_NAMES
 
-
-    local_processed_data_path = 'datasets/'
+    local_processed_data_path = '../datasets/'
     processed_dataset_filename = 'preprocessed_dataset.csv'
+    os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = SERVICE_ACCOUNT_FILEPATH
 
-    storage_client = storage.Client()
+    # SERVICE_KEY_FILE = "D:/Rohan/Northeastern/Courses/MLOPS/GCP Service Keys/medscript-437117-e1e48d1242ef.json"
+    CREDENTIALS = service_account.Credentials.from_service_account_file(SERVICE_ACCOUNT_FILEPATH)
+
+    storage_client = storage.Client(credentials=CREDENTIALS, project=CREDENTIALS.project_id)
 
     bucket = storage_client.get_bucket(MIMIC_DATASET_BUCKET_NAME)
 
@@ -271,7 +297,7 @@ if __name__ == '__main__':
 
     df = pd.read_csv(data_io, encoding='utf-8', engine='python', on_bad_lines='warn')
     
-    # print("Succcessfully read dataset from bucket")
+    print("Succcessfully read dataset from bucket")
 
     df.drop('target', axis='columns', inplace=True)
 
@@ -280,17 +306,17 @@ if __name__ == '__main__':
 
     df['input'] = df['input'].apply(lambda x: transform_text(x, section_names, MAX_CHUNK_SIZE))
 
-    # print("Succcessfully transformed dataset")
+    print("Succcessfully transformed dataset")
 
     df.to_csv(local_processed_data_path+processed_dataset_filename, index=False)
     
-    # print("Saved transformed dataset")
+    print("Saved transformed dataset")
 
     upload_blob = bucket.blob('processed_data/' + processed_dataset_filename)
 
     upload_blob.upload_from_filename(local_processed_data_path+processed_dataset_filename)
 
-    # print("Uploaded transformed dataset to bucket")
+    print("Uploaded transformed dataset to bucket")
 
     os.remove(local_processed_data_path+processed_dataset_filename)
-    # print("Deleted transformed dataset from local system")
+    print("Deleted transformed dataset from local system")

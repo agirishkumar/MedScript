@@ -12,6 +12,15 @@ click==8.1.7
 coverage==7.6.4
 cryptography==43.0.1
 dnspython==2.7.0
+dvc==3.56.0
+dvc-data==3.16.7
+dvc-http==2.32.0
+dvc-objects==5.1.0
+dvc-render==1.0.2
+dvc-studio-client==0.21.0
+dvc-gs==3.0.1
+gcsfs==2024.10.0
+dvc-task==0.40.2
 email_validator==2.2.0
 fastapi==0.115.3
 gitdb==4.0.11
