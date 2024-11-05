@@ -35,11 +35,9 @@ def get_embedding(text, tokenizer, model, device):
         return None
 
 def embed_to_str(embedding):
-    """Converts a single embedding to string representation"""
+    """Converts embeddings for a record containing multiple points to a list of embeddings in string format"""
     if embedding is None:
         return "[]"
-    # str_emb = '[' + ','.join(map(str, embedding.flatten().numpy())) + ']'
-    # return str_emb
     res = []
     for emb in embedding:
         # str_emb = '[' + ','.join(map(str, emb)) + ']'
@@ -62,7 +60,9 @@ def embed(data, tokenizer, model, device, csv_filename = '', batch_size=4):
         embedding = embedding.detach().numpy()
         return embedding
         
-
+    if batch_size < 1:
+        raise Exception("Batch size must be an integer greater than 0")
+    
     total_batches = len(data) // batch_size + (1 if len(data) % batch_size != 0 else 0)
     
     try:
@@ -84,6 +84,7 @@ def embed(data, tokenizer, model, device, csv_filename = '', batch_size=4):
             batch_df['embedding'] = batch_embeddings
             batch_df.to_csv(csv_filename, mode='a', header=not os.path.exists(csv_filename), index=False)
 
+            print(f"Added embeddings of batch {i//batch_size} to local embedding file")
             # Clear memory
             del batch_embeddings, batch_df
             gc.collect()
@@ -91,6 +92,7 @@ def embed(data, tokenizer, model, device, csv_filename = '', batch_size=4):
 
     except Exception as e:
         print(f"Error during embedding generation: {str(e)}")
+        print(f"Terminated embedding generation for batch {i//batch_size}")
         raise
 
 def upload_embeddings(data, tokenizer, model, device, bucket, csv_filename = '', batch_size=4):
@@ -144,7 +146,7 @@ if __name__ == '__main__':
         bucket = client.get_bucket(bucket_name)
         download_blob = bucket.blob(preprocesed_dataset_path)
         
-        print("Downloading dataset...")
+        print("Downloading preprocessed dataset from bucket for embedding generation")
         content = download_blob.download_as_text()
         csv_file = io.StringIO(content)
         

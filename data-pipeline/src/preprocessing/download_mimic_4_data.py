@@ -15,7 +15,7 @@ password = os.getenv("WGET_PASSWORD")
 # command = f"wget -r -N -np --user {username} --password {password} --header='Range: bytes=0-1048576' -O part1.zip https://physionet.org/files/labelled-notes-hospital-course/1.1.0/"
 # os.system(command)
 
-def download_dataset(download_url, destination_filename):
+def download_dataset(username, password, download_url, destination_filename):
     wget_command = f"wget -r -N -np --user {username} --password {password} -O {destination_filename} {download_url}"
 
     # start_time = time.time()
@@ -66,6 +66,7 @@ def upload_to_bucket(bucket_name, destination_blob_name, source_path, destinatio
 
     blob.upload_from_filename(source_path)
 
+    print(f"Uploaded local dataset file to bucket at {destination_path + destination_blob_name}")
     # try:
     #     blob.upload_from_filename(source_path)
     #     logger.info(
@@ -77,7 +78,7 @@ def upload_to_bucket(bucket_name, destination_blob_name, source_path, destinatio
 
     # # Remove the local file
     os.remove(source_path)
-    # print(f"Local Dataset removed: {source_path}")
+    print(f"Local Dataset removed: {source_path}")
 
 
 if __name__ == "__main__":
