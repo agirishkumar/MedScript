@@ -6,7 +6,7 @@ BASE_DATASET_FILENAME = "mimic4-dataset.csv"
 EMBEDDING_SIZE = 768
 EMBEDDING_TOKENIZER = "microsoft/BiomedNLP-PubMedBERT-base-uncased-abstract"
 EMBEDDING_MODEL = "microsoft/BiomedNLP-PubMedBERT-base-uncased-abstract"                   
-EMBEDDING_MODEL_PATH = './models/embedding'
+# EMBEDDING_MODEL_PATH = './models/embedding'
 
 QDRANT_COLLECTION = "mimic_embeddings"
 QDRANT_PORT = 6333

@@ -10,3 +10,4 @@ datasets/*
 processed_data/*
 rag/Data/*
 models/embedding/*
+!rag/constants.py
