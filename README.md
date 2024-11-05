@@ -56,20 +56,20 @@ login with google account, select the project
 **Step 5: Set up the .env file**
 Save this file as .env in the repo
 
-DB_USER=admin
-DB_PASS=admin
-DB_NAME=medscript
-DB_HOST=localhost
-DB_PORT=5434
-JWT_SECRET_KEY=myjwtsecretkey
-JWT_REFRESH_SECRET_KEY=myjwtrefreshsecretkey
-AIRFLOW_UID=123
-POSTGRES_USER=your_postgres_user
-POSTGRES_PASSWORD=your_postgres_password
-POSTGRES_DB=your_postgres_db
-AIRFLOW_WWW_USER_USERNAME=your_airflow_user
-AIRFLOW_WWW_USER_PASSWORD=your_airflow_user_password
-CLOUD_SQL_INSTANCE=your_cloud_sql_instance
+DB_USER=admin\
+DB_PASS=admin\
+DB_NAME=medscript\
+DB_HOST=localhost\
+DB_PORT=5434\
+JWT_SECRET_KEY=myjwtsecretkey\
+JWT_REFRESH_SECRET_KEY=myjwtrefreshsecretkey\
+AIRFLOW_UID=123\
+POSTGRES_USER=your_postgres_user\
+POSTGRES_PASSWORD=your_postgres_password\
+POSTGRES_DB=your_postgres_db\
+AIRFLOW_WWW_USER_USERNAME=your_airflow_user\
+AIRFLOW_WWW_USER_PASSWORD=your_airflow_user_password\
+CLOUD_SQL_INSTANCE=your_cloud_sql_instance\
 GOOGLE_APPLICATION_CREDENTIALS=/path/to/your/credentials.json
 
 **Step 6 : Run the requirements.txt file to install all the required libraries 
@@ -92,6 +92,115 @@ pip install -r requirements.txt
    ```bash
    docker compose up
    ```
+- Airflow orchestrates the execution of tasks in the pipeline by managing the scheduling and dependencies between various tasks defined in the DAGs. 
+
+**To run the pipeline:**
+
+- Navigate to the data-pipeline directory from the root folder
+
+    ```bash
+    cd data-pipeline
+    ```
+
+- Create a secrets folder to store the service account key
+
+    ```bash
+    mkdir secrets
+    ```
+
+- Copy the JSON service account key file into the secrets folder and rename it to service-account-key.json
+
+    ```bash
+    cp path/to/your/service-account-key.json secrets/
+    ```
+
+- Ensure Docker is installed. To install, follow the instructions on [Docker website](https://docs.docker.com/engine/install/)
+
+    ```bash
+    docker --version
+    docker-compose --version
+    ```
+- Use Docker Compose to start the data pipeline
+
+    ```bash
+    docker-compose --env-file ../.env up
+    ```
+The Airflow UI will run on port `8080`. It can be accessed at `http://localhost:8080`. 
+
+- To stop the data pipeline, run the following command:
+
+    ```bash
+    docker-compose --env-file ../.env down
+    ```
+
+### Folder structure
+
+- **config/**: Contains configuration files for the pipeline, such as `airflow.cfg`, which defines settings for Apache Airflow.
+- **logs/**: Directory where logs for the Airflow tasks are stored.
+- **dags/**: Contains Directed Acyclic Graphs (DAGs) that define the workflow of the data pipeline.
+  - **src/**: Directory for source files used in the DAGs.
+    - **base.py**: Contains base classes or functions used across various tasks.
+  - **main.py**: Entry point for executing the data pipeline tasks.
+ 
+## Project Overview
+
+This healthcare application project aims to enhance patient-doctor interactions by integrating AI into the medical workflow. Key features include:
+
+The key factors for this healthcare application project are:
+
+1. **Comprehensive Data Collection**: Ensuring standardized and detailed patient data is captured for accurate analysis and continuity in care.
+
+2. **AI-Powered Disease Detection**: Utilizing advanced machine learning models to analyze patient data and identify potential diseases, increasing diagnostic speed and precision.
+
+3. **Automated Prescription Generation**: Creating initial prescription suggestions based on AI-detected health conditions, which supports quicker treatment planning.
+
+4. **Doctor Review and Oversight**: Providing doctors with a user-friendly interface to review, adjust, or override AI-generated prescriptions, maintaining medical expertise in the decision-making process.
+
+5. **Enhanced Workflow Efficiency**: Streamlining the healthcare process by integrating AI tools, reducing time spent on data entry and initial diagnosis, allowing doctors to focus more on patient care.
+
+6. **Educational Value for Medical Professionals**: Serving as a learning tool for doctors, as they can observe and evaluate AI-driven recommendations and adapt as needed.
+
+These factors collectively improve patient outcomes, make healthcare workflows more efficient, and offer an educational advantage for medical professionals.
+
+
+## Data Information
+
+1. For a General Diagnostic Model:
+   
+**Model: Med42
+Data Card:**
+- Type: Large Language Model
+- Base: Llama-2\
+- Size: 70B parameters\
+- Specialization: Medical knowledge and reasoning\
+- Performance: 72% accuracy on USMLE sample exams\
+- License: Custom open-access license (requires acceptance)\
+- URL: https://huggingface.co/m42-health/med42-70b
+
+**Dataset: MIMIC-III Clinical Database
+Data Card:**
+- Type: Clinical Database\
+- Size: >40,000 patient stays\
+- Format: CSV files\
+- Data types: Structured clinical data (demographics, vital signs, lab tests, medications,
+etc.)\
+License: PhysioNet Credentialed Health Data License 1.5.0\
+URL: https://physionet.org/content/mimiciii/1.4/
+
+Data Rights and Privacy: De-identified data, requires completion of training course for access
+
+2. X-ray Diagosis Model:
+   
+**Model: CheXNet (open-source implementation)]
+Data Card:**
+- Type: Convolutional Neural Network\
+- Base: DenseNet-121\
+- Specialization: Chest X-ray analysis\
+- Performance: Exceeds radiologist performance on pneumonia detection\
+- License: MIT License\
+- URL: https://github.com/zoogzog/chexnet
+
+
 
 ## Modules and Their Roles:
 
