@@ -170,21 +170,21 @@ These factors collectively improve patient outcomes, make healthcare workflows m
 **Model: Med42
 Data Card:**
 - Type: Large Language Model
-- Base: Llama-2\
-- Size: 70B parameters\
-- Specialization: Medical knowledge and reasoning\
-- Performance: 72% accuracy on USMLE sample exams\
-- License: Custom open-access license (requires acceptance)\
+- Base: Llama-2
+- Size: 70B parameters
+- Specialization: Medical knowledge and reasoning
+- Performance: 72% accuracy on USMLE sample exams
+- License: Custom open-access license (requires acceptance)
 - URL: https://huggingface.co/m42-health/med42-70b
 
 **Dataset: MIMIC-III Clinical Database
 Data Card:**
-- Type: Clinical Database\
-- Size: >40,000 patient stays\
-- Format: CSV files\
+- Type: Clinical Database
+- Size: >40,000 patient stays
+- Format: CSV files
 - Data types: Structured clinical data (demographics, vital signs, lab tests, medications,
-etc.)\
-License: PhysioNet Credentialed Health Data License 1.5.0\
+etc.)
+License: PhysioNet Credentialed Health Data License 1.5.0
 URL: https://physionet.org/content/mimiciii/1.4/
 
 Data Rights and Privacy: De-identified data, requires completion of training course for access
@@ -193,11 +193,11 @@ Data Rights and Privacy: De-identified data, requires completion of training cou
    
 **Model: CheXNet (open-source implementation)]
 Data Card:**
-- Type: Convolutional Neural Network\
-- Base: DenseNet-121\
-- Specialization: Chest X-ray analysis\
-- Performance: Exceeds radiologist performance on pneumonia detection\
-- License: MIT License\
+- Type: Convolutional Neural Network
+- Base: DenseNet-121
+- Specialization: Chest X-ray analysis
+- Performance: Exceeds radiologist performance on pneumonia detection
+- License: MIT License
 - URL: https://github.com/zoogzog/chexnet
 
 
