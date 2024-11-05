@@ -8,14 +8,13 @@ from transformers import BertTokenizer, BertModel
 import torch
 import os
 from constants import SERVICE_ACCOUNT_FILEPATH
-from tqdm import tqdm  # For progress bar
+from tqdm import tqdm  
 
 def get_embedding(text, tokenizer, model, device):
     """Generate embedding for a single text"""
     try:
         inputs = tokenizer(text, return_tensors="pt", truncation=True, 
                           padding=True, max_length=512)
-        # Move inputs to GPU
         inputs = {k: v.to(device) for k, v in inputs.items()}
         
         with torch.no_grad():  # Disable gradient computation
@@ -35,9 +34,11 @@ def get_embedding(text, tokenizer, model, device):
         return None
 
 def embed_to_str(embedding):
-    """Converts embeddings for a record containing multiple points to a list of embeddings in string format"""
+    """Converts a single embedding to string representation"""
     if embedding is None:
         return "[]"
+    # str_emb = '[' + ','.join(map(str, embedding.flatten().numpy())) + ']'
+    # return str_emb
     res = []
     for emb in embedding:
         # str_emb = '[' + ','.join(map(str, emb)) + ']'
@@ -60,9 +61,7 @@ def embed(data, tokenizer, model, device, csv_filename = '', batch_size=4):
         embedding = embedding.detach().numpy()
         return embedding
         
-    if batch_size < 1:
-        raise Exception("Batch size must be an integer greater than 0")
-    
+
     total_batches = len(data) // batch_size + (1 if len(data) % batch_size != 0 else 0)
     
     try:
@@ -84,7 +83,6 @@ def embed(data, tokenizer, model, device, csv_filename = '', batch_size=4):
             batch_df['embedding'] = batch_embeddings
             batch_df.to_csv(csv_filename, mode='a', header=not os.path.exists(csv_filename), index=False)
 
-            print(f"Added embeddings of batch {i//batch_size} to local embedding file")
             # Clear memory
             del batch_embeddings, batch_df
             gc.collect()
@@ -92,10 +90,24 @@ def embed(data, tokenizer, model, device, csv_filename = '', batch_size=4):
 
     except Exception as e:
         print(f"Error during embedding generation: {str(e)}")
-        print(f"Terminated embedding generation for batch {i//batch_size}")
         raise
 
 def upload_embeddings(data, tokenizer, model, device, bucket, csv_filename = '', batch_size=4):
+    """
+    Uploads the embeddings to a Google Cloud Storage bucket after generating them incrementally with embed.
+
+    Args:
+        data (pd.DataFrame): The input DataFrame containing the 'input' column.
+        tokenizer (transformers.BertTokenizer): The tokenizer to use for the input column.
+        model (transformers.BertModel): The model to use for the input column.
+        device (str): The device to use for the model.
+        bucket (google.cloud.storage.Bucket): The Google Cloud Storage bucket to upload to.
+        csv_filename (str, optional): The filename to save the embeddings as. Defaults to ''.
+        batch_size (int, optional): The batch size to use for generating embeddings. Defaults to 4.
+
+    Returns:
+        None
+    """
     try:
         data.drop(['input_tokens', 'target_tokens'], axis='columns', inplace=True)
         data['input'] = data['input'].apply(lambda x: ast.literal_eval(x))
@@ -146,7 +158,7 @@ if __name__ == '__main__':
         bucket = client.get_bucket(bucket_name)
         download_blob = bucket.blob(preprocesed_dataset_path)
         
-        print("Downloading preprocessed dataset from bucket for embedding generation")
+        print("Downloading dataset...")
         content = download_blob.download_as_text()
         csv_file = io.StringIO(content)
         
@@ -154,29 +166,8 @@ if __name__ == '__main__':
         print("Loading first 100 records...")
         df = pd.read_csv(csv_file, nrows=100)
         print(f"Loaded {len(df)} records")
-        
-
-
         upload_embeddings(df, tokenizer, model, device, bucket, csv_filename = embed_df_filename, batch_size=4)
-
-        # # Preprocess
-        # df.drop(['input_tokens', 'target_tokens'], axis='columns', inplace=True)
-        # df['input'] = df['input'].apply(lambda x: ast.literal_eval(x))
         
-        # # Generate and save embeddings incrementally
-        # print("Generating embeddings and saving incrementally...")
-        # embed(df, tokenizer, model, device, csv_filename=embed_df_filename, batch_size=4)
-        # print("Completed embedding generation and saving")
-        
-        # # Upload to a different path to keep full dataset separate
-        # upload_blob = bucket.blob('processed_data/embeddings_10k/' + embed_df_filename)
-        # upload_blob.upload_from_filename(embed_df_filename)
-        # print("Uploaded embedding dataframe to bucket")
-        
-        # # Cleanup
-        # os.remove(embed_df_filename)
-        # print("Deleted local embedding dataframe")
-
     except Exception as e:
         print(f"An error occurred: {str(e)}")
         if os.path.exists(embed_df_filename):

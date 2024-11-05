@@ -1,6 +1,9 @@
 x-airflow-common:
   &airflow-common
-  image: apache/airflow:2.10.2
+  # image: apache/airflow:2.10.2
+  build:
+    context: ..
+    dockerfile: data_pipeline/Dockerfile
   env_file:
     - ../.env
   environment:
@@ -15,6 +18,8 @@ x-airflow-common:
     - ./dags:/opt/airflow/dags
     - ./logs:/opt/airflow/logs
     - ./config:/opt/airflow/config
+    - ./src:/opt/airflow/src        # Mount src directory to include scripts and constants.py
+    - ./secrets:/opt/airflow/secrets # Mount secrets for GCP credentials
   user: "${AIRFLOW_UID}:0"
   depends_on:
     &airflow-common-depends-on
@@ -41,7 +46,7 @@ services:
     environment:
       GOOGLE_APPLICATION_CREDENTIALS: "/secrets/service-account-key.json"
     volumes:
-      - ../data-pipeline/secrets:/secrets
+      - ../data_pipeline/secrets:/secrets
     
   # fast api server
   fastapi:
