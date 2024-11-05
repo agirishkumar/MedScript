@@ -248,31 +248,7 @@ Data Card:**
 
 ## Data Schema
 There are 8 tables 
-TABLE NAME : **DOCTOR** 
-| Attribute Name              | Description                                                                                   | Data Type |
-|-----------------------------|-----------------------------------------------------------------------------------------------|-----------|
-| `DoctorID`              | Unique identifier for each Doctor                                                          | String     |
-| `FirstName`             | First Name of the doctor                                                          | String      |
-| `LastName`             | Last Name of the doctor                                                         | String     |
-| `Specialty`     | Specialty                                                | Integer     |
-| `LicenseNumber`                 | Consumer's answer to "what happened" from the complaint. Consumers must opt-in to share their narrative. The  narrative is not published unless the consumer consents, and consumers can opt-out at any time. The CFPB takes reasonable steps to scrub personal information from each complaint that could be used to identify the consumer.                                                    | String    |
-| `ContactNumber`           | Text content of the complaint (in Hindi)                                                      | String    |
-| `Email`                   | The type of product the consumer identified in the complaint                       | String    |
-| `department`                | The department responsible for handling the complaint                                         | String    |
-| `sub_product`               | The type of sub-product the consumer identified in the complaint                                       | String    |
-| `issue`                     | The issue the consumer identified in the complain                                                            | String    |
-| `sub_issue`                 | The sub-issue the consumer identified in the complaint                                                             | String    |
-| `company`                   | Company associated with the complaint                                                         | String    |
-| `state`                     | The state of the mailing address provided by the consumer                                                   | String    |
-| `zipcode`                   | The mailing ZIP code provided by the consumer                                                    | String    |
-| `tags`                      | Complaints are tagged based on submitter details: those involving consumers aged 62+ are tagged “Older American,” while complaints from servicemembers or their families are tagged “Servicemember.” This category includes active duty, National Guard, Reservists, Veterans, and retirees.               | String    |
-| `company_response_public`   | The company's optional, public-facing response to a consumer's complaint. Companies can choose to select a response from a pre-set list of options that will be posted on the public database. For example, "Company believes complaint is the result of an isolated error."                                        | String    |
-| `company_response_consumer` | This is how the company responded. For example, "Closed with explanation"                                                     | String    |
-| `consumer_consent_provided` | Identifies whether the consumer opted in to publish their complaint narrative. The narrative is not published unless the consumer consents and consumers can opt-out at any time                                     | String    |
-| `submitted_via`             | How the complaint was submitted to the CFPB                          | String    |
-| `date_sent_to_company`      | The date when CFPB sent the complaint to the company                                 | String    |
-| `timely_response`           | Whether the company gave a timely response                                 | String    |
-| `consumer_disputed`         | Whether the consumer disputed the company’s response                                     | String    |
+
 
 
 ## Data Preprocessing Pipeline
