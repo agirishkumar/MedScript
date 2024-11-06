@@ -568,6 +568,13 @@ __Examples:__
     enhancement/api-logging
 Once the feature or fix is complete, a pull request is created to merge the feature branch into dev.
 
+
+## Data Versioning (DVC):
+- DVC (Data Version Control) to manage and version control our datasets throughout the preprocessing pipeline
+- Raw data is loaded from Google Cloud Storage (GCS), processed and cleaned using our Airflow pipeline, and the preprocessed data is then stored back to
+![image](https://github.com/user-attachments/assets/b9dff95d-f960-4a23-83cf-3c83ac2e7520)
+
+
 ## Tests and Modules
 
 
