@@ -1,10 +1,16 @@
 import re
-from constants import ABBREVIATIONS, SECTION_NAMES, MIMIC_DATASET_BUCKET_NAME, SERVICE_ACCOUNT_FILEPATH
+import sys
+import os
+current = os.path.dirname(os.path.realpath(__file__))
+ggparent = os.path.dirname(os.path.dirname(os.path.dirname(current)))
+
+sys.path.append(ggparent)
+from data_pipeline.src.preprocessing.constants import ABBREVIATIONS, SECTION_NAMES, MIMIC_DATASET_BUCKET_NAME, SERVICE_ACCOUNT_FILEPATH
 import pandas as pd
 import json
 from io import StringIO
 from google.cloud import storage
-import os
+
 
 
 MAX_CHUNK_SIZE = 2500  # Define the number of keys per chunk

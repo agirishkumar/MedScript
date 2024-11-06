@@ -2,7 +2,13 @@ from googleapiclient import discovery
 from google.oauth2 import service_account
 from qdrant_client import QdrantClient, models
 import pandas as pd
-from constants import (
+import sys
+import os
+current = os.path.dirname(os.path.realpath(__file__))
+gparent = os.path.dirname(os.path.dirname(current))
+
+sys.path.append(gparent)
+from data_pipeline.dags.constants import (
     MIMIC_DATASET_BUCKET_NAME, 
     QDRANT_COLLECTION, 
     QDRANT_PORT, 
@@ -13,7 +19,7 @@ from constants import (
     QDRANT_INSTANCE_ZONE
 )
 from google.cloud import storage
-import os
+
 import ast
 from typing import List
 import time

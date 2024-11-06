@@ -3,7 +3,11 @@ from google.cloud import storage
 import os
 import sys
 from dotenv import load_dotenv
-from constants import MIMIC_DATASET_BUCKET_NAME, SERVICE_ACCOUNT_FILEPATH
+current = os.path.dirname(os.path.realpath(__file__))
+ggparent = os.path.dirname(os.path.dirname(os.path.dirname(current)))
+
+sys.path.append(ggparent)
+from data_pipeline.src.preprocessing.constants import MIMIC_DATASET_BUCKET_NAME, SERVICE_ACCOUNT_FILEPATH
 import time 
 
 load_dotenv()
@@ -36,7 +40,7 @@ def download_dataset(username, password, download_url, destination_filename):
     except subprocess.CalledProcessError as e:
         
         print(f"Error downloading dataset: {e}")
-
+        raise
         # process_time = time.time() - start_time
 
         # log_dict = {

@@ -1,11 +1,17 @@
 from qdrant_client import QdrantClient
 from transformers import BertTokenizer, BertModel
-from constants import QDRANT_COLLECTION, QDRANT_PORT, VECTORSTORE_IP, EMBEDDING_MODEL_PATH,SERVICE_ACCOUNT_FILEPATH
-from create_embedding import embed
+import sys
+import os
+current = os.path.dirname(os.path.realpath(__file__))
+gparent = os.path.dirname(os.path.dirname(current))
+
+sys.path.append(gparent)
+from data_pipeline.dags.constants import QDRANT_COLLECTION, QDRANT_PORT, VECTORSTORE_IP, EMBEDDING_MODEL_PATH,SERVICE_ACCOUNT_FILEPATH
+from data_pipeline.dags.create_embedding import embed
 import torch
 import numpy as np
-import os
-from add_to_vectorstore import get_qdrant_instance_ip
+
+from data_pipeline.dags.add_to_vectorstore import get_qdrant_instance_ip
 
 class VectorStore:
 
