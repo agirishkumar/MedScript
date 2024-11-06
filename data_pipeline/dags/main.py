@@ -1,4 +1,9 @@
 # data_pipeline/dags/main.py
+
+'''
+This Airflow DAG fetches patient data, preprocesses it, queries a vector database, and generates a prompt for analysis.
+'''
+
 from airflow import DAG
 from airflow.operators.python import PythonOperator
 from airflow.operators.email import EmailOperator
