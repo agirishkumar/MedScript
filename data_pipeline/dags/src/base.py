@@ -1,4 +1,7 @@
 # data_pipeline/dags/src/base.py
+
+''' Helper functions for data pipeline '''
+
 import os
 import requests
 import json

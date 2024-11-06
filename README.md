@@ -5,7 +5,7 @@ Group Members:
 [Aishwariya Suryamindra](https://github.com/aishwarya-suyamindra) ,[Girish Kumar Adari](https://github.com/agirishkumar), [Mallika Gaikwad](https://github.com/MallikaGaikwad), [Om Mali](https://github.com/maliom939) , [Pramatha Bhat](https://github.com/pramathabhat), [Rohan Reddy](https://github.com/tantalum-73)
 
 ### Setup Instructions
-Please confirm that **Python >= 3.8** or a later version is present on your system prior to installation. This software is designed to be compatible with Windows, Linux, and macOS platforms.
+Please confirm that **Python >= 3.8** or a later version is present on your system prior to installation. This application is designed to be compatible with Windows, Linux, and macOS platforms.
 
 ### Step-by-Step Guide
 Step 1: Clone the Repository on your Terminal
@@ -23,9 +23,15 @@ Open the project folder (MedScript) in Visual Studio Code.
 python3 -m venv MedEnv
 ```
 To Activate the virtual environment
+for Linux/Mac:
 ```bash
 source MedEnv/bin/activate
 ```
+for Windows:
+```
+MedEnv\Scripts\activate
+```
+
 **Step 4: Setup GCP on ubuntu terminal:**
 
 - Add the Cloud SDK distribution URI as a package source
@@ -53,204 +59,92 @@ login with google account, select the project
 - verify the configuration:
 `gcloud config list`
 
-**Step 5: Set up the .env file**
-Save this file as .env in the repo
-
-DB_USER=admin\
-DB_PASS=admin\
-DB_NAME=medscript\
-DB_HOST=localhost\
-DB_PORT=5434\
-JWT_SECRET_KEY=myjwtsecretkey\
-JWT_REFRESH_SECRET_KEY=myjwtrefreshsecretkey\
-AIRFLOW_UID=123\
-POSTGRES_USER=your_postgres_user\
-POSTGRES_PASSWORD=your_postgres_password\
-POSTGRES_DB=your_postgres_db\
-AIRFLOW_WWW_USER_USERNAME=your_airflow_user\
-AIRFLOW_WWW_USER_PASSWORD=your_airflow_user_password\
-CLOUD_SQL_INSTANCE=your_cloud_sql_instance\
-GOOGLE_APPLICATION_CREDENTIALS=/path/to/your/credentials.json
-
-**Step 6 : Run the requirements.txt file to install all the required libraries 
+**Step 5 :** Run the requirements.txt file to install all the required libraries 
 ```bash
 pip install -r requirements.txt
 ```
 
-**Step 7 : To run and check the app**
-`python3 -m uvicorn app.main:app --reload`
+**Step 6: Set up the .env file**
+create a .env is main repo directory, refer to .env.example file for template.
 
-- check the urls `http://127.0.0.1:8000`, `http://127.0.0.1:8000/api/v1/health`
-
-**Step 8: Set up Airflow**
-
-1. Initialize Airflow:
-   ```bash
-   docker compose up airflow-init
-   ```
-2. Start all containers:
-   ```bash
-   docker compose up
-   ```
-- Airflow orchestrates the execution of tasks in the pipeline by managing the scheduling and dependencies between various tasks defined in the DAGs. 
-
-**To run the pipeline:**
-
-- Navigate to the data-pipeline directory from the root folder
-
-    ```bash
-    cd data-pipeline
-    ```
-
-- Create a secrets folder to store the service account key
-
-    ```bash
-    mkdir secrets
-    ```
-
-- Copy the JSON service account key file into the secrets folder and rename it to service-account-key.json
-
-    ```bash
-    cp path/to/your/service-account-key.json secrets/
-    ```
-
+**Step 7: Installing Docker**
 - Ensure Docker is installed. To install, follow the instructions on [Docker website](https://docs.docker.com/engine/install/)
 
     ```bash
     docker --version
     docker-compose --version
-    ```
-- Use Docker Compose to start the data pipeline
 
-    ```bash
-    docker-compose --env-file ../.env up
-    ```
+**Step 8: Steps to try the app**
+- change your directory to data_pipeline
+
+``` cd data_pipeline ``
+
+convert the initiate.sh file into executable and run it
+```
+ chmod +x initiate.sh```
+```
+```
+./initiate.sh
+```
+this will setup the airflow, fastapi, setup the requirements for accessing gcloud and resources for RAG.
+whenever this script is ran, it automatically removes the existing airflow containers, makes sure the ports are free
+
+**Step 9: Accessing FastAPI & Airflow**
+
 The Airflow UI will run on port `8080`. It can be accessed at `http://localhost:8080`. 
 
-- To stop the data pipeline, run the following command:
+use username : admin, password: admin
+to access the dashboard
 
-    ```bash
-    docker-compose --env-file ../.env down
-    ```
+The fastAPI UI will run on port `8000`. The API endpoints UI page can be accessed at `http://localhost:8000/docs`. 
 
-### Folder structure
 
-- **config/**: Contains configuration files for the pipeline, such as `airflow.cfg`, which defines settings for Apache Airflow.
+
+### data_pipeline Folder structure
+
 - **logs/**: Directory where logs for the Airflow tasks are stored.
-- **dags/**: Contains Directed Acyclic Graphs (DAGs) that define the workflow of the data pipeline.
-  - **src/**: Directory for source files used in the DAGs.
-    - **base.py**: Contains base classes or functions used across various tasks.
+- **dags/**: Contains files required for the workflow of the data pipeline.
+  - **src/**: Directory has base.py file, which provides the helper functions to tasks.
   - **main.py**: Entry point for executing the data pipeline tasks.
- 
-## Project Overview
+  - other py files are related to RAG 
+- **secrets/**: Contains Gcp keys
+- **utils/**: Rag related utility files
+- Docker-compose.yml file for building the containers required FAstApi and Airflow
+- Dockerfile: Image thats used in the Docker compose file 
 
-This healthcare application project aims to enhance patient-doctor interactions by integrating AI into the medical workflow. Key features include:
+**MedScript Folder Structure**
+ - data_pipeline: is already discussed above
+ - app: Main backend application directory
+      - api:  has the endpoints and dependencies code
+      - core: has configuration and app logging code
+      - db:  has crud , models, schemas defined in the respective folders
+      - utils: has the authentication, http errors, middleware files
+      - dockerfile: to run the backend in container
+      - main.py: to run the backend
+ - app-architecture-images: Contains diagrams of different functionality, workflow and components architecture
+      - **DAG pipeline Image**
+      - **DAG pipeline Gantt chart**
+ -  tests:
+      - unit: contains extensive unit tests for all the backend, db, Rag, Airflow 
 
-The key factors for this healthcare application project are:
-
-1. **Comprehensive Data Collection**: Ensuring standardized and detailed patient data is captured for accurate analysis and continuity in care.
-
-2. **AI-Powered Disease Detection**: Utilizing advanced machine learning models to analyze patient data and identify potential diseases, increasing diagnostic speed and precision.
-
-3. **Automated Prescription Generation**: Creating initial prescription suggestions based on AI-detected health conditions, which supports quicker treatment planning.
-
-4. **Doctor Review and Oversight**: Providing doctors with a user-friendly interface to review, adjust, or override AI-generated prescriptions, maintaining medical expertise in the decision-making process.
-
-5. **Enhanced Workflow Efficiency**: Streamlining the healthcare process by integrating AI tools, reducing time spent on data entry and initial diagnosis, allowing doctors to focus more on patient care.
-
-6. **Educational Value for Medical Professionals**: Serving as a learning tool for doctors, as they can observe and evaluate AI-driven recommendations and adapt as needed.
-
-These factors collectively improve patient outcomes, make healthcare workflows more efficient, and offer an educational advantage for medical professionals.
-
-
-## Data Information
-
-#### 1. For a General Diagnostic Model:
-   
-**Model: Med42
-Data Card:**
-- Type: Large Language Model
-- Base: Llama-2
-- Size: 70B parameters
-- Specialization: Medical knowledge and reasoning
-- Performance: 72% accuracy on USMLE sample exams
-- License: Custom open-access license (requires acceptance)
-- URL: https://huggingface.co/m42-health/med42-70b
-
-**Dataset: MIMIC-III Clinical Database
-Data Card:**
-- Type: Clinical Database
-- Size: >40,000 patient stays
-- Format: CSV files
-- Data types: Structured clinical data (demographics, vital signs, lab tests, medications,
-etc.)
-- License: PhysioNet Credentialed Health Data License 1.5.0
-- URL: https://physionet.org/content/mimiciii/1.4/
-
-/*Note: Data Rights and Privacy: De-identified data, requires completion of training course for access*/
-
-#### 2. X-ray Diagosis Model:
-   
-**Model: CheXNet (open-source implementation)]
-Data Card:**
-- Type: Convolutional Neural Network
-- Base: DenseNet-121
-- Specialization: Chest X-ray analysis
-- Performance: Exceeds radiologist performance on pneumonia detection
-- License: MIT License
-- URL: https://github.com/zoogzog/chexnet
-
-**Dataset: ChestX-ray14
-Data Card:**
-- Type: Medical Imaging
-- Size: 112,120 frontal-view chest X-ray images
-- Format: PNG images
-- Subjects: 30,805 unique patients
-- Labels: 14 disease classes
-- License: Open access for research
-- URL: https://nihcc.app.box.com/v/ChestXray-NIHCC
-  
-/*Note: Data Rights and Privacy: De-identified data, free for research use*/
-
-#### 3. ECG Diagnosis Model:
-
-**Model: ECG-DenseNet (open-source implementation)
-Data Card:**
-- Type: Convolutional Neural Network
-- Base: DenseNet
-- Specialization: ECG interpretation
-- License: MIT License
-- URL: https://github.com/helme/ecg_ptbxl_benchmarking
-
-**Dataset: PTB-XL ECG Dataset
-Data Card:**
-- Type: ECG Recordings
-- Size: 21,837 ECG records
-- Format: WFDB format
-- Subjects: 18,885 patients
-- Labels: 71 different ECG statements
-- License: Open access
-- URL: https://physionet.org/content/ptb-xl/1.0.1/
-
-/*Note: Data Rights and Privacy: De-identified data, free for research use*/
+**Run Unit Test**
+```
+pytest tests/unit/ --cov=app
+```
 
 
-#### 4. RAG Implementation Dataset:
-**Dataset: PubMed Central Open Access Subset
-Data Card:**
-- Type: Biomedical Literature
-- Size: Millions of full-text articles
-- Format: XML and plain text
-- Content: Peer-reviewed biomedical literature
-- License: Open Access
-- URL: https://www.ncbi.nlm.nih.gov/pmc/tools/openftlist/
+Dataset that we used for RAG : URL: https://physionet.org/content/labelled-notes-hospital-course/1.1.0/
 
-/*Note: Data Rights and Privacy: Open access, no restrictions on use*/
+ License (for files):
+PhysioNet Credentialed Health Data License 1.5.0
 
-## Data Schema
-There are 6 tables. The ER Diagram is :
-<img width="1294" alt="ERDiagram" src="https://github.com/user-attachments/assets/9d5c625e-5e20-494b-9563-d69a5eeff62d">
+Data Use Agreement:
+PhysioNet Credentialed Health Data Use Agreement 1.5.0
 
+Required training:
+CITI Data or Specimens Only Research 
+
+-------------------------------------------------------------------------------
 
 ## Data Preprocessing
 
@@ -258,31 +152,11 @@ There are 6 tables. The ER Diagram is :
 
 This script automates the process of downloading the MIMIC-4 dataset from PhysioNet and uploading it to a Google Cloud Storage (GCS) bucket. It includes error handling and logging features for streamlined data management. The script uses environment variables for secure access credentials.
 
-### Setup
-1. Install the required dependencies:
-
-```python
-pip install -r requirements.txt` 
-```
-
-2. Set Up Environment Variables: Create a .env file in the root directory with the following variables:
-
-```
-WGET_USERNAME=<your-physionet-username>
-WGET_PASSWORD=<your-physionet-password>
-```
-
-### Description
-This script performs the following tasks:
-
-1. **Download Dataset**: The `download_dataset()` function uses `wget` to download the dataset from PhysioNet using a username and password provided in environment variables. If the download is successful, the function will print a success message.
-2. **Upload to GCS Bucket**: The `upload_to_bucket()` function uploads the dataset to a specified GCS bucket using the `google-cloud-storage` library. After the file is uploaded, it is removed from the local filesystem to save space.
-
 ## Data Preprocessing
 
 This section processes clinical notes from the MIMIC-4 dataset to streamline structured data extraction, transformation, and analysis. We utilize Google Cloud Storage to store the preprocessed and transformed data, and each document section in the clinical notes is processed into meaningful, manageable chunks.
 
-### Desscription
+### Description
 
 This pipeline preprocesses clinical notes from the MIMIC-4 dataset for machine learning applications. Key preprocessing tasks include:
 
@@ -330,28 +204,10 @@ Actions:
 - Remove non-text elements like headers, footers, or special characters.
 - Eliminate any personal identifiers (e.g., patient names or ID numbers) using regex or a predefined list.
 
-#### 6. Stop Word Removal:
-Stop words are common words (e.g., "the", "is", "and") that do not carry significant meaning for many NLP tasks. Removing them reduces the dimensionality of the text data.
-
-Actions:
-
-- Use predefined stop word lists from libraries nltk and spaCy.
-- Remove these stop words from the tokenized text.
-
-#### 7. Lemmatization:
-Convert words into their base form to treat different forms of the same word as the same entity.
-
-Actions:
-
-- Use a lemmatizer (nltk and spaCy) to reduce tokens to their lemma.
 
 #### 8. Saving Preprocessed Data:
-Save the preprocessed data in a structured format, such as CSV, JSON, or database, for future use.
+Save the preprocessed data in a structured format in csv
 
-Actions:
-
-- Convert the processed text back to a tabular format (e.g., Pandas DataFrame).
-- Save the cleaned data to a desired storage format.
 
 ## Embedding Generator
 
@@ -365,33 +221,7 @@ Actions:
 - `transformers` for the BERT model and tokenizer.
 - `torch` for GPU-based tensor computations.
 - `google-cloud-storage` for storing embeddings in GCS.
-- `pandas`, `tqdm`, and `pickle` for data handling and progress tracking.
-
-### Key Functions
-
-1. `get_embedding(text, tokenizer, model, device)`
-
-   Generates an embedding for a single text entry.
-   
-   - Parameters:
-      - `text` (str): The input text to embed.
-      - `tokenizer` (BertTokenizer): Tokenizer for BERT.
-      - `model` (BertModel): BERT model for embedding generation.
-      - `device` (torch.device): Device to run computations on (GPU or CPU).
-   - Returns:
-     - `Tensor`: The embedding vector for the input text.
-     
-
-2. `embed_and_save_to_gcp(input_csv, bucket_name)`
-   
-   Reads clinical notes from a CSV, generates embeddings, and saves them to Google Cloud Storage.
-
-   - Parameters:
-   
-     - `input_csv` (str): Path to the CSV file containing clinical notes.
-     - `bucket_name` (str): Name of the GCS bucket where embeddings will be saved.
-   - Functionality:
-     - Processes each note in the CSV, generates embeddings, and saves them as pickle files in GCS.
+- `pandas`, `tqdm` for data handling and progress tracking.
 
 ## Qdrant Vector Database Integration
 
@@ -402,7 +232,7 @@ In this step we upload embedding vectors from a CSV file in Google Cloud Storage
 
 2. Setup Qdrant Collection: It checks if the specified collection exists in Qdrant and creates it if necessary.
 
-3. Batch Processing: The embedding vectors are uploaded in batches (default size: 100) to prevent memory overload and optimize performance.
+3. Batch Processing: The embedding vectors are uploaded in batches (default chunk size: 100) to prevent memory overload and optimize performance.
 
 4. Retry Logic: If uploading a batch fails, the script will automatically retry up to 3 times (with increasing delay between retries).
 
@@ -417,12 +247,12 @@ In this step we upload embedding vectors from a CSV file in Google Cloud Storage
 
 ## Querying the Qdrant Vector Store
 
-This step allows us to query a Qdrant vector database and retrieve the most relevant points to a given query. It uses a pre-trained transformer model (like PubMedBERT) to generate embeddings for the query and then searches for the most similar points in the Qdrant collection.
+This step allows us to query a Qdrant vector database and retrieve the most relevant points to a given query. It uses a pre-trained transformer model ( PubMedBERT) to generate embeddings for the query and then searches for the most similar points in the Qdrant collection.
 
 ### How It Works
-- **Query Embedding**: The query string is converted into a vector embedding using a pre-trained transformer model (e.g., PubMedBERT).
+- **Query Embedding**: The query string is converted into a vector embedding using a pre-trained transformer model (PubMedBERT).
 - **Search in Qdrant**: The generated embedding is used to search for the top `k` most similar vectors in the Qdrant collection. The search results are ranked based on similarity (cosine distance).
-- **Display Results**: The top `k` results (default: 5) are returned, showing their IDs, similarity scores, and payload data.
+- **Display Results**: The top `k` results (default: 3) are returned, showing their IDs, similarity scores, and payload data.
 
 The Data Pipeline is constructed like:
 ![MLOps Data Pipeline](https://github.com/user-attachments/assets/48db819b-cb65-4910-8ee7-e838c19d39aa)
@@ -482,71 +312,7 @@ The DAG is created with a unique identifier, description, and a start date.
 Load Data Task: This task fetches the patient summary using the get_summary function for a specific patient ID.
 Data Preprocessing Task: This task preprocesses the data retrieved from the previous task using the preprocess_data function.
 Query Vector Database Task: This task queries the vector database for similarity searches using the processed data with the query_vector_database function.
-There are placeholders for a prompt generation task and a trigger task, but they are commented out.
-Task Dependencies: The tasks are linked together, ensuring that data_preprocessing_task runs after load_data_task, and query_vector_database_task runs after data_preprocessing_task.
 
-Overall, the code sets up a data processing pipeline in Airflow that fetches, preprocesses, and queries patient data in a structured manner.
-
-The main process is summarized
-```mermaid
-flowchart TD
-    A[Fetch Patient Summary] --> B[Preprocess Data]
-    B --> C[Query Vector Database]
-    C --> D[Generate Prompt] 
-    D --> E[Trigger Display Prompt]
-
-    A -->|Fetches data for patient ID 9| B
-    B -->|Uses output from A| C
-    C -->|Uses output from B| D
-    D -->|Uses output from C| E
-```
-
-
-## Modules and Their Roles:
-
-__main.py:__
- - The entry point of the application.
-- Sets up the FastAPI instance, adds middleware, and includes routers for endpoints.
-- Initializes the database and starts the server using Uvicorn.
-
-__config.py:__
-- Holds the configuration settings for the app, such as project metadata and database credentials.
-- Reads from an environment file (.env), which is useful for securely managing sensitive information like database connection strings.
-
-__patients.py (API Endpoints):__
-- Defines the endpoints for interacting with patient records.
-- Contains endpoints like:
-    - POST /api/v1/patients/: Create a new patient.
-    - GET /api/v1/patients/: Get a list of patients.
-    - GET /api/v1/patients/{patient_id}: Get a specific patient by ID.
-
-__models/patient.py:__
-- Defines the SQLAlchemy model for the Patient table, including columns 
-- for id, name, age, email, and timestamps.~
-
-__schemas/patient.py:__
-- Provides Pydantic schemas for data validation and serialization when working with patient data.
-- Contains models for PatientBase, PatientCreate, PatientUpdate, and Patient.
-
-__crud/patient.py:__
-- Contains the CRUD operations for interacting with the database using SQLAlchemy’s ORM. This includes functions like:
-    - get_patient(): Retrieve a patient by ID.
-    - get_patients(): Retrieve multiple patients with pagination support.
-    - create_patient(): Add a new patient to the database.
-    - update_patient(): Update an existing patient’s data.
-    - delete_patient(): Remove a patient from the database.
-
-**Database Connection (session.py):**
-- Establishes a connection to the PostgreSQL database using SQLAlchemy’s create_engine.
-- Provides a SessionLocal class to manage database sessions.
-
-__Logging (logging.py):__
-- Sets up a logger that logs application activities to both the console and a file.
-- Uses a rotating file handler to manage logs and avoid excessive log size.
-
-__Middleware (middleware.py):__
-- RequestIDMiddleware: Adds a unique request ID to each incoming request for traceability.
-- LoggingMiddleware: Logs request details such as method, path, status code, and processing time.
 
 ## Git Workflow and Branching Strategy for the Project
 __main Branch:__
@@ -582,12 +348,8 @@ The results of a test run for all the files in app/db. The testcases covers scen
 **Test Results:**
 
 * **Coverage:** The overall test coverage is 97%, which is a very good score and indicates a high degree of test coverage. 
-* **Passed Tests:** 151 tests were executed successfully.
-
-**Additional Information:**
-
-* **Test Cases:** Test cases have been added for all endpoints and CRUD (Create, Read, Update, Delete) operations. 
-* **Future Work:** Efforts will continue to improve test coverage by implementing more test cases to ensure comprehensive testing. 
+151 tests were executed successfully.
+149 passed and 2 kipped with 96% coverage
 
 
 ![image](https://github.com/user-attachments/assets/3324e65b-ac75-4b34-8ec8-b98d1e6877aa)
