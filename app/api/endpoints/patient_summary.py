@@ -20,8 +20,6 @@ def get_patient_summary(patient_id: int, db: Session = Depends(get_db)):
     Retrieve detailed summary for a patient including visits, symptoms, and doctor details.
     """
     patient = patient_details.get_patient_details(db, patient_id)
-    if not patient:
-        raise HTTPException(status_code=404, detail="Patient not found")
 
     symptoms = patient_symptoms.get_patient_symptoms_by_patient_id(db, patient_id)
 
