@@ -5,6 +5,7 @@ app/__pycache__
 .env
 mlruns/.trash
 Med123/
+
 data_pipeline/secrets
 data_pipeline/logs/*
 data_pipeline/.DS_Store
@@ -16,3 +17,4 @@ logs/app.log
 datasets
 processed_data
 rag
+
