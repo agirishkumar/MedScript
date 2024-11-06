@@ -1,8 +1,12 @@
 # app/api/endpoints/patients.py
 
+''' 
+this file contains all the endpoints for the patients resource
+'''
+
+from typing import List
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
-from typing import List
 from app.db.crud import patient as patient_crud
 from app.db.schemas.patient import Patient, PatientCreate, PatientUpdate
 from app.api.deps import get_db
@@ -29,8 +33,6 @@ def read_patient(patient_id: int, db: Session = Depends(get_db)):
     Retrieve a patient by ID.
     """
     db_patient = patient_crud.get_patient(db, patient_id=patient_id)
-    if db_patient is None:
-        raise HTTPException(status_code=404, detail="Patient not found")
     return db_patient
 
 @router.put("/{patient_id}", response_model=Patient)
@@ -39,8 +41,6 @@ def update_patient(patient_id: int, patient: PatientUpdate, db: Session = Depend
     Update an existing patient.
     """
     db_patient = patient_crud.update_patient(db=db, patient_id=patient_id, patient=patient)
-    if db_patient is None:
-        raise HTTPException(status_code=404, detail="Patient not found")
     return db_patient
 
 @router.delete("/{patient_id}", status_code=204)
@@ -49,6 +49,4 @@ def delete_patient(patient_id: int, db: Session = Depends(get_db)):
     Delete a patient by ID.
     """
     result = patient_crud.delete_patient(db=db, patient_id=patient_id)
-    if not result:
-        raise HTTPException(status_code=404, detail="Patient not found")
     return None

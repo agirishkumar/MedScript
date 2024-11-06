@@ -4,12 +4,13 @@ from .patient_details import PatientDetails
 from .patient_symptoms import PatientSymptom
 from .patient_visits import PatientVisit
 from .doctor import Doctor
+from typing import Optional
 
 class VisitDetails(BaseModel):
-    visit: PatientVisit
-    symptoms: List[PatientSymptom]
-    doctor: Doctor
+    visit: Optional[PatientVisit]
+    symptoms: Optional[List[PatientSymptom]]
+    doctor: Optional[Doctor]
 
 class PatientSummaryResponse(BaseModel):
     patient: PatientDetails
-    visits: List[VisitDetails]
+    visits: Optional[List[VisitDetails]]

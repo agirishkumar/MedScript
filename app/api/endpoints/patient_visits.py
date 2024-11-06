@@ -1,8 +1,12 @@
 # app/api/endpoints/patient_visits.py
 
+''' 
+this file contains all the endpoints for the patient_visits resource 
+'''
+
+from typing import List
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
-from typing import List
 from app.db.crud import patient_visits as patient_visit_crud
 from app.db.schemas.patient_visits import PatientVisit, PatientVisitCreate, PatientVisitUpdate
 from app.api.deps import get_db
@@ -29,8 +33,6 @@ def read_patient_visit(visit_id: int, db: Session = Depends(get_db)):
     Retrieve a patient visit by ID.
     """
     db_visit = patient_visit_crud.get_patient_visit(db, visit_id=visit_id)
-    if db_visit is None:
-        raise HTTPException(status_code=404, detail="Patient visit not found")
     return db_visit
 
 @router.put("/{visit_id}", response_model=PatientVisit)
@@ -39,8 +41,6 @@ def update_patient_visit(visit_id: int, patient_visit: PatientVisitUpdate, db: S
     Update an existing patient visit record.
     """
     db_visit = patient_visit_crud.update_patient_visit(db=db, visit_id=visit_id, patient_visit=patient_visit)
-    if db_visit is None:
-        raise HTTPException(status_code=404, detail="Patient visit not found")
     return db_visit
 
 @router.delete("/{visit_id}", status_code=204)
@@ -48,7 +48,5 @@ def delete_patient_visit(visit_id: int, db: Session = Depends(get_db)):
     """
     Delete a patient visit by ID.
     """
-    result = patient_visit_crud.delete_patient_visit(db=db, visit_id=visit_id)
-    if not result:
-        raise HTTPException(status_code=404, detail="Patient visit not found")
+    patient_visit_crud.delete_patient_visit(db=db, visit_id=visit_id)
     return None

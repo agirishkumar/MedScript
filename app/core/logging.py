@@ -1,8 +1,12 @@
 # app/core/logging.py
 
+'''
+This module contains the logging setup for the application.'''
+
+import os
 import logging
 from logging.handlers import RotatingFileHandler
-import os
+
 
 def setup_logging():
     """
