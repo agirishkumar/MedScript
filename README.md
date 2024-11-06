@@ -224,14 +224,15 @@ Data Card:**
 
 **Dataset: PTB-XL ECG Dataset
 Data Card:**
-● Type: ECG Recordings
-● Size: 21,837 ECG records
-● Format: WFDB format
-● Subjects: 18,885 patients
-● Labels: 71 different ECG statements
-● License: Open access
-● URL: https://physionet.org/content/ptb-xl/1.0.1/
-Data Rights and Privacy: De-identified data, free for research use
+- Type: ECG Recordings
+- Size: 21,837 ECG records
+- Format: WFDB format
+- Subjects: 18,885 patients
+- Labels: 71 different ECG statements
+- License: Open access
+- URL: https://physionet.org/content/ptb-xl/1.0.1/
+
+/*Note: Data Rights and Privacy: De-identified data, free for research use*/
 
 
 #### 4. RAG Implementation Dataset:
