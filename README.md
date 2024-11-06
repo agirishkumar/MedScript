@@ -184,8 +184,8 @@ Data Card:**
 - Format: CSV files
 - Data types: Structured clinical data (demographics, vital signs, lab tests, medications,
 etc.)
-License: PhysioNet Credentialed Health Data License 1.5.0
-URL: https://physionet.org/content/mimiciii/1.4/
+- License: PhysioNet Credentialed Health Data License 1.5.0
+- URL: https://physionet.org/content/mimiciii/1.4/
 
 /*Note: Data Rights and Privacy: De-identified data, requires completion of training course for access*/
 
