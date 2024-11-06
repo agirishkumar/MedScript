@@ -1,3 +1,9 @@
+# data_pipeline/utils/preprocess_dataset.py
+
+'''
+This script processes medical records, segments, cleans, flattens, chunks, and uploads data to Google Cloud.
+'''
+
 import re
 from constants import ABBREVIATIONS, SECTION_NAMES, MIMIC_DATASET_BUCKET_NAME, SERVICE_ACCOUNT_FILEPATH
 import pandas as pd

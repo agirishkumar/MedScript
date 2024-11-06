@@ -1,3 +1,9 @@
+# data_pipeline/dags/constants.py
+
+'''
+Defines constants for Google Cloud, Qdrant configuration, dataset paths, embeddings, and abbreviation mappings.
+'''
+
 PROJECT_ID = "medscript-437117"
 MIMIC_DATASET_BUCKET_NAME = "medscript-mimic4-dataset"
 BASE_DATASET_FILENAME = "mimic4-dataset.csv"

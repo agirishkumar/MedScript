@@ -1,5 +1,9 @@
 # app/db/schemas/patient_details.py
 
+'''
+Defines Pydantic schemas for patient details table.
+'''
+
 from pydantic import BaseModel, EmailStr
 from datetime import date, datetime
 from typing import Optional

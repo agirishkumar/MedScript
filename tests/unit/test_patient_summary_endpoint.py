@@ -1,3 +1,9 @@
+# tests/unit/test_patient_summary_endpoint.py
+
+'''
+The file tests patient summary retrieval, validating correct data, visits, symptoms, and error handling.
+'''
+
 import pytest
 from fastapi.testclient import TestClient
 from sqlalchemy import create_engine

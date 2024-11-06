@@ -1,3 +1,9 @@
+# tests/unit/test_user_crud.py
+
+'''
+Unit tests for user CRUD operations, including creation, retrieval, deletion, and database session management.
+'''
+
 from app.db.crud.user import create_user, get_user_by_email, delete_user, get_user
 from app.db.models.user import User, Role
 from app.db.schemas.user import UserCreate

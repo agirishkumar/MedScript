@@ -1,3 +1,8 @@
+# tests/unit/test_login_endpoint.py
+
+'''
+Tests user registration, login functionality, and error handling for existing, incorrect, and unregistered users.
+'''
 
 import pytest
 from fastapi.testclient import TestClient

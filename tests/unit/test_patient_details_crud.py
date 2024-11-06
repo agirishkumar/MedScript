@@ -1,5 +1,9 @@
 # tests/unit/test_patient_details_crud.py
 
+'''
+This file contains tests for CRUD operations on patient details, including creation, retrieval, updating, and deletion.
+'''
+
 import pytest
 from sqlalchemy.orm import Session
 from fastapi import HTTPException

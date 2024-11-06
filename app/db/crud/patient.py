@@ -1,5 +1,9 @@
 # app/db/crud/patient.py
 
+'''
+This file contains all the CRUD operations for the patient table.
+'''
+
 from sqlalchemy.orm import Session
 from sqlalchemy.exc import IntegrityError
 from ..models.patient import Patient

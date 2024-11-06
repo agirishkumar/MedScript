@@ -1,5 +1,9 @@
 # app/db/schemas/patient.py
 
+'''
+Defines Patient schemas for patient data, including base, create, update, and complete record models.
+'''
+
 from pydantic import BaseModel, EmailStr
 from typing import Optional
 from datetime import datetime

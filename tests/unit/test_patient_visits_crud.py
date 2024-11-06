@@ -1,3 +1,9 @@
+# tests/unit/test_patient_visits_crud.py
+
+'''
+The file tests CRUD operations and error handling for patient visits using pytest and FastAPI.
+'''
+
 from datetime import date
 from unittest.mock import Mock, patch
 import pytest

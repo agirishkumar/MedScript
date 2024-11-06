@@ -1,5 +1,9 @@
 # app/utils/middleware.py
 
+'''
+Middleware for adding a unique request ID to the response and logging request details, including errors and processing time.
+'''
+
 import uuid
 from fastapi import Request
 from starlette.middleware.base import BaseHTTPMiddleware

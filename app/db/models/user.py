@@ -1,3 +1,9 @@
+# app/db/models/user.py
+
+'''
+Defines the Users model for storing detailed patient information and establishing relationships in the database.
+'''
+
 from sqlalchemy import Column, Integer, String, ForeignKey, Enum
 from sqlalchemy.orm import relationship
 from ..base import Base 

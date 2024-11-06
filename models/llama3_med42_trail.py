@@ -1,3 +1,9 @@
+# models/llama3_med42_trail.py
+
+'''
+Generates medical diagnostic reports using pre-trained models, evaluates completeness, and logs results via MLflow.
+'''
+
 import re
 import transformers
 import torch

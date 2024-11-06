@@ -1,5 +1,9 @@
 # app/db/crud/patient_visit.py
 
+'''
+This file contains all the CRUD operations for the patient visit table.
+'''
+
 from sqlalchemy.orm import Session
 from sqlalchemy.exc import IntegrityError
 from ..models.patient_visits import PatientVisit

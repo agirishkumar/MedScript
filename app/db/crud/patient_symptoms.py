@@ -1,5 +1,9 @@
 # app/db/crud/patient_symptom.py
 
+'''
+This file contains all the CRUD operations for the patient symptom table.
+'''
+
 import logging
 from sqlalchemy.orm import Session
 from sqlalchemy.exc import IntegrityError

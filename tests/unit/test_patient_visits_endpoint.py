@@ -1,3 +1,9 @@
+# tests/unit/test_patient_visits_endpoint.py
+
+'''
+This file contains FastAPI tests for patient visits CRUD operations using pytest and SQLite as the database.
+'''
+
 import pytest
 from fastapi.testclient import TestClient
 from sqlalchemy import create_engine

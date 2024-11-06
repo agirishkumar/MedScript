@@ -1,3 +1,9 @@
+# app/db/schemas/user.py
+
+'''
+Defines Pydantic schemas for a users table.
+'''
+
 from pydantic import BaseModel
 from enum import Enum
 

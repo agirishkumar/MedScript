@@ -1,3 +1,9 @@
+# data_pipeline/utils/create_models.py
+
+'''
+This script loads a pre-trained BERT model and tokenizer, then saves them to a specified directory.
+'''
+
 from transformers import BertTokenizer, BertModel
 
 from constants import EMBEDDING_TOKENIZER, EMBEDDING_MODEL, EMBEDDING_MODEL_PATH

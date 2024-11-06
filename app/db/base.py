@@ -1,5 +1,9 @@
 # app/db/base.py
 
+'''
+Initializes the database by creating all tables based on the defined models.
+'''
+
 from sqlalchemy.orm import declarative_base
 from .session import engine
 

@@ -1,5 +1,9 @@
 # tests/unit/test_session.py
 
+'''
+Tests database session creation, session functionality, and the get_db dependency's session management in FastAPI.
+'''
+
 from sqlalchemy.orm import Session
 from app.db.session import engine, SessionLocal, get_db
 

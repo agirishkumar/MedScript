@@ -1,3 +1,9 @@
+# app/db/crud/user.py
+
+'''
+This file contains all the CRUD operations for the user table.
+'''
+
 from sqlalchemy.orm import Session
 from sqlalchemy.exc import IntegrityError
 from ..models.user import User, Role

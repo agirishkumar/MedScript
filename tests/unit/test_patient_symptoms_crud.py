@@ -1,3 +1,9 @@
+# tests/unit/test_patient_symptoms_crud.py
+
+'''
+The file tests CRUD operations for patient symptoms, handling exceptions and database interactions.
+'''
+
 import pytest
 from unittest.mock import patch, MagicMock
 from sqlalchemy.orm import Session

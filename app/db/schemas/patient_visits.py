@@ -1,5 +1,9 @@
 # app/db/schemas/patient_visits.py
 
+'''
+Defines Pydantic schemas for a patient visits table.
+'''
+
 from pydantic import BaseModel
 from typing import Optional
 from datetime import datetime, date

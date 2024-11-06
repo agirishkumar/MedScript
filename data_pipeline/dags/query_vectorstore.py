@@ -1,3 +1,9 @@
+# data_pipeline/dags/query_vectorstore.py
+
+'''
+The file defines a VectorStore class for generating and searching embeddings in Qdrant.
+'''
+
 from qdrant_client import QdrantClient
 from transformers import BertTokenizer, BertModel
 from constants import QDRANT_COLLECTION, QDRANT_PORT, VECTORSTORE_IP, EMBEDDING_MODEL_PATH, SERVICE_ACCOUNT_FILEPATH

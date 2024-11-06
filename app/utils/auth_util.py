@@ -1,3 +1,9 @@
+# app/utils/auth_util.py
+
+'''
+Provides methods for user authentication, JWT token generation, verification, and encryption utilities for secure password handling.
+'''
+
 from datetime import datetime, timedelta, timezone
 from passlib.context import CryptContext
 from app.utils.http_errors import BadRequestError, UnauthorizedError, ForbiddenError,NotFoundError
@@ -160,16 +166,3 @@ def authenticate_user(email: str, password: str, db: Session) -> User:
         raise BadRequestError("User details are incorrect")
     
     return db_user
-
-
-
-
-
-    
-
-
-
-
-
-
-

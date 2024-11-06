@@ -1,4 +1,10 @@
 # data_pipeline/dags/create_embedding.py
+
+'''
+This script generates embeddings using PubMedBERT, processes them in batches, and uploads them to Google Cloud Storage,
+while managing GPU memory and saving results incrementally.
+'''
+
 import ast
 import gc
 import pickle

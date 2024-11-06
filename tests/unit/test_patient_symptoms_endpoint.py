@@ -1,3 +1,9 @@
+# tests/unit/test_patient_symptoms_endpoint.py
+
+'''
+The file tests CRUD operations for patient symptoms using FastAPI, SQLite, and pytest fixtures.
+'''
+
 import pytest
 from fastapi.testclient import TestClient
 from sqlalchemy import create_engine
