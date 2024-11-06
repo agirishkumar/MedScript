@@ -603,7 +603,7 @@ The logs file shows various operations related to patient details, doctor detail
 **Key Features:**
 - **Progress Tracking**: Logs are generated at every stage, covering all functions in the pipeline.
 - **Error Monitoring**: Errors are logged with detailed context, making issue identification and resolution quicker.
-- **Custom Log Path**: All logs are stored in `logs/application_logs/preprocessing_log.txt` for easy access and troubleshooting.
+- **Custom Log Path**: All logs are stored in `MedScript/dev/logs/app.log` for easy access and troubleshooting.
 
 <img width="1437" alt="image" src="https://github.com/user-attachments/assets/89339036-8dec-44c8-87a9-04ecdb5fba0e">
 
@@ -611,7 +611,7 @@ The logs file shows various operations related to patient details, doctor detail
 
 ![image](https://github.com/user-attachments/assets/72023722-9ec1-4d72-85bd-8a3149c31dad)
 
-This image shows a Gantt chart from an Airflow DAG (Directed Acyclic Graph) run, visualizing the execution timeline of tasks within the data_pipeline. It includes four tasks: load_data_task, data_preprocessing_task, query_vectorDB_task, and generate_prompt_task.
+The figure shows the Gantt chart from an Airflow DAG run, visualizing the execution timeline of tasks within the data_pipeline. It includes four tasks: load_data_task, data_preprocessing_task, query_vectorDB_task, and generate_prompt_task.
 
 Each task's execution duration is represented by bars, with different segments indicating stages of the task's progress. load_data_task and data_preprocessing_task took the longest time to complete, while query_vectorDB_task and generate_prompt_task were shorter in duration. The pipeline appears to be running multiple iterations or instances, with several successful executions marked in green, showing consistent task completion across these runs.
 
