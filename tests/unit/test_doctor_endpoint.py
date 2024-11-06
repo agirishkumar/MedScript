@@ -1,3 +1,9 @@
+# tests/unit/test_doctor_endpoint.py
+
+'''
+The file contains tests for FastAPI endpoints, validating CRUD operations for doctor management.
+'''
+
 import pytest
 from fastapi.testclient import TestClient
 from sqlalchemy import create_engine

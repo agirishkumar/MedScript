@@ -1,5 +1,9 @@
 # app/main.py
 
+'''
+FastAPI application setup with middleware for logging, request ID, CORS, and routing for various endpoints.
+'''
+
 from fastapi import FastAPI, Depends
 from fastapi.middleware.cors import CORSMiddleware
 from app.core.config import settings

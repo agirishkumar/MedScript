@@ -1,5 +1,9 @@
 # tests/unit/test_logging.py
 
+'''
+Tests logger setup, ensuring it's named 'app' and contains at least one StreamHandler.
+'''
+
 import logging
 from app.core.logging import setup_logging
 

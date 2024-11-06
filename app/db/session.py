@@ -1,5 +1,9 @@
 # app/db/session.py
 
+'''
+Sets up the database engine and session, providing a dependency to access the database session.
+'''
+
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from app.core.config import settings

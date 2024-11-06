@@ -1,3 +1,9 @@
+# app/db/models/patient_visit.py
+
+'''
+Defines the PatientVisits model for storing detailed patient information and establishing relationships in the database.
+'''
+
 from sqlalchemy import Column, Integer, String, Date, Text, DateTime, ForeignKey
 from sqlalchemy.sql import func
 from sqlalchemy.orm import relationship

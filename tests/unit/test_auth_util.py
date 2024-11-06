@@ -1,3 +1,9 @@
+# tests/unit/test_auth_util.py
+
+'''
+Unit tests for authentication utilities, including password encryption, JWT generation/verification, and user validation/authentication.
+'''
+
 import unittest
 from app import *
 from app.utils.auth_util import Encrypt, JWTTokenHelper, authenticate_user, validate_user

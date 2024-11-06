@@ -1,3 +1,9 @@
+# app/db/models/patient_symptoms.py
+
+'''
+Defines the PatientSymptoms model for storing detailed patient information and establishing relationships in the database.
+'''
+
 from sqlalchemy import Column, Integer, String, Text, DateTime, ForeignKey
 from sqlalchemy.sql import func
 from sqlalchemy.orm import relationship

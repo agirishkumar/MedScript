@@ -1,5 +1,9 @@
 # tests/unit/test_config.py
 
+'''
+Test for validating the app's configuration values, including project name, API version, and origins.
+'''
+
 from app.core.config import settings
 
 def test_config_values():

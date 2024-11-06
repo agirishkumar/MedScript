@@ -1,3 +1,9 @@
+# tests/unit/test_patient_details_endpoint.py
+
+'''
+This file contains tests for CRUD operations on patient details using FastAPI and SQLAlchemy.
+'''
+
 import pytest
 from fastapi.testclient import TestClient
 from sqlalchemy import create_engine

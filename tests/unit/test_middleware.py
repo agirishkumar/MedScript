@@ -1,5 +1,9 @@
 # tests/unit/test_middleware.py
 
+'''
+Tests FastAPI middleware for request ID generation, logging, and error handling, capturing logs during requests.
+'''
+
 import pytest
 from fastapi import FastAPI
 from fastapi.testclient import TestClient

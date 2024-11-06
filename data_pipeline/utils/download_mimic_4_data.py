@@ -1,3 +1,9 @@
+# data_pipeline/utils/download_mimic_4_data.py
+
+'''
+This file downloads a dataset from a URL using wget, then uploads it to a Google Cloud Storage bucket.
+'''
+
 import subprocess
 from google.cloud import storage
 import os

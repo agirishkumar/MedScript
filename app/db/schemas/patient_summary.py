@@ -1,3 +1,9 @@
+# app/db/schemas/patient_summary.py
+
+'''
+Defines Pydantic schemas for a patient summary table.
+'''
+
 from typing import List
 from pydantic import BaseModel
 from .patient_details import PatientDetails

@@ -1,5 +1,9 @@
 # app/db/schemas/patient_symptoms.py
 
+'''
+Defines Pydantic schemas for a patient symptoms table.
+'''
+
 from pydantic import BaseModel
 from typing import Optional
 from datetime import datetime

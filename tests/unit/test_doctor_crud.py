@@ -1,5 +1,9 @@
 # tests/unit/test_doctor_crud.py
 
+'''
+The file tests CRUD operations for doctor management, handling creation, retrieval, update, deletion, and errors.
+'''
+
 from app.db.crud.doctor import create_doctor, get_doctor, update_doctor, delete_doctor, get_all_doctors
 from fastapi import HTTPException
 from app.db.models.doctor import Doctor

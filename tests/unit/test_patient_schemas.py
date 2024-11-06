@@ -1,5 +1,9 @@
 # tests/unit/test_schemas.py
 
+'''
+The file tests PatientCreate and Patient schemas, validating correct and incorrect data handling.
+'''
+
 import pytest
 from app.db.schemas.patient import PatientCreate, PatientUpdate, Patient
 from pydantic import ValidationError

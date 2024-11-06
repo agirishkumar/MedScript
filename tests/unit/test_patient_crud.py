@@ -1,5 +1,9 @@
 # tests/unit/test_patient_crud.py
 
+'''
+The file contains tests for CRUD operations related to patients, including creation, retrieval, and deletion.
+'''
+
 from app.db.crud.patient import create_patient, get_patient, update_patient, delete_patient
 from app.db.models.patient import Patient
 from app.db.models.user import User

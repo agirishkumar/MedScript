@@ -7,6 +7,10 @@ from app.api.deps import get_db, authorize
 from fastapi import HTTPException
 from app.utils.http_errors import UnauthorizedError
 
+'''
+Test for the get_db function, session handling, and authorization process with token validation.
+'''
+
 def test_get_db():
     """
     Test that get_db yields a session and closes it correctly.

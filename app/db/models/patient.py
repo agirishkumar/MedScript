@@ -1,5 +1,9 @@
 # app/db/models/patient.py
 
+'''
+Defines the Patients model for storing doctor-related information and establishing relationships in the database.
+'''
+
 from sqlalchemy import Column, Integer, String, DateTime, ForeignKey
 from sqlalchemy.sql import func
 from sqlalchemy.orm import relationship

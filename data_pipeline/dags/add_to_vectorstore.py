@@ -1,4 +1,9 @@
 # data_pipeline/dags/add_to_vectorstore.py
+
+'''
+Uploads embeddings from Google Cloud Storage to Qdrant with batch processing and retry logic.
+'''
+
 from googleapiclient import discovery
 from google.oauth2 import service_account
 from qdrant_client import QdrantClient, models

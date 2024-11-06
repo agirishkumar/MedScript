@@ -1,3 +1,9 @@
+# app/db/models/doctor.py
+
+'''
+Defines the Doctors model for storing doctor-related information and establishing relationships in the database.
+'''
+
 from sqlalchemy import Column, Integer, String, DateTime
 from sqlalchemy.sql import func
 from sqlalchemy.orm import relationship

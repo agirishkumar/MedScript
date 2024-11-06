@@ -1,7 +1,8 @@
 # app/core/logging.py
 
 '''
-This module contains the logging setup for the application.'''
+This module contains the logging setup for the application.
+'''
 
 import os
 import logging
