@@ -8,7 +8,13 @@ from googleapiclient import discovery
 from google.oauth2 import service_account
 from qdrant_client import QdrantClient, models
 import pandas as pd
-from constants import (
+import sys
+import os
+current = os.path.dirname(os.path.realpath(__file__))
+gparent = os.path.dirname(os.path.dirname(current))
+
+sys.path.append(gparent)
+from data_pipeline.dags.constants import (
     MIMIC_DATASET_BUCKET_NAME, 
     QDRANT_COLLECTION, 
     QDRANT_PORT, 
@@ -18,7 +24,8 @@ from constants import (
     QDRANT_INSTANCE_NAME,
     QDRANT_INSTANCE_ZONE
 )
-import os
+from google.cloud import storage
+
 import ast
 from google.cloud import storage
 from typing import List
@@ -40,9 +47,11 @@ def add_to_vectordb(df: pd.DataFrame,
     """
     Add vectors to Qdrant with batch processing and retry logic.
     """
+
     df['input'] = df['input'].apply(ast.literal_eval)
     df['embedding'] = df['embedding'].apply(ast.literal_eval)
-    
+    print("Converted Input and Embedding to List from String")
+
     points = []
     ind = 0
     
@@ -64,7 +73,8 @@ def add_to_vectordb(df: pd.DataFrame,
                 )
                 points.append(point)
                 ind += 1
-    
+    print("Created VectorStore Points for Insertion")
+
     # Process points in chunks with minimal logging
     total_chunks = (len(points) + chunk_size - 1) // chunk_size
     with tqdm(total=total_chunks, desc="Uploading vectors") as pbar:
@@ -83,13 +93,15 @@ def add_to_vectordb(df: pd.DataFrame,
                         raise Exception(f"Upload failed after {max_retries} attempts")
                     time.sleep(retry_delay * retries)
             pbar.update(1)
-
+    print("Successfully uploaded VectorStore Points")
 
 def setup_qdrant_collection(client: QdrantClient, collection_name: str):
     """Set up Qdrant collection with minimal logging."""
     try:
         client.get_collection(collection_name)
+        print(f"'{collection_name}' collection exists.")
     except Exception:
+        print(f"Collection '{collection_name}' doesnt exist")
         print(f"Creating collection '{collection_name}'...")
         client.create_collection(
             collection_name=collection_name,
@@ -112,7 +124,8 @@ def update_to_vectordb(qdrant_host):
     
     # Setup collection silently
     setup_qdrant_collection(client, QDRANT_COLLECTION)
-    
+    print("Connected to collection: ", QDRANT_COLLECTION)
+
     # Set up Google Cloud credentials
     os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = SERVICE_ACCOUNT_FILEPATH
     storage_client = storage.Client()
@@ -123,6 +136,8 @@ def update_to_vectordb(qdrant_host):
     data = blob.download_as_text()
     data_io = StringIO(data)
     df = pd.read_csv(data_io) 
+    print("Downloaded embeddings from bucket to insert into vectorstore")
+    
     # df = pd.read_csv(blob.download_as_text())
     
     # Upload to Qdrant
@@ -134,7 +149,7 @@ def update_to_vectordb(qdrant_host):
         max_retries=3,
         retry_delay=1.0
     )
-    print("Upload complete")
+    print("Uploaded Vector Points to VectorStore")
 
 def get_qdrant_instance_ip():
     credentials = service_account.Credentials.from_service_account_file(SERVICE_ACCOUNT_FILEPATH)
