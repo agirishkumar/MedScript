@@ -254,6 +254,45 @@ There are 8 tables. The ER Diagram is :
 
 ## Data Preprocessing
 
+## MIMIC-4 Dataset Download and Upload to Google Cloud Storage Bucket
+
+This script automates the process of downloading the MIMIC-4 dataset from PhysioNet and uploading it to a Google Cloud Storage (GCS) bucket. It includes error handling and logging features for streamlined data management. The script uses environment variables for secure access credentials.
+
+### Setup
+1. Install the required dependencies:
+
+```python
+pip install -r requirements.txt` 
+```
+
+2. Set Up Environment Variables: Create a .env file in the root directory with the following variables:
+
+```
+WGET_USERNAME=<your-physionet-username>
+WGET_PASSWORD=<your-physionet-password>
+```
+
+### Description
+This script performs the following tasks:
+
+1. **Download Dataset**: The `download_dataset()` function uses `wget` to download the dataset from PhysioNet using a username and password provided in environment variables. If the download is successful, the function will print a success message.
+2. **Upload to GCS Bucket**: The `upload_to_bucket()` function uploads the dataset to a specified GCS bucket using the `google-cloud-storage` library. After the file is uploaded, it is removed from the local filesystem to save space.
+
+## Data Preprocessing
+
+This section processes clinical notes from the MIMIC-4 dataset to streamline structured data extraction, transformation, and analysis. We utilize Google Cloud Storage to store the preprocessed and transformed data, and each document section in the clinical notes is processed into meaningful, manageable chunks.
+
+### Desscription
+
+This pipeline preprocesses clinical notes from the MIMIC-4 dataset for machine learning applications. Key preprocessing tasks include:
+
+- Cleaning and structuring clinical text data 
+- Segmenting notes into predefined sections
+- Replacing blanks, abbreviations, and placeholders
+- Handling list formatting within the text
+- Flattening nested data for storage
+- Chunking large records into manageable JSON strings
+
 ### Steps in Preprocessing
 #### 1. Download Dataset: 
 - Load the dataset into memory using Python libraries (e.g., `pandas`, `csv`).
@@ -385,10 +424,10 @@ This step allows us to query a Qdrant vector database and retrieve the most rele
 - **Search in Qdrant**: The generated embedding is used to search for the top `k` most similar vectors in the Qdrant collection. The search results are ranked based on similarity (cosine distance).
 - **Display Results**: The top `k` results (default: 5) are returned, showing their IDs, similarity scores, and payload data.
 
-## Pipeline Orchestration (Airflow DAGs):
-
 The Data Pipeline is constructed like:
 ![MLOps Data Pipeline](https://github.com/user-attachments/assets/48db819b-cb65-4910-8ee7-e838c19d39aa)
+
+## Pipeline Orchestration (Airflow DAGs):
 
 The Base.py file consists the code to interact with a FastAPI backend to fetch patient summary data and process it for further analysis. The explanation:
 
@@ -543,44 +582,7 @@ The logs file shows various operations related to patient details, doctor detail
 <img width="1437" alt="image" src="https://github.com/user-attachments/assets/89339036-8dec-44c8-87a9-04ecdb5fba0e">
 
 
-## MIMIC-4 Dataset Download and Upload to Google Cloud Storage Bucket
 
-This script automates the process of downloading the MIMIC-4 dataset from PhysioNet and uploading it to a Google Cloud Storage (GCS) bucket. It includes error handling and logging features for streamlined data management. The script uses environment variables for secure access credentials.
-
-### Setup
-1. Install the required dependencies:
-
-```python
-pip install -r requirements.txt` 
-```
-
-2. Set Up Environment Variables: Create a .env file in the root directory with the following variables:
-
-```
-WGET_USERNAME=<your-physionet-username>
-WGET_PASSWORD=<your-physionet-password>
-```
-
-### Description
-This script performs the following tasks:
-
-1. **Download Dataset**: The `download_dataset()` function uses `wget` to download the dataset from PhysioNet using a username and password provided in environment variables. If the download is successful, the function will print a success message.
-2. **Upload to GCS Bucket**: The `upload_to_bucket()` function uploads the dataset to a specified GCS bucket using the `google-cloud-storage` library. After the file is uploaded, it is removed from the local filesystem to save space.
-
-## Data Preprocessing
-
-This section processes clinical notes from the MIMIC-4 dataset to streamline structured data extraction, transformation, and analysis. We utilize Google Cloud Storage to store the preprocessed and transformed data, and each document section in the clinical notes is processed into meaningful, manageable chunks.
-
-### Desscription
-
-This pipeline preprocesses clinical notes from the MIMIC-4 dataset for machine learning applications. Key preprocessing tasks include:
-
-- Cleaning and structuring clinical text data 
-- Segmenting notes into predefined sections
-- Replacing blanks, abbreviations, and placeholders
-- Handling list formatting within the text
-- Flattening nested data for storage
-- Chunking large records into manageable JSON strings
 
 
 
