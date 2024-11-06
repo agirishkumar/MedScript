@@ -335,3 +335,175 @@ Once the feature or fix is complete, a pull request is created to merge the feat
 `pytest tests/unit/ --cov=app`
 
 [Refer to the Notes](./Notes.md) file for details
+
+
+## MIMIC-4 Dataset Download and Upload to Google Cloud Storage Bucket
+
+This script automates the process of downloading the MIMIC-4 dataset from PhysioNet and uploading it to a Google Cloud Storage (GCS) bucket. It includes error handling and logging features for streamlined data management. The script uses environment variables for secure access credentials.
+
+### Setup
+1. Install the required dependencies:
+
+```python
+pip install -r requirements.txt` 
+```
+
+2. Set Up Environment Variables: Create a .env file in the root directory with the following variables:
+
+```
+WGET_USERNAME=<your-physionet-username>
+WGET_PASSWORD=<your-physionet-password>
+```
+
+### Description
+This script performs the following tasks:
+
+1. **Download Dataset**: The `download_dataset()` function uses `wget` to download the dataset from PhysioNet using a username and password provided in environment variables. If the download is successful, the function will print a success message.
+2. **Upload to GCS Bucket**: The `upload_to_bucket()` function uploads the dataset to a specified GCS bucket using the `google-cloud-storage` library. After the file is uploaded, it is removed from the local filesystem to save space.
+
+## Data Preprocessing
+
+This section processes clinical notes from the MIMIC-4 dataset to streamline structured data extraction, transformation, and analysis. We utilize Google Cloud Storage to store the preprocessed and transformed data, and each document section in the clinical notes is processed into meaningful, manageable chunks.
+
+### Desscription
+
+This pipeline preprocesses clinical notes from the MIMIC-4 dataset for machine learning applications. Key preprocessing tasks include:
+
+- Cleaning and structuring clinical text data 
+- Segmenting notes into predefined sections
+- Replacing blanks, abbreviations, and placeholders
+- Handling list formatting within the text
+- Flattening nested data for storage
+- Chunking large records into manageable JSON strings
+
+
+### Steps in Preprocessing
+#### 1. Download Dataset: 
+- Load the dataset into memory using Python libraries (e.g., `pandas`, `csv`).
+- Verify the data structure and check for missing or corrupt records.
+
+#### 2. Text Segmentation: 
+Clinical notes often contain multiple sections (e.g., patient history, diagnosis, medications). These sections should be properly segmented into smaller units for analysis.
+
+Actions:
+
+- Use sentence segmentation techniques to divide long clinical texts into sentences or paragraphs.
+- Optionally, further divide by sections like “Patient History”, “Medications”, or “Diagnosis”.
+
+#### 3. Data Flattening::
+
+Sometimes, the data might have nested or hierarchical structures (e.g., multiple notes per patient or episode). Flattening simplifies the data by bringing everything into a consistent format.
+
+Actions:
+
+- Flatten the dataset such that each row corresponds to a single clinical note or text entry.
+- This can be done by exploding nested columns or flattening JSON-like structures.
+
+#### 4. Chunking Text:
+Chunk long texts into manageable portions to avoid input size limitations in machine learning models.
+Actions:
+
+- Divide the text into smaller segments (chunks) based on the token count or paragraph length.
+- Ensure that each chunk contains meaningful text and avoids cutting sentences in the middle.
+
+#### 5. Removing Noise:
+Remove irrelevant or noisy elements from the text to retain only useful data.
+
+Actions:
+
+- Remove non-text elements like headers, footers, or special characters.
+- Eliminate any personal identifiers (e.g., patient names or ID numbers) using regex or a predefined list.
+
+#### 6. Stop Word Removal:
+Stop words are common words (e.g., "the", "is", "and") that do not carry significant meaning for many NLP tasks. Removing them reduces the dimensionality of the text data.
+
+Actions:
+
+- Use predefined stop word lists from libraries nltk and spaCy.
+- Remove these stop words from the tokenized text.
+
+#### 7. Lemmatization:
+Convert words into their base form to treat different forms of the same word as the same entity.
+
+Actions:
+
+- Use a lemmatizer (nltk and spaCy) to reduce tokens to their lemma.
+
+#### 8. Saving Preprocessed Data:
+Save the preprocessed data in a structured format, such as CSV, JSON, or database, for future use.
+
+Actions:
+
+- Convert the processed text back to a tabular format (e.g., Pandas DataFrame).
+- Save the cleaned data to a desired storage format.
+
+## Embedding Generator
+
+`create_embedding.py` is a utility script designed to:
+- Generate embeddings from text data (e.g., clinical notes) using a BERT model.
+- Efficiently manage GPU memory for large-scale text data processing.
+- Store the generated embeddings in Google Cloud Storage.
+
+### Requirements
+**Libraries**:
+- `transformers` for the BERT model and tokenizer.
+- `torch` for GPU-based tensor computations.
+- `google-cloud-storage` for storing embeddings in GCS.
+- `pandas`, `tqdm`, and `pickle` for data handling and progress tracking.
+
+### Key Functions
+
+1. `get_embedding(text, tokenizer, model, device)`
+
+   Generates an embedding for a single text entry.
+   
+   - Parameters:
+      - `text` (str): The input text to embed.
+      - `tokenizer` (BertTokenizer): Tokenizer for BERT.
+      - `model` (BertModel): BERT model for embedding generation.
+      - `device` (torch.device): Device to run computations on (GPU or CPU).
+   - Returns:
+     - `Tensor`: The embedding vector for the input text.
+     
+
+2. `embed_and_save_to_gcp(input_csv, bucket_name)`
+   
+   Reads clinical notes from a CSV, generates embeddings, and saves them to Google Cloud Storage.
+
+   - Parameters:
+   
+     - `input_csv` (str): Path to the CSV file containing clinical notes.
+     - `bucket_name` (str): Name of the GCS bucket where embeddings will be saved.
+   - Functionality:
+     - Processes each note in the CSV, generates embeddings, and saves them as pickle files in GCS.
+
+## Qdrant Vector Database Integration
+
+In this step we upload embedding vectors from a CSV file in Google Cloud Storage (GCS) to a Qdrant vector database. It handles downloading data from GCS, processing it in chunks, and uploading to Qdrant with retry logic for any failures.
+
+### How It Works
+1. Download Embedding Data: The script downloads a CSV file (embed_df_10k.csv) containing embeddings from Google Cloud Storage.
+
+2. Setup Qdrant Collection: It checks if the specified collection exists in Qdrant and creates it if necessary.
+
+3. Batch Processing: The embedding vectors are uploaded in batches (default size: 100) to prevent memory overload and optimize performance.
+
+4. Retry Logic: If uploading a batch fails, the script will automatically retry up to 3 times (with increasing delay between retries).
+
+### Key Functions:
+
+- **chunk_points**: Splits embedding points into smaller chunks for batch processing.
+- **add_to_vectordb**: Uploads embeddings to Qdrant in batches with retry logic.
+- **setup_qdrant_collection**: Ensures the Qdrant collection exists, creating it if not.
+- **update_to_vectordb**: Main function to download data from GCS, process it, and upload to Qdrant.
+- **get_qdrant_instance_ip**: Retrieves the IP address of the Qdrant instance on Google Cloud.
+
+
+## Querying the Qdrant Vector Store
+
+This step allows us to query a Qdrant vector database and retrieve the most relevant points to a given query. It uses a pre-trained transformer model (like PubMedBERT) to generate embeddings for the query and then searches for the most similar points in the Qdrant collection.
+
+### How It Works
+- **Query Embedding**: The query string is converted into a vector embedding using a pre-trained transformer model (e.g., PubMedBERT).
+- **Search in Qdrant**: The generated embedding is used to search for the top `k` most similar vectors in the Qdrant collection. The search results are ranked based on similarity (cosine distance).
+- **Display Results**: The top `k` results (default: 5) are returned, showing their IDs, similarity scores, and payload data.
