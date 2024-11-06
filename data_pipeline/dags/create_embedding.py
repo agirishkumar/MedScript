@@ -21,7 +21,7 @@ sys.path.append(gparent)
 from data_pipeline.dags.constants import SERVICE_ACCOUNT_FILEPATH
 from tqdm import tqdm  
 import pandas as pd
-from logger import logger
+from data_pipeline.dags.logger import logger
 
 def get_embedding(text, tokenizer, model, device):
     """Generate embedding for a single text"""
