@@ -1,0 +1,15 @@
+artifact_uri: file:///home/asuran/Downloads/projects/MedScript/mlruns/164909333817588014/5ee3398f7e65425084540ccd40b3150e/artifacts
+end_time: 1728648378561
+entry_point_name: ''
+experiment_id: '164909333817588014'
+lifecycle_stage: active
+run_id: 5ee3398f7e65425084540ccd40b3150e
+run_name: spiffy-sponge-57
+run_uuid: 5ee3398f7e65425084540ccd40b3150e
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1728647174863
+status: 3
+tags: []
+user_id: asuran

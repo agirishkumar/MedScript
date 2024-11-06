@@ -1,0 +1,99 @@
+system
+
+You are a highly skilled medical assistant. Provide detailed, accurate diagnostic reports including possible diagnoses, reasoning, recommended tests, and potential treatments. Use a step-by-step chain of thought approach to explain your reasoning.user
+
+Patient Information:
+
+Age: 35
+Gender: Female
+Medical History: No significant past medical issues
+Height: 5'6" (168 cm)
+Weight: 140 lbs (63.5 kg)
+Allergies: None known
+Current Medications: None
+
+
+Reported Symptoms:
+
+- Severe headache for the past 3 days, primarily on the right side
+- Sensitivity to light and sound
+- Nausea and vomiting (twice yesterday)
+- Blurred vision in the right eye, started about 24 hours ago
+- Dizziness when standing up quickly
+- Slight neck stiffness
+
+
+Please provide a comprehensive diagnostic report following these steps:
+
+
+# Comprehensive Diagnostic Report
+
+## 1. Initial Impression
+[Provide a summary of key points from patient information and symptoms]
+
+## 2. Possible Diagnoses
+### Primary Diagnosis:
+[State the most likely diagnosis]
+
+### Differential Diagnoses:
+[List other possible diagnoses]
+
+## 3. Reasoning Process
+[For each diagnosis, explain why it's being considered and how symptoms support or contradict it]
+
+## 4. Recommended Tests or Examinations
+[List and explain rationale for each recommended test]
+
+## 5. Potential Treatment Options
+[Suggest treatments for the most likely diagnoses and explain reasoning]
+
+## 6. Immediate Precautions or Recommendations
+[Provide urgent advice and explain its importance]
+
+## 7. Follow-up Plan
+[Suggest follow-up timeline and what to monitor]
+
+## 8. Summary
+[Provide a concise summary of likely diagnosis, key next steps, and important patient instructions]
+
+
+Please fill in each section of the report template with relevant information based on the patient's symptoms and medical history. Provide clear and detailed explanations throughout your chain of reasoning.assistant
+
+Comprehensive Diagnostic Report
+
+## 1. Initial Impression
+The patient is a 35-year-old female presenting with severe headaches localized to the right side, sensitivity to light and sound, nausea and vomiting, blurred vision in the right eye, dizziness upon standing, and slight neck stiffness. The acute onset over three days, accompanied by specific neurological and visual complaints, indicates potentially serious underlying pathology.
+
+## 2. Possible Diagnoses
+
+### Primary Diagnosis: Subarachnoid Hemorrhage (SAH) 
+A spontaneous SAH is a life-threatening condition that could account for all reported symptoms, including severe unilateral headache, nausea and vomiting, photophobia/phonophobia, diplopia, neck stiffness, and unsteadiness due to dizziness while changing positions.
+
+### Differential Diagnoses
+1. Migraine: While migraine can cause throbbing unilateral headaches, nausea, and sensitivity to light and sound, it typically does not present with acute onset blurred vision or neck stiffness.
+2. Cerebral Venous Sinus Thrombosis (CVST): This condition can cause headache and dizziness, but less likely accounts for diplopia, neck stiffness, and sudden-onset of symptoms over three days.
+3. Gastroenteritis: Although contributing to vomiting, gastroenteritis is an unlikely explanation for remaining neurological and ocular symptoms.
+
+## 3. Reasoning Process
+SAH as primary diagnosis is supported by the immediate-onset and progressively worsening nature of the headache along with accompanying motor deficits (diplopia), vertigo/nausea, and photophobia. The presence of slight neck stiffness further supports increased intracranial pressure typical with SAH. Other differential diagnoses do not consistently explain combination of neurologic, ocular, and gastrointestinal symptoms in this case. 
+
+## 4. Recommended Tests or Examinations
+1. Noncontrast Computed Tomography (CT scan) Head without contrast – to rule out blood accumulation between the skull and the brain surface. If negative, subsequent CT Angiography may be necessary to investigate cerebral vasculature anomalies potentially causing SVT. 
+2. Lumbar Puncture (LP) for cerebrospinal fluid analysis – if indicated after initial imaging studies – would help detect xanthochromia due to bilirubin presence, reflecting presence of blood in CSF indicative of SAH.
+3. Complete Blood Count (CBC) for signs of infection if meningitis suspected after LP results.
+4. Fundoscopic examination for retinal changes reflecting elevated intraocular pressure consistent with papilledema.
+
+## 5. Potential Treatment Options
+If SAH confirmed through testing, neurosurgical consultation will determine best surgical options. Standard protocol involves securing bleeding via vascular embolization. Patient should receive supportive care such as pain management, management of nausea/vomiting, hydration, prophylactic antibiotics, and positioning to minimize hydrocephalus.
+
+## 6. Immediate Precautions or Recommendations
+1. Avoid any change in position abruptly, especially lying down.
+2. Ensure airway control in case of compromised consciousness.
+3. Monitor neurological status regularly by vital signs, Glasgow Coma Scale, and pupillary reactivity assessments.
+4. Inform family about severity and potential need for immediate surgical intervention; patient must remain with someone capable of rapid response for sudden deterioration during assessment or treatment.
+
+## 7. Follow-up Plan
+Schedule serial examinations assessing symptom progression (particularly neurological worsening), monitor for complications like hydrocephalus or hyponatremia due to frequent diuretic use (e.g., mannitol or furosemide). Adjust supportive therapies based on evolving clinical needs. Follow-up in emergency department after hospital discharge to check status.
+
+## 8. Summary
+Based on thorough evaluation of symptoms, subarachnoid hemorrhage appears the most probable primary diagnosis given the constellation of head and neck neurological signs together with recent systemic instability marked by nausea and vomiting. Close observation, aggressive symptom management along with further diagnostics are crucial first steps for timely intervention by neurosurgeons.
