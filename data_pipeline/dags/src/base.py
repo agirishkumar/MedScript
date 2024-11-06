@@ -3,7 +3,7 @@ import os
 import requests
 import json
 from datetime import datetime
-from logger import logger
+from logger import *
 
 BASE_API_URL = "http://fastapi:8000/"
 
