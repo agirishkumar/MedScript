@@ -36,7 +36,7 @@ def get_user_by_email(db: Session, email: str) -> User:
     Raises:
     HTTPException: 404 Not Found if the user does not exist.
     """
-    
+
     user = db.query(User).filter(User.email == email).first()
     if user is None:
         raise HTTPException(status_code=404, detail="User not found")

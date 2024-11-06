@@ -100,9 +100,6 @@ def update_patient_details(db: Session, patient_id: int, patient_details: Patien
     """
     logger.info(f"Updating patient details with ID: {patient_id}")
     db_patient_details = get_patient_details(db, patient_id)
-    if db_patient_details is None:
-        logger.warning(f"Patient with ID {patient_id} not found for update")
-        raise HTTPException(status_code=404, detail="Patient not found")
 
     for key, value in patient_details.dict(exclude_unset=True).items():
         setattr(db_patient_details, key, value)

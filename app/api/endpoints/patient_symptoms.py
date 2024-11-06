@@ -1,7 +1,5 @@
-# app/api/endpoints/patient_symptoms.py
-
-''' 
-this file contains all the endpoints for the patient_symptoms resource
+'''
+This file contains all the endpoints for the patient_symptoms resource.
 '''
 
 from typing import List
@@ -34,11 +32,9 @@ def read_patient_symptom(symptom_id: int, db: Session = Depends(get_db)):
     """
     Retrieve a patient symptom by ID.
     """
-    db_symptom = patient_symptom_crud.get_patient_symptom(
-        db, symptom_id=symptom_id)
+    db_symptom = patient_symptom_crud.get_patient_symptom(db, symptom_id=symptom_id)
     if db_symptom is None:
-        raise HTTPException(
-            status_code=404, detail="Patient symptom not found")
+        raise HTTPException(status_code=404, detail="Patient symptom not found")
     return db_symptom
 
 
@@ -47,11 +43,9 @@ def update_patient_symptom(symptom_id: int, patient_symptom: PatientSymptomUpdat
     """
     Update an existing patient symptom record.
     """
-    db_symptom = patient_symptom_crud.update_patient_symptom(
-        db=db, symptom_id=symptom_id, patient_symptom=patient_symptom)
+    db_symptom = patient_symptom_crud.update_patient_symptom(db=db, symptom_id=symptom_id, patient_symptom=patient_symptom)
     if db_symptom is None:
-        raise HTTPException(
-            status_code=404, detail="Patient symptom not found")
+        raise HTTPException(status_code=404, detail="Patient symptom not found")
     return db_symptom
 
 
@@ -60,9 +54,7 @@ def delete_patient_symptom(symptom_id: int, db: Session = Depends(get_db)):
     """
     Delete a patient symptom by ID.
     """
-    result = patient_symptom_crud.delete_patient_symptom(
-        db=db, symptom_id=symptom_id)
+    result = patient_symptom_crud.delete_patient_symptom(db=db, symptom_id=symptom_id)
     if not result:
-        raise HTTPException(
-            status_code=404, detail="Patient symptom not found")
+        raise HTTPException(status_code=404, detail="Patient symptom not found")
     return None

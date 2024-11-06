@@ -39,7 +39,7 @@ def login(form_data: OAuth2PasswordRequestForm = Depends(), helper = JWTTokenHel
     """
     try:
         user = util.authenticate_user(form_data.username, form_data.password, db=db)
-        access_token = helper.generate_token({"email": user.email, "id": user.user_id, "role": user.role})
+        access_token = helper.generate_token({"email": user.email, "id": user.user_id, "role": user.role.name})
         return {
             "access_token": access_token
         }

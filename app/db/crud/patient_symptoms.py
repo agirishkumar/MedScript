@@ -36,23 +36,6 @@ def get_patient_symptom(db: Session, symptom_id: int):
     return symptom
 
 
-def get_patient_symptoms_by_visit_id(db: Session, visit_id: int):
-    """
-    Retrieve all patient symptoms by VisitID.
-
-    Args:
-        db (Session): The database session.
-        visit_id (int): The ID of the visit.
-
-    Returns:
-        List[PatientSymptom]: A list of patient symptoms for the specified visit.
-    """
-    logger.info(f"Fetching patient symptoms for visit ID: {visit_id}")
-    symptoms = db.query(PatientSymptom).filter(PatientSymptom.VisitID == visit_id).all()
-    logger.info(f"Retrieved {len(symptoms)} symptoms for visit ID: {visit_id}")
-    return symptoms
-
-
 def get_patient_symptoms_by_patient_id(db: Session, patient_id: int):
     """
     Retrieve all patient symptoms by PatientID.
@@ -163,3 +146,5 @@ def delete_patient_symptom(db: Session, symptom_id: int):
     db.commit()
     logger.info(f"Successfully deleted patient symptom with ID: {symptom_id}")
     return db_patient_symptom
+
+
