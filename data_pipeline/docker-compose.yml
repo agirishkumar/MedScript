@@ -14,12 +14,14 @@ x-airflow-common:
     AIRFLOW__API__AUTH_BACKENDS: 'airflow.api.auth.backend.basic_auth,airflow.api.auth.backend.session'
     AIRFLOW__SCHEDULER__ENABLE_HEALTH_CHECK: 'true'
     AIRFLOW_CONFIG: '/opt/airflow/config/airflow.cfg'
+    HF_HOME: /tmp/huggingface 
   volumes:
     - ./dags:/opt/airflow/dags
     - ./logs:/opt/airflow/logs
     - ./config:/opt/airflow/config
     - ./src:/opt/airflow/src        # Mount src directory to include scripts and constants.py
     - ./secrets:/opt/airflow/secrets # Mount secrets for GCP credentials
+    - ./huggingface:/opt/airflow/.cache/huggingface
   user: "${AIRFLOW_UID}:0"
   depends_on:
     &airflow-common-depends-on

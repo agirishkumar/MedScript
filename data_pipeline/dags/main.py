@@ -69,24 +69,36 @@ query_vector_database_task = PythonOperator(
 
 )
 
-# TASK 3: Query the vector database
-# write output to file?
-
-
-# TASK 4: Generate prompt 
-# generate_prompt_task = PythonOperator(
-
-# )
-
-
-# # Task to trigger displaying the generated prompt
-# TriggerDagRunOperator = TriggerDagRunOperator(
-#     task_id='my_trigger_task',
-#     trigger_rule=TriggerRule.ALL_DONE,
-#     trigger_dag_id='display_prompt',
+# check_hf_home_task = PythonOperator(
+#     task_id='check_hf_home_task',
+#     python_callable=check_hf_home,
 #     dag=dag
 # )
 
+# Task to check HF_HOME permissions
+# check_hf_permissions_task = PythonOperator(
+#     task_id="check_hf_permissions_task",
+#     python_callable=check_hf_permissions,
+#     dag=dag
+# )
+
+# test_model_load_task = PythonOperator(
+#     task_id='test_model_load_task',
+#     python_callable=test_model_load,
+#     dag=dag
+# )
+
+# TASK 4: Generate prompt 
+generate_prompt_task = PythonOperator(
+    task_id='generate_prompt_task',
+    python_callable=generate_prompt,
+    op_args=[query_vector_database_task.output],
+    dag=dag
+)
 
 
-load_data_task >> data_preprocessing_task >> query_vector_database_task
+
+
+load_data_task >> data_preprocessing_task >>query_vector_database_task  >> generate_prompt_task
+
+# check_hf_home_task >> check_hf_permissions_task >> test_model_load_task >> load_data_task >> data_preprocessing_task >>query_vector_database_task  >> generate_prompt_task

@@ -1,4 +1,4 @@
-import pandas as pd
+# data_pipeline/dags/create_embedding.py
 import ast
 import gc
 import pickle
@@ -9,6 +9,7 @@ import torch
 import os
 from constants import SERVICE_ACCOUNT_FILEPATH
 from tqdm import tqdm  
+import pandas as pd
 
 def get_embedding(text, tokenizer, model, device):
     """Generate embedding for a single text"""
@@ -132,7 +133,8 @@ def upload_embeddings(data, tokenizer, model, device, bucket, csv_filename = '',
 if __name__ == '__main__':
     try:
         # Set up device
-        device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+        # device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+        device = torch.device("cpu")
         print(f"Using device: {device}")
         
         if torch.cuda.is_available():
