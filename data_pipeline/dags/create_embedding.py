@@ -16,6 +16,7 @@ import os
 from constants import SERVICE_ACCOUNT_FILEPATH
 from tqdm import tqdm  
 import pandas as pd
+from logger import logger
 
 def get_embedding(text, tokenizer, model, device):
     """Generate embedding for a single text"""
@@ -37,7 +38,7 @@ def get_embedding(text, tokenizer, model, device):
         return embeddings
     
     except Exception as e:
-        print(f"Error processing text: {str(e)}")
+        logger.log_error(f"Error processing text: {str(e)}")
         return None
 
 def embed_to_str(embedding):
@@ -96,7 +97,7 @@ def embed(data, tokenizer, model, device, csv_filename = '', batch_size=4):
             torch.cuda.empty_cache()
 
     except Exception as e:
-        print(f"Error during embedding generation: {str(e)}")
+        logger.log_error(f"Error during embedding generation: {str(e)}")
         raise
 
 def upload_embeddings(data, tokenizer, model, device, bucket, csv_filename = '', batch_size=4):
@@ -134,7 +135,7 @@ def upload_embeddings(data, tokenizer, model, device, bucket, csv_filename = '',
     
     # Cleanup
     os.remove(csv_filename)
-    print("Deleted local embedding dataframe")
+    logger.info("Deleted local embedding dataframe")
 
 if __name__ == '__main__':
     try:
@@ -177,7 +178,7 @@ if __name__ == '__main__':
         upload_embeddings(df, tokenizer, model, device, bucket, csv_filename = embed_df_filename, batch_size=4)
         
     except Exception as e:
-        print(f"An error occurred: {str(e)}")
+        logger.log_error(f"An error occurred: {str(e)}")
         if os.path.exists(embed_df_filename):
             os.remove(embed_df_filename)
         raise
