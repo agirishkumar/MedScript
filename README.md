@@ -577,6 +577,25 @@ Once the feature or fix is complete, a pull request is created to merge the feat
 
 ## Tests and Modules
 
+The results of a test run for all the files in app/db. The testcases covers scenarios about creating patient details, updating it and deleting it. It also focuses on crud operations for all tables of doctor.py, patient.py, patient_details.py, patient_symptoms.py, patient_visits.py
+
+**Test Results:**
+
+* **Coverage:** The overall test coverage is 97%, which is a very good score and indicates a high degree of test coverage. 
+* **Passed Tests:** 151 tests were executed successfully.
+* **Failed Tests:** 32 tests failed, indicating areas where the code may have bugs or edge cases that are not yet covered.
+
+**Additional Information:**
+
+* **Test Cases:** Test cases have been added for all endpoints and CRUD (Create, Read, Update, Delete) operations. 
+* **Future Work:** Efforts will continue to improve test coverage by implementing more test cases to ensure comprehensive testing. 
+
+**Conclusion:**
+
+The project has a strong test suite in place, with high coverage and successful execution of most tests. However, there are still some areas with failed tests that need to be addressed. Continued investment in testing will help maintain code quality and prevent future issues. 
+
+![image](https://github.com/user-attachments/assets/3324e65b-ac75-4b34-8ec8-b98d1e6877aa)
+
 
 ## Tracking and Logging
 The logs file shows various operations related to patient details, doctor details and user login information, including fetching, creating, updating, and deleting patient and doctor records. There are several requests to the API, with status codes indicating successful (200, 201) and failed (404, 500) operations. Notable errors include an issue with inserting data due to a field value exceeding the character limit, and missing arguments in a function call.  Our pipeline is equipped with comprehensive logging to monitor progress and detect errors during data processing. We utilize Python’s logging library to create a custom logger that records key information at each step of the pipeline.
@@ -588,7 +607,24 @@ The logs file shows various operations related to patient details, doctor detail
 
 <img width="1437" alt="image" src="https://github.com/user-attachments/assets/89339036-8dec-44c8-87a9-04ecdb5fba0e">
 
+## Pipeline Flow Optimization
 
+![image](https://github.com/user-attachments/assets/72023722-9ec1-4d72-85bd-8a3149c31dad)
+
+This image shows a Gantt chart from an Airflow DAG (Directed Acyclic Graph) run, visualizing the execution timeline of tasks within the data_pipeline. It includes four tasks: load_data_task, data_preprocessing_task, query_vectorDB_task, and generate_prompt_task.
+
+Each task's execution duration is represented by bars, with different segments indicating stages of the task's progress. load_data_task and data_preprocessing_task took the longest time to complete, while query_vectorDB_task and generate_prompt_task were shorter in duration. The pipeline appears to be running multiple iterations or instances, with several successful executions marked in green, showing consistent task completion across these runs.
+
+![image](https://github.com/user-attachments/assets/38421e23-2fda-43f7-8b1d-e816e7e28bd5)
+
+The figure shows task dependency graph of an Airflow DAG 'data_pipeline'. The pipeline consists of four tasks, each represented by a box, arranged sequentially from left to right:
+
+1. `load_data_task`
+2. `data_preprocessing_task`
+3. `query_vectorDB_task`
+4. `generate_prompt_task`
+
+Each task has a "success" status, indicated by the green outline and check mark. This setup implies that each task depends on the completion of the previous one, following a linear workflow. All tasks are implemented using the `PythonOperator`.
 
 
 
