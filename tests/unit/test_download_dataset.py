@@ -5,7 +5,7 @@ from io import StringIO
 import os
 import subprocess
 import sys
-from data_pipeline.src.preprocessing.download_mimic_4_data import download_dataset, upload_to_bucket
+from data_pipeline.utils.download_mimic_4_data import download_dataset, upload_to_bucket
 
 class TestDatasetFunctions(unittest.TestCase):
     @patch("subprocess.run")

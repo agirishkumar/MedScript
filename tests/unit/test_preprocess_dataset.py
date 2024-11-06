@@ -1,7 +1,7 @@
 import unittest
 from unittest.mock import patch, MagicMock
 
-from data_pipeline.src.preprocessing.preprocess_dataset import (
+from data_pipeline.utils.preprocess_dataset import (
     get_section_names, segment_by_sections, remove_irrelevant_information,
     replace_blanks, numbers_to_array, ordered_list_to_string, sex,
     discharge_condition, no_change, preprocess, flatten_dict, chunk_json_string
@@ -94,7 +94,7 @@ class TestTextProcessingFunctions(unittest.TestCase):
             "DISCHARGE INSTRUCTIONS": "Rest and monitor condition"
         }
 
-        with patch("data_pipeline.src.preprocessing.preprocess_dataset.no_change", return_value="Rest and monitor condition"):
+        with patch("data_pipeline.utils.preprocess_dataset.no_change", return_value="Rest and monitor condition"):
             result = preprocess(text, section_names)
             self.assertEqual(result, expected_output)
 

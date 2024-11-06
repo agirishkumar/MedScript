@@ -4,10 +4,10 @@ import os
 import sys
 from dotenv import load_dotenv
 current = os.path.dirname(os.path.realpath(__file__))
-ggparent = os.path.dirname(os.path.dirname(os.path.dirname(current)))
+gparent = os.path.dirname(os.path.dirname(current))
 
-sys.path.append(ggparent)
-from data_pipeline.src.preprocessing.constants import MIMIC_DATASET_BUCKET_NAME, SERVICE_ACCOUNT_FILEPATH
+sys.path.append(gparent)
+from data_pipeline.dags.constants import MIMIC_DATASET_BUCKET_NAME, SERVICE_ACCOUNT_FILEPATH
 import time 
 
 load_dotenv()
