@@ -1,8 +1,12 @@
 # app/api/endpoints/doctors.py
 
+'''
+this file contains all the endpoints for the doctor resource
+'''
+
+from typing import List
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
-from typing import List
 from app.db.crud import doctor as doctor_crud
 from app.db.schemas.doctor import Doctor, DoctorCreate, DoctorUpdate
 from app.api.deps import get_db

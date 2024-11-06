@@ -1,8 +1,12 @@
 # app/api/deps.py
 
+''' 
+this file contains all the dependencies for the API
+'''
+
 from typing import Generator
-from app.db.session import SessionLocal
 from sqlalchemy.orm import Session
+from app.db.session import SessionLocal
 import app.utils.auth_util as util
 from app.utils.auth_util import JWTTokenHelper
 from app.utils.http_errors import UnauthorizedError
@@ -46,7 +50,4 @@ def authorize(request: Request, helper = JWTTokenHelper(), db: Session = Depends
         util.validate_user(id = user_id, db=db)
         return {"user_id": user_id, "role": role}
     except UnauthorizedError as e:
-        raise HTTPException(status_code = 401,
-            detail = e.message)
-
-    
+        raise HTTPException(status_code = 401, detail = e.message) from e

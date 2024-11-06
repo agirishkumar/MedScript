@@ -1,0 +1,31 @@
+stages:
+  get_raw_data:
+    cmd: >-
+      gsutil -m cp gs://medscript-mimic4-dataset/raw_data/* 
+      data_pipeline/data/raw/
+    deps:
+      - ../secrets/medscript-sa.json
+    outs:
+      - data_pipeline/data/raw
+
+  preprocess:
+    cmd: >-
+      python data_pipeline/src/preprocessing/preprocess_dataset.py 
+      --input data_pipeline/data/raw 
+      --output data_pipeline/data/processed
+    deps:
+      - data_pipeline/src/preprocessing/preprocess_dataset.py
+      - data_pipeline/data/raw
+    outs:
+      - data_pipeline/data/processed
+
+  create_embeddings:
+    cmd: >-
+      python data_pipeline/src/preprocessing/create_embedding.py 
+      --input data_pipeline/data/processed/preprocessed_dataset.csv 
+      --output data_pipeline/data/embeddings
+    deps:
+      - data_pipeline/src/preprocessing/create_embedding.py
+      - data_pipeline/data/processed/preprocessed_dataset.csv
+    outs:
+      - data_pipeline/data/embeddings
