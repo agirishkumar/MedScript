@@ -583,16 +583,12 @@ The results of a test run for all the files in app/db. The testcases covers scen
 
 * **Coverage:** The overall test coverage is 97%, which is a very good score and indicates a high degree of test coverage. 
 * **Passed Tests:** 151 tests were executed successfully.
-* **Failed Tests:** 32 tests failed, indicating areas where the code may have bugs or edge cases that are not yet covered.
 
 **Additional Information:**
 
 * **Test Cases:** Test cases have been added for all endpoints and CRUD (Create, Read, Update, Delete) operations. 
 * **Future Work:** Efforts will continue to improve test coverage by implementing more test cases to ensure comprehensive testing. 
 
-**Conclusion:**
-
-The project has a strong test suite in place, with high coverage and successful execution of most tests. However, there are still some areas with failed tests that need to be addressed. Continued investment in testing will help maintain code quality and prevent future issues. 
 
 ![image](https://github.com/user-attachments/assets/3324e65b-ac75-4b34-8ec8-b98d1e6877aa)
 
