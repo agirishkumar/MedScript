@@ -254,7 +254,79 @@ There are 8 tables. The ER Diagram is :
 ## Data Preprocessing Pipeline
 
 
+## Pipeline Orchestration (Airflow DAGs):
 
+The Base.py file consists the code to interact with a FastAPI backend to fetch patient summary data and process it for further analysis. The explanation:
+
+1. **Imports and Setup**:
+   - The code imports necessary libraries: `requests` for making HTTP requests, `json` for handling JSON data, and `datetime` for date manipulations.
+   - A base API URL is defined for accessing the FastAPI service.
+
+2. **Function Definitions**:
+   - `get_data(url: str)`: A helper function that takes a URL as input, makes a GET request to that URL, and returns the JSON response if the request is successful. If the request fails, it raises an exception.
+   - `get_summary(patient_id: int)`: This function constructs a URL to fetch a patient's summary by their ID and calls `get_data()` to retrieve the data.
+   - `preprocess_data(data: dict)`: This function processes the data returned from the API. It extracts patient details and symptoms, raising an exception if no data is provided.
+   - `calculate_age(date_of_birth: str)`: A helper function that calculates the age of a patient based on their date of birth.
+   - `extract_patient_details(patient: dict)`: Extracts and formats details about the patient, including age, gender, medical history, and allergies.
+   - `extract_symptoms(visits: dict)`: Compiles a list of reported symptoms from the patient's visits, formatting them for display.
+   - `query_vector_database(data: dict)`: Generates a query string using the processed patient information and symptoms, and retrieves relevant records from a vector store database.
+   - `generate_prompt(query: str)`: This function is defined but not implemented in the code. Its purpose would be to generate a prompt based on the query, possibly for further processing or interaction.
+
+3. **Error Handling**:
+   - In several places, the code includes checks to raise exceptions if the data is not valid or empty, ensuring that the subsequent operations have the required information.
+
+Overall, the script fetches patient data from an API, processes it to extract relevant information, and prepares a query for further analysis or storage in a vector database.
+There is a flowchart to explain the concept in more detail
+
+```mermaid
+graph TD;
+  A[Start] --> B[BASE_API_URL Setup];
+  B --> C[get_summary<br>Fetch data by patient ID];
+  C --> D[get_data<br>Helper function<br>to make API request];
+  D --> E{Response 200?};
+  E -- Yes --> F[preprocess_data<br>Extracts relevant data];
+  E -- No --> G[Error Handling<br>Raise error if not 200];
+  F --> H[extract_patient_details<br>Extract age, gender];
+  H --> I[extract_symptoms<br>Extract symptoms list];
+  I --> J[query_vector_database<br>Creates query based on<br>patient info and symptoms];
+  J --> K[vector_store.get_relevant_records<br>Search for similar records];
+  K --> L[generate_prompt<br>Generate prompt from query];
+  L --> M[End];
+```
+
+- The main.py orchestrates a sequence of tasks for processing patient data. 
+
+**1. Imports:**
+- The necessary modules and functions from Airflow and other libraries are imported, including DAG creation, Python tasks, email notifications, and triggering other DAGs.
+
+**Default Arguments:**
+- default_args specifies parameters for the DAG, including the number of retries and the delay between retries.
+
+**DAG Definition:** 
+The DAG is created with a unique identifier, description, and a start date.
+
+**Tasks:**
+Load Data Task: This task fetches the patient summary using the get_summary function for a specific patient ID.
+Data Preprocessing Task: This task preprocesses the data retrieved from the previous task using the preprocess_data function.
+Query Vector Database Task: This task queries the vector database for similarity searches using the processed data with the query_vector_database function.
+There are placeholders for a prompt generation task and a trigger task, but they are commented out.
+Task Dependencies: The tasks are linked together, ensuring that data_preprocessing_task runs after load_data_task, and query_vector_database_task runs after data_preprocessing_task.
+
+Overall, the code sets up a data processing pipeline in Airflow that fetches, preprocesses, and queries patient data in a structured manner.
+
+The main process is summarized
+```mermaid
+flowchart TD
+    A[Fetch Patient Summary] --> B[Preprocess Data]
+    B --> C[Query Vector Database]
+    C --> D[Generate Prompt] 
+    D --> E[Trigger Display Prompt]
+
+    A -->|Fetches data for patient ID 9| B
+    B -->|Uses output from A| C
+    C -->|Uses output from B| D
+    D -->|Uses output from C| E
+```
 
 
 
