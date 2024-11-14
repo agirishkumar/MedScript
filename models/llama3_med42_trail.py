@@ -73,36 +73,54 @@ report_template = """
 
 def initialize_model():
     """
-    Downloads and loads a model from the Hugging Face Hub. The model is loaded onto the GPU if available, with a device map that automatically moves the model's parameters to the GPU or CPU as needed. The model is also cast to float16 precision to save memory. The offload folder is set to "offload" to avoid writing temporary files to the current working directory.
-
-    Args:
-        model_name_or_path (str): The name or path of the model on the Hugging Face Hub.
-
+    Downloads and loads a model from the Hugging Face Hub, then saves it locally.
+    Uses CPU offloading and half precision to manage memory usage.
+    
     Returns:
-        tuple: A tuple of (model, tokenizer) where model is a transformers.AutoModelForCausalLM and tokenizer is a transformers.AutoTokenizer.
+        tuple: A tuple of (model, tokenizer)
     """
+    save_path = "saved_models/med42_model"
     print("Downloading model...", flush=True)
     local_model_path = snapshot_download(model_name_or_path)
     
     print("Loading model...", flush=True)
+    
+    # Clear GPU memory before loading
+    if torch.cuda.is_available():
+        torch.cuda.empty_cache()
+    
+    # Load model with CPU device map
     model = transformers.AutoModelForCausalLM.from_pretrained(
         local_model_path,
-        device_map="cpu",
+        device_map="cpu",  # Load directly to CPU
         torch_dtype=torch.float16,
         low_cpu_mem_usage=True,
-        offload_folder="offload",
+        offload_folder="offload"
     )
+    
     tokenizer = transformers.AutoTokenizer.from_pretrained(local_model_path, use_fast=True)
     
     if tokenizer.pad_token is None:
         tokenizer.pad_token = tokenizer.eos_token
-
-    # Save model and tokenizer to a specific directory after initialization
-    save_directory = "saved_models/med42_model"
-    model.save_pretrained(save_directory)
-    tokenizer.save_pretrained(save_directory)
-    print(f"Model and tokenizer saved to {save_directory}", flush=True)
-
+    
+    # Create directory and save model
+    os.makedirs(save_path, exist_ok=True)
+    print(f"Saving model and tokenizer to {save_path}")
+    
+    try:
+        # Save with sharding to manage memory
+        model.save_pretrained(
+            save_path,
+            safe_serialization=True,
+            max_shard_size="2GB"
+        )
+        tokenizer.save_pretrained(save_path)
+        print("Model and tokenizer saved successfully!")
+        
+    except Exception as e:
+        print(f"Error during saving: {str(e)}")
+        raise
+    
     return model, tokenizer
 
 def estimate_words_from_tokens(token_count):
@@ -323,24 +341,40 @@ experiments = [
 ]
 
 if __name__ == "__main__":
-    for i, exp in enumerate(experiments):
-        print(f"Running experiment {i+1} with parameters: {exp}", flush=True)
-        generated_text, inference_time = run_experiment(**exp)
+    # for i, exp in enumerate(experiments):
+    #     print(f"Running experiment {i+1} with parameters: {exp}", flush=True)
+    #     generated_text, inference_time = run_experiment(**exp)
         
-        if generated_text is not None:
-            print(f"Inference time: {inference_time:.2f} seconds", flush=True)
+    #     if generated_text is not None:
+    #         print(f"Inference time: {inference_time:.2f} seconds", flush=True)
             
-            completeness_score = evaluate_chain_of_thought(generated_text)
-            print(f"Chain of Thought Completeness Score: {completeness_score:.2f}", flush=True)
+    #         completeness_score = evaluate_chain_of_thought(generated_text)
+    #         print(f"Chain of Thought Completeness Score: {completeness_score:.2f}", flush=True)
             
-            mlflow.log_metric("completeness_score", completeness_score)
+    #         mlflow.log_metric("completeness_score", completeness_score)
             
-            print("Generated text:", flush=True)
-            print(generated_text[:500] + "..." if len(generated_text) > 500 else generated_text, flush=True)
-        else:
-            print("Experiment failed. Check logs for details.", flush=True)
+    #         print("Generated text:", flush=True)
+    #         print(generated_text[:500] + "..." if len(generated_text) > 500 else generated_text, flush=True)
+    #     else:
+    #         print("Experiment failed. Check logs for details.", flush=True)
         
-        print("\n" + "="*50 + "\n", flush=True)
-        sys.stdout.flush() 
+    #     print("\n" + "="*50 + "\n", flush=True)
+    #     sys.stdout.flush() 
 
-    print("Experiments complete. View results in MLflow UI.", flush=True)
+    # print("Experiments complete. View results in MLflow UI.", flush=True)
+
+    os.environ["PYTORCH_CUDA_ALLOC_CONF"] = "max_split_size_mb:64,expandable_segments:True"
+    
+    if torch.cuda.is_available():
+        torch.cuda.empty_cache()
+        print(f"Available GPU memory before initialization: {torch.cuda.mem_get_info()[0] / (1024**3):.2f} GiB")
+    
+    try:
+        model, tokenizer = initialize_model()
+        print("Model and tokenizer successfully initialized and saved!")
+    except Exception as e:
+        print(f"Error during initialization: {str(e)}")
+    finally:
+        # Final cleanup
+        if torch.cuda.is_available():
+            torch.cuda.empty_cache()
