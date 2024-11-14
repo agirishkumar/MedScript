@@ -87,7 +87,7 @@ def initialize_model():
     print("Loading model...", flush=True)
     model = transformers.AutoModelForCausalLM.from_pretrained(
         local_model_path,
-        device_map="auto",
+        device_map="cpu",
         torch_dtype=torch.float16,
         low_cpu_mem_usage=True,
         offload_folder="offload",
@@ -96,7 +96,13 @@ def initialize_model():
     
     if tokenizer.pad_token is None:
         tokenizer.pad_token = tokenizer.eos_token
-    
+
+    # Save model and tokenizer to a specific directory after initialization
+    save_directory = "saved_models/med42_model"
+    model.save_pretrained(save_directory)
+    tokenizer.save_pretrained(save_directory)
+    print(f"Model and tokenizer saved to {save_directory}", flush=True)
+
     return model, tokenizer
 
 def estimate_words_from_tokens(token_count):
