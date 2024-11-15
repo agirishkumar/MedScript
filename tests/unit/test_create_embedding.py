@@ -8,7 +8,8 @@ from data_pipeline.dags.create_embedding import (get_embedding, embed_to_str, em
 class EmbeddingTests(unittest.TestCase):
 
     @patch("torch.cuda.empty_cache")
-    def test_get_embedding_valid_text(self, mock_empty_cache):
+    @patch("data_pipeline.dags.logger")
+    def test_get_embedding_valid_text(self, mock_empty_cache, mock_logger):
         # Mock tokenizer, model, and device
         tokenizer = Mock()
         tokenizer.return_value = {"input_ids": torch.tensor([[1, 2, 3]]), "attention_mask": torch.tensor([[1, 1, 1]])}
@@ -21,7 +22,8 @@ class EmbeddingTests(unittest.TestCase):
         self.assertEqual(embedding.shape, (1, 768))  # Expected shape after mean pooling
 
     @patch("torch.cuda.empty_cache")
-    def test_get_embedding_handles_exception(self, mock_empty_cache):
+    @patch("data_pipeline.dags.logger")
+    def test_get_embedding_handles_exception(self, mock_empty_cache, mock_logger):
         tokenizer = Mock(side_effect=Exception("Tokenization error"))
         model = Mock()
         device = torch.device("cpu")
@@ -29,7 +31,8 @@ class EmbeddingTests(unittest.TestCase):
         embedding = get_embedding("test text", tokenizer, model, device)
         self.assertIsNone(embedding)  # Should return None if an exception is raised
 
-    def test_embed_to_str_valid_embedding(self):
+    @patch("data_pipeline.dags.logger")
+    def test_embed_to_str_valid_embedding(self, mock_logger):
         # Mock embedding tensor
         embedding = torch.tensor([[1, 2, 3], [4, 5, 6]])
         embedding_str = embed_to_str(embedding)
@@ -45,7 +48,8 @@ class EmbeddingTests(unittest.TestCase):
     @patch("torch.cuda.empty_cache")
     @patch("tqdm.tqdm", lambda x, desc: x)
     @patch("pandas.DataFrame.to_csv")
-    def test_embed_batch_size_exception(self, mock_to_csv, mock_empty_cache):
+    @patch("data_pipeline.dags.logger")
+    def test_embed_batch_size_exception(self, mock_to_csv, mock_empty_cache, mock_logger):
         tokenizer = Mock()
         model = Mock()
         device = torch.device("cpu")
@@ -58,7 +62,8 @@ class EmbeddingTests(unittest.TestCase):
     @patch("torch.cuda.empty_cache")
     @patch("tqdm.tqdm", lambda x, desc: x)
     @patch("pandas.DataFrame.to_csv")
-    def test_embed_handle_exception_during_embedding(self, mock_to_csv, mock_empty_cache):
+    @patch("data_pipeline.dags.logger")
+    def test_embed_handle_exception_during_embedding(self, mock_to_csv, mock_empty_cache, mock_logger):
         tokenizer = Mock(side_effect=Exception("Tokenization error"))
         model = Mock()
         device = torch.device("cpu")
