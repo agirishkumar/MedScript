@@ -22,15 +22,17 @@ def get_patient_summary(patient_id: int, db: Session = Depends(get_db)):
     patient = patient_details.get_patient_details(db, patient_id)
 
     symptoms = patient_symptoms.get_patient_symptoms_by_patient_id(db, patient_id)
-
+    print(symptoms)
     visit_details = []
 
     for symptom in symptoms:
         visits = patient_visits.get_patient_visits_by_symptom_id(db, symptom.SymptomID)
 
-        for visit in visits:
-            doctor_data = doctor.get_doctor(db, visit.DoctorID)
-
-            visit_details.append(VisitDetails(visit=visit, symptoms=[symptom], doctor=doctor_data))
+        if visits:
+            for visit in visits:
+                doctor_data = doctor.get_doctor(db, visit.DoctorID)
+                visit_details.append(VisitDetails(visit=visit, symptoms=[symptom], doctor=doctor_data))
+        else:
+            visit_details.append(VisitDetails(visit=None, symptoms=[symptom], doctor=None))
 
     return PatientSummaryResponse(patient=patient, visits=visit_details)
