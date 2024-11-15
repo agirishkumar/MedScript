@@ -108,7 +108,7 @@ def generate():
     model = GenerativeModel("gemini-1.5-flash-002")
     
     total_records = 1000
-    for patient_id in range(892, total_records + 1):
+    for patient_id in range(552, total_records + 1):
         print(f"Generating record {patient_id}/{total_records}")
         
         response = model.generate_content(
@@ -149,12 +149,39 @@ def generate():
     
     print("Record generation completed.")
 
-text1 = """Generate a single detailed female patient record and a diagnosis report with the following structure:
+text1 = """Please generate medical records with high diversity across these dimensions:
+    1. Demographics:
+    - Mix of genders (male, female)
+    - Ages ranging from 5 to 95
+    - Various occupations and lifestyle factors
+
+    2. Medical Presentations:
+    - Mix of acute and chronic conditions
+    - Various body systems (cardiovascular, gastrointestinal, genitourinary, neurologic, respiratory, orthopedic, skeletal etc. use less of cough/pneumonia)
+    - Different severity levels (mild, moderate, severe)
+    - Both simple and complex cases
+
+    3. Medical History:
+    - Various existing conditions (use less of hypertension/diabetes)
+    - Different medication profiles
+    - Range of allergies
+    - Different visit histories
+
+    4. Diagnoses:
+    - Mix of common and rare conditions
+    - Various specialties involved
+    - Different levels of diagnostic certainty
+    
+    Generate a single detailed male patient record and a diagnosis report with the following structure:
 
         #Patient Record
         - Gender
         - Age
+        - Height(in cm numbers only no units)
+        - Weight(in kg numbers only no units)
+        - Blood type
         - Detailed symptoms (at least 3)
+        - Duration of the symptoms (example 3 days, 2 weeks, 1 month)
         - Severity (mild, moderate, severe)
         - Existing medical conditions (varying diverse Existing medical conditions)
         - Allergies (if any, show variations)
@@ -185,7 +212,7 @@ text1 = """Generate a single detailed female patient record and a diagnosis repo
 
 generation_config = {
     "max_output_tokens": 8192,
-    "temperature": 1,
+    "temperature": 2,
     "top_p": 0.95,
 }
 
