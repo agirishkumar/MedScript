@@ -55,14 +55,36 @@ def test_get_patient_symptom_not_found(mock_db_session):
 
 # Test get_patient_symptoms_by_patient_id
 def test_get_patient_symptoms_by_patient_id(mock_db_session):
-    """Test retrieving patient symptoms by patient ID."""
-    symptoms = [PatientSymptom(**sample_symptom_data)]
+    """
+    Test retrieving all patient symptoms by patient ID.
+    """
+    sample_symptom_data = {
+        "PatientID": 1,
+        "SymptomDescription": "Persistent headache with occasional dizziness.",
+        "ModelInputDescription": None,
+        "Severity": "Moderate",
+        "Duration": "3 weeks",
+        "AssociatedConditions": "Hypertension, Seasonal allergies",
+        "SymptomID": 101,
+        "SymptomEnteredDate": "2024-11-15T06:13:14.615640"
+    }
 
-    # Mocking the query, join, and filter methods
-    mock_db_session.query.return_value.join.return_value.filter.return_value.all.return_value = symptoms
+    mock_symptom = PatientSymptom(**sample_symptom_data)
+
+    mock_db_session.query.return_value.filter.return_value.all.return_value = [mock_symptom]
 
     result = get_patient_symptoms_by_patient_id(mock_db_session, 1)
-    assert result == symptoms
+
+    assert len(result) == 1
+    assert result[0].PatientID == 1
+    assert result[0].SymptomDescription == "Persistent headache with occasional dizziness."
+    assert result[0].Severity == "Moderate"
+    assert result[0].Duration == "3 weeks"
+    assert result[0].AssociatedConditions == "Hypertension, Seasonal allergies"
+
+    mock_db_session.query.assert_called_once()
+    mock_db_session.query.return_value.filter.assert_called_once_with(PatientSymptom.PatientID == 1)
+    mock_db_session.query.return_value.filter.return_value.all.assert_called_once()
 
 # Test get_all_patient_symptoms
 def test_get_all_patient_symptoms(mock_db_session):
