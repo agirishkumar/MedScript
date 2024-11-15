@@ -12,7 +12,7 @@ import re
 fake = Faker()
 session = Session(bind=engine)
 
-with open("models/records.json") as file:
+with open("records.json") as file:
     data = json.load(file)
 
 def calculate_dob(age):
