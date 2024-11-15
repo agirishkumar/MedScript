@@ -18,3 +18,4 @@ datasets
 processed_data
 rag
 
+saved_models/med42_model/*
