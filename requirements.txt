@@ -57,6 +57,7 @@ dvc-studio-client==0.21.0
 dvc-task==0.40.2
 email_validator==2.2.0
 entrypoints==0.4
+evaluate==0.4.1
 executing==2.1.0
 fastapi==0.115.3
 filelock==3.16.1
@@ -132,6 +133,7 @@ multidict==6.1.0
 narwhals==1.9.4
 nest-asyncio==1.6.0
 networkx==3.4.2
+nltk==3.8.1
 numpy==2.1.2
 omegaconf==2.3.0
 opentelemetry-api==1.28.1
@@ -184,6 +186,7 @@ referencing==0.35.1
 regex==2024.9.11
 requests==2.32.3
 rich==13.9.2
+rouge-score==0.1.2
 rpds-py==0.20.0
 rsa==4.9
 ruamel.yaml==0.18.6
