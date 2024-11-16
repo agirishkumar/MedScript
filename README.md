@@ -478,7 +478,9 @@ We conducted hyperparameter tuning through experimentation:
 Based on the graphs showing **Initialization Time**, **Generated Token Count**, **Estimated Word Count**, and **Inference Time**, along with feedback from domain experts (doctors) regarding the quality and relevance of results, the baseline configuration was selected for deployment.
 
 ### Visualizations
-
+![image](https://github.com/user-attachments/assets/0ff5276e-8e8b-4b62-af10-1cd14c256aa6)
+![image](https://github.com/user-attachments/assets/83ec7c8f-8384-4806-81b4-6ad07280a70a)
+![image](https://github.com/user-attachments/assets/2c121645-48f9-4719-80b4-2120ebfb9238)
 
 
 ## MLflow Logs
