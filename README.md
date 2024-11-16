@@ -2,7 +2,7 @@
 AI assitant for diagnosis
 
 Group Members: 
-[Aishwariya Suryamindra](https://github.com/aishwarya-suyamindra) ,[Girish Kumar Adari](https://github.com/agirishkumar), [Mallika Gaikwad](https://github.com/MallikaGaikwad), [Om Mali](https://github.com/maliom939) , [Pramatha Bhat](https://github.com/pramathabhat), [Rohan Reddy](https://github.com/tantalum-73)
+[Aishwarya Suyamindra](https://github.com/aishwarya-suyamindra) ,[Girish Kumar Adari](https://github.com/agirishkumar), [Mallika Gaikwad](https://github.com/MallikaGaikwad), [Om Mali](https://github.com/maliom939) , [Pramatha Bhat](https://github.com/pramathabhat), [Rohan Reddy](https://github.com/tantalum-73)
 
 ### Setup Instructions
 Please confirm that **Python >= 3.8** or a later version is present on your system prior to installation. This application is designed to be compatible with Windows, Linux, and macOS platforms.
