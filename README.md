@@ -537,6 +537,39 @@ The overall purpose is to provide a detailed, multi-metric analysis of how simil
 
 
 ## Model Bias Checking
+
+## Overview
+We preprocessesed data by categorizing demographics (age, BMI, and gender), condition complexity, and symptom severity to detect and analyze potential biases in the data and model performance. Metrics like the mean, standard deviation, count were computed for key performance indicators the results are visualized through scatter plots, box plots, and distributions to highlight discrepancies, enabling insights into fairness and areas for improvement.
+
+## Results
+
+### Gender bias
+
+There is a slight difference in the means between females and males, with males having a higher average score. This suggests a potential gender bias favoring males in the semantic analysis. Males have slightly higher scores on average across all metrics (primary semantic, primary ROUGE-1, and difference in ROUGE-1), suggesting a potential gender bias favoring males. However, this difference is relatively small, and the t-test results (NaN) indicate that further statistical testing could not be conducted for significance.
+
+### Age bias
+
+For the age group 61-80, we see a positive mean score with a relatively high standard deviation, indicating variability in the primary semantic metric for this age group. Only the 61-80 age group has valid data, which limits the analysis for age bias. This could indicate either an imbalance in the dataset or insufficient sampling from other age groups. However, the available data for the 61-80 age group suggests some degree of bias in the primary semantic and ROUGE-1 metrics
+
+### Complexity bias
+
+We compare metrics like primary semantic, ROUGE-1, and difference in ROUGE-1 across two levels of condition complexity: Moderate and Simple. 
+The analysis shows minor differences between the Moderate and Simple conditions across all metrics, with no significant evidence of bias or large disparities. While Moderate conditions slightly favor primary semantic, and Simple conditions show a slightly higher ROUGE-1 and diff_rouge1, these differences are minimal.
+
+The Moderate condition has a slightly higher average semantic score, suggesting that the text in the moderate complexity condition may convey more meaning, or it could reflect the inherent difficulty of producing more complex content. However, the difference is small.  The difference in ROUGE-1 scores between the two conditions is again very small, with no significant bias or difference between Moderate and Simple complexity. The small variation between these two conditions suggests that complexity in the condition doesn't lead to drastic changes in performance according to these metrics.
+
+### BMI analysis
+
+The dataset is categorized based on BMI categories (Overweight, Normal, Underweight, Obese), and various metrics such as model agreement (mean and standard deviation), ROUGE-1 scores, and gender interaction are analyzed for each BMI category. 
+
+The model agreement between the two categories (Normal and Overweight) is very similar, with both having mean values around 0.533, indicating that model agreement is consistent across these categories.
+Underweight and Obese categories have no data, so they are excluded from this analysis.
+Overweight individuals have a slightly higher ROUGE-1 score (0.249) than those in the Normal category (0.231), indicating that text generated for Overweight individuals might have slightly more overlap in terms of word choice or structure when compared to Normal individuals.
+Underweight and Obese categories are missing data, making further comparison difficult.
+
+Female individuals in the Normal BMI category have a higher model agreement (0.551) compared to Male individuals (0.525). This indicates potential gender-based differences in model performance or behavior, but these differences are slight.
+
+
 ![image](https://github.com/user-attachments/assets/689b35ec-f78d-4030-8ef7-24aee6284498)
 
 This heatmap shows the correlation between demographic factors (like age and BMI) and various metrics (`primary_semantic`, `primary_sequence`, `primary_bleu`, `primary_rouge`, and their differences). Strong positive correlations are seen among `primary_rouge` metrics (e.g., `primary_rouge1` and `primary_rougeL`) and among `diff_rouge` metrics. `primary_semantic` moderately correlates with `primary_sequence` and `primary_rouge`. Age and BMI show negligible correlations with the other metrics, indicating minimal dependency on demographic factors.
