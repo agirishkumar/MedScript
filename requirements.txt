@@ -66,7 +66,7 @@ dvc-task==0.40.2
 email_validator==2.2.0
 en_core_web_md @ https://github.com/explosion/spacy-models/releases/download/en_core_web_md-3.8.0/en_core_web_md-3.8.0-py3-none-any.whl#sha256=5e6329fe3fecedb1d1a02c3ea2172ee0fede6cea6e4aefb6a02d832dba78a310
 entrypoints==0.4
-evaluate==0.4.3
+evaluate==0.4.1
 executing==2.1.0
 fastapi==0.115.3
 filelock==3.16.1
@@ -147,7 +147,7 @@ murmurhash==1.0.10
 narwhals==1.9.4
 nest-asyncio==1.6.0
 networkx==3.4.2
-nltk==3.9.1
+nltk==3.8.1
 numpy==2.0.2
 omegaconf==2.3.0
 opentelemetry-api==1.28.1
