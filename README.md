@@ -385,5 +385,103 @@ The figure shows task dependency graph of an Airflow DAG 'data_pipeline'. The pi
 Each task has a "success" status, indicated by the green outline and check mark. This setup implies that each task depends on the completion of the previous one, following a linear workflow. All tasks are implemented using the `PythonOperator`.
 
 
+---
+
+## Model Development Process
+
+### 1. Model Selection
+- A pre-trained model, **`llama3-med42`**, was selected from Google's Model Garden based on the experiments run locally and mlflow results.
+
+### 2. Model Validation
+- Validation was performed using predefined metrics to confirm that the model met the expected performance benchmarks.
+
+### 3. Pushing the Model to Artifact or Model Registry
+- After validation, the **`llama3-med42`** model is deployed to **Google Cloud Platform (GCP)**.
+- An endpoint was created for the model using GCP's **Vertex AI** service to facilitate inference.
+
+---
+# Hyperparameter Tuning
+
+## Overview
+We conducted hyperparameter tuning using **grid search**, systematically exploring various combinations of key parameters to optimize the model's performance. A baseline configuration was defined, and variations were tested to identify the best-performing setup.
+## Key Hyperparameters
+
+| Parameter              | Description                                                   | Example Values   |
+|------------------------|---------------------------------------------------------------|------------------|
+| `min_tokens`           | Minimum number of tokens to generate                          | 512              |
+| `max_tokens`           | Maximum number of tokens to generate                          | 1024             |
+| `do_sample`            | Whether to use sampling during generation                     | `True`, `False`  |
+| `temperature`          | Controls randomness during sampling                           | 0.7, 1.0, 1.2    |
+| `top_k`                | Limits the sampling to top-k most probable tokens            | 50, 100          |
+| `top_p`                | Controls nucleus sampling (probability mass)                  | 0.95, 0.99       |
+| `repetition_penalty`   | Penalizes repeated token sequences to reduce redundancy      | 1.1, 1.3         |
+| `length_penalty`       | Encourages longer or shorter sequences based on value        | 1.0, 1.2, 0.8    |
+
+## Search Space and Tuning Process
+### Baseline Configuration
+```python
+baseline = {
+    "min_tokens": 512,
+    "max_tokens": 1024,
+    "do_sample": True,
+    "temperature": 0.7,
+    "top_k": 50,
+    "top_p": 0.95,
+    "repetition_penalty": 1.1,
+    "length_penalty": 1.0
+}
+```
+## Experiments
+
+Using **grid search**, we tested the following configurations:
+
+1. **Baseline**: Original configuration.
+2. **Greedy Decoding**: `do_sample=False`, removed randomness.
+3. **Temperature Variations**: Adjusted `temperature` to (0.5, 0.9, 1.2).
+4. **Top-k/Top-p Variations**: Modified `top_k` to (10, 100) and `top_p` to (0.5, 0.99).
+5. **Repetition/Length Penalties**: Adjusted `repetition_penalty` to (1.3) and `length_penalty` to (0.8, 1.2).
+6. **Token Limits**: Modified `min_tokens`/`max_tokens` to (256, 512) and (1024, 2048).
+
+### Tuning Process
+We conducted hyperparameter tuning through experimentation:
+1. **Baseline Configuration**: Started with a default setup and evaluated its performance.
+2. **Parameter Adjustment**: Modified few parameter at a time while keeping others fixed based on grid search.
+3. **Evaluation Metrics**: Each configuration was assessed based on:
+   - **Inference Time**: Time taken for the model to generate results.
+   - **Generated Token Count**: Number of tokens generated in each response.
+   - **Model Initialization Time**: Time taken for the model to initialize.
+   - **Result Word Count**: Total word count in the generated output.
+   - **Quality of Results**: Judged by domain experts (doctors) for coherence and relevance.
+4. **Selection**: The baseline configuration demonstrated optimal performance across these metrics and was selected for deployment.
+
+---
+# Experiment Tracking for Med42
+
+## Experiment Setup
+
+- **Model**: `Llama3-Med42-8B` from the Hugging Face Hub
+- **Task**: Generate comprehensive diagnostic reports based on user input (patient data and symptoms).
+- **Tracking Tool**: MLflow
+- **Metrics Logged**:
+  - Hyperparameters: `min_tokens`, `max_tokens`, `temperature`, `top_k`, `top_p`, `repetition_penalty`, `length_penalty`
+  - Initialization time, Generated token count, estimated word count, and inference time.
+
+## Experiment Flow
+
+1. **Model Initialization**:
+    - The model is downloaded from the Hugging Face Hub and loaded using CPU offloading to manage memory efficiently.
+
+2. **Log Experiment Results**:
+    - Each experiment's hyperparameters and model metrics are logged in MLflow.
+
+## Results
+Based on the graphs showing **Initialization Time**, **Generated Token Count**, **Estimated Word Count**, and **Inference Time**, along with feedback from domain experts (doctors) regarding the quality and relevance of results, the baseline configuration was selected for deployment.
+
+### Visualizations
 
 
+
+## MLflow Logs
+- **Parameters**: All hyperparameters are logged to track their impact on the model's performance.
+- **Metrics**: Inference time, generated token count, estimated word count, and completeness score.
+- **Artifacts**: Full output and generated text files are saved for detailed review and troubleshooting.
