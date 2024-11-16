@@ -537,6 +537,30 @@ The overall purpose is to provide a detailed, multi-metric analysis of how simil
 
 
 ## Model Bias Checking
+## Model Bias Checking
+![image](https://github.com/user-attachments/assets/689b35ec-f78d-4030-8ef7-24aee6284498)
+
+This heatmap shows the correlation between demographic factors (like age and BMI) and various metrics (`primary_semantic`, `primary_sequence`, `primary_bleu`, `primary_rouge`, and their differences). Strong positive correlations are seen among `primary_rouge` metrics (e.g., `primary_rouge1` and `primary_rougeL`) and among `diff_rouge` metrics. `primary_semantic` moderately correlates with `primary_sequence` and `primary_rouge`. Age and BMI show negligible correlations with the other metrics, indicating minimal dependency on demographic factors.
+
+![image](https://github.com/user-attachments/assets/1edc3702-88a2-4612-82fa-e0f31745ab0e)
+
+The above boxplot shows interactions between age, BMI, condition complexity, and severity in relation to the `primary_semantic` metric. Older age groups and simpler conditions tend to have higher metric values, while BMI categories show overlapping trends with no major differences. Error bars highlight variability within groups.
+
+![image](https://github.com/user-attachments/assets/5d53ab6f-9826-42ff-8275-8d78b77e3d90)
+
+The above boxplot presents three box plots illustrating the distribution of "primary semantic" scores across different demographic groups. The first plot shows a slight increase in the median score with age, with a wider range of scores in the younger age groups. The second plot reveals a clear decrease in the median score as BMI category increases, with a tighter distribution in the normal and overweight categories. Lastly, the third plot indicates a higher median score for males compared to females, and a slightly wider range of scores for males. Overall, the image suggests that age, BMI, and gender may be associated with differences in primary semantic scores.
+
+![image](https://github.com/user-attachments/assets/6009fa1f-8ccb-4e64-a562-ef4c7394c132)
+
+The boxplot presents a series of box plots illustrating the distribution of "primary semantic" scores across various demographic and clinical factors. The plots reveal that symptom length and medical complexity show little to no effect on the scores, while duration, severity, age, and BMI category have a slight influence on the median score. The plot for gender shows a higher median score for males compared to females. Overall, the image suggests that some demographic and clinical factors may have subtle associations with primary semantic scores.
+
+<img width="551" alt="image" src="https://github.com/user-attachments/assets/b5cf2420-208b-4bb2-ba0b-063f292b515d">
+
+The table provides summary statistics for the variables "primary_semantic" and "bmi" across different severity levels. For each severity level (Moderate, Moderate to Severe, and Severe), we see the mean and standard deviation (std) of "primary_semantic" scores, as well as the count of observations (count) and the mean and standard deviation of BMI values. This table allows us to compare these metrics across different severity levels, potentially revealing patterns or associations between severity and these variables.
+
+<img width="551" alt="image" src="https://github.com/user-attachments/assets/3b65d752-34bd-4db4-8e9d-f8c51ad99652">
+
+The table provides summary statistics for the variables "primary_semantic", "num_conditions", and "age" across different BMI categories. For each BMI category (Underweight, Normal, Overweight, and Obese), we see the mean and standard deviation (std) of "primary_semantic" scores, the mean and mean of "num_conditions" and "age", respectively, and the count of observations (count). Notably, the "Underweight" and "Obese" categories have no observations, resulting in NaN values for all metrics. This table allows us to compare these metrics across different BMI categories, potentially revealing patterns or associations between BMI and these variables.
 
 
 ### Performance vs Symptom Length:
