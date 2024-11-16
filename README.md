@@ -562,6 +562,19 @@ The table provides summary statistics for the variables "primary_semantic" and "
 
 The table provides summary statistics for the variables "primary_semantic", "num_conditions", and "age" across different BMI categories. For each BMI category (Underweight, Normal, Overweight, and Obese), we see the mean and standard deviation (std) of "primary_semantic" scores, the mean and mean of "num_conditions" and "age", respectively, and the count of observations (count). Notably, the "Underweight" and "Obese" categories have no observations, resulting in NaN values for all metrics. This table allows us to compare these metrics across different BMI categories, potentially revealing patterns or associations between BMI and these variables.
 
+![image](https://github.com/user-attachments/assets/7e974d91-94bb-408a-ba88-6008acd72bd7)
+
+The image presents a series of visualizations exploring the relationships between different variables. The top left plot shows the distribution of BMI across genders, revealing a higher prevalence of overweight and obese individuals among males. The top right plot displays the distribution of age and BMI, suggesting a potential association between increasing age and higher BMI. The bottom left plot illustrates the number of conditions by BMI category, indicating a higher number of conditions in the overweight and obese groups. The bottom right plot shows the distribution of severity classifications across BMI categories, with a higher proportion of moderate to severe cases in the overweight and obese groups. The middle left plot displays the mean performance metrics by BMI category, revealing a slight decrease in performance with increasing BMI. Finally, the middle right plot presents a heatmap of the correlation matrix, highlighting the relationships between different variables. Overall, the image suggests that BMI is associated with various health outcomes, including age, number of conditions, severity, and performance metrics.
+
+
+![image](https://github.com/user-attachments/assets/b37f7849-109e-4c34-8cf6-d970b6a03a78)
+
+The image presents a scatter plot illustrating the relationship between BMI and semantic agreement scores across different severity levels. The x-axis represents BMI values, while the y-axis represents semantic agreement scores. Each dot on the plot represents an individual observation, and the color of the dot indicates the severity level (blue for severe, orange for moderate to severe, and green for moderate). The plot shows that there is some variability in semantic agreement scores across BMI values within each severity level. However, there doesn't appear to be a clear trend or association between BMI and semantic agreement scores overall. 
+
+![image](https://github.com/user-attachments/assets/70f79151-930a-4a3e-b2bd-66d2f6775dd9)
+
+The image presents a series of visualizations exploring the distribution of BMI categories and their relationships with model agreement and ROUGE-1 scores. The top left plot shows the distribution of BMI categories, with a clear dominance of the "Overweight" category. The top right plot displays the distribution of model agreement scores across BMI categories, revealing no significant differences between categories. The bottom left plot shows the distribution of ROUGE-1 scores across BMI categories, with a slight increase in the "Overweight" and "Obese" categories. The bottom right plot presents box plots illustrating the distribution of primary semantic scores across BMI categories, indicating a higher median score in the "Overweight" and "Obese" categories. Overall, the image suggests that BMI category may have a subtle influence on model agreement and ROUGE-1 scores, with the "Overweight" and "Obese" categories potentially showing slightly higher scores.
+
 
 ### Performance vs Symptom Length:
 Shows how model performance (semantic similarity) varies with symptom description length:
