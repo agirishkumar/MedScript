@@ -1,5 +1,8 @@
 [core]
-    remote = gcp-storage
+    remote = gcp-storage-records
 ['remote "gcp-storage"']
     url = gs://medscript-mimic4-dataset
     credentialpath = ../data-pipeline/secrets/medscript-sa.json
+['remote "gcp-storage-records"']
+    url = gs://dataset-records
+    credentialpath = ../data_pipeline/secrets/medscript-sa.json

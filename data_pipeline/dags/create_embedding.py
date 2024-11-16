@@ -12,11 +12,16 @@ import io
 from google.cloud import storage
 from transformers import BertTokenizer, BertModel
 import torch
+import sys
 import os
-from constants import SERVICE_ACCOUNT_FILEPATH
+current = os.path.dirname(os.path.realpath(__file__))
+gparent = os.path.dirname(os.path.dirname(current))
+
+sys.path.append(gparent)
+from data_pipeline.dags.constants import SERVICE_ACCOUNT_FILEPATH
 from tqdm import tqdm  
 import pandas as pd
-from logger import logger
+from data_pipeline.dags.logger import *
 
 def get_embedding(text, tokenizer, model, device):
     """Generate embedding for a single text"""
@@ -38,7 +43,7 @@ def get_embedding(text, tokenizer, model, device):
         return embeddings
     
     except Exception as e:
-        logger.log_error(f"Error processing text: {str(e)}")
+        logger.error(f"Error processing text: {str(e)}")
         return None
 
 def embed_to_str(embedding):
@@ -69,6 +74,8 @@ def embed(data, tokenizer, model, device, csv_filename = '', batch_size=4):
         embedding = embedding.detach().numpy()
         return embedding
         
+    if batch_size < 1:
+        raise Exception("Batch size must be an integer greater than 0")
 
     total_batches = len(data) // batch_size + (1 if len(data) % batch_size != 0 else 0)
     
@@ -86,6 +93,10 @@ def embed(data, tokenizer, model, device, csv_filename = '', batch_size=4):
                 # Clear memory after each text
                 torch.cuda.empty_cache()
             
+            if len(batch_embeddings) != len(batch_texts):
+                # print(f"Error in batch {i // batch_size}: Mismatched lengths between embeddings and inputs.")
+                raise ValueError(f"Error in batch {i // batch_size}: Mismatched lengths")
+
             # Append to CSV file
             batch_df = data.iloc[i:i+batch_size].copy()
             batch_df['embedding'] = batch_embeddings
@@ -97,7 +108,7 @@ def embed(data, tokenizer, model, device, csv_filename = '', batch_size=4):
             torch.cuda.empty_cache()
 
     except Exception as e:
-        logger.log_error(f"Error during embedding generation: {str(e)}")
+        logger.error(f"Error during embedding generation: {str(e)}")
         raise
 
 def upload_embeddings(data, tokenizer, model, device, bucket, csv_filename = '', batch_size=4):
@@ -178,7 +189,7 @@ if __name__ == '__main__':
         upload_embeddings(df, tokenizer, model, device, bucket, csv_filename = embed_df_filename, batch_size=4)
         
     except Exception as e:
-        logger.log_error(f"An error occurred: {str(e)}")
+        logger.error(f"An error occurred: {str(e)}")
         if os.path.exists(embed_df_filename):
             os.remove(embed_df_filename)
         raise

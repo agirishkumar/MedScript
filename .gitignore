@@ -18,3 +18,6 @@ datasets
 processed_data
 rag
 
+saved_models/med42_model/*
+
+models/records_with_med42.json
