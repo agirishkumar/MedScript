@@ -390,13 +390,13 @@ Each task has a "success" status, indicated by the green outline and check mark.
 ## Model Development Process
 
 ### 1. Model Selection
-- A pre-trained model, **`llama3-med42`**, was selected from Google's Model Garden based on the experiments run locally and mlflow results.
+- A pre-trained model, **`llama3-med42-8B`**, was selected from Google's Model Garden based on the experiments run locally and mlflow results.
 
 ### 2. Model Validation
 - Validation was performed using predefined metrics to confirm that the model met the expected performance benchmarks.
 
 ### 3. Pushing the Model to Artifact or Model Registry
-- After validation, the **`llama3-med42`** model is deployed to **Google Cloud Platform (GCP)**.
+- After validation, the **`llama3-med42-8B`** model is deployed to **Google Cloud Platform (GCP)**.
 - An endpoint was created for the model using GCP's **Vertex AI** service to facilitate inference.
 
 ---
@@ -482,8 +482,7 @@ Based on the graphs showing **Initialization Time**, **Generated Token Count**, 
 ![image](https://github.com/user-attachments/assets/83ec7c8f-8384-4806-81b4-6ad07280a70a)
 ![image](https://github.com/user-attachments/assets/2c121645-48f9-4719-80b4-2120ebfb9238)
 
-
 ## MLflow Logs
-- **Parameters**: All hyperparameters are logged to track their impact on the model's performance.
-- **Metrics**: Inference time, generated token count, estimated word count, and completeness score.
 - **Artifacts**: Full output and generated text files are saved for detailed review and troubleshooting.
+
+---
