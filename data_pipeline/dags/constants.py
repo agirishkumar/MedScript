@@ -6,6 +6,7 @@ Defines constants for Google Cloud, Qdrant configuration, dataset paths, embeddi
 
 PROJECT_ID = "medscript-437117"
 MIMIC_DATASET_BUCKET_NAME = "medscript-mimic4-dataset"
+DATASET_BUCKET_NAME = "dataset-records"
 BASE_DATASET_FILENAME = "mimic4-dataset.csv"
 
 QDRANT_INSTANCE_ZONE = "us-central1-a"
