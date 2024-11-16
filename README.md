@@ -387,7 +387,7 @@ Each task has a "success" status, indicated by the green outline and check mark.
 
 ---
 
-## Model Development Process
+# Model Development Process
 
 ### Overview
 - A pre-trained model, **`llama3-med42-8B`**, was selected from Google's Model Garden based on the experiments run locally and mlflow results.
@@ -476,6 +476,33 @@ Based on the graphs showing **Initialization Time**, **Generated Token Count**, 
 ## MLflow Logs
 - **Artifacts**: Full output and generated text files are saved for detailed review and troubleshooting.
 
+---
+
+## Model Sensitivity Analysis
+### Hyperparameters Sensitivity Analysis Results
+
+Based on our experiments, the following observations were made:
+
+#### Key Findings
+1. **Initialization Time**:
+   - The baseline configuration minimized initialization time, showing stability across multiple runs.
+
+2. **Generated Token Count**:
+   - The baseline consistently produced an optimal token count for coherent and contextually rich outputs.
+
+3. **Estimated Word Count**:
+   - The word count remained balanced under the baseline configuration, ensuring concise yet comprehensive responses.
+
+4. **Inference Time**:
+   - The baseline achieved lower inference times compared to variations with higher temperatures or extreme `top_k` and `top_p` values.
+
+5. **Expert Feedback**:
+   - Doctors confirmed that the baseline produced the most contextually relevant and coherent responses among all configurations.
+
+#### Final Decision
+Considering the trade-offs in initialization time, token generation, inference time, and expert feedback, the **baseline configuration** was selected for deployment.
+
+---
 
 ## Data Versioning and Transformation
 
@@ -620,30 +647,5 @@ Key Relationships:
 
 
 
-
----
-## Model Sensitivity Analysis
-### Hyperparameters Sensitivity Analysis Results
-
-Based on our experiments, the following observations were made:
-
-#### Key Findings
-1. **Initialization Time**:
-   - The baseline configuration minimized initialization time, showing stability across multiple runs.
-
-2. **Generated Token Count**:
-   - The baseline consistently produced an optimal token count for coherent and contextually rich outputs.
-
-3. **Estimated Word Count**:
-   - The word count remained balanced under the baseline configuration, ensuring concise yet comprehensive responses.
-
-4. **Inference Time**:
-   - The baseline achieved lower inference times compared to variations with higher temperatures or extreme `top_k` and `top_p` values.
-
-5. **Expert Feedback**:
-   - Doctors confirmed that the baseline produced the most contextually relevant and coherent responses among all configurations.
-
-#### Final Decision
-Considering the trade-offs in initialization time, token generation, inference time, and expert feedback, the **baseline configuration** was selected for deployment.
 
 ---
