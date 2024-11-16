@@ -485,4 +485,149 @@ Based on the graphs showing **Initialization Time**, **Generated Token Count**, 
 ## MLflow Logs
 - **Artifacts**: Full output and generated text files are saved for detailed review and troubleshooting.
 
+
+## Data Versioning and Transformation
+
+![image](https://github.com/user-attachments/assets/292275b2-b55a-48ca-91ac-26a0d88f2390)
+
+gcp-storage: This remote points to the medscript-mimic4-dataset bucket, with credentials stored in ../data-pipeline/secrets/medscript-sa.json.
+
+gcp-storage-records: This remote points to the dataset-records bucket, using the same credential file.
+
+These configurations allow DVC to interact with these GCP buckets to store, retrieve, and version datasets or models. Data can be uploaded to the respective buckets and later versioned or accessed for different stages of the pipeline.
+
+
+## Model Validation 
+
+Our code implements a validation process for a medical diagnosis model within our healthcare application. It starts by downloading JSON data containing diagnosis records from Google Cloud Storage, which includes both true diagnoses and model predictions. The script then converts this data into a structured format using pandas, extracting primary and differential diagnoses for comparison. The core functionality lies in the get_validation_metrics function, which processes the data and calculates performance metrics using an external evaluation function. These metrics, which likely include measures such as accuracy and precision, are saved to a local file and returned for analysis. The main execution block sets up the necessary credentials, retrieves the diagnosis records, and runs the validation process, ultimately printing the evaluation scores. This validation step is crucial for assessing the model's accuracy and reliability in real-world medical diagnosis scenarios, helping to ensure the quality and effectiveness of the AI-assisted healthcare application.
+
+## Model Evaluation
+
+Our code is designed to assess how well generated text (e.g., translations or summaries) matches a set of reference texts using various evaluation metrics. Here's what it does:
+
+1. **Calculates BLEU Score**: It uses the BLEU metric to compare how closely the words and phrases in the candidate text match the reference text, with an emphasis on n-grams (sequences of words). You can specify weights for different n-gram levels.
+
+2. **Calculates ROUGE Scores**: It uses the ROUGE metric to compare overlapping words and sequences (e.g., unigrams, bigrams, longest common subsequence) between the reference and candidate texts.
+
+3. **Calculates METEOR Score**: It evaluates text quality using precision, recall, and word alignment between the reference and candidate texts for a more nuanced similarity measure.
+
+4. **Calculates Jaccard Similarity**: It computes how many unique words in the candidate and reference overlap, as a proportion of their combined total unique words.
+
+5. **Combines Results**: The function `evaluate_metrics` consolidates the BLEU, ROUGE, METEOR, and Jaccard scores into a single dictionary, providing a comprehensive evaluation of the quality of the generated text.
+
+The overall purpose is to provide a detailed, multi-metric analysis of how similar the generated text is to the reference text, enabling objective comparison and quality assessment.
+
+
+## Model Bias Checking
+
+
+### Performance vs Symptom Length:
+Shows how model performance (semantic similarity) varies with symptom description length:
+
+Short: median ~0.80
+Medium: median ~0.78
+Long: median ~0.72
+Very Long: median ~0.68
+Interpretation: Model performs best with short symptom descriptions and performance decreases as length increases
+
+### Performance vs Medical Complexity:
+Shows model performance across different complexity levels:
+
+Simple: median ~0.79
+Moderate: median ~0.77
+Interpretation: Model performs slightly better on simple cases compared to moderate complexity cases
+
+### Performance vs Duration:
+Shows performance across different symptom duration categories:
+
+Acute: median ~0.80
+Sub-acute: median ~0.78
+Chronic: median ~0.73
+Long term: median ~0.70
+Interpretation: Model performs best on acute cases and performance decreases as symptom duration increases
+
+### Performance vs Severity Level:
+Shows performance across severity levels:
+
+Severe: median ~0.75
+Moderate: median ~0.80
+Interpretation: Model performs better on moderate severity cases compared to severe cases
+
+### Performance vs Age Group:
+Shows performance across patient age groups:
+
+0-18: median ~0.62
+19-35: median ~0.65
+36-50: median ~0.70
+51-65: median ~0.75
+65+: median ~0.78
+Interpretation: Model performance increases with patient age, performing best on elderly patients
+
+### Performance vs BMI Category:
+Shows performance across patient BMI categories:
+
+Underweight: median ~0.79
+Normal: median ~0.77
+Overweight: median ~0.73
+Obese: median ~0.70
+Interpretation: Model performs best on underweight patients and performance decreases as BMI increases
+
+### Performance vs Gender:
+Shows performance across patient gender:
+
+Female: median ~0.77
+Male: median ~0.75
+Interpretation: Model performs slightly better on female patients compared to male patients
+
+### Age and Severity Interaction:
+Shows the interaction effect of age and severity level on performance:
+
+For severe cases, performance is lower in younger age groups (0-18, 19-35)
+For moderate cases, performance is more consistent across age groups
+The gap between severe and moderate is largest in the 65+ age group
+Interpretation: Severity has a bigger impact on performance for younger patients while elderly patients maintain better performance even for severe cases
+
+### BMI and Severity Interaction:
+Shows the interaction effect of BMI and severity level on performance:
+
+For both severe and moderate cases, performance decreases as BMI increases
+The gap between severe and moderate is largest in the obese BMI category
+Interpretation: High BMI has a negative impact on performance, especially for severe cases. Maintaining a healthy weight may be important for the model to accurately assess the patient
+
+### Age and Complexity Interaction:
+Shows the interaction effect of patient age and medical complexity on performance:
+
+    For simple cases, performance increases with age, with the highest performance in the 65+ age group
+    For moderate cases, performance is more consistent across age groups, with a slight peak in the 36-50 age range
+    For complex cases, performance peaks in the 19-35 age group and then decreases with older age Interpretation: The impact of medical complexity on performance varies by age group. Simple cases perform best in elderly patients, while complex cases are more challenging in older age groups.
+
+### BMI and Complexity Interaction:
+Shows the interaction effect of patient BMI and medical complexity on performance:
+
+    For all complexity levels, performance generally decreases as BMI increases from underweight to obese
+    The performance gap between complexity levels is largest in the underweight BMI category
+    In the obese BMI category, performance is more similar across complexity levels Interpretation: High BMI has a negative impact on performance across all complexity levels. However, the effect of complexity is less pronounced in obese patients, suggesting that obesity itself may be a significant factor influencing performance.
+
+### Correlation Matrix Interpretation:
+Key Relationships:
+
+    Age has a perfect positive correlation (1.0) with itself and a very weak negative correlation with BMI (-0.09)
+    BMI has a perfect positive correlation (1.0) with itself
+    Primary metrics:
+    primary_semantic has moderate positive correlations with primary_sequence (0.67) and primary_rougeL (0.68)
+    primary_sequence has a very strong positive correlation with primary_rougeL (0.83) and strong correlations with primary_rouge1 and primary_rouge2 (both 0.83)
+    primary_bleu has weak positive correlations with other primary metrics (0.22-0.40)
+    Differential metrics:
+    diff_rouge metrics (L, 1, 2) have very strong positive correlations with each other (0.80-1.00)
+    Weak positive correlations between primary and differential metrics (0.05-0.39)
+    Demographic factors:
+    Age has a very weak negative correlation with primary_semantic (-0.02)
+    BMI has a very weak negative correlation with all primary metrics (-0.02 to -0.07)
+    Both age and BMI have negligible correlations with differential metrics (-0.10 to 0.06) Interpretation: The correlation matrix shows the relationships between different metrics and demographic factors. Primary_sequence, primary_rougeL, and primary_rouge1/2 have strong positive correlations with each other, while primary_bleu is less correlated with other metrics. Age and BMI have minimal correlations with the performance metrics, suggesting they have limited direct impact. The strong correlations among diff_rouge metrics indicate they measure similar aspects of performance.
+
+
+
+
+
+
 ---
