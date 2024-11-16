@@ -537,7 +537,6 @@ The overall purpose is to provide a detailed, multi-metric analysis of how simil
 
 
 ## Model Bias Checking
-## Model Bias Checking
 ![image](https://github.com/user-attachments/assets/689b35ec-f78d-4030-8ef7-24aee6284498)
 
 This heatmap shows the correlation between demographic factors (like age and BMI) and various metrics (`primary_semantic`, `primary_sequence`, `primary_bleu`, `primary_rouge`, and their differences). Strong positive correlations are seen among `primary_rouge` metrics (e.g., `primary_rouge1` and `primary_rougeL`) and among `diff_rouge` metrics. `primary_semantic` moderately correlates with `primary_sequence` and `primary_rouge`. Age and BMI show negligible correlations with the other metrics, indicating minimal dependency on demographic factors.
