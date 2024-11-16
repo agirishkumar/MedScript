@@ -389,13 +389,8 @@ Each task has a "success" status, indicated by the green outline and check mark.
 
 ## Model Development Process
 
-### 1. Model Selection
+### Overview
 - A pre-trained model, **`llama3-med42-8B`**, was selected from Google's Model Garden based on the experiments run locally and mlflow results.
-
-### 2. Model Validation
-- Validation was performed using predefined metrics to confirm that the model met the expected performance benchmarks.
-
-### 3. Pushing the Model to Artifact or Model Registry
 - After validation, the **`llama3-med42-8B`** model is deployed to **Google Cloud Platform (GCP)**.
 - An endpoint was created for the model using GCP's **Vertex AI** service to facilitate inference.
 
@@ -455,7 +450,7 @@ We conducted hyperparameter tuning through experimentation:
 4. **Selection**: The baseline configuration demonstrated optimal performance across these metrics and was selected for deployment.
 
 ---
-# Experiment Tracking for Med42
+# Experiment Tracking
 
 ## Experiment Setup
 
@@ -467,12 +462,8 @@ We conducted hyperparameter tuning through experimentation:
   - Initialization time, Generated token count, estimated word count, and inference time.
 
 ## Experiment Flow
-
-1. **Model Initialization**:
-    - The model is downloaded from the Hugging Face Hub and loaded using CPU offloading to manage memory efficiently.
-
-2. **Log Experiment Results**:
-    - Each experiment's hyperparameters and model metrics are logged in MLflow.
+- The model is downloaded from the Hugging Face Hub and loaded using CPU offloading to manage memory efficiently.
+- Each experiment's hyperparameters and model metrics are logged in MLflow.
 
 ## Results
 Based on the graphs showing **Initialization Time**, **Generated Token Count**, **Estimated Word Count**, and **Inference Time**, along with feedback from domain experts (doctors) regarding the quality and relevance of results, the baseline configuration was selected for deployment.
@@ -629,5 +620,30 @@ Key Relationships:
 
 
 
+
+---
+## Model Sensitivity Analysis
+### Hyperparameters Sensitivity Analysis Results
+
+Based on our experiments, the following observations were made:
+
+#### Key Findings
+1. **Initialization Time**:
+   - The baseline configuration minimized initialization time, showing stability across multiple runs.
+
+2. **Generated Token Count**:
+   - The baseline consistently produced an optimal token count for coherent and contextually rich outputs.
+
+3. **Estimated Word Count**:
+   - The word count remained balanced under the baseline configuration, ensuring concise yet comprehensive responses.
+
+4. **Inference Time**:
+   - The baseline achieved lower inference times compared to variations with higher temperatures or extreme `top_k` and `top_p` values.
+
+5. **Expert Feedback**:
+   - Doctors confirmed that the baseline produced the most contextually relevant and coherent responses among all configurations.
+
+#### Final Decision
+Considering the trade-offs in initialization time, token generation, inference time, and expert feedback, the **baseline configuration** was selected for deployment.
 
 ---
