@@ -60,7 +60,7 @@ entrypoints==0.4
 executing==2.1.0
 fastapi==0.115.3
 filelock==3.16.1
-Flask==3.0.3
+Flask==2.2.5
 flatten-dict==0.4.2
 flufl.lock==8.1.0
 fonttools==4.54.1
