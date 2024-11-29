@@ -18,7 +18,7 @@ jobs:
     - name: Set up Google Cloud authentication
       uses: google-github-actions/auth@v1
       with:
-        credentials_json: ${{ secrets.GCP_SERVICE_ACCOUNT_KEY }}
+        credentials_json: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
 
     - name: Configure Docker for Google Cloud
       run: |
