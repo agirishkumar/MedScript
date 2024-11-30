@@ -6,7 +6,7 @@ st.title("Welcome to MedScript")
 st.markdown("<h1 style='font-size: 29px;'>Patient Information Submission Form</h1>", unsafe_allow_html=True)
 
 st.markdown("""
-Please fill out the form below with your details. Fields marked with an asterisk (*) are required.
+Pleasee fill out the form below with your details. Fields marked with an asterisk (*) are required.
 """)
 
 # Streamlit form
