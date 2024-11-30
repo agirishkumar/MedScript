@@ -20,22 +20,31 @@ jobs:
       with:
         credentials_json: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
 
-    - name: Configure Docker for Google Cloud
+    - name: Authenticate with Artifact Registry
       run: |
-        gcloud auth configure-docker
+        gcloud auth activate-service-account --key-file=${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
+        gcloud auth configure-docker us-docker.pkg.dev
+
+    - name: Ensure Artifact Registry Repository Exists
+      run: |
+        gcloud artifacts repositories describe gcr.io --location=us || \
+        gcloud artifacts repositories create gcr.io \
+          --repository-format=DOCKER \
+          --location=us \
+          --description="Docker repository for streamlit app"
 
     - name: Build Docker image
       run: |
-        docker buildx build --platform linux/amd64 -f UI/Dockerfile -t gcr.io/medscript-437117/streamlit-app:latest UI
+        docker buildx build --platform linux/amd64 -f UI/Dockerfile -t us-docker.pkg.dev/medscript-437117/gcr.io/streamlit-app:latest UI
 
-    - name: Push Docker image to Google Container Registry
+    - name: Push Docker image to Google Artifact Registry
       run: |
-        docker push gcr.io/medscript-437117/streamlit-app:latest
+        docker push us-docker.pkg.dev/medscript-437117/gcr.io/streamlit-app:latest
 
     - name: Deploy to Cloud Run
       run: |
         gcloud run deploy streamlit-app \
-          --image gcr.io/medscript-437117/streamlit-app:latest \
+          --image us-docker.pkg.dev/medscript-437117/gcr.io/streamlit-app:latest \
           --platform managed \
           --region us-central1 \
           --allow-unauthenticated
