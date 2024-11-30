@@ -24,28 +24,6 @@ jobs:
       run: |
         gcloud auth configure-docker
 
-    - name: Ensure GCR repository exists
-      run: |
-        REPO_LOCATION="us"
-        PROJECT_ID="medscript-437117"
-        REPO_NAME="gcr.io"
-        
-        # Check if repository exists
-        REPO_EXISTS=$(gcloud artifacts repositories list \
-          --filter="name~${REPO_NAME}" \
-          --format="value(name)" \
-          --location=${REPO_LOCATION})
-        
-        if [[ -z "$REPO_EXISTS" ]]; then
-          echo "Repository does not exist. Creating..."
-          gcloud artifacts repositories create $REPO_NAME \
-            --repository-format=docker \
-            --location=$REPO_LOCATION \
-            --description="Docker repository for Streamlit app"
-        else
-          echo "Repository exists: $REPO_EXISTS"
-        fi
-
     - name: Build Docker image
       run: |
         docker buildx build --platform linux/amd64 -f UI/Dockerfile -t gcr.io/medscript-437117/streamlit-app:latest UI
