@@ -26,7 +26,7 @@ jobs:
 
     - name: Build Docker image
       run: |
-        docker buildx build --platform linux/amd64 -t gcr.io/medscript-437117/streamlit-app:latest .
+        docker buildx build --platform linux/amd64 -f UI/Dockerfile -t gcr.io/medscript-437117/streamlit-app:latest UI
 
     - name: Push Docker image to Google Container Registry
       run: |
