@@ -1,186 +1,3 @@
-# import json
-# import os
-# from google.cloud import aiplatform
-# from google.auth import credentials
-# from google.oauth2 import service_account
-# import concurrent.futures
-
-# class Med42Processor:
-#     def __init__(self):
-#         # Load credentials
-#         sa_path = "../data_pipeline/secrets/medscript-sa.json"
-#         self.credentials = service_account.Credentials.from_service_account_file(sa_path)
-        
-#         # Endpoint configurations
-#         self.endpoints = {
-#             "odd": {
-#                 "project": "946534278700",
-#                 "endpoint_id": "8522239860101087232",
-#                 "location": "us-east4"
-#             },
-#             "even": {
-#                 "project": "946534278700",
-#                 "endpoint_id": "6570031676217360384",
-#                 "location": "us-central1"
-#             }
-#         }
-        
-#         self.init_endpoints()
-
-#     def init_endpoints(self):
-#         # Initialize endpoints
-#         for config in self.endpoints.values():
-#             aiplatform.init(
-#                 project=config["project"],
-#                 location=config["location"],
-#                 credentials=self.credentials
-#             )
-
-#     def format_prompt(self, patient_record):
-#         """Format the patient record into a concise prompt"""
-#         prompt = f"""Patient Information:
-# Gender: {patient_record['Gender']}
-# Age: {patient_record['Age']}
-# Symptoms: {patient_record['Detailed symptoms']}
-# Duration: {patient_record['Duration of the symptoms']}
-# Severity: {patient_record['Severity']}
-# Medical History: {patient_record['Existing medical conditions']}
-# Medications: {patient_record['Current medications']}
-# Allergies: {patient_record['Allergies']}
-
-# Based on the above information, provide a detailed diagnosis report following this exact structure:
-# #Diagnosis Report
-# ## Possible Diagnoses
-# - Primary Diagnosis:
-# - Differential Diagnoses:
-# ## Reasoning Process
-# ## Recommended Tests or Examinations
-# ## Potential Treatment Options
-# ## Immediate Precautions or Recommendations
-# ## Follow-up Plan"""
-#         return prompt
-
-#     def call_endpoint(self, endpoint_type, instance):
-#         """Call the appropriate endpoint based on patient ID"""
-#         config = self.endpoints[endpoint_type]
-        
-#         endpoint = aiplatform.Endpoint(
-#             endpoint_name=f"projects/{config['project']}/locations/{config['location']}/endpoints/{config['endpoint_id']}"
-#         )
-        
-#         response = endpoint.predict(instances=[{"prompt": instance}])
-#         return response.predictions[0]
-
-#     def process_record(self, record):
-#         """Process a single patient record"""
-#         patient_id = int(record["patientId"])
-#         endpoint_type = "odd" if patient_id % 2 != 0 else "even"
-        
-#         # Format the prompt
-#         prompt = self.format_prompt(record["patientRecord"])
-        
-#         try:
-#             # Get model prediction
-#             med42_response = self.call_endpoint(endpoint_type, prompt)
-            
-#             # Parse the response using the existing diagnosis report parser
-#             med42_diagnosis = parse_diagnosis_report(med42_response)
-            
-#             # Add the med42 diagnosis to the record
-#             record["med42_diagnosis"] = med42_diagnosis
-            
-#             return record
-#         except Exception as e:
-#             print(f"Error processing patient ID {patient_id}: {str(e)}")
-#             return None
-
-#     def process_all_records(self):
-#         """Process all records in the JSON file"""
-#         # Load records
-#         with open("records.json", "r") as f:
-#             records = json.load(f)
-        
-#         updated_records = []
-        
-#         # Process records in parallel
-#         with concurrent.futures.ThreadPoolExecutor(max_workers=5) as executor:
-#             future_to_record = {executor.submit(self.process_record, record): record 
-#                               for record in records}
-            
-#             for future in concurrent.futures.as_completed(future_to_record):
-#                 record = future_to_record[future]
-#                 try:
-#                     processed_record = future.result()
-#                     if processed_record:
-#                         updated_records.append(processed_record)
-#                 except Exception as e:
-#                     print(f"Error processing record {record['patientId']}: {str(e)}")
-
-#         # Save updated records
-#         with open("records_with_med42.json", "w") as f:
-#             json.dump(updated_records, f, indent=4)
-
-# def parse_diagnosis_report(text):
-#     """Parse the diagnosis report text into structured format"""
-#     diagnosis_report = {
-#         "Possible Diagnoses": {
-#             "Primary Diagnosis": "",
-#             "Differential Diagnoses": []
-#         },
-#         "Reasoning Process": "",
-#         "Recommended Tests or Examinations": "",
-#         "Potential Treatment Options": "",
-#         "Immediate Precautions or Recommendations": "",
-#         "Follow-up Plan": ""
-#     }
-    
-#     sections = text.split('#')
-    
-#     for section in sections:
-#         section = section.strip()
-#         if not section:
-#             continue
-            
-#         if section.startswith('Possible Diagnoses'):
-#             lines = section.split('\n')
-#             for line in lines:
-#                 if "Primary Diagnosis:" in line:
-#                     diagnosis = line.split("Primary Diagnosis:", 1)[1]
-#                     diagnosis_report["Possible Diagnoses"]["Primary Diagnosis"] = (
-#                         diagnosis.replace('**', '').strip()
-#                     )
-#                 elif "Differential Diagnoses:" in line:
-#                     diagnoses = line.split("Differential Diagnoses:", 1)[1]
-#                     diff_list = [d.replace('**', '').strip() 
-#                                for d in diagnoses.split(',')]
-#                     diagnosis_report["Possible Diagnoses"]["Differential Diagnoses"] = diff_list
-                    
-#         elif section.startswith('Reasoning Process'):
-#             content = section.replace('Reasoning Process', '').strip()
-#             diagnosis_report["Reasoning Process"] = content.replace('**', '')
-            
-#         elif section.startswith('Recommended Tests'):
-#             content = section.replace('Recommended Tests or Examinations', '').strip()
-#             diagnosis_report["Recommended Tests or Examinations"] = content.replace('**', '')
-            
-#         elif section.startswith('Potential Treatment'):
-#             content = section.replace('Potential Treatment Options', '').strip()
-#             diagnosis_report["Potential Treatment Options"] = content.replace('**', '')
-            
-#         elif section.startswith('Immediate Precautions'):
-#             content = section.replace('Immediate Precautions or Recommendations', '').strip()
-#             diagnosis_report["Immediate Precautions or Recommendations"] = content.replace('**', '')
-            
-#         elif section.startswith('Follow-up Plan'):
-#             content = section.replace('Follow-up Plan', '').strip()
-#             diagnosis_report["Follow-up Plan"] = content.replace('**', '')
-    
-#     return diagnosis_report
-
-# if __name__ == "__main__":
-#     processor = Med42Processor()
-#     processor.process_all_records()
-
 import json
 import os
 from google.cloud import aiplatform
@@ -199,12 +16,12 @@ class Med42Processor:
         self.endpoints = {
             "odd": {
                 "project": "946534278700",
-                "endpoint_id": "8522239860101087232",
+                "endpoint_id": "3242191509474246656",
                 "location": "us-east4"
             },
             "even": {
                 "project": "946534278700",
-                "endpoint_id": "6570031676217360384",
+                "endpoint_id": "7612359903255986176",
                 "location": "us-central1"
             }
         }
@@ -467,8 +284,10 @@ Use only the sections listed above. Format using markdown with dashes (-) for li
         print(f"- Total records processed: {total_processed}")
         print(f"- Results saved to: {output_file}")
 
-    def process_all_records(self):
+    def process_all_records_parllel(self):
         """Process all records in parallel"""
+
+        
         # Load all records
         with open("records.json", "r") as f:
             all_records = json.load(f)
@@ -572,8 +391,8 @@ Use only the sections listed above. Format using markdown with dashes (-) for li
             print(f"✗ Error processing patient ID {patient_id}: {str(e)}")
         return False
 
-    def process_all_records(self, start_id=1000, end_id=368):
-        """Process records from start_id to end_id in descending order"""
+    def process_all_records(self, start_id=1, end_id=1000):
+        """Process records from start_id to end_id in ascending order"""
         try:
             # Load all records
             with open("records.json", "r") as f:
@@ -589,13 +408,13 @@ Use only the sections listed above. Format using markdown with dashes (-) for li
                     except json.JSONDecodeError:
                         processed_ids = set()
             
-            # Filter and sort records in reverse order
+            # Filter and sort records 
             records_to_process = [
                 r for r in all_records 
                 if (str(r['patientId']) not in processed_ids and 
                     end_id <= int(r['patientId']) <= start_id)
             ]
-            records_to_process.sort(key=lambda x: int(x['patientId']), reverse=True)
+            records_to_process.sort(key=lambda x: int(x['patientId']), reverse=False)
             
             print(f"\nTotal records to process: {len(records_to_process)}")
             print(f"Already processed: {len(processed_ids)}")
@@ -636,7 +455,7 @@ Use only the sections listed above. Format using markdown with dashes (-) for li
 if __name__ == "__main__":
     processor = Med42Processor()
     # processor.process_single_patient(1)
-    # processor.process_all_records()
-    processor.process_all_records(start_id=1000, end_id=368)
+    processor.process_all_records_parllel()
+    # processor.process_all_records(start_id=1, end_id=1000)
 
 
