@@ -24,14 +24,6 @@ jobs:
       run: |
         gcloud auth configure-docker us-docker.pkg.dev --quiet
 
-    - name: Ensure Artifact Registry Repository Exists
-      run: |
-        gcloud artifacts repositories describe gcr.io --location=us || \
-        gcloud artifacts repositories create gcr.io \
-          --repository-format=DOCKER \
-          --location=us \
-          --description="Docker repository for streamlit app"
-
     - name: Build Docker image
       run: |
         docker buildx build --platform linux/amd64 -f UI/Dockerfile -t us-docker.pkg.dev/medscript-437117/gcr.io/streamlit-app:latest UI
