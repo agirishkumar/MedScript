@@ -26,16 +26,16 @@ jobs:
 
     - name: Build Docker image
       run: |
-        docker build -t gcr.io/${{ secrets.GCP_PROJECT_ID }}/streamlit-app:latest .
+        docker buildx build --platform linux/amd64 -t gcr.io/medscript-437117/streamlit-app:latest .
 
     - name: Push Docker image to Google Container Registry
       run: |
-        docker push gcr.io/${{ secrets.GCP_PROJECT_ID }}/streamlit-app:latest
+        docker push gcr.io/medscript-437117/streamlit-app:latest
 
     - name: Deploy to Cloud Run
       run: |
         gcloud run deploy streamlit-app \
-          --image gcr.io/${{ secrets.GCP_PROJECT_ID }}/streamlit-app:latest \
+          --image gcr.io/medscript-437117/streamlit-app:latest \
           --platform managed \
           --region us-central1 \
           --allow-unauthenticated
