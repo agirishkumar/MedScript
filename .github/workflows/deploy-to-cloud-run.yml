@@ -20,11 +20,6 @@ jobs:
       with:
         credentials_json: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
 
-    - name: Print credentials JSON (for debugging purposes)
-      run: |
-        echo "${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}" > credentials.json
-        cat credentials.json
-
     - name: Docker auth
       run: |
         gcloud auth configure-docker us-docker.pkg.dev --quiet
