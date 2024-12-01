@@ -5,7 +5,9 @@ on:
     paths:
       - 'UI/**'
     branches:
-      - '*'
+      - feature/UI-deploy
+      - dev
+      - main
 
 jobs:
   deploy:
