@@ -1,0 +1,43 @@
+name: Deploy Streamlit App to GCP
+
+on:
+  push:
+    paths:
+      - 'UI/**'
+    branches:
+      - feature/UI-deploy
+      - dev
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Check out the code
+      uses: actions/checkout@v2
+
+    - name: Set up Google Cloud authentication
+      uses: google-github-actions/auth@v1
+      with:
+        credentials_json: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
+
+    - name: Docker auth
+      run: |
+        gcloud auth configure-docker us-docker.pkg.dev --quiet
+
+    - name: Build Docker image
+      run: |
+        docker buildx build --platform linux/amd64 -f UI/Dockerfile -t us-docker.pkg.dev/medscript-437117/gcr.io/streamlit-app:latest UI
+
+    - name: Push Docker image to Google Artifact Registry
+      run: |
+        docker push us-docker.pkg.dev/medscript-437117/gcr.io/streamlit-app:latest
+
+    - name: Deploy to Cloud Run
+      run: |
+        gcloud run deploy streamlit-app \
+          --image us-docker.pkg.dev/medscript-437117/gcr.io/streamlit-app:latest \
+          --platform managed \
+          --region us-central1 \
+          --allow-unauthenticated
