@@ -1,4 +1,4 @@
-name: Deploy Streamlit App to GCP
+name: Deploy Streamlit App to GCP Cloud Run
 
 on:
   push:

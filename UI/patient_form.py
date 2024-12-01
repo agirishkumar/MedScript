@@ -36,7 +36,7 @@ with st.form(key='patient_form'):
     # Confirmation on submission
     if submitted:
         if gender == "Select" or blood_type == "Select":
-            st.error("Please fill out all required fields correctly.")
+            st.error("Please fill out all required fields correctly")
         else:
             st.success("Form submitted successfully!")
             st.write("Here are the details you submitted:")
