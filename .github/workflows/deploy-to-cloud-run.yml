@@ -46,5 +46,5 @@ jobs:
       if: failure()
       run: |
         curl -X POST -H 'Content-type: application/json' \
-        --data '{"text": "Deployment failed for branch ${{ github.ref }}"}' \
+        --data '{"text": "Deployment failed for branch"}' \
         https://hooks.slack.com/services/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
