@@ -45,7 +45,6 @@ jobs:
     - name: Notify Slack on failure
       if: failure()
       run: |
-        DATE_TIME=$(date)
         curl -X POST -H 'Content-type: application/json' \
-        --data '{"text": "Deployment failed for branch ${{ github.ref }}. Here are the details:\n\n Branch: ${{ github.ref }}\n Commit: ${{ github.sha }}\n Author: ${{ github.actor }}\n Date and Time: ${{DATE_TIME}}\n"}' \
+        --data '{"text": "Deployment failed for branch ${{ github.ref }}. Here are the details:\n\n Branch: ${{ github.ref }}\n Commit: ${{ github.sha }}\n Author: ${{ github.actor }}\n"}' \
         ${{ secrets.SLACK_WEBHOOK_URL }}
