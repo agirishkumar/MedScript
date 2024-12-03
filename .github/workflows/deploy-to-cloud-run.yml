@@ -47,4 +47,4 @@ jobs:
       run: |
         curl -X POST -H 'Content-type: application/json' \
         --data '{"text": "Deployment failed for branch"}' \
-        https://hooks.slack.com/services/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
+        ${{ secrets.SLACK_WEBHOOK_URL }}
