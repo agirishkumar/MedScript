@@ -37,7 +37,14 @@ jobs:
     - name: Deploy to Cloud Run
       run: |
         gcloud run deploy streamlit-app \
-          --image us-docker.pkg.dev/medscript-437117/gcr.io/streamlit-app:latest \
+          --image us-docker.pkg.dev/medscript-43711756/gcr.io/streamlit-app:latest \
           --platform managed \
           --region us-central1 \
           --allow-unauthenticated
+
+    - name: Notify Slack on failure
+      if: failure()
+      run: |
+        curl -X POST -H 'Content-type: application/json' \
+        --data '{"text": "Deployment failed for branch ${{ github.ref }}"}' \
+        https://hooks.slack.com/services/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
