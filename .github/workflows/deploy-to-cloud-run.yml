@@ -46,9 +46,11 @@ jobs:
       if: failure()
       run: |
         curl -X POST -H 'Content-type: application/json' \
-        --data '{ "text": "Deployment failed for branch ${{ github.ref }}. Here are the details:\n\n" \
-        "Branch: ${{ github.ref }}\n" \
-        "Commit: ${{ github.sha }}\n" \
-        "Author: ${{ github.actor }}\n" \
-        "Date and Time: $(date)\n"}' \
+        --data '{ 
+          "text": "Deployment failed for branch ${{ github.ref }}. Here are the details:\n\n\
+          Branch: ${{ github.ref }}\n\
+          Commit: ${{ github.sha }}\n\
+          Author: ${{ github.actor }}\n\
+          Date and Time: $(date)\n"
+        }' \
         ${{ secrets.SLACK_WEBHOOK_URL }}
