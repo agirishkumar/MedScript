@@ -43,7 +43,7 @@ jobs:
           --allow-unauthenticated
 
     - name: Notify Slack on failure
-      if: failure()
+      if: failure() # on failure
       run: |
         curl -X POST -H 'Content-type: application/json' \
         --data '{"text": "Deployment failed for branch"}' \
