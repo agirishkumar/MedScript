@@ -21,5 +21,6 @@ This pipeline ensures that any updates to the `UI/` directory in the specified b
 ### Slack Alert Notification Integration
 
 We’ve integrated Slack alert notifications into the deployment pipeline to keep developers informed about deployment failures. If a deployment fails, an alert is sent to a specified Slack channel with details including the branch, commit and author. Slack notifications are triggered through a webhook and provide real-time information about the deployment status. Screenshot of sample notification is below:
-![Uploading Screenshot 2024-12-03 at 6.37.47 PM.png…]()
+<img width="1280" alt="Screenshot 2024-12-03 at 6 37 47 PM" src="https://github.com/user-attachments/assets/ca66cb1f-8871-4695-89b6-52db59ccdbe9">
+
 
