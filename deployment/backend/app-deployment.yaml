@@ -1,0 +1,57 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: medscript
+  name: gke-backend
+spec:
+  selector:
+    matchLabels:
+      app: gke-fast-api-app
+  template:
+    metadata:
+      labels:
+        app: gke-fast-api-app
+    spec:
+      serviceAccountName: ksa-medscript
+      containers:
+        - name: gke-fast-api-app
+          image: gcr.io/medscript-437117/fast-api-backend:latest
+          ports:
+          - containerPort: 8000
+          env:
+            - name: DB_HOST
+              value: "127.0.0.1"
+            - name: DB_PORT
+              value: "5432"
+            - name: DB_USER
+              valueFrom:
+                secretKeyRef:
+                  name: gke-fastapi-secrets
+                  key: username
+            - name: DB_PASS
+              valueFrom:
+                secretKeyRef:
+                  name: gke-fastapi-secrets
+                  key: password
+            - name: DB_NAME
+              valueFrom:
+                secretKeyRef:
+                  name: gke-fastapi-secrets
+                  key: database
+            - name: JWT_SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: gke-fastapi-secrets
+                  key: jwt_secret_key
+            - name: JWT_REFRESH_SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: gke-fastapi-secrets
+                  key: jwt_refresh_secret_key
+        - name: cloud-sql-proxy
+          image: gcr.io/cloud-sql-connectors/cloud-sql-proxy:latest
+          args:
+            - "--port=5432"
+            - "medscript-437117:us-east4:medscript-db-1"
+          securityContext:
+            runAsNonRoot: true

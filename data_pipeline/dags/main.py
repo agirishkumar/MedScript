@@ -10,11 +10,11 @@ from airflow.operators.email import EmailOperator
 from airflow.operators.trigger_dagrun import TriggerDagRunOperator
 from airflow.utils.trigger_rule import TriggerRule
 from datetime import datetime, timedelta
-from src.base import *
+from base import *
 
 # define the arguments for the DAG
 default_args = {
-    'retries': 5,
+    'retries': 3,
     'retry_delay': timedelta(minutes=1)
 }
 
@@ -24,9 +24,25 @@ dag = DAG(
     default_args = default_args,
     description='A DAG to fetch data from api endpoints, preprocess and query the vector database to generate a prompt',
     start_date = datetime(2024, 11, 1, 2),
+    catchup = False
 )
 
-# TASKS
+# def process_data(**kwargs):
+#     conf = kwargs.get('dag_run').conf
+#     id = conf.get('patient_id', '9')
+#     print("Patient ID:", id)
+#     return id
+
+# # TASKS
+
+# # Fetch patient ID
+# process_patient_id = PythonOperator(
+#     task_id="process_patient_id",
+#     python_callable=process_data,
+#     provide_context = True,
+#     dag=dag
+# )
+
 # TASK 1: Fetch patient summary
 load_data_task = PythonOperator(
     task_id="load_data_task",
@@ -59,4 +75,4 @@ generate_prompt_task = PythonOperator(
     dag=dag
 )
 
-load_data_task >> data_preprocessing_task >>query_vector_database_task  >> generate_prompt_task
+load_data_task >> data_preprocessing_task >> query_vector_database_task  >> generate_prompt_task
