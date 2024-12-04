@@ -16,8 +16,8 @@ from data_pipeline.dags.constants import QDRANT_COLLECTION, QDRANT_PORT, VECTORS
 from data_pipeline.dags.create_embedding import embed
 import torch
 import os
-from add_to_vectorstore import get_qdrant_instance_ip
-from logger import logger
+from data_pipeline.dags.add_to_vectorstore import get_qdrant_instance_ip
+from data_pipeline.dags.logger import logger
 
 class VectorStore():
     def __new__(cls, *args, **kw):
@@ -34,12 +34,12 @@ class VectorStore():
         self.tokenizer = BertTokenizer.from_pretrained(self.pretrained_model_str)
         self.model = BertModel.from_pretrained(self.pretrained_model_str)
 
-    def get_relevant_records(self, query: str, top_k: int = 3):
+    def get_relevant_records(self, query: str, top_k: int = 3, device="cpu"):
         if not self.validate_collection():
             return []
         
         # Generate the query embedding
-        query_embedding = embed(query, self.tokenizer, self.model, device="cpu")
+        query_embedding = embed(query, self.tokenizer, self.model, device=device)
         logger.info("Query embedding generated successfully.")
         
         query_embedding = query_embedding.flatten().tolist()
