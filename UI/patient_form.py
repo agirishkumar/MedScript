@@ -1,5 +1,4 @@
 import streamlit as st
-from generate_patient_report_pdf import create_pdf
 
 st.title("Welcome to MedScript")
 # Streamlit application
@@ -61,17 +60,7 @@ st.header("Diagnostic Report")
 
 # Button to view diagnostic report
 if st.button("View Diagnostic Report"):
-    try:
-        pdf = create_pdf()
-        st.download_button(
-            label="Download PDF",
-            data=pdf,
-            file_name="diagnostic_report.pdf",
-            mime="application/pdf"
-        )
-    except Exception as e:
-        print(f"An error occured: {e}")
-    # st.write("Diagnostic report is not yet available. Please contact your healthcare provider.")
+    st.write("Diagnostic report is not yet available. Please contact your healthcare provider.")
 
 st.subheader("Diagnosis")
 primary_diagnosis = st.text_area("Primary Diagnosis", placeholder="Enter the primary diagnosis...", height=150)
