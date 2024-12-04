@@ -1,17 +1,37 @@
 import streamlit as st
 import requests
+from dotenv import load_dotenv
+import os
 
-# Function to send data to the API
-def send_data_to_api(payload):
-    api_url = "http://35.188.123.19/docs"
+load_dotenv()
+
+api_base_url = os.getenv("API_BASE_URL")
+
+# Function to send patient details to the API
+def send_patient_details(payload):
+    api_url = f"{api_base_url}/api/v1/patient_details"
     try:
         response = requests.post(api_url, json=payload)
         if response.status_code == 200:
-            return True, "Data submitted successfully!"
+            return True, response.json()['PatientID']
         else:
-            return False, f"Failed to submit data. Error: {response.text}"
+            return False, f"Failed to submit patient details. Error: {response.text}"
     except Exception as e:
         return False, f"An error occurred: {str(e)}"
+
+
+# Function to send symptoms to the API
+def send_patient_symptoms(payload):
+    api_url = f"{api_base_url}/api/v1/patient_symptoms"
+    try:
+        response = requests.post(api_url, json=payload)
+        if response.status_code == 200:
+            return True, "Symptoms submitted successfully!"
+        else:
+            return False, f"Failed to submit symptoms. Error: {response.text}"
+    except Exception as e:
+        return False, f"An error occurred: {str(e)}"
+
 
 st.title("Welcome to MedScript")
 
@@ -27,8 +47,13 @@ Please fill out the form below with your details. Fields marked with an asterisk
 with st.form(key='patient_form'):
     # Basic Information
     st.header("Basic Information")
+    first_name = st.text_input("First Name*", max_chars=50)
+    last_name = st.text_input("Last Name*", max_chars=50)
+    dob = st.date_input("Date of Birth*", max_value=None)
     gender = st.selectbox("Gender*", ["Select", "Male", "Female"])
-    age = st.number_input("Age*", min_value=0, max_value=120, step=1)
+    contact_number = st.text_input("Contact Number*", max_chars=15)
+    email = st.text_input("Email*", max_chars=100)
+    address = st.text_area("Address*", max_chars=255)
     height = st.number_input("Height (cm)*", min_value=0.0, step=0.1, format="%.1f")
     weight = st.number_input("Weight (kg)*", min_value=0.0, step=0.1, format="%.1f")
     blood_type = st.selectbox("Blood Type*", ["Select", "A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"])
@@ -37,49 +62,61 @@ with st.form(key='patient_form'):
     st.header("Medical Details")
     symptoms = st.text_area("Detailed Symptoms*", placeholder="Describe your symptoms in detail...")
     severity = st.text_area("Severity of your case*", placeholder="Describe the severity of your case")
-    existing_conditions = st.text_area("Existing Medical Conditions", placeholder="List any pre-existing medical conditions...")
+    existing_conditions = st.text_area("Existing Medical Conditions",
+                                       placeholder="List any pre-existing medical conditions...")
     allergies = st.text_area("Allergies", placeholder="List any allergies...")
     current_medications = st.text_area("Current Medications", placeholder="List any current medications...")
 
-    # Previous Visits
-    previous_visits = st.number_input("Number of Previous Visits*", min_value=0, step=1)
-
     # Form Submission
     submitted = st.form_submit_button("Submit")
-    
+
     # Confirmation on submission
     if submitted:
-        if gender == "Select" or blood_type == "Select":
+        if not (first_name and last_name and gender != "Select" and blood_type != "Select"):
             st.error("Please fill out all required fields correctly")
         else:
-            payload = {
+            patient_payload = {
+                "FirstName": first_name,
+                "LastName": last_name,
+                "DateOfBirth": dob.isoformat(),
                 "Gender": gender,
-                "Age": age,
-                "Height (cm)": height,
-                "Weight (kg)": weight,
-                "Blood Type": blood_type if blood_type != "Select" else "Not provided",
-                "Symptoms": symptoms,
-                "Severity": severity,
-                "Existing Medical Conditions": existing_conditions,
-                "Allergies": allergies,
-                "Current Medications": current_medications,
-                "Number of Previous Visits": previous_visits,
+                "ContactNumber": contact_number,
+                "Email": email,
+                "Address": address,
+                "Height": height,
+                "Weight": weight,
+                "BloodType": blood_type
             }
 
-            success, message = send_data_to_api(payload)
+            # Send patient details first
+            success, message = send_patient_details(patient_payload)
             if success:
-                st.success(message)
+                patient_id = message  # Extract PatientID from the response
+                st.success(f"Patient details submitted successfully! Patient ID: {patient_id}")
+
+                # Now, create the symptoms payload with associated conditions
+                symptoms_payload = {
+                    "PatientID": patient_id,
+                    "SymptomDescription": symptoms,
+                    "Severity": severity,
+                    "AssociatedConditions": f"Existing Conditions: {existing_conditions}, Allergies: {allergies}, Medications: {current_medications}",
+                }
+
+                # Send patient symptoms
+                success, message = send_patient_symptoms(symptoms_payload)
+                if success:
+                    st.success(message)
+                else:
+                    st.error(message)
             else:
                 st.error(message)
 
 st.markdown("---")
 st.header("Diagnostic Report")
 
-
 # Display Primary Diagnosis
 primary_diagnosis = "Primary Diagnosis: Example diagnosis text goes here."
 st.text(primary_diagnosis)
-
 
 # Button to view diagnostic report
 if st.button("Download Diagnostic Report"):
