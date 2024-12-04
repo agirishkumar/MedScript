@@ -1,6 +1,20 @@
 import streamlit as st
+import requests
+
+# Function to send data to the API
+def send_data_to_api(payload):
+    api_url = "http://35.188.123.19/docs"
+    try:
+        response = requests.post(api_url, json=payload)
+        if response.status_code == 200:
+            return True, "Data submitted successfully!"
+        else:
+            return False, f"Failed to submit data. Error: {response.text}"
+    except Exception as e:
+        return False, f"An error occurred: {str(e)}"
 
 st.title("Welcome to MedScript")
+
 # Streamlit application
 
 st.markdown("<h1 style='font-size: 29px;'>Patient Information Submission Form</h1>", unsafe_allow_html=True)
@@ -13,7 +27,7 @@ Please fill out the form below with your details. Fields marked with an asterisk
 with st.form(key='patient_form'):
     # Basic Information
     st.header("Basic Information")
-    gender = st.selectbox("Gender*", ["Select", "Male", "Female", "Other"])
+    gender = st.selectbox("Gender*", ["Select", "Male", "Female"])
     age = st.number_input("Age*", min_value=0, max_value=120, step=1)
     height = st.number_input("Height (cm)*", min_value=0.0, step=0.1, format="%.1f")
     weight = st.number_input("Weight (kg)*", min_value=0.0, step=0.1, format="%.1f")
@@ -22,7 +36,7 @@ with st.form(key='patient_form'):
     # Medical Details
     st.header("Medical Details")
     symptoms = st.text_area("Detailed Symptoms*", placeholder="Describe your symptoms in detail...")
-    severity = st.slider("Severity*", min_value=1, max_value=10, step=1, help="Rate the severity of your symptoms on a scale of 1 to 10.")
+    severity = st.text_area("Severity of your case*", placeholder="Describe the severity of your case")
     existing_conditions = st.text_area("Existing Medical Conditions", placeholder="List any pre-existing medical conditions...")
     allergies = st.text_area("Allergies", placeholder="List any allergies...")
     current_medications = st.text_area("Current Medications", placeholder="List any current medications...")
@@ -38,30 +52,35 @@ with st.form(key='patient_form'):
         if gender == "Select" or blood_type == "Select":
             st.error("Please fill out all required fields correctly.")
         else:
-            st.success("Form submitted successfully!")
-            st.write("Here are the details you submitted:")
-            st.json({
+            payload = {
                 "Gender": gender,
                 "Age": age,
                 "Height (cm)": height,
                 "Weight (kg)": weight,
-                "Blood Type": blood_type,
+                "Blood Type": blood_type if blood_type != "Select" else "Not provided",
                 "Symptoms": symptoms,
                 "Severity": severity,
                 "Existing Medical Conditions": existing_conditions,
                 "Allergies": allergies,
                 "Current Medications": current_medications,
                 "Number of Previous Visits": previous_visits,
-            })
+            }
 
+            success, message = send_data_to_api(payload)
+            if success:
+                st.success(message)
+            else:
+                st.error(message)
 
 st.markdown("---")
 st.header("Diagnostic Report")
 
-# Button to view diagnostic report
-if st.button("View Diagnostic Report"):
-    st.write("Diagnostic report is not yet available. Please contact your healthcare provider.")
 
-st.subheader("Diagnosis")
-primary_diagnosis = st.text_area("Primary Diagnosis", placeholder="Enter the primary diagnosis...", height=150)
-differential_diagnosis = st.text_area("Differential Diagnosis", placeholder="Enter the differential diagnosis...", height=150)
+# Display Primary Diagnosis
+primary_diagnosis = "Primary Diagnosis: Example diagnosis text goes here."
+st.text(primary_diagnosis)
+
+
+# Button to view diagnostic report
+if st.button("Download Diagnostic Report"):
+    st.write("Diagnostic report is not yet available. Please contact your healthcare provider.")
