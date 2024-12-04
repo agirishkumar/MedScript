@@ -37,7 +37,7 @@ jobs:
     - name: Deploy to Cloud Run
       run: |
         gcloud run deploy streamlit-app \
-          --image us-docker.pkg.dev/medscript-43711756/gcr.io/streamlit-app:latest \
+          --image us-docker.pkg.dev/medscript-437117/gcr.io/streamlit-app:latest \
           --platform managed \
           --region us-central1 \
           --allow-unauthenticated
