@@ -17,3 +17,7 @@ The CI/CD pipeline automates the deployment of the Streamlit application to Goog
    - The application is exposed to the internet and configured to allow unauthenticated access.
 
 This pipeline ensures that any updates to the `UI/` directory in the specified branches are automatically deployed to the production environment.
+
+### Slack Alert Notification Integration
+
+We’ve integrated Slack alert notifications into the deployment pipeline to keep developers informed about deployment failures. If a deployment fails, an alert is sent to a specified Slack channel with details including the branch, commit and author. Slack notifications are triggered through a webhook and provide real-time information about the deployment status. Screenshot of sample notification is below:
