@@ -8,16 +8,17 @@ from qdrant_client import QdrantClient
 from transformers import BertTokenizer, BertModel
 import sys
 import os
-current = os.path.dirname(os.path.realpath(__file__))
-gparent = os.path.dirname(os.path.dirname(current))
 
-sys.path.append(gparent)
-from data_pipeline.dags.constants import QDRANT_COLLECTION, QDRANT_PORT, VECTORSTORE_IP, EMBEDDING_MODEL_PATH,SERVICE_ACCOUNT_FILEPATH
-from data_pipeline.dags.create_embedding import embed
+# current = os.path.dirname(os.path.realpath(__file__))
+# gparent = os.path.dirname(os.path.dirname(current))
+
+# sys.path.append(gparent)
+from constants import QDRANT_COLLECTION, QDRANT_PORT, VECTORSTORE_IP, EMBEDDING_MODEL_PATH,SERVICE_ACCOUNT_FILEPATH
+from create_embedding import embed
 import torch
 import os
-from data_pipeline.dags.add_to_vectorstore import get_qdrant_instance_ip
-from data_pipeline.dags.logger import logger
+from add_to_vectorstore import get_qdrant_instance_ip
+from logger import logger
 
 class VectorStore():
     def __new__(cls, *args, **kw):
@@ -27,7 +28,7 @@ class VectorStore():
          return cls._instance
     
     def __init__(self):
-        os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = SERVICE_ACCOUNT_FILEPATH
+        # os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = SERVICE_ACCOUNT_FILEPATH
         self.client = QdrantClient(host=get_qdrant_instance_ip(), port=QDRANT_PORT)
         self.collection_name = QDRANT_COLLECTION
         self.pretrained_model_str = "microsoft/BiomedNLP-PubMedBERT-base-uncased-abstract"

@@ -137,21 +137,25 @@ with st.form(key='patient_form'):
 st.markdown("---")
 st.header("Diagnostic Report")
 
-# Display Primary Diagnosis
-primary_diagnosis = "Primary Diagnosis: Example diagnosis text goes here."
-st.text(primary_diagnosis)
+# # Display Primary Diagnosis
+# primary_diagnosis = "Primary Diagnosis: Example diagnosis text goes here."
+# st.text(primary_diagnosis)
 
-# Button to view diagnostic report
-if st.button("Download Diagnostic Report"):
+if st.button("Generate Diagnostic Report"):
     try:
+        # Create the PDF content
         pdf = create_pdf()
+
+        # Provide a download button for the generated PDF
         st.download_button(
-            label="Download PDF",
+            label="Download Diagnostic Report",
             data=pdf,
             file_name="diagnostic_report.pdf",
             mime="application/pdf"
         )
+
+        st.success("Diagnostic report generated successfully! Click the download button to save it.")
     except Exception as e:
-        print(f"An error occured: {e}")
-    # st.write("Diagnostic report is not yet available. Please contact your healthcare provider.")
-    st.write("Diagnostic report is not yet available. Please contact your healthcare provider.")
+        # Log the error and notify the user
+        st.error("An error occurred while generating the diagnostic report. Please try again.")
+        st.write(f"Error details: {str(e)}")
