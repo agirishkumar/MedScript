@@ -14,14 +14,14 @@ from transformers import BertTokenizer, BertModel
 import torch
 import sys
 import os
-current = os.path.dirname(os.path.realpath(__file__))
-gparent = os.path.dirname(os.path.dirname(current))
+# current = os.path.dirname(os.path.realpath(__file__))
+# gparent = os.path.dirname(os.path.dirname(current))
 
-sys.path.append(gparent)
-from data_pipeline.dags.constants import SERVICE_ACCOUNT_FILEPATH
+# sys.path.append(gparent)
+from constants import SERVICE_ACCOUNT_FILEPATH
 from tqdm import tqdm  
 import pandas as pd
-from data_pipeline.dags.logger import *
+from logger import *
 
 def get_embedding(text, tokenizer, model, device):
     """Generate embedding for a single text"""

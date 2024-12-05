@@ -2,8 +2,11 @@
 
 import streamlit as st
 import pages.patient_form as patient_form
+<<<<<<< HEAD
 from PIL import Image
 import base64
+=======
+>>>>>>> 2138f6a9a877100f42001d4731693e4f4edd8ea4
 
 # Set page configuration
 st.set_page_config(
@@ -12,6 +15,7 @@ st.set_page_config(
     layout="wide",
     initial_sidebar_state="collapsed",
 )
+<<<<<<< HEAD
 # Change the background color
 st.markdown(
     """
@@ -30,6 +34,12 @@ st.markdown(
             padding-left: 0rem;    
         }
 
+=======
+
+st.markdown(
+    """
+    <style>
+>>>>>>> 2138f6a9a877100f42001d4731693e4f4edd8ea4
         body {
             font-family: Arial, sans-serif;
             background-color: #0d1117;
@@ -116,6 +126,7 @@ st.markdown(
     unsafe_allow_html=True
 )
 
+<<<<<<< HEAD
 # Hero Section
 st.markdown("""
     <div class="header">
@@ -251,99 +262,79 @@ st.markdown(f"""
 #     MIMIC-IV making it highly reliable and credible.
 #     """
 # )
+=======
+# Initialize session state
+if "current_page" not in st.session_state:
+    st.session_state["current_page"] = "home"
 
-steps = [
-    "1️⃣ **Input patient details and symptoms.**",
-    "2️⃣ **AI analyzes data and retrieves relevant context.**",
-    "3️⃣ **Generates a diagnosis report for doctor review.**"
-]
-st.write("### Workflow")
-for step in steps:
-    st.markdown(step)
+def navigate_to(page_name):
+    st.session_state["current_page"] = page_name
+    st.experimental_rerun()
 
-st.markdown("---")
+# Render page based on session state
+if st.session_state["current_page"] == "home":
+    st.markdown("""
+        <div class="header">
+            <h1>MedScript-AI</h1>
+            <p>Revolutionizing Healthcare with AI-Driven Diagnosis</p>
+        </div>
+    """, unsafe_allow_html=True)
 
-st.page_link("pages/patient_form.py", label="Patient Form", icon="1️⃣")
+    st.header("What is MedScript AI?")
+    st.write(
+        """
+        **MedScript AI** is an innovative healthcare application that combines cutting-edge artificial intelligence 
+        with medical expertise. It takes in patient details, their current symptoms, and previous diagnoses to 
+        generate comprehensive diagnosis reports. These reports help doctors make quick and informed treatment decisions.
+        """
+    )
 
+    # Key Features Section
+    st.header("Key Features")
+    features = {
+        "📝 Patient Data Collection": "Easily capture and store patient symptoms and diagnoses.",
+        "💡 AI Diagnosis Reports": "Generate accurate, concise reports to aid in decision-making.",
+        "⏱️ Streamlined Workflow": "Save time and focus on delivering quality care."
+    }
+    for feature, description in features.items():
+        st.subheader(feature)
+        st.write(description)
 
-# # Sidebar Navigation
-# st.sidebar.title("Navigation")
-# page = st.sidebar.selectbox("Select a Page:", ["Home", "Patient Form"])
+    st.markdown("---")
 
+    # Benefits Section
+    st.header("Why Choose MedScript AI?")
+    benefits = [
+        "Faster diagnosis process for doctors.",
+        "Improved patient outcomes with timely treatments.",
+        "Simplified and streamlined healthcare workflows."
+    ]
+    for benefit in benefits:
+        st.markdown(f"- {benefit}")
 
+    st.markdown("---")
+>>>>>>> 2138f6a9a877100f42001d4731693e4f4edd8ea4
 
-# # Home Page
-# if page == "Home":
-#     # Add a header section with a background
-#     st.markdown(
-#         """
-#         <style>
-#         .header {
-#             background-color: #7CB9E8   ;
-#             padding: 100px;
-#             text-align: center;
-#             border-radius: 10px;
-#         }
-#         .header h1 {
-#             color: white;
-#             font-size: 6rem;
-#         }
-#         .header p {
-#             color: white;
-#             font-size: 2rem;
-#         }
-#         </style>
-#         <div class="header">
-#             <h1>MEDSCRIPT-AI</h1>
-#             <p>Where Medicine Meets AI</p>
-#         </div>
-#         """,
-#         unsafe_allow_html=True,
-#     )
+    # Technology Section
+    st.header("How MedScript AI Works")
+    st.write(
+        """
+        MedScript AI uses **Retrieval-Augmented Generation (RAG)** to provide additional context to its models,
+        ensuring accuracy and relevance in the generated reports. Our AI is trained on robust datasets like
+        MIMIC-III, ChestX-ray14, PTB-XL, and PubMed Central Open Access Subset, making it highly reliable and credible.
+        """
+    )
 
-#     # # Main content
-#     # col1, col2, col3 = st.columns([1, 2, 1])
-#     # with col2:
-#     #     st.image("https://via.placeholder.com/400", caption="Streamlit - Your Web Framework", use_column_width=True)
+    steps = [
+        "1️⃣ **Input patient details and symptoms.**",
+        "2️⃣ **AI analyzes data and retrieves relevant context.**",
+        "3️⃣ **Generates a diagnosis report for doctor review.**"
+    ]
+    st.write("### Workflow")
+    for step in steps:
+        st.markdown(step)
 
-#     st.markdown(
-#         """
-#         <h2 style="text-align: center;">Features of the Webpage.</h2>
-#         - 🎨 **Visually Engaging UI**: Designed to capture attention with smooth layouts and vivid colors.
-#         - ⚡ **Fast Loading**: Streamlit's optimized rendering makes this page highly responsive.
-#         - 🌐 **Interactive Elements**: Easily add widgets, inputs, and charts to enhance user experience.
+    st.markdown("---")
 
-#         ## Build Your Next Project
-#         - 🚀 Quickly develop dashboards
-#         - 🛠️ Integrate with powerful machine learning models
-#         - 📊 Visualize your data interactively
-#         """,
-#         unsafe_allow_html=True,
-#     )
-
-# # Patient Form Page
-# elif page == "Patient Form" or home == "Patient Form":
-#     patient_form.render()
-
-# # Footer
-# st.markdown(
-#     """
-#     <style>
-#     .footer {
-#         text-align: center;
-#         padding: 10px;
-#         background-color: #333;
-#         color: white;
-#         border-radius: 10px;
-#     }
-#     .footer p {
-#         margin: 0;
-#         font-size: 1rem;
-#     }
-#     </style>
-#     <div class="footer">
-#         <p>© 2024 Streamlit Webpage | Designed by Python</p>
-#     </div>
-#     """,
-#     unsafe_allow_html=True,
-# )
+elif st.session_state["current_page"] == "patient_form":
+    patient_form.render()

@@ -1,11 +1,15 @@
-FROM apache/airflow:2.10.2
+FROM apache/airflow:latest
 
-WORKDIR /opt/airflow
+WORKDIR ${AIRFLOW_HOME}
 
-# Install dependencies
+RUN mkdir -p ./dags
+RUN chmod -R 777 ./dags 
 
-COPY ../requirements.txt .
+COPY ../data_pipeline/dags/. ./dags/
 
+COPY ../deployment/airflow-requirements.txt .
+
+USER airflow
 RUN pip install --upgrade pip
 
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install --no-cache-dir -r airflow-requirements.txt

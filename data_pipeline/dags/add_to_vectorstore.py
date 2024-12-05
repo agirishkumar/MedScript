@@ -5,16 +5,18 @@ Uploads embeddings from Google Cloud Storage to Qdrant with batch processing and
 '''
 
 from googleapiclient import discovery
-from google.oauth2 import service_account
+# from google.oauth2 import service_account
+from google.auth import default
 from qdrant_client import QdrantClient, models
 import pandas as pd
 import sys
 import os
-current = os.path.dirname(os.path.realpath(__file__))
-gparent = os.path.dirname(os.path.dirname(current))
+from src.credential_helper import setup_google_credentials
+# current = os.path.dirname(os.path.realpath(__file__))
+# gparent = os.path.dirname(os.path.dirname(current))
 
-sys.path.append(gparent)
-from data_pipeline.dags.constants import (
+# sys.path.append(gparent)
+from constants import (
     MIMIC_DATASET_BUCKET_NAME, 
     QDRANT_COLLECTION, 
     QDRANT_PORT, 
@@ -152,7 +154,9 @@ def update_to_vectordb(qdrant_host):
     print("Uploaded Vector Points to VectorStore")
 
 def get_qdrant_instance_ip():
-    credentials = service_account.Credentials.from_service_account_file(SERVICE_ACCOUNT_FILEPATH)
+    # credentials = service_account.Credentials.from_service_account_file(SERVICE_ACCOUNT_FILEPATH)
+    setup_google_credentials()
+    credentials, _ = default()
     compute = discovery.build('compute', 'v1', credentials=credentials)
     instance = compute.instances().get(project=PROJECT_ID, zone=QDRANT_INSTANCE_ZONE, instance=QDRANT_INSTANCE_NAME).execute()
     ip_address = instance['networkInterfaces'][0]['accessConfigs'][0]['natIP']

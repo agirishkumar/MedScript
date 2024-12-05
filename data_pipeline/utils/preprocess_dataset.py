@@ -33,7 +33,7 @@ def get_section_names(dataset):
     """
     section_names = set()
     for text in dataset:
-        names = re.findall("<([\w{2,}\s]+)>", text)
+        names = re.findall(r"<([\w{2,}\s]+)>", text) 
         section_names.update(names)
 
     
@@ -52,7 +52,7 @@ def segment_by_sections(text, section_names):
     sections = {name: "None" for name in section_names}
     
     for tag in sections.keys():
-        pattern = f"<{tag.upper().replace('_', ' ')}> (.+?)(?=\s*<|$)"
+        pattern = fr"<{tag.upper().replace('_', ' ')}> (.+?)(?=\s*<|$)" 
         match = re.search(pattern, text, re.DOTALL)
         if match:
             sections[tag] = match.group(1).strip()

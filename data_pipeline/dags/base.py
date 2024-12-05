@@ -4,32 +4,14 @@
 
 import os
 import requests
-import json
+# import json
 from datetime import datetime
 from logger import logger
-from dotenv import load_dotenv
-load_dotenv()
+# from airflow.models import Variable
 
-BASE_API_URL = "http://fastapi:8000/"
-
-def get_latest_patient_id() -> int:
-    """
-    Fetches the latest patient ID from the API endpoint.
-    
-    Returns:
-        int: The latest patient ID
-        
-    Raises:
-        Exception: If the API call fails or returns no data
-    """
-    url = BASE_API_URL + "api/v1/latest_patient/id"
-    try:
-        response = get_data(url)
-        logger.info(f"Latest patient ID: {response}")
-        return response
-    except Exception as e:
-        logger.error(f"Failed to fetch latest patient ID: {str(e)}")
-        raise
+# BASE_API_URL = Variable.get("BASE_API_URL")
+BASE_API_URL = os.environ.get("BASE_API_URL")
+print(BASE_API_URL)
 
 def get_data(url: str) -> dict:
     """
@@ -233,10 +215,74 @@ def generate_prompt(query: str) -> str:
     """
 
     prompt = f"""{query}
-        Please provide a comprehensive diagnostic report, use the context if and only if it is relevant. following these steps:
+        Please provide a comprehensive diagnostic report following these steps:
         {report_template}
 
         Please fill in each section of the report template with relevant information based on the patient's symptoms and medical history. Provide clear and detailed explanations throughout your chain of reasoning."""
     
     return prompt
 
+# def check_hf_permissions():
+#     hf_home = os.getenv("HF_HOME", "/tmp/huggingface")
+#     print(f"Checking permissions for HF_HOME directory at: {hf_home}")
+#     if os.path.exists(hf_home):
+#         for root, dirs, files in os.walk(hf_home):
+#             print(f"\nDirectory: {root}")
+#             for name in files:
+#                 filepath = os.path.join(root, name)
+#                 try:
+#                     # Check read permission
+#                     with open(filepath, "rb") as f:  # Use "rb" for binary-safe mode
+#                         f.read(1024)  # Read first 1KB to confirm access
+#                     print(f"Read permission OK for file: {filepath}")
+#                 except PermissionError:
+#                     print(f"Permission error for file: {filepath}")
+#                 except UnicodeDecodeError:
+#                     print(f"File is binary, read as binary successful: {filepath}")
+#                 except Exception as e:
+#                     print(f"Unexpected error for file {filepath}: {e}")
+#     else:
+#         print(f"HF_HOME directory does not exist at {hf_home}")
+
+
+# def test_model_load():
+#     try:
+#         # Use the environment variable for HF_HOME as configured
+#         hf_home = os.getenv("HF_HOME", "/tmp/huggingface")
+#         print(f"Testing model load from HF_HOME: {hf_home}")
+        
+#         # Load tokenizer and model
+#         tokenizer = BertTokenizer.from_pretrained("microsoft/BiomedNLP-PubMedBERT-base-uncased-abstract")
+#         model = BertModel.from_pretrained("microsoft/BiomedNLP-PubMedBERT-base-uncased-abstract")
+
+#         # Test model by running a simple embedding operation
+#         inputs = tokenizer("Test sentence for loading model", return_tensors="pt")
+#         outputs = model(**inputs)
+
+#         # Check the shape of the output to ensure the model runs
+#         print(f"Model loaded successfully. Output shape: {outputs.last_hidden_state.shape}")
+#     except Exception as e:
+#         print(f"Model load test failed: {e}")
+
+# def check_hf_home():
+#     hf_home = os.getenv("HF_HOME", "/root/.cache/huggingface")  # default path if HF_HOME isn't set
+#     if os.path.exists(hf_home):
+#         print(f"Checking contents of HF_HOME directory at: {hf_home}")
+        
+#         for root, dirs, files in os.walk(hf_home):
+#             # Display the current directory
+#             print(f"\nDirectory: {root}")
+#             if not files and not dirs:
+#                 print("  (Empty)")
+            
+#             # List files with details
+#             for file in files:
+#                 file_path = os.path.join(root, file)
+#                 file_size = os.path.getsize(file_path)
+#                 print(f"  File: {file} | Size: {file_size / 1024:.2f} KB")
+                
+#             # List subdirectories
+#             for dir in dirs:
+#                 print(f"  Subdirectory: {dir}")
+#     else:
+#         print(f"HF_HOME directory does not exist at {hf_home}")
