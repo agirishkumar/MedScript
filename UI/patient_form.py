@@ -3,6 +3,8 @@ import requests
 from dotenv import load_dotenv
 import os
 
+from generate_patient_report_pdf import create_pdf
+
 from dotenv import load_dotenv
 from pydantic_settings import BaseSettings
 
@@ -21,21 +23,6 @@ settings = Settings()
 
 # Use the base URL in your code
 api_base_url = settings.API_BASE_URL
-
-# # load_dotenv(dotenv_path="MedScript/.env")
-# api_base_url = os.getenv("http://127.0.0.1:5000")
-
-# Function to send patient details to the API
-# def send_patient_details(payload):
-#     api_url = f"{settings.API_BASE_URL}/api/v1/patient_details"
-#     try:
-#         response = requests.post(api_url, json=payload)
-#         if response.status_code == 200:
-#             return True, response.json()['PatientID']
-#         else:
-#             return False, f"Failed to submit patient details. Error: {response.text}"
-#     except Exception as e:
-#         return False, f"An error occurred: {str(e)}"
 
 def send_patient_details(payload):
     api_url = f"{settings.API_BASE_URL}/api/v1/patient_details"
@@ -64,6 +51,7 @@ def send_patient_symptoms(payload):
     except Exception as e:
         return False, f"An error occurred: {str(e)}"
 
+from generate_patient_report_pdf import create_pdf
 
 st.title("Welcome to MedScript")
 
@@ -153,4 +141,15 @@ st.text(primary_diagnosis)
 
 # Button to view diagnostic report
 if st.button("Download Diagnostic Report"):
+    try:
+        pdf = create_pdf()
+        st.download_button(
+            label="Download PDF",
+            data=pdf,
+            file_name="diagnostic_report.pdf",
+            mime="application/pdf"
+        )
+    except Exception as e:
+        print(f"An error occured: {e}")
+    # st.write("Diagnostic report is not yet available. Please contact your healthcare provider.")
     st.write("Diagnostic report is not yet available. Please contact your healthcare provider.")

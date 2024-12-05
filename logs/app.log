@@ -7,3 +7,80 @@
 2024-11-15 01:50:50,694 - app - INFO - Fetching visits with symptom ID: 576
 2024-11-15 01:50:50,730 - app - INFO - Retrieved 0 visits with symptom ID: 576
 2024-11-15 01:50:50,779 - app - INFO - Request: GET /api/v1/patient_summary/567 | Status: 200 | Process Time: 0.20s | Request ID: fe0335fc-bbe4-4119-9fe0-440b18e186ad
+2024-12-04 16:40:04,575 - app - INFO - Request: GET / | Status: 404 | Process Time: 0.00s | Request ID: 16ff8a82-faf3-4d78-95e9-fa46b1861838
+2024-12-04 16:40:05,269 - app - INFO - Request: GET /favicon.ico | Status: 404 | Process Time: 0.00s | Request ID: f57be4c3-2860-4b55-9c86-a7d07696204d
+2024-12-04 19:01:58,001 - app - INFO - Request: GET / | Status: 404 | Process Time: 0.00s | Request ID: 0bfba15f-5c0d-4024-8874-659e2f9687f1
+2024-12-04 19:01:58,290 - app - INFO - Request: GET / | Status: 404 | Process Time: 0.00s | Request ID: 300b171e-3d25-416b-9b5d-adbd3eb7f1f3
+2024-12-04 19:02:06,900 - app - INFO - Request: GET /api/v1/health | Status: 404 | Process Time: 0.01s | Request ID: 92637cd7-b14c-41a4-bca7-9fd5b8f5ff20
+2024-12-04 19:02:11,944 - app - INFO - Request: GET /api/v1/health/docs | Status: 404 | Process Time: 0.00s | Request ID: 60a6d242-d1d4-4113-854f-6e1f7b70d5f9
+2024-12-04 19:02:18,134 - app - INFO - Request: GET /api/v1/docs | Status: 404 | Process Time: 0.00s | Request ID: 4f6ff7e2-709e-4a18-af3a-74645492853a
+2024-12-04 19:02:24,768 - app - INFO - Request: GET /docs | Status: 200 | Process Time: 0.00s | Request ID: 2e73e20d-aa48-4bb6-877b-81b93f9e1caa
+2024-12-04 19:02:25,260 - app - INFO - Request: GET /openapi.json | Status: 200 | Process Time: 0.06s | Request ID: 9c890177-ea81-438d-b3cb-6ca5164de295
+2024-12-04 19:02:39,722 - app - INFO - Request: POST /api/v1/patients/ | Status: 404 | Process Time: 0.06s | Request ID: 91829c5d-9e4e-4b5e-83da-92be55b52a6c
+2024-12-04 19:11:10,741 - app - INFO - Request: POST /api/v1/patients/ | Status: 404 | Process Time: 0.02s | Request ID: a94556e8-b263-40a0-9baa-61f2c65f8b37
+2024-12-04 19:40:13,044 - app.db.crud.patient_details - INFO - Creating new patient details with email: user@example.com
+2024-12-04 19:40:13,087 - app - ERROR - Request: POST /api/v1/patient_details/ | Status: 500 | Process Time: 0.08s | Request ID: 254190aa-447c-45a0-8f9f-e453bad4ef3f | Error: (psycopg2.errors.UndefinedColumn) column PatientDetails.Height does not exist
+LINE 1: ...atientDetails"."Email" AS "PatientDetails_Email", "PatientDe...
+                                                             ^
+
+[SQL: SELECT "PatientDetails"."PatientID" AS "PatientDetails_PatientID", "PatientDetails"."FirstName" AS "PatientDetails_FirstName", "PatientDetails"."LastName" AS "PatientDetails_LastName", "PatientDetails"."DateOfBirth" AS "PatientDetails_DateOfBirth", "PatientDetails"."Gender" AS "PatientDetails_Gender", "PatientDetails"."Address" AS "PatientDetails_Address", "PatientDetails"."ContactNumber" AS "PatientDetails_ContactNumber", "PatientDetails"."Email" AS "PatientDetails_Email", "PatientDetails"."Height" AS "PatientDetails_Height", "PatientDetails"."Weight" AS "PatientDetails_Weight", "PatientDetails"."BloodType" AS "PatientDetails_BloodType", "PatientDetails"."CreatedAt" AS "PatientDetails_CreatedAt" 
+FROM "PatientDetails" 
+WHERE "PatientDetails"."Email" = %(Email_1)s 
+ LIMIT %(param_1)s]
+[parameters: {'Email_1': 'user@example.com', 'param_1': 1}]
+(Background on this error at: https://sqlalche.me/e/14/f405)
+2024-12-04 19:49:14,400 - app.db.crud.patient_details - INFO - Creating new patient details with email: user@example.com
+2024-12-04 19:49:14,462 - app - ERROR - Request: POST /api/v1/patient_details/ | Status: 500 | Process Time: 0.09s | Request ID: 0594214d-e26c-4826-9580-9eedc1b7694d | Error: (psycopg2.errors.UndefinedColumn) column PatientDetails.Height does not exist
+LINE 1: ...atientDetails"."Email" AS "PatientDetails_Email", "PatientDe...
+                                                             ^
+
+[SQL: SELECT "PatientDetails"."PatientID" AS "PatientDetails_PatientID", "PatientDetails"."FirstName" AS "PatientDetails_FirstName", "PatientDetails"."LastName" AS "PatientDetails_LastName", "PatientDetails"."DateOfBirth" AS "PatientDetails_DateOfBirth", "PatientDetails"."Gender" AS "PatientDetails_Gender", "PatientDetails"."Address" AS "PatientDetails_Address", "PatientDetails"."ContactNumber" AS "PatientDetails_ContactNumber", "PatientDetails"."Email" AS "PatientDetails_Email", "PatientDetails"."Height" AS "PatientDetails_Height", "PatientDetails"."Weight" AS "PatientDetails_Weight", "PatientDetails"."BloodType" AS "PatientDetails_BloodType", "PatientDetails"."CreatedAt" AS "PatientDetails_CreatedAt" 
+FROM "PatientDetails" 
+WHERE "PatientDetails"."Email" = %(Email_1)s 
+ LIMIT %(param_1)s]
+[parameters: {'Email_1': 'user@example.com', 'param_1': 1}]
+(Background on this error at: https://sqlalche.me/e/14/f405)
+2024-12-04 20:00:30,797 - app.db.crud.patient_details - INFO - Creating new patient details with email: user@example.com
+2024-12-04 20:00:30,899 - app - ERROR - Request: POST /api/v1/patient_details/ | Status: 500 | Process Time: 0.11s | Request ID: be12f30b-c5ea-4937-aa29-359f1eba1c28 | Error: (psycopg2.errors.UndefinedColumn) column PatientDetails.Height does not exist
+LINE 1: ...atientDetails"."Email" AS "PatientDetails_Email", "PatientDe...
+                                                             ^
+
+[SQL: SELECT "PatientDetails"."PatientID" AS "PatientDetails_PatientID", "PatientDetails"."FirstName" AS "PatientDetails_FirstName", "PatientDetails"."LastName" AS "PatientDetails_LastName", "PatientDetails"."DateOfBirth" AS "PatientDetails_DateOfBirth", "PatientDetails"."Gender" AS "PatientDetails_Gender", "PatientDetails"."Address" AS "PatientDetails_Address", "PatientDetails"."ContactNumber" AS "PatientDetails_ContactNumber", "PatientDetails"."Email" AS "PatientDetails_Email", "PatientDetails"."Height" AS "PatientDetails_Height", "PatientDetails"."Weight" AS "PatientDetails_Weight", "PatientDetails"."BloodType" AS "PatientDetails_BloodType", "PatientDetails"."CreatedAt" AS "PatientDetails_CreatedAt" 
+FROM "PatientDetails" 
+WHERE "PatientDetails"."Email" = %(Email_1)s 
+ LIMIT %(param_1)s]
+[parameters: {'Email_1': 'user@example.com', 'param_1': 1}]
+(Background on this error at: https://sqlalche.me/e/14/f405)
+2024-12-05 00:03:33,089 - app.db.crud.patient_details - INFO - Creating new patient details with email: user@example.com
+2024-12-05 00:03:33,160 - app - ERROR - Request: POST /api/v1/patient_details/ | Status: 500 | Process Time: 0.12s | Request ID: 4f9d606e-5f14-441c-9e51-f894fe84b59f | Error: (psycopg2.errors.UndefinedColumn) column PatientDetails.Height does not exist
+LINE 1: ...atientDetails"."Email" AS "PatientDetails_Email", "PatientDe...
+                                                             ^
+
+[SQL: SELECT "PatientDetails"."PatientID" AS "PatientDetails_PatientID", "PatientDetails"."FirstName" AS "PatientDetails_FirstName", "PatientDetails"."LastName" AS "PatientDetails_LastName", "PatientDetails"."DateOfBirth" AS "PatientDetails_DateOfBirth", "PatientDetails"."Gender" AS "PatientDetails_Gender", "PatientDetails"."Address" AS "PatientDetails_Address", "PatientDetails"."ContactNumber" AS "PatientDetails_ContactNumber", "PatientDetails"."Email" AS "PatientDetails_Email", "PatientDetails"."Height" AS "PatientDetails_Height", "PatientDetails"."Weight" AS "PatientDetails_Weight", "PatientDetails"."BloodType" AS "PatientDetails_BloodType", "PatientDetails"."CreatedAt" AS "PatientDetails_CreatedAt" 
+FROM "PatientDetails" 
+WHERE "PatientDetails"."Email" = %(Email_1)s 
+ LIMIT %(param_1)s]
+[parameters: {'Email_1': 'user@example.com', 'param_1': 1}]
+(Background on this error at: https://sqlalche.me/e/14/f405)
+2024-12-05 00:03:39,043 - app.db.crud.patient_details - INFO - Creating new patient details with email: user@example.com
+2024-12-05 00:03:39,045 - app - ERROR - Request: POST /api/v1/patient_details/ | Status: 500 | Process Time: 0.00s | Request ID: aa9d8afa-e3cb-4c72-8206-b9caefee54f9 | Error: (psycopg2.errors.UndefinedColumn) column PatientDetails.Height does not exist
+LINE 1: ...atientDetails"."Email" AS "PatientDetails_Email", "PatientDe...
+                                                             ^
+
+[SQL: SELECT "PatientDetails"."PatientID" AS "PatientDetails_PatientID", "PatientDetails"."FirstName" AS "PatientDetails_FirstName", "PatientDetails"."LastName" AS "PatientDetails_LastName", "PatientDetails"."DateOfBirth" AS "PatientDetails_DateOfBirth", "PatientDetails"."Gender" AS "PatientDetails_Gender", "PatientDetails"."Address" AS "PatientDetails_Address", "PatientDetails"."ContactNumber" AS "PatientDetails_ContactNumber", "PatientDetails"."Email" AS "PatientDetails_Email", "PatientDetails"."Height" AS "PatientDetails_Height", "PatientDetails"."Weight" AS "PatientDetails_Weight", "PatientDetails"."BloodType" AS "PatientDetails_BloodType", "PatientDetails"."CreatedAt" AS "PatientDetails_CreatedAt" 
+FROM "PatientDetails" 
+WHERE "PatientDetails"."Email" = %(Email_1)s 
+ LIMIT %(param_1)s]
+[parameters: {'Email_1': 'user@example.com', 'param_1': 1}]
+(Background on this error at: https://sqlalche.me/e/14/f405)
+2024-12-05 00:03:43,371 - app.db.crud.patient_details - INFO - Creating new patient details with email: user@example.com
+2024-12-05 00:03:43,374 - app - ERROR - Request: POST /api/v1/patient_details/ | Status: 500 | Process Time: 0.01s | Request ID: 83aaab11-5753-4613-9ba2-f1d59b58a729 | Error: (psycopg2.errors.UndefinedColumn) column PatientDetails.Height does not exist
+LINE 1: ...atientDetails"."Email" AS "PatientDetails_Email", "PatientDe...
+                                                             ^
+
+[SQL: SELECT "PatientDetails"."PatientID" AS "PatientDetails_PatientID", "PatientDetails"."FirstName" AS "PatientDetails_FirstName", "PatientDetails"."LastName" AS "PatientDetails_LastName", "PatientDetails"."DateOfBirth" AS "PatientDetails_DateOfBirth", "PatientDetails"."Gender" AS "PatientDetails_Gender", "PatientDetails"."Address" AS "PatientDetails_Address", "PatientDetails"."ContactNumber" AS "PatientDetails_ContactNumber", "PatientDetails"."Email" AS "PatientDetails_Email", "PatientDetails"."Height" AS "PatientDetails_Height", "PatientDetails"."Weight" AS "PatientDetails_Weight", "PatientDetails"."BloodType" AS "PatientDetails_BloodType", "PatientDetails"."CreatedAt" AS "PatientDetails_CreatedAt" 
+FROM "PatientDetails" 
+WHERE "PatientDetails"."Email" = %(Email_1)s 
+ LIMIT %(param_1)s]
+[parameters: {'Email_1': 'user@example.com', 'param_1': 1}]
+(Background on this error at: https://sqlalche.me/e/14/f405)
