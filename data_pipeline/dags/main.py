@@ -10,11 +10,11 @@ from airflow.operators.email import EmailOperator
 from airflow.operators.trigger_dagrun import TriggerDagRunOperator
 from airflow.utils.trigger_rule import TriggerRule
 from datetime import datetime, timedelta
-from src.base import *
+from base import *
 
 # define the arguments for the DAG
 default_args = {
-    'retries': 5,
+    'retries': 3,
     'retry_delay': timedelta(minutes=1)
 }
 
@@ -24,6 +24,7 @@ dag = DAG(
     default_args = default_args,
     description='A DAG to fetch data from api endpoints, preprocess and query the vector database to generate a prompt',
     start_date = datetime(2024, 11, 1, 2),
+    catchup = False
 )
 
 # TASKS
