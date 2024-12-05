@@ -52,7 +52,7 @@ def get_patient_symptoms_by_patient_id(db: Session, patient_id: int):
         List[PatientSymptom]: A list of patient symptoms for the specified patient.
     """
     logger.info(f"Fetching patient symptoms for patient ID: {patient_id}")
-    symptoms = db.query(PatientSymptom).join(PatientVisit).filter(PatientVisit.PatientID == patient_id).all()
+    symptoms = db.query(PatientSymptom).filter(PatientSymptom.PatientID == patient_id).all()
     logger.info(f"Retrieved {len(symptoms)} symptoms for patient ID: {patient_id}")
     return symptoms
 

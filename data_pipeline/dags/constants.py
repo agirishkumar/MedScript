@@ -1,11 +1,14 @@
 # data_pipeline/dags/constants.py
 
+from src.credential_helper import get_service_account_path
+
 '''
 Defines constants for Google Cloud, Qdrant configuration, dataset paths, embeddings, and abbreviation mappings.
 '''
 
 PROJECT_ID = "medscript-437117"
 MIMIC_DATASET_BUCKET_NAME = "medscript-mimic4-dataset"
+DATASET_BUCKET_NAME = "dataset-records"
 BASE_DATASET_FILENAME = "mimic4-dataset.csv"
 
 QDRANT_INSTANCE_ZONE = "us-central1-a"
@@ -19,7 +22,8 @@ EMBEDDING_MODEL_PATH = './models/embedding'
 QDRANT_COLLECTION = "mimic_embeddings"
 QDRANT_PORT = 6333
 
-SERVICE_ACCOUNT_FILEPATH = "secrets/medscript-sa.json"
+# SERVICE_ACCOUNT_FILEPATH = "secrets/medscript-sa.json"
+SERVICE_ACCOUNT_FILEPATH = get_service_account_path()
 
 VECTORSTORE_IP = ""
 

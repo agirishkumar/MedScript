@@ -1,0 +1,12 @@
+version: '3.8'
+
+services:
+  predictor:
+    platform: linux/arm64
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8081:8080"
+    environment:
+      - PYTHONUNBUFFERED=1
