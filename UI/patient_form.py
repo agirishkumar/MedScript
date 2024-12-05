@@ -14,9 +14,9 @@ from pydantic_settings import BaseSettings
 class Settings(BaseSettings):
     API_BASE_URL: str
 
-    class Config:
-        env_file = "MedScript/.env"
-        extra = "ignore"
+    # class Config:
+    #     env_file = "MedScript/.env"
+    #     extra = "ignore"
 
 # Initialize settings
 settings = Settings()
