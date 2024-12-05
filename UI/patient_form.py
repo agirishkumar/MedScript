@@ -3,17 +3,49 @@ import requests
 from dotenv import load_dotenv
 import os
 
+from dotenv import load_dotenv
+from pydantic_settings import BaseSettings
+
+# Load the environment file
 load_dotenv()
 
-api_base_url = os.getenv("API_BASE_URL")
+class Settings(BaseSettings):
+    API_BASE_URL: str
+
+    class Config:
+        env_file = "MedScript/.env"
+        extra = "ignore"
+
+# Initialize settings
+settings = Settings()
+
+# Use the base URL in your code
+api_base_url = settings.API_BASE_URL
+
+# # load_dotenv(dotenv_path="MedScript/.env")
+# api_base_url = os.getenv("http://127.0.0.1:5000")
 
 # Function to send patient details to the API
+# def send_patient_details(payload):
+#     api_url = f"{settings.API_BASE_URL}/api/v1/patient_details"
+#     try:
+#         response = requests.post(api_url, json=payload)
+#         if response.status_code == 200:
+#             return True, response.json()['PatientID']
+#         else:
+#             return False, f"Failed to submit patient details. Error: {response.text}"
+#     except Exception as e:
+#         return False, f"An error occurred: {str(e)}"
+
 def send_patient_details(payload):
-    api_url = f"{api_base_url}/api/v1/patient_details"
+    api_url = f"{settings.API_BASE_URL}/api/v1/patient_details"
     try:
+       
         response = requests.post(api_url, json=payload)
-        if response.status_code == 200:
-            return True, response.json()['PatientID']
+        st.write(f"Response Status Code: {response.status_code}")
+        st.write(f"Response Text: {response.text}")
+        if response.status_code == 200 or response.status_code == 201:
+            return True, response.json().get('PatientID', 'Unknown ID')
         else:
             return False, f"Failed to submit patient details. Error: {response.text}"
     except Exception as e:
@@ -22,10 +54,10 @@ def send_patient_details(payload):
 
 # Function to send symptoms to the API
 def send_patient_symptoms(payload):
-    api_url = f"{api_base_url}/api/v1/patient_symptoms"
+    api_url = f"{settings.API_BASE_URL}/api/v1/patient_symptoms"
     try:
         response = requests.post(api_url, json=payload)
-        if response.status_code == 200:
+        if response.status_code == 200 or response.status_code == 201:
             return True, "Symptoms submitted successfully!"
         else:
             return False, f"Failed to submit symptoms. Error: {response.text}"
@@ -51,12 +83,13 @@ with st.form(key='patient_form'):
     last_name = st.text_input("Last Name*", max_chars=50)
     dob = st.date_input("Date of Birth*", max_value=None)
     gender = st.selectbox("Gender*", ["Select", "Male", "Female"])
-    contact_number = st.text_input("Contact Number*", max_chars=15)
+    contact_number = st.text_input("Contact Number*", max_chars=10)
     email = st.text_input("Email*", max_chars=100)
     address = st.text_area("Address*", max_chars=255)
     height = st.number_input("Height (cm)*", min_value=0.0, step=0.1, format="%.1f")
     weight = st.number_input("Weight (kg)*", min_value=0.0, step=0.1, format="%.1f")
-    blood_type = st.selectbox("Blood Type*", ["Select", "A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"])
+    blood_type = st.selectbox("Blood Type", ["Select", "A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"])
+
 
     # Medical Details
     st.header("Medical Details")
@@ -85,7 +118,7 @@ with st.form(key='patient_form'):
                 "Address": address,
                 "Height": height,
                 "Weight": weight,
-                "BloodType": blood_type
+                "BloodType": blood_type if blood_type != "Select" else None
             }
 
             # Send patient details first
