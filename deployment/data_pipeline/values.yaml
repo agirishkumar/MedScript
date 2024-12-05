@@ -13,7 +13,7 @@ executor: "LocalExecutor"
 # Environment variables for all airflow containers
 env: 
   - name: BASE_API_URL
-    value: "http://35.188.123.19/"
+    value: "http://34.170.255.245"
   - name: HF_HOME
     value: "/tmp/huggingface" 
 # - name: ""

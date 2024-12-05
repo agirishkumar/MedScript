@@ -12,7 +12,7 @@ spec:
       labels:
         app: gke-fast-api-app
     spec:
-      serviceAccountName: ksa-medscript
+      # serviceAccountName: ksa-medscript
       containers:
         - name: gke-fast-api-app
           image: gcr.io/medscript-437117/fast-api-backend:latest
