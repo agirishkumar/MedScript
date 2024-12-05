@@ -19,3 +19,4 @@ qdrant-client==1.12.1
 SQLAlchemy==1.4.40
 python-dotenv==1.0.1
 apache-airflow-providers-slack
+curl

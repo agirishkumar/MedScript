@@ -7,11 +7,72 @@ import requests
 # import json
 from datetime import datetime
 from logger import logger
+import vertexai
+from vertexai.generative_models import GenerativeModel, Part, SafetySetting
 # from airflow.models import Variable
 
 # BASE_API_URL = Variable.get("BASE_API_URL")
 BASE_API_URL = os.environ.get("BASE_API_URL")
 print(BASE_API_URL)
+
+def generate_model_response(prompt: str) -> str:
+    """
+    Generates a response using GCP Vertex AI Gemini model based on the input prompt.
+    
+    Args:
+        prompt (str): The formatted prompt to send to the model
+        
+    Returns:
+        str: The model's response
+    """
+    try:
+        # Initialize Vertex AI
+        vertexai.init(project="medscript-437117", location="us-central1")
+        
+        # Initialize the model
+        model = GenerativeModel("gemini-1.5-pro-002")
+        
+        # Define generation config
+        generation_config = {
+            "max_output_tokens": 8192,
+            "temperature": 1,
+            "top_p": 0.95,
+        }
+        
+        # Define safety settings
+        safety_settings = [
+            SafetySetting(
+                category=SafetySetting.HarmCategory.HARM_CATEGORY_HATE_SPEECH,
+                threshold=SafetySetting.HarmBlockThreshold.OFF
+            ),
+            SafetySetting(
+                category=SafetySetting.HarmCategory.HARM_CATEGORY_DANGEROUS_CONTENT,
+                threshold=SafetySetting.HarmBlockThreshold.OFF
+            ),
+            SafetySetting(
+                category=SafetySetting.HarmCategory.HARM_CATEGORY_SEXUALLY_EXPLICIT,
+                threshold=SafetySetting.HarmBlockThreshold.OFF
+            ),
+            SafetySetting(
+                category=SafetySetting.HarmCategory.HARM_CATEGORY_HARASSMENT,
+                threshold=SafetySetting.HarmBlockThreshold.OFF
+            ),
+        ]
+        
+        # Generate content
+        response = model.generate_content(
+            [prompt],
+            generation_config=generation_config,
+            safety_settings=safety_settings,
+            stream=False,  # Set to False to get complete response at once
+        )
+        
+        logger.info("Generated model response successfully")
+        return response.text
+        
+    except Exception as e:
+        logger.error(f"Error generating model response: {str(e)}")
+        raise
 
 def get_data(url: str) -> dict:
     """
