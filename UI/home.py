@@ -53,15 +53,6 @@ st.markdown(
             padding: 20px;
         }
 
-        [data-testid="some_container_tag"] {
-            outline: 2px solid red;
-            border-radius: 2px;
-        } 
-
-        h2 {
-            clear: left;
-        }
-
         .header {
             text-align: center;
             padding: 100px 0;
@@ -141,7 +132,6 @@ st.markdown("""
     </div>
 """, unsafe_allow_html=True)
 
-# st.image(logo, caption="MedScript AI Logo", use_column_width=True)
 
 # Key Features Section
 
@@ -222,8 +212,7 @@ st.markdown(f"""
     </div>
 """, unsafe_allow_html=True)
 
-
-with st.container():
-    if st.button("Patient Form"):
-        st.switch_page("pages/patient_form.py")
+# Add a button to navigate to the patient form
+if st.button("Patient Form"):
+    st.switch_page("pages/patient_form.py")
 
