@@ -53,6 +53,11 @@ st.markdown(
             padding: 20px;
         }
 
+        [data-testid="some_container_tag"] {
+            outline: 2px solid red;
+            border-radius: 2px;
+        } 
+
         h2 {
             clear: left;
         }
@@ -75,11 +80,7 @@ st.markdown(
             color: #b0b3b8;
         }
 
-        .element-container:has(#button-after) + div button{
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
+        button[kind="secondary"]{
             background-color: #f5a623;
             color: #161b22;
             border: none;
@@ -145,17 +146,17 @@ st.markdown("""
 # Key Features Section
 
 # Convert Microchip image to base64
-with open("UI/images/microchip.png", "rb") as f:
+with open("./images/microchip.png", "rb") as f:
     contents = f.read()
     microchip_img = base64.b64encode(contents).decode("utf-8")
 
 # Convert medical checkup image to base 64
-with open("UI/images/medical-checkup.png", "rb") as f:
+with open("./images/medical-checkup.png", "rb") as f:
     contents = f.read()
     medical_report_img = base64.b64encode(contents).decode("utf-8")
 
 # Convert decision making image to base 64
-with open("UI/images/decision-making.png", "rb") as f:
+with open("./images/decision-making.png", "rb") as f:
     contents = f.read()
     decision_making_img = base64.b64encode(contents).decode("utf-8")
 
@@ -222,9 +223,7 @@ st.markdown(f"""
 """, unsafe_allow_html=True)
 
 
-st.page_link("pages/patient_form.py", label="Patient Form", icon="1️⃣")
-
-st.markdown('<span id="button-after"></span>', unsafe_allow_html=True)
-if st.button("Patient Form"):
-    st.switch_page("pages/patient_form.py")
+with st.container():
+    if st.button("Patient Form"):
+        st.switch_page("pages/patient_form.py")
 
