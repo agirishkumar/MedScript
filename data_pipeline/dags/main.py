@@ -27,27 +27,22 @@ dag = DAG(
     catchup = False
 )
 
-# def process_data(**kwargs):
-#     conf = kwargs.get('dag_run').conf
-#     id = conf.get('patient_id', '9')
-#     print("Patient ID:", id)
-#     return id
+# TASKS
 
-# # TASKS
-
-# # Fetch patient ID
-# process_patient_id = PythonOperator(
-#     task_id="process_patient_id",
-#     python_callable=process_data,
-#     provide_context = True,
-#     dag=dag
-# )
+# TASK 0: Get latest patient ID
+get_latest_id_task = PythonOperator(
+    task_id='get_latest_id_task',
+    python_callable=get_latest_patient_id,
+    dag=dag
+)
 
 # TASK 1: Fetch patient summary
 load_data_task = PythonOperator(
     task_id="load_data_task",
     python_callable=get_summary,
-    op_kwargs={'patient_id': 9},
+    op_kwargs={
+        'patient_id': "{{ task_instance.xcom_pull(task_ids='get_latest_id_task') }}"
+    },
     dag=dag
 )
 
@@ -75,4 +70,19 @@ generate_prompt_task = PythonOperator(
     dag=dag
 )
 
-load_data_task >> data_preprocessing_task >> query_vector_database_task  >> generate_prompt_task
+# Email notification on failure
+email_notification = EmailOperator(
+    task_id='send_email_on_failure',
+    to='adari.girishkumar.com',
+    subject='Patient Analysis Pipeline Failed',
+    html_content="""
+        Pipeline failed for patient ID: {{ task_instance.xcom_pull(task_ids='get_latest_id_task') }}<br>
+        Task that failed: {{ task_instance.task_id }}<br>
+        Timestamp: {{ ts }}<br>
+        Please check the logs for more information.
+    """,
+    trigger_rule=TriggerRule.ONE_FAILED,
+    dag=dag
+)
+
+get_latest_id_task >> load_data_task >> data_preprocessing_task >>query_vector_database_task  >> generate_prompt_task
