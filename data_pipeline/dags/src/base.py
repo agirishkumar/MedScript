@@ -7,6 +7,8 @@ import requests
 import json
 from datetime import datetime
 from logger import logger
+from dotenv import load_dotenv
+load_dotenv()
 
 BASE_API_URL = "http://fastapi:8000/"
 

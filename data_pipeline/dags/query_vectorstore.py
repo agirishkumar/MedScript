@@ -8,6 +8,7 @@ from qdrant_client import QdrantClient
 from transformers import BertTokenizer, BertModel
 import sys
 import os
+
 # current = os.path.dirname(os.path.realpath(__file__))
 # gparent = os.path.dirname(os.path.dirname(current))
 
