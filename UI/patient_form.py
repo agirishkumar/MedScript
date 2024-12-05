@@ -24,10 +24,10 @@ from pydantic_settings import BaseSettings
 # # Use the base URL in your code
 # api_base_url = settings.API_BASE_URL
 
-api_base_url = "http://34.170.255.245"
+# api_base_url = "http://34.170.255.245"
 
 def send_patient_details(payload):
-    api_url = f"{api_base_url}/api/v1/patient_details"
+    api_url = "http://34.170.255.245/api/v1/patient_details"
     try:
        
         response = requests.post(api_url, json=payload)
@@ -43,7 +43,7 @@ def send_patient_details(payload):
 
 # Function to send symptoms to the API
 def send_patient_symptoms(payload):
-    api_url = f"{api_base_url}/api/v1/patient_symptoms"
+    api_url = "http://34.170.255.245/api/v1/patient_symptoms"
     try:
         response = requests.post(api_url, json=payload)
         if response.status_code == 200 or response.status_code == 201:
