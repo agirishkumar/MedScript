@@ -5,8 +5,8 @@ import pages.patient_form as patient_form
 st.set_page_config(
     page_title="Medscript-AI",
     page_icon="🤖",
-    layout="wide",  # "wide" layout uses full screen, without sidebar
-    initial_sidebar_state="collapsed",  # Ensures the sidebar is collapsed by default, but we will hide it completely
+    layout="wide",
+    initial_sidebar_state="collapsed",
 )
 
 st.markdown(

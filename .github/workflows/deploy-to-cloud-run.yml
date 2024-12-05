@@ -37,7 +37,7 @@ jobs:
 
     - name: Deploy to Cloud Run
       run: |
-        gcloud run deploy streamlit-app \
+        gcloud run deploy medscript-app \
           --image us-docker.pkg.dev/medscript-437117/gcr.io/medscript-app:latest \
           --platform managed \
           --region us-central1 \
