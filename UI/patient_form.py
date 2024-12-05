@@ -9,23 +9,25 @@ from dotenv import load_dotenv
 from pydantic_settings import BaseSettings
 
 # Load the environment file
-# load_dotenv()
+load_dotenv()
 
-class Settings(BaseSettings):
-    API_BASE_URL: str
+# class Settings(BaseSettings):
+#     API_BASE_URL: str
 
-    # class Config:
-    #     env_file = "MedScript/.env"
-    #     extra = "ignore"
+#     # class Config:
+#     #     env_file = "MedScript/.env"
+#     #     extra = "ignore"
 
-# Initialize settings
-settings = Settings()
+# # Initialize settings
+# settings = Settings()
 
-# Use the base URL in your code
-api_base_url = settings.API_BASE_URL
+# # Use the base URL in your code
+# api_base_url = settings.API_BASE_URL
+
+api_base_url = "http://34.170.255.245"
 
 def send_patient_details(payload):
-    api_url = f"{settings.API_BASE_URL}/api/v1/patient_details"
+    api_url = f"{api_base_url}/api/v1/patient_details"
     try:
        
         response = requests.post(api_url, json=payload)
@@ -41,7 +43,7 @@ def send_patient_details(payload):
 
 # Function to send symptoms to the API
 def send_patient_symptoms(payload):
-    api_url = f"{settings.API_BASE_URL}/api/v1/patient_symptoms"
+    api_url = f"{api_base_url}/api/v1/patient_symptoms"
     try:
         response = requests.post(api_url, json=payload)
         if response.status_code == 200 or response.status_code == 201:
