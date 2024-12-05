@@ -27,7 +27,7 @@ dag = DAG(
 )
 
 # Slack Webhook URL
-SLACK_WEBHOOK_URL = "https://hooks.slack.com/services/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"
+SLACK_WEBHOOK_DAG_URL = "https://hooks.slack.com/services/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"
 
 def send_slack_notification(message):
     """Helper function to send slack notification using curl"""
