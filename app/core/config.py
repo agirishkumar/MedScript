@@ -34,6 +34,9 @@ class Settings(BaseSettings):
     API_V1_STR: str = "/api/v1"
     ALLOWED_ORIGINS: List[str] = ["*"]
 
+    # API URL
+    BASE_API_URL: str
+
     # Database settings
     DB_USER: str
     DB_PASS: str

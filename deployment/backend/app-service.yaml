@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: medscript
+  name: backend-service
+spec:
+  selector:
+    app: "gke-fast-api-app"
+  type: LoadBalancer
+  ports:
+    - name: http
+      port: 80
+      targetPort: 8000
