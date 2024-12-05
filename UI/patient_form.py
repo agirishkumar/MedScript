@@ -24,7 +24,7 @@ from pydantic_settings import BaseSettings
 # # Use the base URL in your code
 # api_base_url = settings.API_BASE_URL
 
-api_base_url = "http://34.170.255.245"
+api_base_url = http://34.170.255.245
 
 def send_patient_details(payload):
     api_url = f"{api_base_url}/api/v1/patient_details"
