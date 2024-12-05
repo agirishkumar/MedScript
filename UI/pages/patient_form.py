@@ -1,15 +1,15 @@
 import streamlit as st
 import requests
 from generate_patient_report_pdf import create_pdf
+from requests.auth import HTTPBasicAuth
 
 base_api_url = "http://34.170.255.245"
+airflow_url = "http://34.123.143.96:8080/api/v1/dags/data_pipeline/dagRuns"
 
 def send_patient_details(payload):
     api_url = f"{base_api_url}/api/v1/patient_details"
     try:
         response = requests.post(api_url, json=payload)
-        st.write(f"Response Status Code: {response.status_code}")
-        st.write(f"Response Text: {response.text}")
         if response.status_code == 200 or response.status_code == 201:
             return True, response.json().get('PatientID', 'Unknown ID')
         else:
@@ -27,6 +27,18 @@ def send_patient_symptoms(payload):
             return False, f"Failed to submit symptoms. Error: {response.text}"
     except Exception as e:
         return False, f"An error occurred: {str(e)}"
+
+def trigger_airflow_dag(patient_id):
+    payload = {
+        "conf": {
+            "patient_id": patient_id
+        }
+    }
+    response = requests.post(airflow_url, json=payload, auth=HTTPBasicAuth('admin', 'admin'))
+    if response.status_code == 200:
+        st.success(f"DAG triggered successfully for Patient ID: {patient_id}")
+    else:
+        st.error(f"Failed to trigger DAG. Status code: {response.status_code}, Response: {response.text}")
 
 def render():
     st.title("Welcome to MedScript")
@@ -92,6 +104,7 @@ def render():
                     success, message = send_patient_symptoms(symptoms_payload)
                     if success:
                         st.success(message)
+                        trigger_airflow_dag(patient_id)  # Trigger the Airflow DAG with the patient_id
                     else:
                         st.error(message)
                 else:
