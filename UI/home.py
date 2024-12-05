@@ -2,11 +2,8 @@
 
 import streamlit as st
 import pages.patient_form as patient_form
-<<<<<<< HEAD
 from PIL import Image
 import base64
-=======
->>>>>>> 2138f6a9a877100f42001d4731693e4f4edd8ea4
 
 # Set page configuration
 st.set_page_config(
@@ -15,7 +12,6 @@ st.set_page_config(
     layout="wide",
     initial_sidebar_state="collapsed",
 )
-<<<<<<< HEAD
 # Change the background color
 st.markdown(
     """
@@ -34,12 +30,6 @@ st.markdown(
             padding-left: 0rem;    
         }
 
-=======
-
-st.markdown(
-    """
-    <style>
->>>>>>> 2138f6a9a877100f42001d4731693e4f4edd8ea4
         body {
             font-family: Arial, sans-serif;
             background-color: #0d1117;
@@ -58,7 +48,6 @@ st.markdown(
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            height: 100%;
             width: 65%;
             margin: 0 auto;
             padding: 20px;
@@ -86,7 +75,11 @@ st.markdown(
             color: #b0b3b8;
         }
 
-        .patient-form-button {
+        .element-container:has(#button-after) + div button{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
             background-color: #f5a623;
             color: #161b22;
             border: none;
@@ -126,7 +119,6 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-<<<<<<< HEAD
 # Hero Section
 st.markdown("""
     <div class="header">
@@ -134,6 +126,7 @@ st.markdown("""
         <p>Revolutionizing Healthcare with AI-Driven Diagnosis</p>
     </div>
 """, unsafe_allow_html=True)
+
 
 # Overview Section
 st.markdown("""
@@ -197,7 +190,7 @@ st.markdown(f"""
 
 # Benefits Section
 st.markdown(f"""
-    <div class= "container" style="text-align: left;">
+    <div class= "container">
         <h1>Why Choose MedScript AI?</h1>
             <h2>Faster diagnosis</h2>
                 <p>MedScript AI accelerates the diagnostic process by automating tasks such as analyzing patient symptoms, past medical records, and diagnostic data. It uses advanced AI models to generate comprehensive and precise diagnostic reports in real time.</p>
@@ -210,7 +203,7 @@ st.markdown(f"""
 
 # Technology Section
 st.markdown(f"""
-    <div class = "container">
+    <div class= "container">
         <h1>Why MedScript AI Stands Out</h1>
         <h2>Leveraging Retrieval-Augmented Generation (RAG)</h2>
         <p>
@@ -225,116 +218,13 @@ st.markdown(f"""
             <li><strong>Enhanced Accuracy and Relevance:</strong> Incorporates real-time retrieved information, aligning insights with current medical standards and practices.</li>
             <li><strong>Dynamic Adaptability:</strong> Adapts to different scenarios by retrieving and synthesizing tailored data for specific input queries or cases.</li>
         </ul>
-        
-        <h2>Training on Robust Datasets like MIMIC-IV</h2>
-        <p>
-            MedScript AI is trained on the <strong>MIMIC-IV (Medical Information Mart for Intensive Care)</strong> dataset, 
-            a comprehensive, de-identified dataset of patient records. This dataset enables the model to understand a 
-            wide spectrum of medical conditions and scenarios, making it highly reliable and credible.
-        </p>
-        <h3>Why MIMIC-IV is a Game-Changer:</h3>
-        <ul>
-            <li><strong>Rich Clinical Context:</strong> Provides diverse and detailed real-world medical scenarios, helping MedScript AI generalize across routine and complex cases.</li>
-            <li><strong>Reliability and Credibility:</strong> Trained on a rigorously curated dataset, ensuring the AI model produces trustworthy outputs.</li>
-            <li><strong>Advanced Research Potential:</strong> Incorporates cutting-edge medical research insights for informed clinical decision support.</li>
-        </ul>
-        
-        <h2>Why This Matters</h2>
-        <p>
-            By combining RAG’s dynamic retrieval capabilities with robust training on datasets like MIMIC-IV, MedScript AI delivers:
-        </p>
-        <ul>
-            <li><strong>Precision in reports:</strong> Providing actionable insights for critical decisions.</li>
-            <li><strong>Personalization for patient-specific contexts:</strong> Ensuring tailored care for every patient.</li>
-            <li><strong>Scalability for diverse healthcare environments:</strong> Supporting clinics, hospitals, and beyond.</li>
-        </ul>
-        <p>
-            This synergy of advanced techniques and data makes MedScript AI a pioneering tool in modern healthcare.
-        </p>
     </div>
 """, unsafe_allow_html=True)
 
-# st.header("How MedScript AI Works")
-# st.write(
-#     """
-#     MedScript AI uses **Retrieval-Augmented Generation (RAG)** to provide additional context to its models, 
-#     ensuring accuracy and relevance in the generated reports. Our AI is trained on robust datasets like 
-#     MIMIC-IV making it highly reliable and credible.
-#     """
-# )
-=======
-# Initialize session state
-if "current_page" not in st.session_state:
-    st.session_state["current_page"] = "home"
 
-def navigate_to(page_name):
-    st.session_state["current_page"] = page_name
-    st.experimental_rerun()
+st.page_link("pages/patient_form.py", label="Patient Form", icon="1️⃣")
 
-# Render page based on session state
-if st.session_state["current_page"] == "home":
-    st.markdown("""
-        <div class="header">
-            <h1>MedScript-AI</h1>
-            <p>Revolutionizing Healthcare with AI-Driven Diagnosis</p>
-        </div>
-    """, unsafe_allow_html=True)
+st.markdown('<span id="button-after"></span>', unsafe_allow_html=True)
+if st.button("Patient Form"):
+    st.switch_page("pages/patient_form.py")
 
-    st.header("What is MedScript AI?")
-    st.write(
-        """
-        **MedScript AI** is an innovative healthcare application that combines cutting-edge artificial intelligence 
-        with medical expertise. It takes in patient details, their current symptoms, and previous diagnoses to 
-        generate comprehensive diagnosis reports. These reports help doctors make quick and informed treatment decisions.
-        """
-    )
-
-    # Key Features Section
-    st.header("Key Features")
-    features = {
-        "📝 Patient Data Collection": "Easily capture and store patient symptoms and diagnoses.",
-        "💡 AI Diagnosis Reports": "Generate accurate, concise reports to aid in decision-making.",
-        "⏱️ Streamlined Workflow": "Save time and focus on delivering quality care."
-    }
-    for feature, description in features.items():
-        st.subheader(feature)
-        st.write(description)
-
-    st.markdown("---")
-
-    # Benefits Section
-    st.header("Why Choose MedScript AI?")
-    benefits = [
-        "Faster diagnosis process for doctors.",
-        "Improved patient outcomes with timely treatments.",
-        "Simplified and streamlined healthcare workflows."
-    ]
-    for benefit in benefits:
-        st.markdown(f"- {benefit}")
-
-    st.markdown("---")
->>>>>>> 2138f6a9a877100f42001d4731693e4f4edd8ea4
-
-    # Technology Section
-    st.header("How MedScript AI Works")
-    st.write(
-        """
-        MedScript AI uses **Retrieval-Augmented Generation (RAG)** to provide additional context to its models,
-        ensuring accuracy and relevance in the generated reports. Our AI is trained on robust datasets like
-        MIMIC-III, ChestX-ray14, PTB-XL, and PubMed Central Open Access Subset, making it highly reliable and credible.
-        """
-    )
-
-    steps = [
-        "1️⃣ **Input patient details and symptoms.**",
-        "2️⃣ **AI analyzes data and retrieves relevant context.**",
-        "3️⃣ **Generates a diagnosis report for doctor review.**"
-    ]
-    st.write("### Workflow")
-    for step in steps:
-        st.markdown(step)
-
-    st.markdown("---")
-
-elif st.session_state["current_page"] == "patient_form":
-    patient_form.render()
