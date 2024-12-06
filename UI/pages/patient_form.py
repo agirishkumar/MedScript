@@ -74,9 +74,9 @@ def trigger_airflow_dag(patient_id):
 
         if task_log_response.status_code == 200:
             task_log = task_log_response.text
-            start_index = task_log.find("Returned value was:")
+            start_index = task_log.find("# Comprehensive Diagnostic Report")
             if start_index != -1:
-                task_log = task_log[start_index + len("Returned value was:"):]
+                task_log = task_log[start_index + len("# Comprehensive Diagnostic Report"):]
             task_log = task_log.split('[2024')[0]
             return task_log
         else:
@@ -153,7 +153,7 @@ def render():
                     task_log = trigger_airflow_dag(patient_id)
 
                     st.markdown("---")
-                    # st.header("Diagnostic Report")
+                    st.header("Comprehensive Diagnostic Report")
                     st.markdown(
                         f"""
                         <style>
