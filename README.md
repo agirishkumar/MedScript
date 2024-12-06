@@ -732,6 +732,8 @@ Key Relationships:
 ### Frontend Deployment Pipeline Overview
 The CI/CD pipeline automates the deployment of the Streamlit application to Google Cloud Platform (GCP). Here's an overview of the steps:
 
+Workflow: .github/workflows/deploy-to-cloud-run.yml
+
 Trigger on Push:
 
 The pipeline is triggered when changes are pushed to the UI/ directory in the feature/UI-deploy, dev, or main branches.
