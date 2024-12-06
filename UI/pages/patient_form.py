@@ -154,7 +154,19 @@ def render():
 
                     st.markdown("---")
                     st.header("Diagnostic Report")
-                    st.markdown(task_log, height=1000, disabled=True)
+                    st.markdown(
+                        f"""
+                        <style>
+                            .markdown-container {{
+                                height: 1000px;
+                                overflow: auto;
+                                white-space: pre-wrap;
+                            }}
+                        </style>
+                        <div class="markdown-container">{task_log}</div>
+                        """,
+                        unsafe_allow_html=True
+                    )
                 else:
                     st.error(message)
             else:
