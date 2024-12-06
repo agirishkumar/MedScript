@@ -1,7 +1,7 @@
 images:
   airflow:
-    repository: gcr.io/medscript-437117/airflow-dag-img
-    tag: v1
+    repository: gcr.io/medscript-437117/data-pipeline-img
+    tag: v3
     # Specifying digest takes precedence over tag.
     digest: ~
     pullPolicy: IfNotPresent
@@ -15,7 +15,9 @@ env:
   - name: BASE_API_URL
     value: "http://34.170.255.245"
   - name: HF_HOME
-    value: "/tmp/huggingface" 
+    value: "/tmp/huggingface"
+  - name: AIRFLOW__API__AUTH_BACKENDS
+    value: 'airflow.api.auth.backend.basic_auth' 
 # - name: ""
 #   value: ""
 
@@ -31,6 +33,13 @@ enableBuiltInSecretEnvVars:
   AIRFLOW__CELERY__BROKER_URL: true
   AIRFLOW__ELASTICSEARCH__HOST: true
   AIRFLOW__ELASTICSEARCH__ELASTICSEARCH_HOST: true
+
+extraEnv: |
+  - name: SLACK_WEBHOOK_DAG_URL
+    valueFrom:
+      secretKeyRef:
+        name: gke-airflow-secrets
+        key: slack_webhook_url
 
 # Airflow Worker Config
 workers:
