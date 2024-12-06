@@ -107,7 +107,8 @@ docker build -f data_pipeline/Dockerfile -t airflow-dag-img:v1 --no-cache --plat
 ```bash
 docker tag medscript-backend-app:v1 gcr.io/medscript-437117/fast-api-backend:latest
 
-docker tag airflow-dag-img:v1 gcr.io/medscript-437117/airflow-dag-img:v1                       
+docker tag data-pipeline-img:v1 gcr.io/medscript-437117/data-pipeline-img:v1     
+
 ```
 
  - To authenticate and push the docker image to GCR:
@@ -124,8 +125,9 @@ gcloud auth configure-docker
 - Push the image to GCR
 ```bash
 docker push gcr.io/medscript-437117/fast-api-app:latest
-
-docker tag airflow-img:latest gcr.io/medscript-437117/airflow-dag-img:v1                       
+docker push gcr.io/medscript-437117/data-pipeline-img:v1 
+docker tag airflow-img:latest gcr.io/medscript-437117/airflow-dag-img:v1    
+                   
 ```
 
 ### Deploy the FAST API application on GKE

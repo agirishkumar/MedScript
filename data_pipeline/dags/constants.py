@@ -22,8 +22,8 @@ EMBEDDING_MODEL_PATH = './models/embedding'
 QDRANT_COLLECTION = "mimic_embeddings"
 QDRANT_PORT = 6333
 
-# SERVICE_ACCOUNT_FILEPATH = "secrets/medscript-sa.json"
-SERVICE_ACCOUNT_FILEPATH = get_service_account_path()
+SERVICE_ACCOUNT_FILEPATH = "secrets/medscript-sa.json"
+# SERVICE_ACCOUNT_FILEPATH = get_service_account_path()
 
 VECTORSTORE_IP = ""
 
