@@ -77,7 +77,7 @@ def trigger_airflow_dag(patient_id):
             start_index = task_log.find("Returned value was:")
             if start_index != -1:
                 task_log = task_log[start_index + len("Returned value was:"):]
-            task_log = "\n".join(task_log.splitlines()[:-1])
+            task_log = task_log.split('[2024')[0]
             return task_log
         else:
             return f"Failed to fetch last task logs. Status code: {task_log_response.status_code}"
@@ -153,7 +153,7 @@ def render():
                     task_log = trigger_airflow_dag(patient_id)
 
                     st.markdown("---")
-                    st.header("Diagnostic Report")
+                    # st.header("Diagnostic Report")
                     st.markdown(
                         f"""
                         <style>
@@ -163,7 +163,7 @@ def render():
                                 white-space: pre-wrap;
                             }}
                         </style>
-                        <div class="markdown-container">{task_log}</div>
+                        {task_log}
                         """,
                         unsafe_allow_html=True
                     )
