@@ -721,6 +721,14 @@ Key Relationships:
     Both age and BMI have negligible correlations with differential metrics (-0.10 to 0.06) Interpretation: The correlation matrix shows the relationships between different metrics and demographic factors. Primary_sequence, primary_rougeL, and primary_rouge1/2 have strong positive correlations with each other, while primary_bleu is less correlated with other metrics. Age and BMI have minimal correlations with the performance metrics, suggesting they have limited direct impact. The strong correlations among diff_rouge metrics indicate they measure similar aspects of performance.
 
 
+# Model Deployment
+
+`chmod +x deploy.sh`
+run `./deploy.sh` on terminal to configure and deploy your model and backend services on GCP. 
+
+Refer `data_pipeline/deployment/README.md` for detailed step by step process.
+
+For UI deployment please refer `UI/README.md`
 
 
 
