@@ -4,8 +4,13 @@ AI assitant for diagnosis
 Group Members: 
 [Aishwarya Suyamindra](https://github.com/aishwarya-suyamindra) ,[Girish Kumar Adari](https://github.com/agirishkumar), [Mallika Gaikwad](https://github.com/MallikaGaikwad), [Om Mali](https://github.com/maliom939) , [Pramatha Bhat](https://github.com/pramathabhat), [Rohan Reddy](https://github.com/tantalum-73)
 
+**Final Demo recordings** 
+1. [https://northeastern.zoom.us/rec/share/HFf1d277uKP9Kb9_2tgWFIjVbV6hyUSevlLwpkQwsSH-DSDlK-plGogxDqBTx1EJ.wokUQnQATvARIg8_?startTime=1730857443000](https://northeastern.zoom.us/rec/share/bGWaW9QzfYvHs7-oMiOrMJOh471eJXDD0hnewbPJ7EmZoipxNHBM_Gy9ZwY9WVSD.obRnjNr8c8HQWGRS?startTime=1733460520000)
+Passcode: WWJsh4^e
 
-**Demo recordings** 
+2. https://drive.google.com/file/d/1HXRlsLsneh_j4M3VEFjBcopH_QAH7Pls/view?usp=drive_link
+
+**Previous Demo recordings** 
 1. https://northeastern.zoom.us/rec/share/HFf1d277uKP9Kb9_2tgWFIjVbV6hyUSevlLwpkQwsSH-DSDlK-plGogxDqBTx1EJ.wokUQnQATvARIg8_?startTime=1730857443000
 Passcode: 5jm=N*#!
 
@@ -720,14 +725,14 @@ Key Relationships:
     BMI has a very weak negative correlation with all primary metrics (-0.02 to -0.07)
     Both age and BMI have negligible correlations with differential metrics (-0.10 to 0.06) Interpretation: The correlation matrix shows the relationships between different metrics and demographic factors. Primary_sequence, primary_rougeL, and primary_rouge1/2 have strong positive correlations with each other, while primary_bleu is less correlated with other metrics. Age and BMI have minimal correlations with the performance metrics, suggesting they have limited direct impact. The strong correlations among diff_rouge metrics indicate they measure similar aspects of performance.
 
-### Cloud vs Edge Deployment
-
 ### Deployment Service
 
 
 
-### Pipeline Overview
+### Frontend Deployment Pipeline Overview
 The CI/CD pipeline automates the deployment of the Streamlit application to Google Cloud Platform (GCP). Here's an overview of the steps:
+
+Workflow: .github/workflows/deploy-to-cloud-run.yml
 
 Trigger on Push:
 
