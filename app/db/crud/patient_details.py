@@ -10,6 +10,9 @@ from sqlalchemy.exc import IntegrityError
 from ..models.patient_details import PatientDetails
 from ..schemas.patient_details import PatientDetailsCreate, PatientDetailsUpdate
 from fastapi import HTTPException
+import sys
+import os
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 # Set up logger
 logger = logging.getLogger(__name__)
@@ -148,3 +151,18 @@ def delete_patient_details(db: Session, patient_id: int):
     db.commit()
     logger.info(f"Successfully deleted patient details with ID: {patient_id}")
     return db_patient_details
+
+
+
+def get_latest_patient_id(db: Session) -> int:
+    """
+    Get the ID of the most recently added patient.
+    
+    Args:
+        db (Session): Database session
+        
+    Returns:
+        int: The latest patient ID, or None if no patients exist
+    """
+    latest_patient = db.query(PatientDetails).order_by(PatientDetails.PatientID.desc()).first()
+    return latest_patient.PatientID if latest_patient else None

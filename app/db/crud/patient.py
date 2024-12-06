@@ -10,6 +10,9 @@ from ..models.patient import Patient
 from ..schemas.patient import PatientCreate, PatientUpdate
 from ..crud import user as user_crud
 from fastapi import HTTPException
+import sys
+import os
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 def get_patient(db: Session, patient_id: int):
     """

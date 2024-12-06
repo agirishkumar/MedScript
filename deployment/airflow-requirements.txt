@@ -1,0 +1,23 @@
+google-api-core==2.22.0
+google-api-python-client==2.151.0
+google-auth==2.35.0
+google-auth-httplib2==0.2.0
+google-cloud==0.34.0
+google-cloud-core==2.4.1
+google-cloud-storage==2.18.2
+google-crc32c==1.6.0
+google-resumable-media==2.7.2
+googleapis-common-protos==1.65.0
+grpc-google-iam-v1==0.13.1
+pandas==2.2.3
+requests==2.32.3
+torch==2.5.1
+# torchaudio==2.5.1
+# torchvision==0.20.1
+transformers==4.46.1
+qdrant-client==1.12.1
+SQLAlchemy==1.4.40
+python-dotenv==1.0.1
+apache-airflow-providers-slack
+google-cloud-pubsub==2.27.1
+google-cloud-aiplatform

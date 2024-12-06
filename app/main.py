@@ -8,7 +8,7 @@ from fastapi import FastAPI, Depends
 from fastapi.middleware.cors import CORSMiddleware
 from app.core.config import settings
 from app.core.logging import logger
-from app.api.endpoints import patients, login, patient_details, doctor, patient_summary, patient_visits, patient_symptoms
+from app.api.endpoints import patients, login, patient_details, doctor, patient_summary, patient_visits, patient_symptoms, get_latest_patientid
 from app.utils.middleware import LoggingMiddleware, RequestIDMiddleware
 import app.db.base as db_base
 
@@ -39,6 +39,7 @@ app.include_router(doctor.router, prefix=settings.API_V1_STR)
 app.include_router(patient_symptoms.router, prefix=settings.API_V1_STR)
 app.include_router(patient_visits.router, prefix=settings.API_V1_STR)
 app.include_router(patient_summary.router, prefix=settings.API_V1_STR)
+app.include_router(get_latest_patientid.router, prefix=settings.API_V1_STR)
 
 db_base.init()
 

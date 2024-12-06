@@ -1,3 +1,4 @@
+# models/load_records_to_db.py
 import json
 from datetime import datetime
 from sqlalchemy.orm import Session
@@ -8,6 +9,9 @@ from app.db.schemas.patient_symptoms import PatientSymptomCreate
 from app.db.base import engine
 from faker import Faker
 import re
+import sys
+import os
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 fake = Faker()
 session = Session(bind=engine)
@@ -23,7 +27,7 @@ def calculate_dob(age):
     return dob
 
 try:
-    for record in data[846:]:
+    for record in data[:]:
         patient_data = record["patientRecord"]
 
         patient_details_data = PatientDetailsCreate(

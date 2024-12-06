@@ -8,12 +8,13 @@ from qdrant_client import QdrantClient
 from transformers import BertTokenizer, BertModel
 import sys
 import os
-current = os.path.dirname(os.path.realpath(__file__))
-gparent = os.path.dirname(os.path.dirname(current))
 
-sys.path.append(gparent)
-from data_pipeline.dags.constants import QDRANT_COLLECTION, QDRANT_PORT, VECTORSTORE_IP, EMBEDDING_MODEL_PATH,SERVICE_ACCOUNT_FILEPATH
-from data_pipeline.dags.create_embedding import embed
+# current = os.path.dirname(os.path.realpath(__file__))
+# gparent = os.path.dirname(os.path.dirname(current))
+
+# sys.path.append(gparent)
+from constants import QDRANT_COLLECTION, QDRANT_PORT, VECTORSTORE_IP, EMBEDDING_MODEL_PATH,SERVICE_ACCOUNT_FILEPATH
+from create_embedding import embed
 import torch
 import os
 from add_to_vectorstore import get_qdrant_instance_ip
@@ -27,19 +28,19 @@ class VectorStore():
          return cls._instance
     
     def __init__(self):
-        os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = SERVICE_ACCOUNT_FILEPATH
+        # os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = SERVICE_ACCOUNT_FILEPATH
         self.client = QdrantClient(host=get_qdrant_instance_ip(), port=QDRANT_PORT)
         self.collection_name = QDRANT_COLLECTION
         self.pretrained_model_str = "microsoft/BiomedNLP-PubMedBERT-base-uncased-abstract"
         self.tokenizer = BertTokenizer.from_pretrained(self.pretrained_model_str)
         self.model = BertModel.from_pretrained(self.pretrained_model_str)
 
-    def get_relevant_records(self, query: str, top_k: int = 3):
+    def get_relevant_records(self, query: str, top_k: int = 3, device="cpu"):
         if not self.validate_collection():
             return []
         
         # Generate the query embedding
-        query_embedding = embed(query, self.tokenizer, self.model, device="cpu")
+        query_embedding = embed(query, self.tokenizer, self.model, device=device)
         logger.info("Query embedding generated successfully.")
         
         query_embedding = query_embedding.flatten().tolist()
