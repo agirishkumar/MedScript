@@ -126,13 +126,13 @@ st.markdown("""
 # """)
 
 # Embed the Tableau Public Dashboard
-# tableau_url = "https://public.tableau.com/views/YourDashboardURL"  # Replace with your Tableau public dashboard link
-# st.components.v1.html(
-#     f"""
-#     <iframe src="{tableau_url}" width="100%" height="800" frameborder="0"></iframe>
-#     """,
-#     height=850,
-# )
+tableau_url = "https://public.tableau.com/app/profile/mallika.gaikwad/viz/Tableau_Medscript/Dashboard1?publish=yes"  # Replace with your Tableau public dashboard link
+st.components.v1.html(
+    f"""
+    <iframe src="{tableau_url}" width="100%" height="800" frameborder="0"></iframe>
+    """,
+    height=850,
+)
 
 # Footer or additional monitoring information
 st.write("For detailed logs or additional insights, please check the system logs or the admin panel.")
