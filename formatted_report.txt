@@ -1,0 +1,1 @@
+Error processing the log: Invalid \escape: line 2 column 1586 (char 1587)

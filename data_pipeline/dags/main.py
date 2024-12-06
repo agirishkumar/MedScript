@@ -10,6 +10,8 @@ import subprocess
 import json
 from airflow.providers.google.cloud.sensors.pubsub import PubSubPullSensor
 from airflow.providers.google.cloud.operators.pubsub import PubSubCreateSubscriptionOperator
+import os
+
 
 # define the arguments for the DAG
 default_args = {
@@ -26,8 +28,7 @@ dag = DAG(
     catchup=False
 )
 
-# Slack Webhook URL
-SLACK_WEBHOOK_DAG_URL = "https://hooks.slack.com/services/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"
+SLACK_WEBHOOK_DAG_URL = os.environ.get("SLACK_WEBHOOK_DAG_URL")
 
 def send_slack_notification(message):
     """Helper function to send slack notification using curl"""
@@ -36,7 +37,7 @@ def send_slack_notification(message):
         '-X', 'POST',
         '-H', 'Content-type: application/json',
         '--data', json.dumps({"text": message}),
-        SLACK_WEBHOOK_URL
+        SLACK_WEBHOOK_DAG_URL
     ]
     try:
         subprocess.run(curl_command, check=True, capture_output=True)
@@ -64,58 +65,15 @@ def slack_success_alert(context):
     send_slack_notification(slack_msg)
 
 
-# TASK 0: Create Pub/Sub Subscription
-create_subscription = PubSubCreateSubscriptionOperator(
-    task_id='create_subscription',
-    project_id='medscript-437117',
-    topic='patient-analysis-trigger',
-    subscription='patient-analysis-subscription',
-    dag=dag,
-)
-
-# TASK 1: Wait for Pub/Sub message
-def process_message(**context):
-    message = context['task_instance'].xcom_pull(task_ids='wait_for_message')
-    patient_id = int(message.decode('utf-8'))
-    return patient_id
-
-wait_for_message = PubSubPullSensor(
-    task_id='wait_for_message',
-    project_id='medscript-437117',
-    subscription='patient-analysis-subscription',
-    ack_messages=True,
-    on_failure_callback=slack_failure_alert,
-    dag=dag,
-)
-
-# TASK 2: Get patient_id from Pub/Sub message
-get_patient_id = PythonOperator(
-    task_id='get_patient_id',
-    python_callable=process_message,
-    provide_context=True,
-    on_failure_callback=slack_failure_alert,
-    dag=dag,
-)
-
 # TASK 3: Fetch patient summary (using the patient_id from Pub/Sub message)
 load_data_task = PythonOperator(
     task_id="load_data_task",
     python_callable=get_summary,
-    op_kwargs={'patient_id': "{{ task_instance.xcom_pull(task_ids='get_patient_id') }}"},
+    op_kwargs={'patient_id': "{{ dag_run.conf['patient_id'] }}"},
+    provide_context=True,
     on_failure_callback=slack_failure_alert,
     dag=dag,
 )
-
-# # TASK 1: Fetch patient summary
-# load_data_task = PythonOperator(
-#     task_id="load_data_task",
-#     python_callable=get_summary,
-#     op_kwargs={
-#         'patient_id': 9
-#     },
-#     on_failure_callback=slack_failure_alert,
-#     dag=dag
-# )
 
 # TASK 4: Preprocess data
 data_preprocessing_task = PythonOperator(
@@ -154,5 +112,5 @@ generate_model_response_task = PythonOperator(
     dag=dag
 )
 
-# Update the task dependencies
-create_subscription >> wait_for_message >> get_patient_id >>load_data_task >> data_preprocessing_task >> query_vector_database_task >> generate_prompt_task >> generate_model_response_task
+# the task dependencies
+load_data_task >> data_preprocessing_task >> query_vector_database_task >> generate_prompt_task >> generate_model_response_task

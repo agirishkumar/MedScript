@@ -14,6 +14,7 @@ x-airflow-common:
     AIRFLOW__API__AUTH_BACKENDS: 'airflow.api.auth.backend.basic_auth,airflow.api.auth.backend.session'
     AIRFLOW__SCHEDULER__ENABLE_HEALTH_CHECK: 'true'
     AIRFLOW_CONFIG: '/opt/airflow/config/airflow.cfg'
+    GOOGLE_APPLICATION_CREDENTIALS: /opt/airflow/secrets/medscript-sa.json
     AIRFLOW_CONN_SLACK_WEBHOOK: '{"conn_type": "http", "host": "hooks.slack.com", "schema": "https", "port": 443, "extra": {"webhook_token": "T0833DJS7RV/B083XQ8V6J0/MxQ7a4pQE6LNQtPNMzMXZhTd"}}'
     HF_HOME: /tmp/huggingface 
     TZ: "America/New_York"
