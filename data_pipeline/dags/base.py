@@ -64,7 +64,7 @@ def generate_model_response(prompt: str) -> str:
             [prompt],
             generation_config=generation_config,
             safety_settings=safety_settings,
-            stream=False,  # Set to False to get complete response at once
+            stream=False,  
         )
         
         logger.info("Generated model response successfully")
@@ -279,7 +279,7 @@ def generate_prompt(query: str) -> str:
         Please provide a comprehensive diagnostic report following these steps:
         {report_template}
 
-        Please fill in each section of the report template with relevant information based on the patient's symptoms and medical history. Provide clear and detailed explanations throughout your chain of reasoning."""
+        Please fill in each section of the report template with relevant information based on the patient's symptoms, medical history and use context if and only if its relavent. Provide clear and detailed explanations throughout your chain of reasoning."""
     
     return prompt
 
