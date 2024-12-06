@@ -4,8 +4,11 @@ AI assitant for diagnosis
 Group Members: 
 [Aishwarya Suyamindra](https://github.com/aishwarya-suyamindra) ,[Girish Kumar Adari](https://github.com/agirishkumar), [Mallika Gaikwad](https://github.com/MallikaGaikwad), [Om Mali](https://github.com/maliom939) , [Pramatha Bhat](https://github.com/pramathabhat), [Rohan Reddy](https://github.com/tantalum-73)
 
+**Final Demo recordings** 
+1. [https://northeastern.zoom.us/rec/share/HFf1d277uKP9Kb9_2tgWFIjVbV6hyUSevlLwpkQwsSH-DSDlK-plGogxDqBTx1EJ.wokUQnQATvARIg8_?startTime=1730857443000](https://northeastern.zoom.us/rec/share/bGWaW9QzfYvHs7-oMiOrMJOh471eJXDD0hnewbPJ7EmZoipxNHBM_Gy9ZwY9WVSD.obRnjNr8c8HQWGRS?startTime=1733460520000)
+Passcode: WWJsh4^e
 
-**Demo recordings** 
+**Previous Demo recordings** 
 1. https://northeastern.zoom.us/rec/share/HFf1d277uKP9Kb9_2tgWFIjVbV6hyUSevlLwpkQwsSH-DSDlK-plGogxDqBTx1EJ.wokUQnQATvARIg8_?startTime=1730857443000
 Passcode: 5jm=N*#!
 
