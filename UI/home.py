@@ -216,3 +216,6 @@ st.markdown(f"""
 if st.button("Patient Form"):
     st.switch_page("pages/patient_form.py")
 
+# Add monitoring page link to sidebar
+st.sidebar.page_link("./pages/monitoring.py", label="# Monitoring")
+
