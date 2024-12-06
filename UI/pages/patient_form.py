@@ -173,20 +173,20 @@ def render():
                 st.error(message)
 
     st.markdown("---")
-    st.header("Download Diagnostic Report")
+    # st.header("Download Diagnostic Report")
 
-    if st.button("Download Diagnostic Report"):
-        try:
-            pdf = create_pdf()
-            st.download_button(
-                label="Download PDF",
-                data=pdf,
-                file_name="diagnostic_report.pdf",
-                mime="application/pdf"
-            )
-        except Exception as e:
-            st.error(f"An error occurred: {e}")
-            st.write("Diagnostic report is not yet available. Please contact your healthcare provider.")
+    # if st.button("Download Diagnostic Report"):
+    #     try:
+    #         pdf = create_pdf()
+    #         st.download_button(
+    #             label="Download PDF",
+    #             data=pdf,
+    #             file_name="diagnostic_report.pdf",
+    #             mime="application/pdf"
+    #         )
+    #     except Exception as e:
+    #         st.error(f"An error occurred: {e}")
+    #         st.write("Diagnostic report is not yet available. Please contact your healthcare provider.")
 
 
 render()
