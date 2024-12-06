@@ -29,9 +29,9 @@ def send_patient_symptoms(payload):
         if response.status_code == 200 or response.status_code == 201:
             return True
         else:
-            return False, f"Failed to submit symptoms. Error: {response.text}"
+            return False
     except Exception as e:
-        return False, f"An error occurred: {str(e)}"
+        return False
 
 
 def trigger_airflow_dag(patient_id):
@@ -148,12 +148,10 @@ def render():
                     "AssociatedConditions": f"Existing Conditions: {existing_conditions}, Allergies: {allergies}, Medications: {current_medications}",
                 }
 
-                success, message = send_patient_symptoms(symptoms_payload)
+                success = send_patient_symptoms(symptoms_payload)
                 if success:
-                    st.success(message)
-                    task_log = trigger_airflow_dag(patient_id)  # Trigger the Airflow DAG with the patient_id
+                    task_log = trigger_airflow_dag(patient_id)
 
-                    # Display the task log in the Diagnostic Report section
                     st.markdown("---")
                     st.header("Diagnostic Report")
                     st.markdown(task_log, height=1000, disabled=True)
