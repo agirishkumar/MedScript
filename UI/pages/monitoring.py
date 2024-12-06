@@ -23,10 +23,6 @@ st.markdown(
             color: #333333; /* Dark grey */
         }
 
-        .main > div {
-            padding-left: 0rem;    
-        }
-
         body {
             font-family: Arial, sans-serif;
             background-color: #0d1117;
@@ -67,42 +63,6 @@ st.markdown(
             margin-top: 10px;
             color: #b0b3b8;
         }
-
-        button[kind="secondary"]{
-            background-color: #f5a623;
-            color: #161b22;
-            border: none;
-            padding: 15px 30px;
-            font-size: 1.2rem;
-            cursor: pointer;
-            border-radius: 5px;
-            margin-top: 20px;
-        }
-
-        .offers {
-            display: flex;
-            justify-content: center;
-            gap: 30px;
-            padding: 50px;
-            background-color: #161b22;
-        }
-        
-        .features-grid-container {
-            display: grid;
-            gap: 20px;
-            grid-template-columns: auto auto auto;
-            min-height: 0;
-            padding: 10px;
-        }
-
-        .features-grid-item {
-            background-color: rgba(255, 255, 255, 0.8);
-            border: 1px solid #ddd;
-            padding: 20px;
-            text-align: center;
-            min-height: 0;
-            overflow: hidden;
-        }
     </style>
     """,
     unsafe_allow_html=True
@@ -126,13 +86,43 @@ st.markdown("""
 # """)
 
 # Embed the Tableau Public Dashboard
-tableau_url = "https://public.tableau.com/app/profile/mallika.gaikwad/viz/Tableau_Medscript/Dashboard1?publish=yes"  # Replace with your Tableau public dashboard link
-st.components.v1.html(
-    f"""
-    <iframe src="{tableau_url}" width="100%" height="800" frameborder="0"></iframe>
-    """,
-    height=850,
-)
+tableau_html = """
+    <div style="margin: 20px 500px">
+        <div class='tableauPlaceholder' id='viz1733455825368' style='position: relative; size: 150%'>
+            <noscript>
+                <a href='#'><img alt='Dashboard 1' src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;Ta&#47;Tableau_Medscript&#47;Dashboard1&#47;1_rss.png' style='border: none' /></a>
+            </noscript>
+            <object class='tableauViz'  style='display:none;'>
+                <param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' /> 
+                <param name='embed_code_version' value='3' /> 
+                <param name='site_root' value='' />
+                <param name='name' value='Tableau_Medscript&#47;Dashboard1' />
+                <param name='tabs' value='no' />
+                <param name='toolbar' value='yes' />
+                <param name='static_image' value='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;Ta&#47;Tableau_Medscript&#47;Dashboard1&#47;1.png' />
+                <param name='animate_transition' value='yes' />
+                <param name='display_static_image' value='yes' />
+                <param name='display_spinner' value='yes' />
+                <param name='display_overlay' value='yes' />
+                <param name='display_count' value='yes' />
+                <param name='language' value='en-US' />
+                <param name='filter' value='publish=yes' />
+            </object>
+        </div>
+    
+        <script type='text/javascript'>
+            var divElement = document.getElementById('viz1733455825368');
+            var vizElement = divElement.getElementsByTagName('object')[0];
+            if ( divElement.offsetWidth > 800 ) { vizElement.style.width='1250px';vizElement.style.height='727px';} 
+            else if ( divElement.offsetWidth > 500 ) { vizElement.style.width='1250px';vizElement.style.height='727px';} 
+            else { vizElement.style.width='150%';vizElement.style.height='1577px';} 
+            var scriptElement = document.createElement('script');
+            scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';
+            vizElement.parentNode.insertBefore(scriptElement, vizElement);
+        </script>
+    </div>
+"""  # Replace with your Tableau public dashboard link
+st.components.v1.html(tableau_html,height=1200)
 
 # Footer or additional monitoring information
 st.write("For detailed logs or additional insights, please check the system logs or the admin panel.")
