@@ -9,14 +9,20 @@ from google.oauth2 import service_account
 from google.auth import default
 from qdrant_client import QdrantClient, models
 import pandas as pd
-import sys
 import os
 # from src.credential_helper import setup_google_credentials
 # current = os.path.dirname(os.path.realpath(__file__))
 # gparent = os.path.dirname(os.path.dirname(current))
 
-# sys.path.append(gparent)
-from constants import (
+import sys
+from pathlib import Path
+current_file = Path(__file__).resolve()
+project_dir = current_file.parent.parent
+sys.path.append(str(project_dir))
+
+# from .src.credential_helper import *
+import src.credential_helper as cred_helper
+from .constants import (
     MIMIC_DATASET_BUCKET_NAME, 
     QDRANT_COLLECTION, 
     QDRANT_PORT, 
@@ -155,7 +161,6 @@ def update_to_vectordb(qdrant_host):
 
 def get_qdrant_instance_ip():
     # credentials = service_account.Credentials.from_service_account_file(SERVICE_ACCOUNT_FILEPATH)
-
     credentials, _ = default()
     compute = discovery.build('compute', 'v1', credentials=credentials)
     instance = compute.instances().get(project=PROJECT_ID, zone=QDRANT_INSTANCE_ZONE, instance=QDRANT_INSTANCE_NAME).execute()
