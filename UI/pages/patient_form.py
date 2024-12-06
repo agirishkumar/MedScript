@@ -3,10 +3,12 @@ import requests
 from generate_patient_report_pdf import create_pdf
 from requests.auth import HTTPBasicAuth
 import time
+import datetime
 
 base_api_url = "http://34.170.255.245"
 airflow_base_url = "http://34.123.143.96:8080/api/v1"
 dag_id = "data_pipeline"
+today = datetime.date.today()
 
 def send_patient_details(payload):
     api_url = f"{base_api_url}/api/v1/patient_details"
@@ -97,7 +99,7 @@ def render():
         st.header("Basic Information")
         first_name = st.text_input("First Name*", max_chars=50)
         last_name = st.text_input("Last Name*", max_chars=50)
-        dob = st.date_input("Date of Birth*", max_value=None)
+        dob = st.date_input("Date of Birth*", min_value=datetime.date(1900, 1, 1), max_value=today)
         gender = st.selectbox("Gender*", ["Select", "Male", "Female"])
         contact_number = st.text_input("Contact Number*", max_chars=10)
         email = st.text_input("Email*", max_chars=100)
