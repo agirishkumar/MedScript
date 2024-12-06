@@ -721,6 +721,30 @@ Key Relationships:
     Both age and BMI have negligible correlations with differential metrics (-0.10 to 0.06) Interpretation: The correlation matrix shows the relationships between different metrics and demographic factors. Primary_sequence, primary_rougeL, and primary_rouge1/2 have strong positive correlations with each other, while primary_bleu is less correlated with other metrics. Age and BMI have minimal correlations with the performance metrics, suggesting they have limited direct impact. The strong correlations among diff_rouge metrics indicate they measure similar aspects of performance.
 
 
+### Pipeline Overview
+The CI/CD pipeline automates the deployment of the Streamlit application to Google Cloud Platform (GCP). Here's an overview of the steps:
+
+Trigger on Push:
+
+The pipeline is triggered when changes are pushed to the UI/ directory in the feature/UI-deploy, dev, or main branches.
+Authenticate with Google Cloud:
+
+The pipeline uses a service account key stored in GitHub Secrets to authenticate with GCP.
+Build and Push Docker Image:
+
+The pipeline builds a Docker image for the Streamlit application using the Dockerfile in the UI/ directory.
+The Docker image is tagged and pushed to Google Artifact Registry under the repository us-docker.pkg.dev/medscript-437117/gcr.io/streamlit-app.
+Deploy to Cloud Run:
+
+The Docker image is deployed to Cloud Run, which provides a managed, scalable environment to host the Streamlit app.
+The application is exposed to the internet and configured to allow unauthenticated access.
+This pipeline ensures that any updates to the UI/ directory in the specified branches are automatically deployed to the production environment.
+
+Slack Alert Notification Integration
+We’ve integrated Slack alert notifications into the deployment pipeline to keep developers informed about deployment failures. If a deployment fails, an alert is sent to a specified Slack channel with details including the branch, commit and author. Slack notifications are triggered through a webhook and provide real-time information about the deployment status. Screenshot of sample notification is below:
+![image](https://github.com/user-attachments/assets/fe86bc30-0294-4a99-a1cf-0ebed288b827)
+
+
 
 
 
