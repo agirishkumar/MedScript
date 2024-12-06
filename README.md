@@ -723,13 +723,11 @@ Key Relationships:
     BMI has a very weak negative correlation with all primary metrics (-0.02 to -0.07)
     Both age and BMI have negligible correlations with differential metrics (-0.10 to 0.06) Interpretation: The correlation matrix shows the relationships between different metrics and demographic factors. Primary_sequence, primary_rougeL, and primary_rouge1/2 have strong positive correlations with each other, while primary_bleu is less correlated with other metrics. Age and BMI have minimal correlations with the performance metrics, suggesting they have limited direct impact. The strong correlations among diff_rouge metrics indicate they measure similar aspects of performance.
 
-### Cloud vs Edge Deployment
-
 ### Deployment Service
 
 
 
-### Pipeline Overview
+### Frontend Deployment Pipeline Overview
 The CI/CD pipeline automates the deployment of the Streamlit application to Google Cloud Platform (GCP). Here's an overview of the steps:
 
 Trigger on Push:
