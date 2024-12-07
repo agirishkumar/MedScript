@@ -7,11 +7,72 @@ import requests
 # import json
 from datetime import datetime
 from logger import logger
+import vertexai
+from vertexai.generative_models import GenerativeModel, Part, SafetySetting
 # from airflow.models import Variable
 
 # BASE_API_URL = Variable.get("BASE_API_URL")
 BASE_API_URL = os.environ.get("BASE_API_URL")
 print(BASE_API_URL)
+
+def generate_model_response(prompt: str) -> str:
+    """
+    Generates a response using GCP Vertex AI Gemini model based on the input prompt.
+    
+    Args:
+        prompt (str): The formatted prompt to send to the model
+        
+    Returns:
+        str: The model's response
+    """
+    try:
+        # Initialize Vertex AI
+        vertexai.init(project="medscript-437117", location="us-central1")
+        
+        # Initialize the model
+        model = GenerativeModel("gemini-1.5-pro-002")
+        
+        # Define generation config
+        generation_config = {
+            "max_output_tokens": 8192,
+            "temperature": 1,
+            "top_p": 0.95,
+        }
+        
+        # Define safety settings
+        safety_settings = [
+            SafetySetting(
+                category=SafetySetting.HarmCategory.HARM_CATEGORY_HATE_SPEECH,
+                threshold=SafetySetting.HarmBlockThreshold.OFF
+            ),
+            SafetySetting(
+                category=SafetySetting.HarmCategory.HARM_CATEGORY_DANGEROUS_CONTENT,
+                threshold=SafetySetting.HarmBlockThreshold.OFF
+            ),
+            SafetySetting(
+                category=SafetySetting.HarmCategory.HARM_CATEGORY_SEXUALLY_EXPLICIT,
+                threshold=SafetySetting.HarmBlockThreshold.OFF
+            ),
+            SafetySetting(
+                category=SafetySetting.HarmCategory.HARM_CATEGORY_HARASSMENT,
+                threshold=SafetySetting.HarmBlockThreshold.OFF
+            ),
+        ]
+        
+        # Generate content
+        response = model.generate_content(
+            [prompt],
+            generation_config=generation_config,
+            safety_settings=safety_settings,
+            stream=False,  
+        )
+        
+        logger.info("Generated model response successfully")
+        return response.text
+        
+    except Exception as e:
+        logger.error(f"Error generating model response: {str(e)}")
+        raise
 
 def get_data(url: str) -> dict:
     """
@@ -218,71 +279,7 @@ def generate_prompt(query: str) -> str:
         Please provide a comprehensive diagnostic report following these steps:
         {report_template}
 
-        Please fill in each section of the report template with relevant information based on the patient's symptoms and medical history. Provide clear and detailed explanations throughout your chain of reasoning."""
+        Please fill in each section of the report template with relevant information based on the patient's symptoms, medical history and use context if and only if its relavent. Provide clear and detailed explanations throughout your chain of reasoning."""
     
     return prompt
 
-# def check_hf_permissions():
-#     hf_home = os.getenv("HF_HOME", "/tmp/huggingface")
-#     print(f"Checking permissions for HF_HOME directory at: {hf_home}")
-#     if os.path.exists(hf_home):
-#         for root, dirs, files in os.walk(hf_home):
-#             print(f"\nDirectory: {root}")
-#             for name in files:
-#                 filepath = os.path.join(root, name)
-#                 try:
-#                     # Check read permission
-#                     with open(filepath, "rb") as f:  # Use "rb" for binary-safe mode
-#                         f.read(1024)  # Read first 1KB to confirm access
-#                     print(f"Read permission OK for file: {filepath}")
-#                 except PermissionError:
-#                     print(f"Permission error for file: {filepath}")
-#                 except UnicodeDecodeError:
-#                     print(f"File is binary, read as binary successful: {filepath}")
-#                 except Exception as e:
-#                     print(f"Unexpected error for file {filepath}: {e}")
-#     else:
-#         print(f"HF_HOME directory does not exist at {hf_home}")
-
-
-# def test_model_load():
-#     try:
-#         # Use the environment variable for HF_HOME as configured
-#         hf_home = os.getenv("HF_HOME", "/tmp/huggingface")
-#         print(f"Testing model load from HF_HOME: {hf_home}")
-        
-#         # Load tokenizer and model
-#         tokenizer = BertTokenizer.from_pretrained("microsoft/BiomedNLP-PubMedBERT-base-uncased-abstract")
-#         model = BertModel.from_pretrained("microsoft/BiomedNLP-PubMedBERT-base-uncased-abstract")
-
-#         # Test model by running a simple embedding operation
-#         inputs = tokenizer("Test sentence for loading model", return_tensors="pt")
-#         outputs = model(**inputs)
-
-#         # Check the shape of the output to ensure the model runs
-#         print(f"Model loaded successfully. Output shape: {outputs.last_hidden_state.shape}")
-#     except Exception as e:
-#         print(f"Model load test failed: {e}")
-
-# def check_hf_home():
-#     hf_home = os.getenv("HF_HOME", "/root/.cache/huggingface")  # default path if HF_HOME isn't set
-#     if os.path.exists(hf_home):
-#         print(f"Checking contents of HF_HOME directory at: {hf_home}")
-        
-#         for root, dirs, files in os.walk(hf_home):
-#             # Display the current directory
-#             print(f"\nDirectory: {root}")
-#             if not files and not dirs:
-#                 print("  (Empty)")
-            
-#             # List files with details
-#             for file in files:
-#                 file_path = os.path.join(root, file)
-#                 file_size = os.path.getsize(file_path)
-#                 print(f"  File: {file} | Size: {file_size / 1024:.2f} KB")
-                
-#             # List subdirectories
-#             for dir in dirs:
-#                 print(f"  Subdirectory: {dir}")
-#     else:
-#         print(f"HF_HOME directory does not exist at {hf_home}")

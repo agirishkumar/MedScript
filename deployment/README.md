@@ -33,48 +33,14 @@ kubectl config current-context
 ```
 
 
-### 2. Service account
+### 2. Service account and Kubernetes secrets
 The service account needs to have the following permissions:
 - Cloud SQL Client role
 - Artifact Registry Reader 
 
-
-Create a Kubernetes service account and bind it to the Google Cloud service account using Workload Identity Federation for GKE.
-
-[The cluster, nodes should be updated to enable workload indentity federation]
-
-
 - Create a namespace 
 ```bash
 kubectl create namespace medscript
-```
-
-- Create a Kubernetes service account
-
-```bash
-cd deployment
-kubectl apply -f service-account.yaml
-```
-
-- Bind the Kubernetes Service Account and the Google Cloud Service Account
-
-```bash
-
-gcloud iam service-accounts add-iam-policy-binding \
-  --role="roles/iam.workloadIdentityUser" \
-  --member="serviceAccount:medscript-437117.svc.id.goog[medscript/ksa-medscript]" \
-  github-actions-sa@medscript-437117.iam.gserviceaccount.com
-
-```
-
-- Annotate KSA with the IAM binding
-
-```bash
-
-  kubectl annotate serviceaccount ksa-medscript \
-  -n medscript \
-  iam.gke.io/gcp-service-account=github-actions-sa@medscript-437117.iam.gserviceaccount.com
-
 ```
 
 - Create Kubernetes secrets
@@ -86,6 +52,11 @@ gcloud iam service-accounts add-iam-policy-binding \
   --from-literal=password=DB_PASS \
   --from-literal=jwt_secret_key=KEY \
   --from-literal=jwt_refresh_secret_key=KEY
+```
+
+```bash
+kubectl create secret generic gke-airflow-secrets -n medscript \
+  --from-literal=slack_webhook_url=URL
 ```
 
 
@@ -107,7 +78,8 @@ docker build -f data_pipeline/Dockerfile -t airflow-dag-img:v1 --no-cache --plat
 ```bash
 docker tag medscript-backend-app:v1 gcr.io/medscript-437117/fast-api-backend:latest
 
-docker tag airflow-dag-img:v1 gcr.io/medscript-437117/airflow-dag-img:v1                       
+docker tag data-pipeline-img:v1 gcr.io/medscript-437117/data-pipeline-img:v1     
+
 ```
 
  - To authenticate and push the docker image to GCR:
@@ -124,8 +96,9 @@ gcloud auth configure-docker
 - Push the image to GCR
 ```bash
 docker push gcr.io/medscript-437117/fast-api-app:latest
-
-docker tag airflow-img:latest gcr.io/medscript-437117/airflow-dag-img:v1                       
+docker push gcr.io/medscript-437117/data-pipeline-img:v1 
+docker tag airflow-img:latest gcr.io/medscript-437117/airflow-dag-img:v1    
+                   
 ```
 
 ### Deploy the FAST API application on GKE

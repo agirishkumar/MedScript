@@ -9,6 +9,9 @@ from sqlalchemy.exc import IntegrityError
 from ..models.user import User, Role
 from ..schemas.user import UserCreate
 from fastapi import HTTPException
+import sys
+import os
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 def get_user(db: Session, user_id: int) -> User:
     """

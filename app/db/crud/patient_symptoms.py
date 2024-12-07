@@ -12,6 +12,9 @@ from ..models import PatientVisit
 from ..models.patient_symptoms import PatientSymptom
 from ..schemas.patient_symptoms import PatientSymptomCreate, PatientSymptomUpdate
 from fastapi import HTTPException
+import sys
+import os
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 # Set up logger
 logger = logging.getLogger(__name__)

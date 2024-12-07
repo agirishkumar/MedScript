@@ -34,6 +34,9 @@ class Settings(BaseSettings):
     API_V1_STR: str = "/api/v1"
     ALLOWED_ORIGINS: List[str] = ["*"]
 
+    # API URL
+    BASE_API_URL: str
+
     # Database settings
     DB_USER: str
     DB_PASS: str
@@ -56,6 +59,8 @@ class Settings(BaseSettings):
     # GCP Settings
     CLOUD_SQL_INSTANCE: str
     GOOGLE_APPLICATION_CREDENTIALS: str
+
+    API_BASE_URL: str
 
     class Config:
         """

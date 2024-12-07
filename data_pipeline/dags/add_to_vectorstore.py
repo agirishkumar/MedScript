@@ -5,12 +5,13 @@ Uploads embeddings from Google Cloud Storage to Qdrant with batch processing and
 '''
 
 from googleapiclient import discovery
-# from google.oauth2 import service_account
+from google.oauth2 import service_account
 from google.auth import default
 from qdrant_client import QdrantClient, models
 import pandas as pd
 import sys
 import os
+# from src.credential_helper import setup_google_credentials
 # current = os.path.dirname(os.path.realpath(__file__))
 # gparent = os.path.dirname(os.path.dirname(current))
 
@@ -154,6 +155,7 @@ def update_to_vectordb(qdrant_host):
 
 def get_qdrant_instance_ip():
     # credentials = service_account.Credentials.from_service_account_file(SERVICE_ACCOUNT_FILEPATH)
+
     credentials, _ = default()
     compute = discovery.build('compute', 'v1', credentials=credentials)
     instance = compute.instances().get(project=PROJECT_ID, zone=QDRANT_INSTANCE_ZONE, instance=QDRANT_INSTANCE_NAME).execute()
