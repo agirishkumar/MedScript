@@ -100,12 +100,13 @@ with st.form(key='patient_form'):
     # Form Submission
     submitted = st.form_submit_button("Submit", disabled=st.session_state["submit_disabled"])
 
-    if submitted:
-        # Disable the button immediately after clicking
-        st.session_state["submit_disabled"] = True
+    # if submitted:
+    #     # Disable the button immediately after clicking
+    #     
 
     # Confirmation on submission
     if submitted:
+        st.session_state["submit_disabled"] = True
         if not (first_name and last_name and gender != "Select" and blood_type != "Select"):
             st.error("Please fill out all required fields correctly")
         else:

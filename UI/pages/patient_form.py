@@ -94,6 +94,17 @@ def render():
     st.markdown("""
     Please fill out the form below with your details. Fields marked with an asterisk (*) are required.
     """)
+    def validate_form():
+        missing_fields = []
+        if not first_name:
+            missing_fields.append("First Name")
+        if not last_name:
+            missing_fields.append("Last Name")
+        if gender == "Select":
+            missing_fields.append("Gender")
+        if blood_type == "Select":
+            missing_fields.append("Blood Type")
+        return missing_fields
 
     with st.form(key='patient_form'):
         st.header("Basic Information")
@@ -109,21 +120,33 @@ def render():
         blood_type = st.selectbox("Blood Type", ["Select", "A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"])
 
         st.header("Medical Details")
-        symptoms = st.text_area("Detailed Symptoms*", placeholder="Describe your symptoms in detail...")
-        severity = st.text_area("Severity of your case*", placeholder="Describe the severity of your case")
+        symptoms = st.text_area("Detailed Symptoms* (seperate symptoms with semicolons)", placeholder="Describe your symptoms in detail...")
+        severity = st.selectbox("Severity", ["Select", "Mild","Moderate","Severe"])
         existing_conditions = st.text_area("Existing Medical Conditions",
                                            placeholder="List any pre-existing medical conditions...")
         allergies = st.text_area("Allergies", placeholder="List any allergies...")
         current_medications = st.text_area("Current Medications", placeholder="List any current medications...")
 
-        submitted = st.form_submit_button("Submit")
+        # if "submit_disabled" not in st.session_state:
+        #     st.session_state["submit_disabled"] = False  # Initialize state
 
-    if submitted:
-        if not (
-                first_name and last_name and gender != "Select" and blood_type != "Select" and dob and contact_number and address and height and weight and symptoms and severity):
-            st.error("Please fill out all required fields correctly")
-        else:
-            patient_payload = {
+        submitted = st.form_submit_button(
+        "Submit", 
+        disabled=st.session_state["submit_disabled"]
+        )
+
+        # Handle form submission
+        if submitted:
+            # Validate form inputs
+            missing_fields = validate_form()
+            if missing_fields:
+                # Show error message and keep the button enabled
+                st.error(f"Please fill out the following fields: {', '.join(missing_fields)}")
+            else:
+                # Disable the button after clicking
+                st.session_state["submit_disabled"] = True
+            
+                patient_payload = {
                 "FirstName": first_name,
                 "LastName": last_name,
                 "DateOfBirth": dob.isoformat(),
@@ -135,7 +158,28 @@ def render():
                 "Weight": weight,
                 "BloodType": blood_type if blood_type != "Select" else None
             }
-
+    
+    # if submitted:
+    #     st.session_state["submit_disabled"] = True
+    #     if not (
+    #             first_name and last_name and gender != "Select" and blood_type != "Select" and dob and contact_number and address and height and weight and symptoms and severity):
+    #         st.error("Please fill out all required fields correctly")
+    #     else:
+    #         patient_payload = {
+    #             "FirstName": first_name,
+    #             "LastName": last_name,
+    #             "DateOfBirth": dob.isoformat(),
+    #             "Gender": gender,
+    #             "ContactNumber": contact_number,
+    #             "Email": email,
+    #             "Address": address,
+    #             "Height": height,
+    #             "Weight": weight,
+    #             "BloodType": blood_type if blood_type != "Select" else None
+    #         }
+            
+            # Simulated API call for patient details
+            st.info("Submitting patient details...")
             success, message = send_patient_details(patient_payload)
             if success:
                 patient_id = message
@@ -151,7 +195,7 @@ def render():
                 success = send_patient_symptoms(symptoms_payload)
                 if success:
                     task_log = trigger_airflow_dag(patient_id)
-
+                    
                     st.markdown("---")
                     st.header("Comprehensive Diagnostic Report")
                     st.markdown(
@@ -172,6 +216,9 @@ def render():
             else:
                 st.error(message)
 
+            # Re-enable the button after the response is generated
+            st.session_state["submit_disabled"] = False
+    
     st.markdown("---")
     # st.header("Download Diagnostic Report")
 
