@@ -8,6 +8,7 @@ on:
       - feature/UI-deploy
       - dev
       - main
+      - feature/doc
 
 jobs:
   deploy:
@@ -28,16 +29,16 @@ jobs:
 
     - name: Build Docker image
       run: |
-        docker buildx build --platform linux/amd64 -f UI/Dockerfile -t us-docker.pkg.dev/medscript-437117/gcr.io/streamlit-app:latest UI
+        docker buildx build --platform linux/amd64 -f UI/Dockerfile -t us-docker.pkg.dev/medscript-437117/gcr.io/medscript-app:latest UI
 
     - name: Push Docker image to Google Artifact Registry
       run: |
-        docker push us-docker.pkg.dev/medscript-437117/gcr.io/streamlit-app:latest
+        docker push us-docker.pkg.dev/medscript-437117/gcr.io/medscript-app:latest
 
     - name: Deploy to Cloud Run
       run: |
-        gcloud run deploy streamlit-app \
-          --image us-docker.pkg.dev/medscript-437117/gcr.io/streamlit-app:latest \
+        gcloud run deploy medscript-app \
+          --image us-docker.pkg.dev/medscript-437117/gcr.io/medscript-app:latest \
           --platform managed \
           --region us-central1 \
           --allow-unauthenticated
