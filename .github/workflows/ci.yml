@@ -45,6 +45,7 @@ jobs:
       AIRFLOW_WWW_USER_PASSWORD: ${{ secrets.AIRFLOW_WWW_USER_PASSWORD }}
       CLOUD_SQL_INSTANCE: ${{ secrets.CLOUD_SQL_INSTANCE }}
       GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
+      BASE_API_URL: ${{ secrets.BASE_API_URL }}
 
     steps:
       - name: Checkout code
