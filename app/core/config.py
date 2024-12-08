@@ -60,7 +60,8 @@ class Settings(BaseSettings):
     CLOUD_SQL_INSTANCE: str
     GOOGLE_APPLICATION_CREDENTIALS: str
 
-    API_BASE_URL: str
+#     API_BASE_URL: str
+    # BASE_API_URL: str
 
     class Config:
         """
