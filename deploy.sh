@@ -82,6 +82,30 @@ wait_for_image() {
     done
 }
 
+check_image_exists() {
+    local project=$1
+    local image=$2
+    local tag=$3
+    
+    if gcloud container images describe gcr.io/$project/$image:$tag >/dev/null 2>&1; then
+        return 0  # Image exists
+    else
+        return 1  # Image doesn't exist
+    fi
+}
+
+# Function to check if cluster exists
+check_cluster_exists() {
+    local cluster=$1
+    local zone=$2
+    
+    if gcloud container clusters describe $cluster --zone $zone >/dev/null 2>&1; then
+        return 0  # Cluster exists
+    else
+        return 1  # Cluster doesn't exist
+    fi
+}
+
 # Function to wait for deployment to be ready
 wait_for_deployment() {
     local namespace=$1
