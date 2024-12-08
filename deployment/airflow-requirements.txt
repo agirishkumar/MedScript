@@ -18,4 +18,10 @@ transformers==4.46.1
 qdrant-client==1.12.1
 SQLAlchemy==1.4.40
 python-dotenv==1.0.1
+<<<<<<< HEAD
 apache-airflow-providers-slack
+=======
+apache-airflow-providers-slack
+google-cloud-pubsub==2.27.1
+google-cloud-aiplatform
+>>>>>>> 904d0a8648b7939be31b052594cdf6074137484e

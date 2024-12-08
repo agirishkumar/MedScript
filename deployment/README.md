@@ -33,22 +33,30 @@ kubectl config current-context
 ```
 
 
+<<<<<<< HEAD
 ### 2. Service account
+=======
+### 2. Service account and Kubernetes secrets
+>>>>>>> 904d0a8648b7939be31b052594cdf6074137484e
 The service account needs to have the following permissions:
 - Cloud SQL Client role
 - Artifact Registry Reader 
 
+<<<<<<< HEAD
 
 Create a Kubernetes service account and bind it to the Google Cloud service account using Workload Identity Federation for GKE.
 
 [The cluster, nodes should be updated to enable workload indentity federation]
 
 
+=======
+>>>>>>> 904d0a8648b7939be31b052594cdf6074137484e
 - Create a namespace 
 ```bash
 kubectl create namespace medscript
 ```
 
+<<<<<<< HEAD
 - Create a Kubernetes service account
 
 ```bash
@@ -77,6 +85,8 @@ gcloud iam service-accounts add-iam-policy-binding \
 
 ```
 
+=======
+>>>>>>> 904d0a8648b7939be31b052594cdf6074137484e
 - Create Kubernetes secrets
 
 ```bash
@@ -88,6 +98,14 @@ gcloud iam service-accounts add-iam-policy-binding \
   --from-literal=jwt_refresh_secret_key=KEY
 ```
 
+<<<<<<< HEAD
+=======
+```bash
+kubectl create secret generic gke-airflow-secrets -n medscript \
+  --from-literal=slack_webhook_url=URL
+```
+
+>>>>>>> 904d0a8648b7939be31b052594cdf6074137484e
 
 ### 3. Build and push the docker images
 - Build the docker image 
@@ -107,7 +125,12 @@ docker build -f data_pipeline/Dockerfile -t airflow-dag-img:v1 --no-cache --plat
 ```bash
 docker tag medscript-backend-app:v1 gcr.io/medscript-437117/fast-api-backend:latest
 
+<<<<<<< HEAD
 docker tag airflow-dag-img:v1 gcr.io/medscript-437117/airflow-dag-img:v1                       
+=======
+docker tag data-pipeline-img:v1 gcr.io/medscript-437117/data-pipeline-img:v1     
+
+>>>>>>> 904d0a8648b7939be31b052594cdf6074137484e
 ```
 
  - To authenticate and push the docker image to GCR:
@@ -124,8 +147,14 @@ gcloud auth configure-docker
 - Push the image to GCR
 ```bash
 docker push gcr.io/medscript-437117/fast-api-app:latest
+<<<<<<< HEAD
 
 docker tag airflow-img:latest gcr.io/medscript-437117/airflow-dag-img:v1                       
+=======
+docker push gcr.io/medscript-437117/data-pipeline-img:v1 
+docker tag airflow-img:latest gcr.io/medscript-437117/airflow-dag-img:v1    
+                   
+>>>>>>> 904d0a8648b7939be31b052594cdf6074137484e
 ```
 
 ### Deploy the FAST API application on GKE
