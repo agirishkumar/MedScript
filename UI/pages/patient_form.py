@@ -133,6 +133,20 @@ def render():
                 missing_fields.append("Gender")
             if blood_type == "Select":
                 missing_fields.append("Blood Type")
+            if not dob:
+                missing_fields.append("Date of Birth")
+            if not contact_number:
+                missing_fields.append("Contact Number")
+            if not address:
+                missing_fields.append("Address") 
+            if not height:
+                missing_fields.append("Height (cm)")
+            if not weight:
+                missing_fields.append("Weight (kg)")
+            if not symptoms:
+                missing_fields.append("Symptoms")
+            if not severity:
+                missing_fields.append("Severity")
 
             if missing_fields:
                 st.error(f"Please fill out the following fields: {', '.join(missing_fields)}")
