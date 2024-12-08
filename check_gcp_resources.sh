@@ -11,6 +11,49 @@ BLUE='\033[0;34m'
 GRAY='\033[0;37m'
 NC='\033[0m' # No Color
 
+# Function to check and install dependencies
+check_and_install_dependencies() {
+    echo -e "${BLUE}Checking and installing required dependencies...${NC}"
+
+    # Check for apt-get
+    if ! command -v apt-get >/dev/null 2>&1; then
+        echo -e "${RED}Error: This script requires apt-get package manager (Debian/Ubuntu)${NC}"
+        exit 1
+    fi  # Changed } to fi
+
+    # Install curl if not present
+    if ! command -v curl >/dev/null 2>&1; then
+        echo "Installing curl..."
+        sudo apt-get update && sudo apt-get install -y curl
+    fi
+
+    # Check if gcloud CLI is installed
+    if ! command -v gcloud >/dev/null 2>&1; then
+        echo "Installing Google Cloud SDK..."
+        
+        # Add the Cloud SDK distribution URI as a package source
+        echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt cloud-sdk main" | sudo tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
+
+        # Import the Google Cloud public key
+        curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key --keyring /usr/share/keyrings/cloud.google.gpg add -
+
+        # Update and install the Cloud SDK
+        sudo apt-get update && sudo apt-get install -y google-cloud-sdk
+
+        # Initialize gcloud
+        echo -e "${YELLOW}Please run 'gcloud init' to configure your Google Cloud SDK installation${NC}"
+        exit 1
+    fi
+
+    # Check if user is authenticated with gcloud
+    if ! gcloud auth list --filter=status:ACTIVE --format="get(account)" 2>/dev/null; then
+        echo -e "${RED}Error: Not authenticated with Google Cloud. Please run 'gcloud auth login' first${NC}"
+        exit 1
+    fi
+
+    echo -e "${GREEN}All dependencies are installed and configured!${NC}"
+}
+
 # Function to print section headers
 print_header() {
     echo -e "\n${GREEN}=== $1 ===${NC}"
@@ -108,10 +151,6 @@ execute_command "gcloud sql instances list --format='table(
     state,
     settings.tier
 )'" "No Cloud SQL instances found"
-
-# Check App Engine Services
-print_header "App Engine Services"
-execute_command "gcloud app services list" "No App Engine services found"
 
 # Check GKE Clusters
 print_header "Kubernetes Engine Clusters"
