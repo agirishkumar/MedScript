@@ -1,5 +1,11 @@
 import os
+
+import sys
 from pathlib import Path
+current_file = Path(__file__).resolve()
+project_dir = current_file.parent.parent
+sys.path.append(str(project_dir))
+from logger import logger
 
 def get_service_account_path():
     """
@@ -34,6 +40,5 @@ def setup_google_credentials():
         os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = service_account_path
         return True
     except FileNotFoundError as e:
-        from logger import logger
         logger.error(f"Failed to setup Google credentials: {str(e)}")
         raise

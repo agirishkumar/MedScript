@@ -14,11 +14,14 @@ from transformers import BertTokenizer, BertModel
 import torch
 import sys
 import os
-# current = os.path.dirname(os.path.realpath(__file__))
-# gparent = os.path.dirname(os.path.dirname(current))
 
-# sys.path.append(gparent)
-from constants import SERVICE_ACCOUNT_FILEPATH
+import sys
+from pathlib import Path
+current_file = Path(__file__).resolve()
+project_dir = current_file.parent.parent
+sys.path.append(str(project_dir))
+
+from .constants import SERVICE_ACCOUNT_FILEPATH
 from tqdm import tqdm  
 import pandas as pd
 from logger import *
