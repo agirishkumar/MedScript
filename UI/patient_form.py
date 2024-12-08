@@ -83,15 +83,26 @@ with st.form(key='patient_form'):
 
     # Medical Details
     st.header("Medical Details")
-    symptoms = st.text_area("Detailed Symptoms*", placeholder="Describe your symptoms in detail...")
-    severity = st.text_area("Severity of your case*", placeholder="Describe the severity of your case")
+    symptoms = st.text_area("Detailed Symptoms* (seperate symptoms with semicolons)", placeholder="Describe your symptoms in detail...")
+    severity = st.selectbox("Severity", ["Select", "Mild","Moderate","Severe"])
     existing_conditions = st.text_area("Existing Medical Conditions",
                                        placeholder="List any pre-existing medical conditions...")
     allergies = st.text_area("Allergies", placeholder="List any allergies...")
     current_medications = st.text_area("Current Medications", placeholder="List any current medications...")
 
+    # # Form Submission
+    # submitted = st.form_submit_button("Submit")
+
+    # Streamlit application state
+    if "submit_disabled" not in st.session_state:
+        st.session_state["submit_disabled"] = False  # Initialize state
+
     # Form Submission
-    submitted = st.form_submit_button("Submit")
+    submitted = st.form_submit_button("Submit", disabled=st.session_state["submit_disabled"])
+
+    if submitted:
+        # Disable the button immediately after clicking
+        st.session_state["submit_disabled"] = True
 
     # Confirmation on submission
     if submitted:
@@ -133,6 +144,9 @@ with st.form(key='patient_form'):
                     st.error(message)
             else:
                 st.error(message)
+
+            # Re-enable the button after response is generated
+            st.session_state["submit_disabled"] = False
 
 st.markdown("---")
 st.header("Diagnostic Report")
