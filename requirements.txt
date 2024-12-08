@@ -362,7 +362,7 @@ watchfiles==0.24.0
 wcwidth==0.2.13
 weasel==0.4.1
 websockets==13.1
-Werkzeug==3.0.6
+Werkzeug==2.2.3
 wirerope==0.4.8
 wrapt==1.16.0
 WTForms==3.2.1
