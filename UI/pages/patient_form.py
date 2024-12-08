@@ -156,7 +156,7 @@ def render():
                     st.error("Height and Weight must be greater than 0.")
                 else:
                     bmi = weight / (height_m ** 2)
-                    if not (10 <= bmi <= 60):
+                    if not (5 <= bmi <= 185):
                         st.error(
                             "The entered Height and Weight are not in realistic proportions. "
                             "Please check your inputs."
