@@ -3,6 +3,7 @@ app/__pycache__
 **/__pycache__/
 *.py[cod]
 .env
+.env.kube
 mlruns/.trash
 Med123/
 

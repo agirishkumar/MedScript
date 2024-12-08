@@ -10,6 +10,9 @@ from ..models.patient_visits import PatientVisit
 from ..schemas.patient_visits import PatientVisitCreate, PatientVisitUpdate
 from fastapi import HTTPException
 from ...core.logging import logger
+import sys
+import os
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 
 def get_patient_visit(db: Session, visit_id: int):

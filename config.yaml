@@ -1,0 +1,34 @@
+# config.yaml
+project:
+  id: "medscript-437117"
+  zone: "us-central1-a"
+  namespace: "medscript"
+
+# Docker image configurations
+images:
+  backend:
+    dockerfile_path: "app/Dockerfile"
+    image_name: "fast-api-backend"
+    context_path: "."
+  data_pipeline:
+    dockerfile_path: "data_pipeline/Dockerfile"
+    image_name: "airflow-dag-img"
+    context_path: "data_pipeline"
+
+# Build configurations
+build:
+  registry: "gcr.io"
+
+# Kubernetes configurations
+kubernetes:
+  cluster_name: "project-cluster-1"
+  machine_type: "e2-standard-2"
+  min_nodes: 0
+  max_nodes: 3
+  deployment_timeout: 600  # in seconds
+  deployment_files:
+    backend:
+      - "deployment/backend/app-deployment.yaml"
+      - "deployment/backend/app-service.yaml"
+    data_pipeline:
+      - "deployment/data_pipeline/deployment.yaml"

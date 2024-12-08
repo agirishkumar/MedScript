@@ -10,6 +10,9 @@ from sqlalchemy.exc import IntegrityError
 from ..models.patient_details import PatientDetails
 from ..schemas.patient_details import PatientDetailsCreate, PatientDetailsUpdate
 from fastapi import HTTPException
+import sys
+import os
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 # Set up logger
 logger = logging.getLogger(__name__)
