@@ -744,7 +744,7 @@ The CI/CD pipeline automates the deployment of the Streamlit application to Goog
 4. **Deploy to Cloud Run**:
    - The Docker image is deployed to **Cloud Run**, which provides a managed, scalable environment to host the Streamlit app.
    - The application is exposed to the internet and configured to allow unauthenticated access.
-   <img width="1280" alt="image" src="https://github.com/user-attachments/assets/b0c006cc-6905-40cc-be97-24832adaa3f3">
+   <img width="1280" alt="image" src="https://github.com/user-attachments/assets/1a788151-2e13-48bb-a0c9-8f1248df92f0">
 
 This pipeline ensures that any updates to the `UI/` directory in the specified branches are automatically deployed to the production environment.
 
@@ -752,6 +752,15 @@ This pipeline ensures that any updates to the `UI/` directory in the specified b
 
 We’ve integrated Slack alert notifications into the deployment pipeline to keep developers informed about deployment failures. If a deployment fails, an alert is sent to a specified Slack channel with details including the branch, commit and author. Slack notifications are triggered through a webhook and provide real-time information about the deployment status. Screenshot of sample notification is below:
 <img width="1280" alt="Screenshot 2024-12-03 at 6 37 47 PM" src="https://github.com/user-attachments/assets/ca66cb1f-8871-4695-89b6-52db59ccdbe9">
+
+# Model Deployment
+
+`chmod +x deploy.sh`
+run `./deploy.sh` on terminal to configure and deploy your model and backend services on GCP. 
+
+Refer `data_pipeline/deployment/README.md` for detailed step by step process.
+
+For UI deployment please refer `UI/README.md`
 
 
 
