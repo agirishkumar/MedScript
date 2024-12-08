@@ -110,6 +110,56 @@ verify_pods() {
     done
 }
 
+create_kubernetes_secrets() {
+    local namespace=$1
+    print_step "Creating Kubernetes Secrets"
+    
+    # Check if .env.kube exists
+    if [ ! -f .env.kube ]; then
+        echo -e "${RED}Error: .env.kube file not found${NC}"
+        exit 1
+    fi
+
+    # Source the .env file
+    set -a
+    source .env.kube
+    set +a
+
+    # Create FastAPI secrets
+    echo "Creating FastAPI secrets..."
+    kubectl create secret generic gke-fastapi-secrets -n $namespace \
+        --from-literal=database=$FASTAPI_DB_NAME \
+        --from-literal=username=$FASTAPI_DB_USER \
+        --from-literal=password=$FASTAPI_DB_PASS \
+        --from-literal=jwt_secret_key=$FASTAPI_JWT_SECRET \
+        --from-literal=jwt_refresh_secret_key=$FASTAPI_JWT_REFRESH_SECRET \
+        --dry-run=client -o yaml | kubectl apply -f -
+    check_status
+
+    # Generate Airflow webserver secret if not exists
+    if [ -z "$AIRFLOW_WEBSERVER_SECRET" ]; then
+        AIRFLOW_WEBSERVER_SECRET=$(python3 -c 'import secrets; print(secrets.token_hex(16))')
+    fi
+
+    # Create Airflow secrets
+    echo "Creating Airflow secrets..."
+    kubectl create secret generic gke-airflow-secrets -n $namespace \
+        --from-literal=slack_webhook_url=$AIRFLOW_SLACK_WEBHOOK \
+        --from-literal=webserver-secret-key=$AIRFLOW_WEBSERVER_SECRET \
+        --dry-run=client -o yaml | kubectl apply -f -
+    check_status
+
+    # If git SSH key file exists, add it to the secret
+    if [ -f ./airflow-gke ]; then
+        kubectl create secret generic gke-airflow-secrets -n $namespace \
+            --from-file=gitSshKey=./airflow-gke \
+            --dry-run=client -o yaml | kubectl apply -f -
+        check_status
+    fi
+
+    echo -e "${GREEN}✓ Kubernetes secrets created successfully${NC}"
+}
+
 echo -e "${BLUE}Welcome to the GKE Deployment Script${NC}"
 echo "Please provide the following information (press Enter to use default values):"
 echo "----------------------------------------"
@@ -230,8 +280,8 @@ print_step "8. Creating namespace"
 kubectl create namespace $NAMESPACE 2>/dev/null || true
 check_status
 
-print_step "9. Creating Kubernetes service account"
-kubectl apply -f deployment/service-account.yaml
+print_step "9. Creating Kubernetes secrets"
+create_kubernetes_secrets $NAMESPACE
 check_status
 
 print_step "10. Deploying application"
