@@ -746,7 +746,6 @@ The CI/CD pipeline automates the deployment of the Streamlit application to Goog
    - The application is exposed to the internet and configured to allow unauthenticated access.
    <img width="1280" alt="image" src="https://github.com/user-attachments/assets/b0c006cc-6905-40cc-be97-24832adaa3f3">
 
-
 This pipeline ensures that any updates to the `UI/` directory in the specified branches are automatically deployed to the production environment.
 
 ### Slack Alert Notification Integration
