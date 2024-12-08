@@ -1,7 +1,7 @@
 images:
   airflow:
-    repository: gcr.io/medscript-437117/data-pipeline-img
-    tag: v3
+    repository: gcr.io/medscript-437117/pipeline-img
+    tag: v1
     # Specifying digest takes precedence over tag.
     digest: ~
     pullPolicy: IfNotPresent
@@ -13,13 +13,15 @@ executor: "LocalExecutor"
 # Environment variables for all airflow containers
 env: 
   - name: BASE_API_URL
-    value: "http://34.170.255.245"
+    value: "http://34.46.63.56"
   - name: HF_HOME
     value: "/tmp/huggingface"
   - name: AIRFLOW__API__AUTH_BACKENDS
     value: 'airflow.api.auth.backend.basic_auth' 
 # - name: ""
 #   value: ""
+
+webserverSecretKeySecretName: gke-airflow-secrets 
 
 enableBuiltInSecretEnvVars:
   AIRFLOW__CORE__FERNET_KEY: true
@@ -795,22 +797,22 @@ dags:
     ## optional subpath for dag volume mount
     subPath: ~
   gitSync:
-    enabled: false
+    enabled: true
 
     # git repo clone url
     # ssh example: git@github.com:apache/airflow.git
     # https example: https://github.com/apache/airflow.git
-    repo: https://github.com/apache/airflow.git
-    branch: v2-2-stable
+    repo: git@github.com:agirishkumar/MedScript.git
+    branch: dev
     rev: HEAD
     # The git revision (branch, tag, or hash) to check out, v4 only
-    ref: v2-2-stable
+    # ref: v2-2-stable
     depth: 1
     # the number of consecutive failures allowed before aborting
     maxFailures: 0
     # subpath within the repo where dags are located
     # should be "" if dags are at repo root
-    subPath: "tests/dags"
+    subPath: "data_pipeline/dags"
     # if your repo needs a user name password
     # you can load them to a k8s secret like the one below
     #   ---
@@ -841,7 +843,7 @@ dags:
     #     # key needs to be gitSshKey
     #     gitSshKey: <base64_encoded_data>
     # and specify the name of the secret below
-    # sshKeySecret: airflow-ssh-secret
+    sshKeySecret: gke-airflow-secrets
     #
     # Or set sshKeySecret with your key
     # sshKey: |-
@@ -861,13 +863,16 @@ dags:
     # low values cause more traffic to the remote git repository
     # Go-style duration string (e.g. "100ms" or "0.1s" = 100ms).
     # For backwards compatibility, wait will be used if it is specified.
-    period: 5s
+    period: 60s
     wait: ~
     # add variables from secret into gitSync containers, such proxy-config
     envFrom: ~
     # envFrom: |
-    #   - secretRef:
-    #       name: 'proxy-config'
+    #   - name: gitSshKey
+    #     valueFrom:
+    #       secretKeyRef:
+    #         name: gke-airflow-secrets
+    #         key: gitSshKey
 
     containerName: git-sync
     uid: 65533
