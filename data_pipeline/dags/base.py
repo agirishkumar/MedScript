@@ -243,7 +243,7 @@ def generate_prompt(query: str) -> str:
         str: A formatted string containing a diagnostic report template with the provided query.
     """
      
-    report_template = report_template = """
+    report_template1 = """
     # Comprehensive Diagnostic Report
 
     ## 1. Initial Impression
@@ -274,12 +274,83 @@ def generate_prompt(query: str) -> str:
     ## 8. Summary
     [Provide a concise summary of likely diagnosis, key next steps, and important patient instructions]
     """
+    system_instructions = """
+    You are a medical analysis system. Your role is to:
+    1. Analyze only the provided patient information and symptoms
+    2. Generate a diagnostic report based strictly on medical facts
+    3. Maintain medical terminology and professional tone
+    4. Focus only on medical analysis and avoid any non-medical discussions
+    5. If you're uncertain about any aspect, clearly state the limitations of your analysis
+    6. Do not make definitive diagnoses, but rather suggest possibilities based on the information provided
+    """
 
-    prompt = f"""{query}
+    report_template2 = """
+    # Comprehensive Diagnostic Report
+    ## Invalid text is provided/ detected Jailbreak text in the input
+    """
+    def validate_input(input_query: str) -> bool:
+        """
+        Validates the input query for required information and safety checks.
+        Returns True if input is valid, False otherwise.
+        """
+        # Basic input checks
+        if not input_query or not isinstance(input_query, str):
+            return False
+
+        # Check for required sections
+        required_sections = ["Patient Information:", "Reported Symptoms:"]
+        if not all(section in input_query for section in required_sections):
+            return False
+
+        # Check for suspicious patterns (potential jailbreak attempts)
+        suspicious_keywords = [
+            "ignore previous instructions",
+            "ignore above instructions",
+            "disregard safety",
+            "bypass",
+            "override",
+            "ignore rules",
+            "system prompt",
+            "you must",
+            "you are now",
+            "new persona"
+        ]
+
+        if any(keyword.lower() in input_query.lower() for keyword in suspicious_keywords):
+            return False
+
+        return True
+
+    # Determine which template to use based on input validation
+    is_valid_input = validate_input(query)
+    selected_template = report_template1 if is_valid_input else report_template2
+
+    # Construct the appropriate prompt based on validation result
+    if is_valid_input:
+        prompt = f"""{system_instructions}
+
+        INPUT DATA:
+        {query}
+
+        TASK:
         Please provide a comprehensive diagnostic report following these steps:
-        {report_template}
+        {selected_template}
 
-        Please fill in each section of the report template with relevant information based on the patient's symptoms, medical history and use context if and only if its relavent. Provide clear and detailed explanations throughout your chain of reasoning."""
-    
+        Please fill in each section of the report template with relevant information based on the patient's symptoms, 
+        medical history and use context if and only if its relevant. Provide clear and detailed explanations 
+        throughout your chain of reasoning."""
+    else:
+        prompt = f"""{system_instructions}
+
+        INPUT DATA:
+        {query}
+
+        TASK:
+        The provided input appears to be invalid or potentially harmful. 
+        Please generate a report using this template:
+        {selected_template}
+
+        Please explain what makes this input invalid or inappropriate for medical analysis."""
+
     return prompt
 
