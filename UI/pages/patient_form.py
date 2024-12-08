@@ -105,8 +105,8 @@ def render():
         contact_number = st.text_input("Contact Number*", max_chars=10)
         email = st.text_input("Email*", max_chars=100)
         address = st.text_area("Address*", max_chars=255)
-        height = st.number_input("Height (cm)*", min_value=0.0, step=0.1, format="%.1f")
-        weight = st.number_input("Weight (kg)*", min_value=0.0, step=0.1, format="%.1f")
+        height = st.number_input("Height (cm)*", min_value=30.0, max_value=300.0, step=0.1, format="%.1f")
+        weight = st.number_input("Weight (kg)*", min_value=2.0, max_value=635.0, step=0.1, format="%.1f")
         blood_type = st.selectbox("Blood Type*", ["Select", "A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"])
 
         st.header("Medical Details")
@@ -134,67 +134,74 @@ def render():
             if blood_type == "Select":
                 missing_fields.append("Blood Type")
 
-            # Check if any fields are missing
             if missing_fields:
                 st.error(f"Please fill out the following fields: {', '.join(missing_fields)}")
             else:
-                # Proceed only if no fields are missing
-                patient_payload = {
-                    "FirstName": first_name,
-                    "LastName": last_name,
-                    "DateOfBirth": dob.isoformat(),
-                    "Gender": gender,
-                    "ContactNumber": contact_number,
-                    "Email": email,
-                    "Address": address,
-                    "Height": height,
-                    "Weight": weight,
-                    "BloodType": blood_type if blood_type != "Select" else None,
-                }
-                # Disable the button after clicking
-                st.session_state["submit_disabled"] = True
-
-                # Simulated API call for patient details
-                st.info("Submitting patient details...")
-
-                success, message = send_patient_details(patient_payload)
-                if success:
-                    patient_id = message
-                    st.success(f"Patient details submitted successfully! Patient ID: {patient_id}")
-
-                    symptoms_payload = {
-                        "PatientID": patient_id,
-                        "SymptomDescription": symptoms,
-                        "Severity": severity,
-                        "AssociatedConditions": f"Existing Conditions: {existing_conditions}, Allergies: {allergies}, Medications: {current_medications}",
-                    }
-
-                    success = send_patient_symptoms(symptoms_payload)
-                    if success:
-                        task_log = trigger_airflow_dag(patient_id)
-
-                        st.markdown("---")
-                        st.header("Comprehensive Diagnostic Report")
-                        st.markdown(
-                            f"""
-                            <style>
-                                .markdown-container {{
-                                    height: 1000px;
-                                    overflow: auto;
-                                    white-space: pre-wrap;
-                                }}
-                            </style>
-                            {task_log}
-                            """,
-                            unsafe_allow_html=True,
+                height_m = height / 100
+                if height_m <= 0 or weight <= 0:
+                    st.error("Height and Weight must be greater than 0.")
+                else:
+                    bmi = weight / (height_m ** 2)
+                    if not (10 <= bmi <= 60):
+                        st.error(
+                            "The entered Height and Weight are not in realistic proportions. "
+                            "Please check your inputs."
                         )
                     else:
-                        st.error(message)
-                else:
-                    st.error(message)
+                        patient_payload = {
+                            "FirstName": first_name,
+                            "LastName": last_name,
+                            "DateOfBirth": dob.isoformat(),
+                            "Gender": gender,
+                            "ContactNumber": contact_number,
+                            "Email": email,
+                            "Address": address,
+                            "Height": height,
+                            "Weight": weight,
+                            "BloodType": blood_type if blood_type != "Select" else None,
+                        }
+                        st.session_state["submit_disabled"] = True
 
-                # Re-enable the button after the response is generated
-                st.session_state["submit_disabled"] = False
+                        st.info("Submitting patient details...")
+
+                        success, message = send_patient_details(patient_payload)
+                        if success:
+                            patient_id = message
+                            st.success(f"Patient details submitted successfully! Patient ID: {patient_id}")
+
+                            symptoms_payload = {
+                                "PatientID": patient_id,
+                                "SymptomDescription": symptoms,
+                                "Severity": severity,
+                                "AssociatedConditions": f"Existing Conditions: {existing_conditions}, Allergies: {allergies}, Medications: {current_medications}",
+                            }
+
+                            success = send_patient_symptoms(symptoms_payload)
+                            if success:
+                                task_log = trigger_airflow_dag(patient_id)
+
+                                st.markdown("---")
+                                st.header("Comprehensive Diagnostic Report")
+                                st.markdown(
+                                    f"""
+                                    <style>
+                                        .markdown-container {{
+                                            height: 1000px;
+                                            overflow: auto;
+                                            white-space: pre-wrap;
+                                        }}
+                                    </style>
+                                    {task_log}
+                                    """,
+                                    unsafe_allow_html=True,
+                                )
+                            else:
+                                st.error(message)
+                        else:
+                            st.error(message)
+
+                        # Re-enable the button after the response is generated
+                        st.session_state["submit_disabled"] = False
 
         # if "submit_disabled" not in st.session_state:
         #     st.session_state["submit_disabled"] = False  # Initialize state

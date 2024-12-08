@@ -7,43 +7,40 @@ import requests
 # import json
 from datetime import datetime
 from logger import logger
-<<<<<<< HEAD
-=======
 import vertexai
 from vertexai.generative_models import GenerativeModel, Part, SafetySetting
->>>>>>> 904d0a8648b7939be31b052594cdf6074137484e
+
 # from airflow.models import Variable
 
 # BASE_API_URL = Variable.get("BASE_API_URL")
 BASE_API_URL = os.environ.get("BASE_API_URL")
 print(BASE_API_URL)
 
-<<<<<<< HEAD
-=======
+
 def generate_model_response(prompt: str) -> str:
     """
     Generates a response using GCP Vertex AI Gemini model based on the input prompt.
-    
+
     Args:
         prompt (str): The formatted prompt to send to the model
-        
+
     Returns:
         str: The model's response
     """
     try:
         # Initialize Vertex AI
         vertexai.init(project="medscript-437117", location="us-central1")
-        
+
         # Initialize the model
         model = GenerativeModel("gemini-1.5-pro-002")
-        
+
         # Define generation config
         generation_config = {
             "max_output_tokens": 8192,
             "temperature": 1,
             "top_p": 0.95,
         }
-        
+
         # Define safety settings
         safety_settings = [
             SafetySetting(
@@ -63,30 +60,30 @@ def generate_model_response(prompt: str) -> str:
                 threshold=SafetySetting.HarmBlockThreshold.OFF
             ),
         ]
-        
+
         # Generate content
         response = model.generate_content(
             [prompt],
             generation_config=generation_config,
             safety_settings=safety_settings,
-            stream=False,  
+            stream=False,
         )
-        
+
         logger.info("Generated model response successfully")
         return response.text
-        
+
     except Exception as e:
         logger.error(f"Error generating model response: {str(e)}")
         raise
 
->>>>>>> 904d0a8648b7939be31b052594cdf6074137484e
+
 def get_data(url: str) -> dict:
     """
     Helper function to get data from the specified url.
-    
+
     Parameters:
         url (str): The URL of the API endpoint to get data from.
-        
+
     Returns:
         dict: The JSON response data from the API.
     """
@@ -98,6 +95,7 @@ def get_data(url: str) -> dict:
     else:
         raise
 
+
 def get_summary(patient_id: int) -> dict:
     """
     Fetches summary for a patient with the given patient id and returns the data.
@@ -106,6 +104,7 @@ def get_summary(patient_id: int) -> dict:
     """
     url = BASE_API_URL + f"/api/v1/patient_summary/{patient_id}"
     return get_data(url)
+
 
 def preprocess_data(data: dict) -> dict:
     """
@@ -117,21 +116,22 @@ def preprocess_data(data: dict) -> dict:
     Returns:
         dict: A dictionary with processed data organized "User information" with patient details and "Symptoms"
     """
-    if not data: 
+    if not data:
         raise
-    
+
     processed_data = {}
     processed_data["User information"] = extract_patient_details(data["patient"])
     processed_data["Symptoms"] = extract_symptoms(data["visits"])
     logger.info(processed_data)
     return processed_data
 
+
 def calculate_age(date_of_birth: str) -> int:
     """
     Helper function to calculate age from the date of birth
 
     Parameters:
-        date_of_birth (str): A string representing the date of birth 
+        date_of_birth (str): A string representing the date of birth
 
     Returns:
         int: The calculated age
@@ -139,6 +139,7 @@ def calculate_age(date_of_birth: str) -> int:
     birthdate = datetime.strptime(date_of_birth, "%Y-%m-%d")
     today = datetime.today()
     return today.year - birthdate.year - ((today.month, today.day) < (birthdate.month, birthdate.day))
+
 
 def calculate_bmi(weight, height_cm):
     """
@@ -151,9 +152,10 @@ def calculate_bmi(weight, height_cm):
     Returns:
         float: The calculated BMI value
     """
-    height_m = height_cm / 100 
+    height_m = height_cm / 100
     bmi = weight / (height_m ** 2)
     return bmi
+
 
 def extract_patient_details(patient: dict) -> str:
     """
@@ -177,8 +179,9 @@ def extract_patient_details(patient: dict) -> str:
             Medical History: No significant past medical issues
             Allergies: None known
             Current Medications: None
-        """    
+        """
     return patient_details
+
 
 def extract_symptoms(visits: dict) -> str:
     """
@@ -194,9 +197,10 @@ def extract_symptoms(visits: dict) -> str:
     for visit in visits:
         visit_symptoms = visit["symptoms"][0]
         symptoms_list.append(visit_symptoms["SymptomDescription"])
-    
+
     symptoms = "\n".join([f"- {symptom}" for symptom in symptoms_list])
     return symptoms
+
 
 def query_vector_database(data: dict) -> str:
     """
@@ -207,7 +211,7 @@ def query_vector_database(data: dict) -> str:
 
     Returns:
         str: Query string that includes patient information, reported symptoms, and any relevant context retrieved from the vector store.
-    
+
     Raises:
         ValueError: If the input `data` is empty or invalid.
     """
@@ -215,7 +219,7 @@ def query_vector_database(data: dict) -> str:
     if not data:
         logger.log_error("Data is empty or invalid.")
         raise ValueError("Data is empty or invalid.")
-    
+
     query = f"""
     Patient Information: {data["User information"]}
     Reported Symptoms: {data["Symptoms"]}
@@ -234,9 +238,10 @@ def query_vector_database(data: dict) -> str:
         query += f"\n\nContext:\n{context_text}"
     else:
         logger.info("No relevant context found for this query.")
-    
+
     logger.info(f"Final Prompt with Context: {query}")
     return query
+
 
 def generate_prompt(query: str) -> str:
     """
@@ -248,7 +253,7 @@ def generate_prompt(query: str) -> str:
     Returns:
         str: A formatted string containing a diagnostic report template with the provided query.
     """
-     
+
     report_template = report_template = """
     # Comprehensive Diagnostic Report
 
@@ -285,78 +290,6 @@ def generate_prompt(query: str) -> str:
         Please provide a comprehensive diagnostic report following these steps:
         {report_template}
 
-<<<<<<< HEAD
-        Please fill in each section of the report template with relevant information based on the patient's symptoms and medical history. Provide clear and detailed explanations throughout your chain of reasoning."""
-    
-    return prompt
-
-# def check_hf_permissions():
-#     hf_home = os.getenv("HF_HOME", "/tmp/huggingface")
-#     print(f"Checking permissions for HF_HOME directory at: {hf_home}")
-#     if os.path.exists(hf_home):
-#         for root, dirs, files in os.walk(hf_home):
-#             print(f"\nDirectory: {root}")
-#             for name in files:
-#                 filepath = os.path.join(root, name)
-#                 try:
-#                     # Check read permission
-#                     with open(filepath, "rb") as f:  # Use "rb" for binary-safe mode
-#                         f.read(1024)  # Read first 1KB to confirm access
-#                     print(f"Read permission OK for file: {filepath}")
-#                 except PermissionError:
-#                     print(f"Permission error for file: {filepath}")
-#                 except UnicodeDecodeError:
-#                     print(f"File is binary, read as binary successful: {filepath}")
-#                 except Exception as e:
-#                     print(f"Unexpected error for file {filepath}: {e}")
-#     else:
-#         print(f"HF_HOME directory does not exist at {hf_home}")
-
-
-# def test_model_load():
-#     try:
-#         # Use the environment variable for HF_HOME as configured
-#         hf_home = os.getenv("HF_HOME", "/tmp/huggingface")
-#         print(f"Testing model load from HF_HOME: {hf_home}")
-        
-#         # Load tokenizer and model
-#         tokenizer = BertTokenizer.from_pretrained("microsoft/BiomedNLP-PubMedBERT-base-uncased-abstract")
-#         model = BertModel.from_pretrained("microsoft/BiomedNLP-PubMedBERT-base-uncased-abstract")
-
-#         # Test model by running a simple embedding operation
-#         inputs = tokenizer("Test sentence for loading model", return_tensors="pt")
-#         outputs = model(**inputs)
-
-#         # Check the shape of the output to ensure the model runs
-#         print(f"Model loaded successfully. Output shape: {outputs.last_hidden_state.shape}")
-#     except Exception as e:
-#         print(f"Model load test failed: {e}")
-
-# def check_hf_home():
-#     hf_home = os.getenv("HF_HOME", "/root/.cache/huggingface")  # default path if HF_HOME isn't set
-#     if os.path.exists(hf_home):
-#         print(f"Checking contents of HF_HOME directory at: {hf_home}")
-        
-#         for root, dirs, files in os.walk(hf_home):
-#             # Display the current directory
-#             print(f"\nDirectory: {root}")
-#             if not files and not dirs:
-#                 print("  (Empty)")
-            
-#             # List files with details
-#             for file in files:
-#                 file_path = os.path.join(root, file)
-#                 file_size = os.path.getsize(file_path)
-#                 print(f"  File: {file} | Size: {file_size / 1024:.2f} KB")
-                
-#             # List subdirectories
-#             for dir in dirs:
-#                 print(f"  Subdirectory: {dir}")
-#     else:
-#         print(f"HF_HOME directory does not exist at {hf_home}")
-=======
         Please fill in each section of the report template with relevant information based on the patient's symptoms, medical history and use context if and only if its relavent. Provide clear and detailed explanations throughout your chain of reasoning."""
-    
-    return prompt
 
->>>>>>> 904d0a8648b7939be31b052594cdf6074137484e
+    return prompt
