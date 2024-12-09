@@ -79,7 +79,7 @@ def trigger_airflow_dag(patient_id):
                 st.error(f"DAG run failed for Patient ID: {patient_id}")
                 break
             else:
-                time.sleep(10)
+                time.sleep(60)
 
         # Fetch the logs of the last task
         task_log_response = requests.get(
