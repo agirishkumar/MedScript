@@ -56,7 +56,8 @@ kubectl create namespace medscript
 
 ```bash
 kubectl create secret generic gke-airflow-secrets -n medscript \
-  --from-literal=slack_webhook_url=URL
+  --from-literal=slack_webhook_url=URL \
+  --from-file=gitSshKey=<PATH-TO-PRIVATE-KEY>
 ```
 
 
