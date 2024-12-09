@@ -159,6 +159,7 @@ PhysioNet Credentialed Health Data Use Agreement 1.5.0
 Required training:
 CITI Data or Specimens Only Research 
 
+
 -------------------------------------------------------------------------------
 
 ## Architecture Diagram
@@ -294,6 +295,7 @@ The Base.py file consists the code to interact with a FastAPI backend to fetch p
    - `extract_symptoms(visits: dict)`: Compiles a list of reported symptoms from the patient's visits, formatting them for display.
    - `query_vector_database(data: dict)`: Generates a query string using the processed patient information and symptoms, and retrieves relevant records from a vector store database.
    - `generate_prompt(query: str)`: This function is defined but not implemented in the code. Its purpose would be to generate a prompt based on the query, possibly for further processing or interaction.
+   - `generate_model_response(prompt: str)`: This function generates a response using GCP Vertex AI Gemini model based on the input prompt.
 
 3. **Error Handling**:
    - In several places, the code includes checks to raise exceptions if the data is not valid or empty, ensuring that the subsequent operations have the required information.
@@ -389,7 +391,7 @@ The logs file shows various operations related to patient details, doctor detail
 
 ![image](https://github.com/user-attachments/assets/72023722-9ec1-4d72-85bd-8a3149c31dad)
 
-The figure shows the Gantt chart from an Airflow DAG run, visualizing the execution timeline of tasks within the data_pipeline. It includes four tasks: load_data_task, data_preprocessing_task, query_vectorDB_task, and generate_prompt_task.
+The figure shows the Gantt chart from an Airflow DAG run, visualizing the execution timeline of tasks within the data_pipeline. It includes five tasks: load_data_task, data_preprocessing_task, query_vectorDB_task, generate_prompt_task, and generate_model_response_task.
 
 Each task's execution duration is represented by bars, with different segments indicating stages of the task's progress. load_data_task and data_preprocessing_task took the longest time to complete, while query_vectorDB_task and generate_prompt_task were shorter in duration. The pipeline appears to be running multiple iterations or instances, with several successful executions marked in green, showing consistent task completion across these runs.
 
@@ -401,17 +403,23 @@ The figure shows task dependency graph of an Airflow DAG 'data_pipeline'. The pi
 2. `data_preprocessing_task`
 3. `query_vectorDB_task`
 4. `generate_prompt_task`
+5. `generate_model_response_task`
 
 Each task has a "success" status, indicated by the green outline and check mark. This setup implies that each task depends on the completion of the previous one, following a linear workflow. All tasks are implemented using the `PythonOperator`.
 
+### DAG Alerts for the pipeline:
+<img width="1280" alt="image" src="https://github.com/user-attachments/assets/c805aa93-5f61-4151-a8ab-959e25e8b4f8">
+
+### Git Sync
+Git Sync is used to update Airflow DAGs directly from the GitHub repository, ensuring the latest changes are reflected at set intervals. This setup automates DAG version control and keeps deployments in sync with the repository.
 
 ---
 
 # Model Development Process
 
 ### Overview
-- A pre-trained model, **`llama3-med42-8B`**, was selected from Google's Model Garden based on the experiments run locally and mlflow results.
-- After validation, the **`llama3-med42-8B`** model is deployed to **Google Cloud Platform (GCP)**.
+- A pre-trained model, **`llama3-med42-8B`** and ***gemini-1.5-pro-002***, were selected from Google's Model Garden based on the experiments run locally and mlflow results.
+- After validation, the **`llama3-med42-8B`** and ***gemini-1.5-pro-002*** model are deployed to **Google Cloud Platform (GCP)**.
 - An endpoint was created for the model using GCP's **Vertex AI** service to facilitate inference.
 
 ---
@@ -768,6 +776,47 @@ run `./deploy.sh` on terminal to configure and deploy your model and backend ser
 Refer `data_pipeline/deployment/README.md` for detailed step by step process.
 
 For UI deployment please refer `UI/README.md`
+
+## Automated Deployment Process using deploy.sh
+
+The deployment script automates the process of deploying an application to a GKE cluster. Below are the key steps it performs:
+
+1. **User Configuration**  
+   Prompts for required inputs, such as project ID, cluster name, namespace, image details, and machine type, with default values for convenience.
+
+2. **Authentication and Setup**  
+   Authenticates with Google Cloud, configures Docker for pushing images to Google Container Registry (GCR), and builds the Docker image locally.
+
+3. **Cluster Creation**  
+   Creates a GKE cluster with features like auto-scaling, workload monitoring, and security configurations based on user-specified parameters.
+
+4. **Application Deployment**  
+   Updates Kubernetes manifests with the correct image and deploys them to the cluster using `kubectl`, ensuring resources like services, deployments, and namespaces are set up.
+
+5. **Verification**  
+   Waits for the cluster, container image, and pods to become ready, verifying deployment success at each stage, and provides useful commands for monitoring and debugging.
+
+This script streamlines the entire deployment workflow, ensuring consistency and minimizing manual intervention.
+
+
+# Monitoring
+
+##  Grafana and GCP Cloud Monitoring
+
+## Model Drift Tracking and Alerting
+
+Model drift is monitored in Grafana using the following approach:
+
+1. **Response Word Count**  
+   The number of words in the model's responses is tracked as a metric. This serves as a proxy indicator for potential model drift.
+
+2. **Threshold Monitoring**  
+   A threshold is configured in Grafana. If the word count in responses falls below the specified level, it indicates potential drift or anomalies in model behavior.
+
+3. **Alerting Mechanism**  
+   When the threshold is breached, Grafana triggers an email notification to alert the relevant stakeholders.
+
+This setup ensures proactive detection and response to potential model drift, maintaining the reliability and accuracy of the deployed model.
 
 
 
