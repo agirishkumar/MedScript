@@ -45,7 +45,7 @@ db_base.init()
 
 @app.get("/health", status_code=200)
 def default():
-    return {"message": "Server is up!!"}
+    return {"message": "Server is up!"}
 
 if __name__ == "__main__":
     import uvicorn
