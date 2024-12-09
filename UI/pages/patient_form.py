@@ -28,11 +28,25 @@ def send_patient_symptoms(payload):
     try:
         response = requests.post(api_url, json=payload)
         if response.status_code == 200 or response.status_code == 201:
-            return True
+            return True, response.json().get('SymptomID', 'Unknown ID')
         else:
             return False
     except Exception as e:
         return False
+
+def update_model_output(symptom_id, task_log):
+    api_url = f"{base_api_url}/api/v1/patient_summary/{symptom_id}"
+    payload = {
+        "ModelInputDescription": task_log
+    }
+    try:
+        response = requests.put(api_url, json=payload)
+        if response.status_code == 200 or response.status_code == 201:
+            return True
+        else:
+            return False, f"Failed to update model input description. Error: {response.text}"
+    except Exception as e:
+        return False, f"An error occurred: {str(e)}"
 
 
 def trigger_airflow_dag(patient_id):
@@ -190,9 +204,12 @@ def render():
                                 "AssociatedConditions": f"Existing Conditions: {existing_conditions}, Allergies: {allergies}, Medications: {current_medications}",
                             }
 
-                            success = send_patient_symptoms(symptoms_payload)
+                            success, message = send_patient_symptoms(symptoms_payload)
                             if success:
                                 task_log = trigger_airflow_dag(patient_id)
+                                symptom_id = message
+
+                                success, response = update_model_output(symptom_id, task_log)
 
                                 st.markdown("---")
                                 st.header("Comprehensive Diagnostic Report")
