@@ -10,6 +10,8 @@ Passcode: WWJsh4^e
 
 2. https://drive.google.com/file/d/1HXRlsLsneh_j4M3VEFjBcopH_QAH7Pls/view?usp=drive_link
 
+![image](https://github.com/user-attachments/assets/df7a915c-a026-4bf6-87fe-67ba48edc5c4)
+
 **Previous Demo recordings** 
 1. https://northeastern.zoom.us/rec/share/HFf1d277uKP9Kb9_2tgWFIjVbV6hyUSevlLwpkQwsSH-DSDlK-plGogxDqBTx1EJ.wokUQnQATvARIg8_?startTime=1730857443000
 Passcode: 5jm=N*#!
