@@ -27,8 +27,8 @@ jobs:
 
     - name: Build Docker image
       run: |
-        docker build -f app/Dockerfile --platform linux/amd64 -t us-docker.pkg.dev/gcr.io/medscript-437117/fast-api-app:latest .
+        docker build -f app/Dockerfile --platform linux/amd64 -t us-docker.pkg.dev/medscript-437117/gcr.io/fast-api-app:latest .
 
     - name: Push Docker image to Container Registry
       run: |
-        docker push us-docker.pkg.dev/gcr.io/medscript-437117/fast-api-app:latest
+        docker push us-docker.pkg.dev/medscript-437117/gcr.io/fast-api-app:latest
