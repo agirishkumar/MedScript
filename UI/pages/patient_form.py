@@ -131,10 +131,10 @@ def render():
         allergies = st.text_area("Allergies", placeholder="List any allergies...")
         current_medications = st.text_area("Current Medications", placeholder="List any current medications...")
 
-        if "submit_disabled" not in st.session_state:
-            st.session_state["submit_disabled"] = False  # Initialize state
+        # if "submit_disabled" not in st.session_state:
+        #     st.session_state["submit_disabled"] = False  # Initialize state
         
-        submitted = st.form_submit_button("Submit", disabled=st.session_state["submit_disabled"])
+        submitted = st.form_submit_button("Submit")
 
         if submitted:
             # Inline validation logic
@@ -188,7 +188,7 @@ def render():
                             "Weight": weight,
                             "BloodType": blood_type if blood_type != "Select" else None,
                         }
-                        st.session_state["submit_disabled"] = True
+                        # st.session_state["submit_disabled"] = True
 
                         st.info("Submitting patient details...")
 
@@ -232,7 +232,7 @@ def render():
                             st.error(message)
 
                         # Re-enable the button after the response is generated
-                        st.session_state["submit_disabled"] = False
+                        # st.session_state["submit_disabled"] = False
 
         # if "submit_disabled" not in st.session_state:
         #     st.session_state["submit_disabled"] = False  # Initialize state
