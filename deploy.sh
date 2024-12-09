@@ -16,6 +16,164 @@ print_step() {
     echo "----------------------------------------"
 }
 
+# Function to check and install Helm
+check_helm() {
+    if ! command -v helm &> /dev/null; then
+        print_step "Installing Helm"
+        echo -e "${YELLOW}Helm not found. Installing...${NC}"
+        
+        # Download and install Helm
+        curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3
+        chmod 700 get_helm.sh
+        ./get_helm.sh
+        rm get_helm.sh
+        check_status
+
+        # Add Apache Airflow repository
+        print_step "Adding Apache Airflow Helm repository"
+        helm repo add apache-airflow https://airflow.apache.org
+        helm repo update
+        check_status
+    else
+        echo -e "${GREEN}Helm is already installed${NC}"
+        
+        # Add Apache Airflow repository if not exists
+        if ! helm repo list | grep -q "apache-airflow"; then
+            print_step "Adding Apache Airflow Helm repository"
+            helm repo add apache-airflow https://airflow.apache.org
+            helm repo update
+            check_status
+        fi
+    fi
+}
+
+# Function to get backend service IP
+get_backend_service_ip() {
+    local namespace=$1
+    print_step "Getting backend service IP"
+    
+    local max_attempts=30
+    local attempt=1
+    
+    while [ $attempt -le $max_attempts ]; do
+        EXTERNAL_IP=$(kubectl get service backend-service -n $namespace -o jsonpath='{.status.loadBalancer.ingress[0].ip}' 2>/dev/null)
+        if [ ! -z "$EXTERNAL_IP" ]; then
+            echo -e "${GREEN}Backend service IP: $EXTERNAL_IP${NC}"
+            return 0
+        fi
+        echo -e "${YELLOW}Waiting for backend service IP (attempt $attempt/$max_attempts)...${NC}"
+        sleep 10
+        ((attempt++))
+    done
+    
+    echo -e "${RED}Error: Could not get backend service IP after $max_attempts attempts${NC}"
+    exit 1
+}
+
+# Function to get backend service IP
+get_backend_service_ip() {
+    local namespace=$1
+    print_step "Getting backend service IP"
+    
+    local max_attempts=30
+    local attempt=1
+    
+    while [ $attempt -le $max_attempts ]; do
+        EXTERNAL_IP=$(kubectl get service backend-service -n $namespace -o jsonpath='{.status.loadBalancer.ingress[0].ip}' 2>/dev/null)
+        if [ ! -z "$EXTERNAL_IP" ]; then
+            echo -e "${GREEN}Backend service IP: http://$EXTERNAL_IP${NC}"
+            # Get Airflow service IP
+            AIRFLOW_IP=$(kubectl get service airflow-webserver -n $namespace -o jsonpath='{.status.loadBalancer.ingress[0].ip}' 2>/dev/null)
+            if [ ! -z "$AIRFLOW_IP" ]; then
+                echo -e "${GREEN}Airflow service IP: http://$AIRFLOW_IP${NC}"
+                # Update URLs file
+                update_urls_file "$EXTERNAL_IP" "$AIRFLOW_IP"
+            fi
+            return 0
+        fi
+        echo -e "${YELLOW}Waiting for backend service IP (attempt $attempt/$max_attempts)...${NC}"
+        sleep 10
+        ((attempt++))
+    done
+    
+    echo -e "${RED}Error: Could not get backend service IP after $max_attempts attempts${NC}"
+    exit 1
+}
+
+# Function to update values.yaml
+update_values_yaml() {
+    local external_ip=$1
+    local values_file="deployment/data_pipeline/values.yaml"
+    
+    print_step "Updating values.yaml with backend service IP"
+    
+    if [ ! -f "$values_file" ]; then
+        echo -e "${RED}Error: values.yaml not found at $values_file${NC}"
+        exit 1
+    fi
+
+    echo -e "${YELLOW}Current values.yaml content before update:${NC}"
+    grep "BASE_API_URL" "$values_file" || echo "No BASE_API_URL found"
+    
+    # Create a temporary file
+    tmp_file=$(mktemp)
+    
+    # Update the BASE_API_URL value
+    sed "s|value: .*# BASE_API_URL|value: http://$external_ip  # BASE_API_URL|g" "$values_file" > "$tmp_file"
+    mv "$tmp_file" "$values_file"
+    
+    echo -e "${GREEN}Updated values.yaml successfully. New content:${NC}"
+    grep "BASE_API_URL" "$values_file"
+}
+
+# Function to update URLs file
+update_urls_file() {
+    local backend_ip=$1
+    local airflow_ip=$2
+    local urls_file="UI/pages/urls.txt"
+    
+    print_step "Updating URLs file"
+
+    if [ -z "$backend_ip" ] || [ -z "$airflow_ip" ]; then
+        echo -e "${RED}Error: Missing backend_ip or airflow_ip values.${NC}"
+        exit 1
+    fi
+
+    # Ensure the directory exists
+    mkdir -p "$(dirname "$urls_file")"
+
+    # Write URLs to the file
+    cat > "$urls_file" << EOF
+BASE_API_URL=http://${backend_ip}
+AIRFLOW_BASE_URL=http://${airflow_ip}:8080/api/v1
+EOF
+
+    echo -e "${GREEN}Updated URLs file successfully at ${urls_file}:${NC}"
+    cat "$urls_file"
+}
+
+
+# Function to deploy Airflow with Helm
+deploy_airflow() {
+    local namespace=$1
+    print_step "Deploying Airflow with Helm"
+    
+    # Check if Helm is installed
+    check_helm
+    
+    # Get backend service IP
+    get_backend_service_ip $namespace
+    
+    # Deploy/upgrade Airflow
+    echo "Deploying Airflow..."
+    helm upgrade --install airflow apache-airflow/airflow -n $namespace \
+        --values deployment/data_pipeline/values.yaml \
+        --debug
+    check_status
+    
+    echo -e "${GREEN}✓ Airflow deployed successfully${NC}"
+}
+
 # Function to check command status
 check_status() {
     if [ $? -eq 0 ]; then
@@ -44,13 +202,14 @@ confirm() {
 }
 
 # Function to validate input
+# Function to validate input
 validate_input() {
     local image_type=$1
     local dockerfile_path=$2
     
     # Validate image type
-    if [[ ! "$image_type" =~ ^(backend|data_pipeline)$ ]]; then
-        echo -e "${RED}Error: Image type must be either 'backend' or 'data_pipeline'${NC}"
+    if [[ ! "$image_type" =~ ^(gke-backend|airflow-webserver)$ ]]; then
+        echo -e "${RED}Error: Image type must be either 'gke-backend' or 'airflow-webserver'${NC}"
         exit 1
     fi
 
@@ -60,10 +219,17 @@ validate_input() {
         exit 1
     fi
 
+    # Map image type to deployment directory
+    local deploy_dir
+    if [ "$image_type" == "gke-backend" ]; then
+        deploy_dir="deployment/backend"
+    else
+        deploy_dir="deployment/data_pipeline"
+    fi
+
     # Validate deployment files exist
-    local deployment_path="deployment/${image_type}"
-    if [ ! -d "$deployment_path" ]; then
-        echo -e "${RED}Error: Deployment directory not found at $deployment_path${NC}"
+    if [ ! -d "$deploy_dir" ]; then
+        echo -e "${RED}Error: Deployment directory not found at $deploy_dir${NC}"
         exit 1
     fi
 }
@@ -135,10 +301,10 @@ wait_for_cluster() {
 # Function to get deployment files
 get_deployment_files() {
     local image_type=$1
-    if [ "$image_type" == "backend" ]; then
+    if [ "$image_type" == "gke-backend" ]; then
         echo "deployment/backend/app-deployment.yaml deployment/backend/app-service.yaml"
     else
-        echo "deployment/data_pipeline/deployment.yaml"
+        echo ""
     fi
 }
 
@@ -147,31 +313,89 @@ wait_for_deployment() {
     local namespace=$1
     local image_type=$2
     print_step "Waiting for deployment to be ready..."
-    
-    local deployment_name="${image_type}-deployment"
+
+    local deployment_name
+    case $image_type in
+        "gke-backend")
+        deployment_name="gke-backend"
+        ;;
+        "airflow-webserver")
+        deployment_name="airflow-webserver"
+        ;;
+        *)
+        echo -e "${RED}Error: Invalid image type: $image_type${NC}"
+        exit 1
+        ;;
+    esac
+
     kubectl -n $namespace rollout status deployment/$deployment_name --timeout=300s
     check_status
+}
+
+# Function to commit and push URL updates
+commit_url_changes() {
+    print_step "Committing and pushing URL updates"
+    
+    echo "Creating and checking urls.txt file..."
+    if [ ! -f "UI/pages/urls.txt" ]; then
+        echo -e "${RED}Error: urls.txt not found${NC}"
+        ls -la UI/pages/  # Debug: list directory contents
+        return 1
+    fi
+
+    echo "Checking git status..."
+    git status
+    
+    echo "Checking for changes in urls.txt..."
+    if git diff --quiet "UI/pages/urls.txt"; then
+        echo -e "${YELLOW}No changes detected in urls.txt${NC}"
+        cat "UI/pages/urls.txt"  # Debug: show file contents
+        return 0
+    fi
+
+    echo "Adding and committing changes..."
+    git add "UI/pages/urls.txt"
+    git commit -m "Updated deployment URLs [skip ci]"
+    
+    echo "Pushing to dev branch..."
+    git push origin dev || {
+        echo -e "${RED}Failed to push to dev branch${NC}"
+        git branch  # Debug: show current branch
+        return 1
+    }
 }
 
 # Function to verify pods are running
 verify_pods() {
     local namespace=$1
-    local image_type=$2
-    print_step "Verifying pod status..."
-    
+    local app_label=$2
+    print_step "Verifying pod status for app: $app_label"
+
     while true; do
-        PODS_READY=$(kubectl get pods -n $namespace -l app=$image_type -o jsonpath='{.items[*].status.containerStatuses[*].ready}' | grep -o "true" | wc -l)
-        PODS_TOTAL=$(kubectl get pods -n $namespace -l app=$image_type --no-headers | wc -l)
-        
-        if [ "$PODS_READY" -eq "$PODS_TOTAL" ] && [ "$PODS_TOTAL" -gt 0 ]; then
-            echo -e "${GREEN}All pods are running and ready!${NC}"
-            break
+        # Get pods based on label
+        PODS=$(kubectl get pods -n $namespace -l app=$app_label --no-headers 2>/dev/null)
+
+        if [[ -z "$PODS" ]]; then
+            echo -e "${YELLOW}No pods found for app: $app_label. Waiting...${NC}"
         else
-            echo -e "${YELLOW}Pods ready: $PODS_READY/$PODS_TOTAL - waiting...${NC}"
-            sleep 10
+            # Count running pods
+            PODS_READY=$(echo "$PODS" | grep "Running" | wc -l)
+            PODS_TOTAL=$(echo "$PODS" | wc -l)
+
+            echo "Debug: PODS_READY=$PODS_READY, PODS_TOTAL=$PODS_TOTAL"
+
+            # Check if all pods are running
+            if [ "$PODS_READY" -eq "$PODS_TOTAL" ] && [ "$PODS_TOTAL" -gt 0 ]; then
+                echo -e "${GREEN}All pods for app: $app_label are running and ready!${NC}"
+                break
+            else
+                echo -e "${YELLOW}Pods ready: $PODS_READY/$PODS_TOTAL - waiting...${NC}"
+            fi
         fi
+        sleep 10
     done
 }
+
 
 # Function to create Kubernetes secrets
 create_kubernetes_secrets() {
@@ -243,7 +467,7 @@ deploy_component() {
         echo -e "${GREEN}Image gcr.io/$project_id/$image_type:$image_tag already exists. Skipping build steps.${NC}"
     else
         print_step "Building $image_type image"
-        docker build -f $dockerfile_path --platform linux/amd64 --no-cache -t $image_type:$image_tag .
+        sudo docker build -f $dockerfile_path --platform linux/amd64 --no-cache -t $image_type:$image_tag .
         check_status
 
         print_step "Tagging $image_type image"
@@ -263,14 +487,14 @@ deploy_component() {
     # Update and apply deployment files
     for file in $deployment_files; do
         echo "Updating image in $file"
-        sed -i "s|image: gcr.io/.*/.*|image: gcr.io/$project_id/$image_type:$image_tag|g" $file
+        sed -i "/- name: gke-fast-api-app/{n;s|image: gcr.io/.*/.*|image: gcr.io/$project_id/$image_type:$image_tag|}" $file
         kubectl apply -f $file -n $namespace
         check_status
     done
 
     # Wait for deployment and verify pods
     wait_for_deployment $namespace $image_type
-    verify_pods $namespace $image_type
+    verify_pods $namespace gke-fast-api-app
 }
 
 # Script starts here
@@ -297,13 +521,13 @@ read -p "Enter choice [1]: " deployment_choice
 
 case "${deployment_choice:-1}" in
     1)
-        COMPONENTS=("backend")
+        COMPONENTS=("gke-backend")
         ;;
     2)
-        COMPONENTS=("data_pipeline")
+        COMPONENTS=("airflow-webserver")
         ;;
     3)
-        COMPONENTS=("backend" "data_pipeline")
+        COMPONENTS=("gke-backend" "airflow-webserver")
         ;;
     *)
         echo -e "${RED}Invalid choice${NC}"
@@ -409,16 +633,75 @@ print_step "6. Creating Kubernetes secrets"
 create_kubernetes_secrets $NAMESPACE
 
 # Deploy each component
-for component in "${COMPONENTS[@]}"; do
-    case $component in
-        "backend")
-            deploy_component "backend" "app/Dockerfile" $PROJECT_ID $NAMESPACE $IMAGE_TAG
-            ;;
-        "data_pipeline")
-            deploy_component "data_pipeline" "data_pipeline/Dockerfile" $PROJECT_ID $NAMESPACE $IMAGE_TAG
-            ;;
-    esac
-done
+if [[ " ${COMPONENTS[@]} " =~ "gke-backend" && " ${COMPONENTS[@]} " =~ "airflow-webserver" ]]; then
+    # Deploy backend first
+    print_step "Deploying Backend API first"
+    deploy_component "gke-backend" "app/dockerfile" $PROJECT_ID $NAMESPACE $IMAGE_TAG
+    
+    # Get backend service IP and update values.yaml
+    get_backend_service_ip $NAMESPACE
+    update_values_yaml $EXTERNAL_IP
+    
+    # Then deploy data pipeline
+    print_step "Deploying Airflow with Helm"
+    # Add repo and update
+    helm repo add apache-airflow https://airflow.apache.org
+    helm repo update
+    check_status
+    
+    # Deploy Airflow
+    helm upgrade --install airflow apache-airflow/airflow -n $NAMESPACE \
+        --values deployment/data_pipeline/values.yaml \
+        --create-namespace \
+        --debug
+    check_status
+    
+    # Wait for Airflow pods to be ready
+    print_step "Waiting for Airflow pods"
+    kubectl wait --for=condition=ready pod -l component=webserver -n $NAMESPACE --timeout=300s
+    check_status
+else
+    # Single component deployment
+    for component in "${COMPONENTS[@]}"; do
+        case $component in
+            "gke-backend")
+                deploy_component "gke-backend" "app/dockerfile" $PROJECT_ID $NAMESPACE $IMAGE_TAG
+                ;;
+            "airflow-webserver")
+                # Get backend service IP and update values.yaml first
+                get_backend_service_ip $NAMESPACE
+                update_values_yaml $EXTERNAL_IP
+                
+                print_step "Deploying Airflow with Helm"
+                # Add repo and update
+                helm repo add apache-airflow https://airflow.apache.org
+                helm repo update
+                check_status
+                
+                # Deploy Airflow
+                helm upgrade --install airflow apache-airflow/airflow -n $NAMESPACE \
+                    --values deployment/data_pipeline/values.yaml \
+                    --create-namespace \
+                    --debug
+                check_status
+                
+                # Wait for Airflow pods to be ready
+                print_step "Waiting for Airflow pods"
+                kubectl wait --for=condition=ready pod -l component=webserver -n $NAMESPACE --timeout=300s
+                check_status
+                
+                # Show Airflow service details
+                print_step "Airflow Deployment Details"
+                kubectl get pods -l component=airflow -n $NAMESPACE
+                kubectl get services -l component=airflow-webserver -n $NAMESPACE
+                ;;
+        esac
+    done
+fi
+
+if [ $? -eq 0 ]; then
+    commit_url_changes
+fi
 
 echo -e "\n${GREEN}All components deployed successfully!${NC}"
 echo -e "\nUseful commands to check your deployments:"

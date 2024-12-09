@@ -13,7 +13,7 @@ executor: "LocalExecutor"
 # Environment variables for all airflow containers
 env: 
   - name: BASE_API_URL
-    value: "http://34.46.63.56"
+    value: "http://34.46.63.56" #BASE_API_URL
   - name: HF_HOME
     value: "/tmp/huggingface"
   - name: AIRFLOW__API__AUTH_BACKENDS
@@ -134,6 +134,11 @@ workers:
 
 # Airflow scheduler settings
 scheduler:
+  args:
+      - "bash"
+      - "-c"
+      - |
+        exec airflow scheduler
   enabled: true
   #  hostAliases for the scheduler pod
   hostAliases: []
@@ -145,7 +150,6 @@ scheduler:
     timeoutSeconds: 20
     failureThreshold: 5
     periodSeconds: 60
-    command: ~
 
   # Wait for at most 1 minute (6*10s) for the scheduler container to startup.
   # livenessProbe kicks in after the first successful startupProbe
@@ -153,7 +157,6 @@ scheduler:
     failureThreshold: 6
     periodSeconds: 10
     timeoutSeconds: 20
-    command: ~
 
   # Airflow 2.0 allows users to run multiple schedulers,
   # However this feature is only recommended for MySQL 8+ and Postgres
@@ -164,7 +167,7 @@ scheduler:
   # Command to use when running the Airflow scheduler (templated).
   command: ~
   # Args to use when running the Airflow scheduler (templated).
-  args: ["bash", "-c", "exec airflow scheduler"]
+  
 
   # Update Strategy when scheduler is deployed as a StatefulSet
   # (when using LocalExecutor and workers.persistence)
@@ -798,7 +801,6 @@ dags:
     subPath: ~
   gitSync:
     enabled: true
-
     # git repo clone url
     # ssh example: git@github.com:apache/airflow.git
     # https example: https://github.com/apache/airflow.git
@@ -808,6 +810,9 @@ dags:
     # The git revision (branch, tag, or hash) to check out, v4 only
     # ref: v2-2-stable
     depth: 1
+    sshKeySecret: gke-airflow-secrets
+    knownHosts: |
+      github.com ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEAq2A7hRGmdnm9tUDbO9IDSwBK6TbQa+PXYPCPy6rbTrTtw7PHkccKrpp0yVhp5HdEIcKr6pLlVDBfOLX9QUsyCOV0wzfjIJNlGEYsdlLJizHhbn2mUjvSAHQqZETYP81eFzLQNnPHt4EVVUh7VfDESU84KezmD5QlWpXLmvU31/yMf+Se8xhHTvKSCZIFImWwoG6mbUoWf9nzpIoaSjB+weqqUUmpaaasXVal72J+UX2B+2RPW3RcT0eOzQgqlJL3RKrTJvdsjE3JEAvGq3lGHSZXy28G3skua2SmVi/w4yCE6gbODqnTWlg7+wC604ydGXA8VJiS5ap43JXiUFFAaQ==
     # the number of consecutive failures allowed before aborting
     maxFailures: 0
     # subpath within the repo where dags are located
@@ -843,7 +848,7 @@ dags:
     #     # key needs to be gitSshKey
     #     gitSshKey: <base64_encoded_data>
     # and specify the name of the secret below
-    sshKeySecret: gke-airflow-secrets
+    
     #
     # Or set sshKeySecret with your key
     # sshKey: |-
@@ -894,7 +899,11 @@ dags:
     #       mountPath: "{{ .Values.my_custom_path }}"
     #       readOnly: true
     extraVolumeMounts: []
-    env: []
+    env:
+      - name: GIT_SYNC_ONE_TIME
+        value: "false"
+      - name: GIT_SYNC_PERIOD
+        value: "60s"
     # Supported env vars for gitsync can be found at https://github.com/kubernetes/git-sync
     # - name: ""
     #   value: ""

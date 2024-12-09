@@ -111,3 +111,122 @@ __Examples:__
     enhancement/api-logging
 Once the feature or fix is complete, a pull request is created to merge the feature branch into dev.
 
+(MedEnv) asuran@asuran:~/Downloads/projects/MedScript$ ./deploy.sh
+Welcome to the GKE Deployment Script
+Please provide the following information (press Enter to use default values):
+----------------------------------------
+Enter your Google Cloud Project ID [medscript-437117]: medscript-437117
+Enter the cluster name [project-cluster-1]: project-cluster-2
+Enter the zone [us-central1-a]: us-central1-a
+Enter the namespace [medscript]: medscript
+Enter the machine type [e2-standard-2]: e2-standard-2
+Enter minimum number of nodes [0]: 0
+Enter maximum number of nodes [3]: 3
+Enter the service account email [github-actions-sa@medscript-437117.iam.gserviceaccount.com]: github-actions-sa@medscript-437117.iam.gserviceaccount.com
+
+Select components to deploy:
+1) Backend API
+2) Data Pipeline
+3) Both
+Enter choice [1]: 3
+Enter the image tag [latest]: V1
+
+Configuration Summary:
+----------------------------------------
+Project ID: medscript-437117
+Cluster Name: project-cluster-2
+Zone: us-central1-a
+Namespace: medscript
+Machine Type: e2-standard-2
+Node Range: 0 to 3
+Service Account: github-actions-sa@medscript-437117.iam.gserviceaccount.com
+Components to deploy: gke-backend airflow-webserver
+Image Tag: V1
+----------------------------------------
+Do you want to proceed? (y/n): y
+
+Step: 1. Authenticating with Google Cloud
+----------------------------------------
+Your browser has been opened to visit:
+
+    https://accounts.google.com/o/oauth2/auth?response_type=code&client_id=32555940559.apps.googleusercontent.com&redirect_uri=http%3A%2F%2Flocalhost%3A8085%2F&scope=openid+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fcloud-platform+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fappengine.admin+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fsqlservice.login+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fcompute+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Faccounts.reauth&state=33PYQ4oVCJSzrFHe32U05qGXsbaebS&access_type=offline&code_challenge=uCa7d2PJZlvRXbF5pF9GK3ljdHIwv9zryNz9vvT6NF8&code_challenge_method=S256
+
+
+You are now logged in as [adari.girishkumar@gmail.com].
+Your current project is [medscript-437117].  You can change this setting by running:
+  $ gcloud config set project PROJECT_ID
+Updated property [core/project].
+✓ Success
+
+Step: 2. Configuring Docker authentication
+----------------------------------------
+WARNING: Your config file at [/home/asuran/.docker/config.json] contains these credential helper entries:
+
+{
+  "credHelpers": {
+    "gcr.io": "gcloud",
+    "us.gcr.io": "gcloud",
+    "eu.gcr.io": "gcloud",
+    "asia.gcr.io": "gcloud",
+    "staging-k8s.gcr.io": "gcloud",
+    "marketplace.gcr.io": "gcloud"
+  }
+}
+Adding credentials for all GCR repositories.
+WARNING: A long list of credential helpers may cause delays running 'docker build'. We recommend passing the registry name to configure only the registry you are using.
+gcloud credential helpers already registered correctly.
+✓ Success
+Cluster project-cluster-2 already exists in zone us-central1-a. Skipping cluster creation.
+
+Step: 4. Getting cluster credentials
+----------------------------------------
+Fetching cluster endpoint and auth data.
+kubeconfig entry generated for project-cluster-2.
+✓ Success
+
+Step: 5. Creating namespace
+----------------------------------------
+✓ Success
+
+Step: 6. Creating Kubernetes secrets
+----------------------------------------
+
+Step: Creating Kubernetes Secrets
+----------------------------------------
+Creating FastAPI secrets...
+secret/gke-fastapi-secrets configured
+✓ Success
+Creating Airflow secrets...
+secret/gke-airflow-secrets configured
+✓ Success
+✓ Kubernetes secrets created successfully
+
+Step: Deploying Backend API first
+----------------------------------------
+
+Deploying gke-backend...
+----------------------------------------
+Image gcr.io/medscript-437117/gke-backend:V1 already exists. Skipping build steps.
+Updating image in deployment/backend/app-deployment.yaml
+deployment.apps/gke-backend unchanged
+✓ Success
+Updating image in deployment/backend/app-service.yaml
+service/backend-service unchanged
+✓ Success
+
+Step: Waiting for deployment to be ready...
+----------------------------------------
+deployment "gke-backend" successfully rolled out
+✓ Success
+
+Step: Verifying pod status for app: gke-fast-api-app
+----------------------------------------
+Debug: PODS_READY=1, PODS_TOTAL=1
+All pods for app: gke-fast-api-app are running and ready!
+
+Step: Getting backend service IP
+----------------------------------------
+Backend service IP: http://34.29.90.111
+(MedEnv) asuran@asuran:~/Downloads/projects/MedScript$ kubectl get deployments -n medscript
+NAME          READY   UP-TO-DATE   AVAILABLE   AGE
+gke-backend   1/1     1            1           34m

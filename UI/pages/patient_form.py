@@ -5,8 +5,24 @@ from requests.auth import HTTPBasicAuth
 import time
 import datetime
 
-base_api_url = "http://34.170.255.245"
-airflow_base_url = "http://34.123.143.96:8080/api/v1"
+def load_urls():
+    with open("pages/urls.txt") as f:
+        urls = {}
+        for line in f:
+            key, value = line.strip().split('=')
+            urls[key] = value.strip()  # strip to remove any whitespace
+        return urls
+
+# Load URLs at module level
+try:
+    urls = load_urls()
+    base_api_url = urls['BASE_API_URL']
+    airflow_base_url = urls['AIRFLOW_BASE_URL']
+except (FileNotFoundError, KeyError):
+    # Fallback values if file not found or missing keys
+    base_api_url = "http://34.170.255.245"
+    airflow_base_url = "http://34.123.143.96:8080/api/v1"
+    
 dag_id = "data_pipeline"
 today = datetime.date.today()
 

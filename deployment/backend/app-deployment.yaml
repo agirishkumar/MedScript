@@ -15,7 +15,7 @@ spec:
       # serviceAccountName: ksa-medscript
       containers:
         - name: gke-fast-api-app
-          image: gcr.io/medscript-437117/fast-api-backend:latest
+          image: gcr.io/medscript-437117/gke-backend:V1
           ports:
           - containerPort: 8000
           env:
