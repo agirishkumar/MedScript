@@ -159,6 +159,11 @@ CITI Data or Specimens Only Research
 
 -------------------------------------------------------------------------------
 
+## Architecture Diagram
+![Medscript Architecture Diagram](https://github.com/user-attachments/assets/e0567f1b-6210-47a2-90ec-c52a161bf047)
+
+-------------------------------------------------------------------------------
+
 ## Data Preprocessing
 
 ## MIMIC-4 Dataset Download and Upload to Google Cloud Storage Bucket
