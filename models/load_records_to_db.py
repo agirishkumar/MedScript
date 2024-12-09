@@ -22,7 +22,7 @@ def calculate_dob(age):
     return dob
 
 # Load data from JSON
-with open("records.json") as file:
+with open("records_with_med42.json") as file:
     data = json.load(file)
 
 # Iterate over the records and send requests to the API

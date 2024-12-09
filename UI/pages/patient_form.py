@@ -119,8 +119,8 @@ def render():
         contact_number = st.text_input("Contact Number*", max_chars=10)
         email = st.text_input("Email*", max_chars=100)
         address = st.text_area("Address*", max_chars=255)
-        height = st.number_input("Height (cm)*", min_value=30.0, max_value=300.0, step=0.1, format="%.1f")
-        weight = st.number_input("Weight (kg)*", min_value=2.0, max_value=635.0, step=0.1, format="%.1f")
+        height = st.number_input("Height (cm)*", max_value=300.0, step=0.1, format="%.1f", value=0.0)
+        weight = st.number_input("Weight (kg)*", max_value=635.0, step=0.1, format="%.1f", value=0.0)
         blood_type = st.selectbox("Blood Type*", ["Select", "A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"])
 
         st.header("Medical Details")
