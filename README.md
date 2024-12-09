@@ -755,6 +755,14 @@ We’ve integrated Slack alert notifications into the deployment pipeline to kee
 ![image](https://github.com/user-attachments/assets/fe86bc30-0294-4a99-a1cf-0ebed288b827)
 
 
+# Model Deployment
+
+`chmod +x deploy.sh`
+run `./deploy.sh` on terminal to configure and deploy your model and backend services on GCP. 
+
+Refer `data_pipeline/deployment/README.md` for detailed step by step process.
+
+For UI deployment please refer `UI/README.md`
 
 
 

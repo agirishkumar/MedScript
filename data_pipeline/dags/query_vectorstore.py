@@ -9,10 +9,12 @@ from transformers import BertTokenizer, BertModel
 import sys
 import os
 
-# current = os.path.dirname(os.path.realpath(__file__))
-# gparent = os.path.dirname(os.path.dirname(current))
+import sys
+from pathlib import Path
+current_file = Path(__file__).resolve()
+project_dir = current_file.parent.parent
+sys.path.append(str(project_dir))
 
-# sys.path.append(gparent)
 from constants import QDRANT_COLLECTION, QDRANT_PORT, VECTORSTORE_IP, EMBEDDING_MODEL_PATH,SERVICE_ACCOUNT_FILEPATH
 from create_embedding import embed
 import torch

@@ -65,7 +65,7 @@ def slack_success_alert(context):
     send_slack_notification(slack_msg)
 
 
-# TASK 3: Fetch patient summary (using the patient_id from Pub/Sub message)
+# TASK 3: Fetch patient summary (using the patient_id from DAG run config)
 load_data_task = PythonOperator(
     task_id="load_data_task",
     python_callable=get_summary,

@@ -1,0 +1,67 @@
+# .github/workflows/deploy_to_gke.yml
+name: Deploy to Cluster
+
+on:
+  workflow_dispatch:
+    inputs:
+      image_type:
+        description: 'Image to deploy (backend/data_pipeline)'
+        required: true
+        type: choice
+        options: [backend, data_pipeline]
+      image_tag:
+        description: 'Image tag to deploy'
+        required: true
+        default: latest
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      
+      - name: Load config
+        id: config
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const yaml = require('js-yaml');
+            const fs = require('fs');
+            const config = yaml.load(fs.readFileSync('config.yaml', 'utf8'));
+            const image = config.images['${{ github.event.inputs.image_type }}'];
+            return {
+              project_id: config.project.id,
+              cluster_name: config.kubernetes.cluster_name,
+              zone: config.project.zone,
+              namespace: config.project.namespace,
+              deployment_files: config.kubernetes.deployment_files['${{ github.event.inputs.image_type }}'],
+              image_name: image.image_name,
+              registry: config.build.registry,
+              timeout: config.kubernetes.deployment_timeout
+            }
+
+      - id: 'auth'
+        uses: 'google-github-actions/auth@v0'
+        with:
+          credentials_json: '${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}'
+
+      - name: 'Set up Cloud SDK'
+        uses: 'google-github-actions/setup-gcloud@v0'
+
+      - name: 'Get GKE credentials'
+        run: |
+          gcloud container clusters get-credentials ${{ steps.config.outputs.cluster_name }} \
+            --zone ${{ steps.config.outputs.zone }}
+
+      - name: Update deployment image
+        run: |
+          for file in ${{ steps.config.outputs.deployment_files }}; do
+            # Update image in deployment files before applying
+            sed -i "s|image: ${{ steps.config.outputs.registry }}/${{ steps.config.outputs.project_id }}/${{ steps.config.outputs.image_name }}:.*|image: ${{ steps.config.outputs.registry }}/${{ steps.config.outputs.project_id }}/${{ steps.config.outputs.image_name }}:${{ github.event.inputs.image_tag }}|g" $file
+            kubectl apply -f $file -n ${{ steps.config.outputs.namespace }}
+          done
+
+      - name: Verify deployment
+        run: |
+          kubectl rollout status deployment/${{ github.event.inputs.image_type }}-deployment \
+            -n ${{ steps.config.outputs.namespace }} --timeout=${{ steps.config.outputs.timeout }}s

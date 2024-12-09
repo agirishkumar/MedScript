@@ -1,6 +1,6 @@
 # data_pipeline/dags/constants.py
 
-from src.credential_helper import get_service_account_path
+# from src.credential_helper import get_service_account_path
 
 '''
 Defines constants for Google Cloud, Qdrant configuration, dataset paths, embeddings, and abbreviation mappings.
