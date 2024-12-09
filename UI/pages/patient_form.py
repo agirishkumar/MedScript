@@ -6,8 +6,8 @@ from requests.auth import HTTPBasicAuth
 import time
 import datetime
 
-base_api_url = "http://34.170.255.245"
-airflow_base_url = "http://34.123.143.96:8080/api/v1"
+base_api_url = "http://34.29.90.111"
+airflow_base_url = "http://104.154.104.245:8080/api/v1"
 dag_id = "data_pipeline"
 today = datetime.date.today()
 
