@@ -8,10 +8,10 @@ RUN apt-get update && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
-RUN mkdir -p ./dags
-RUN chmod -R 777 ./dags 
+# RUN mkdir -p ./dags
+# RUN chmod -R 777 ./dags 
 
-COPY ../data_pipeline/dags/. ./dags/
+# COPY ../data_pipeline/dags/. ./dags/
 
 COPY ../deployment/airflow-requirements.txt .
 
