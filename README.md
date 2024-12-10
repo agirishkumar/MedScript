@@ -10,7 +10,10 @@ Passcode: WWJsh4^e
 
 2. https://drive.google.com/file/d/1HXRlsLsneh_j4M3VEFjBcopH_QAH7Pls/view?usp=drive_link
 
-![image](https://github.com/user-attachments/assets/df7a915c-a026-4bf6-87fe-67ba48edc5c4)
+## Architecture Diagram
+![Medscript Architecture Diagram](https://github.com/user-attachments/assets/e0567f1b-6210-47a2-90ec-c52a161bf047)
+
+-------------------------------------------------------------------------------
 
 **Previous Demo recordings** 
 1. https://northeastern.zoom.us/rec/share/HFf1d277uKP9Kb9_2tgWFIjVbV6hyUSevlLwpkQwsSH-DSDlK-plGogxDqBTx1EJ.wokUQnQATvARIg8_?startTime=1730857443000
@@ -159,11 +162,6 @@ PhysioNet Credentialed Health Data Use Agreement 1.5.0
 Required training:
 CITI Data or Specimens Only Research 
 
-
--------------------------------------------------------------------------------
-
-## Architecture Diagram
-![Medscript Architecture Diagram](https://github.com/user-attachments/assets/e0567f1b-6210-47a2-90ec-c52a161bf047)
 
 -------------------------------------------------------------------------------
 
@@ -396,8 +394,11 @@ The figure shows the Gantt chart from an Airflow DAG run, visualizing the execut
 Each task's execution duration is represented by bars, with different segments indicating stages of the task's progress. load_data_task and data_preprocessing_task took the longest time to complete, while query_vectorDB_task and generate_prompt_task were shorter in duration. The pipeline appears to be running multiple iterations or instances, with several successful executions marked in green, showing consistent task completion across these runs.
 
 ![image](https://github.com/user-attachments/assets/38421e23-2fda-43f7-8b1d-e816e7e28bd5)
+<img width="1280" alt="Screenshot 2024-12-09 at 7 05 03 PM" src="https://github.com/user-attachments/assets/13f669e2-1fd8-48bf-bec2-b0469b9c7d9c">
 
-The figure shows task dependency graph of an Airflow DAG 'data_pipeline'. The pipeline consists of four tasks, each represented by a box, arranged sequentially from left to right:
+
+
+The figure shows task dependency graph of an Airflow DAG 'data_pipeline'. The pipeline consists of five tasks, each represented by a box, arranged sequentially from left to right:
 
 1. `load_data_task`
 2. `data_preprocessing_task`
