@@ -814,9 +814,7 @@ Model drift is monitored in Grafana using the following approach:
    A threshold is configured in Grafana. If the word count in responses falls below the specified level, it indicates potential drift or anomalies in model behavior.
 
 3. **Alerting Mechanism**  
-   When the threshold is breached, Grafana triggers an email notification to alert the relevant stakeholders.
-
-This setup ensures proactive detection and response to potential model drift, maintaining the reliability and accuracy of the deployed model.
+   When the threshold is breached, Grafana triggers an email notification.
 
 
 
