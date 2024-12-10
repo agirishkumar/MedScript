@@ -813,7 +813,10 @@ We are using Grafana Cloud to track the data we are getting from the users/patie
 - Gender Distribution
 - How Gender and Bloodtype correlates
 - How Severity and Age group correlates
-- 
+- How BMI is affecting severity across genders
+- How BMI changes across age groups
+- Weight-Height Correlation
+- Age Distribution
 
 ## Model Drift Tracking and Alerting
 
