@@ -804,6 +804,17 @@ This script streamlines the entire deployment workflow, ensuring consistency and
 
 ##  Grafana and GCP Cloud Monitoring
 
+https://console.cloud.google.com/monitoring/dashboards/builder/3a9a4e49-68c4-479f-9fcb-25a8a7170ac5;duration=PT1H?hl=en&project=medscript-437117&pageState=(%22eventTypes%22:(%22selected%22:%5B%22CLOUD_ALERTING_ALERT%22,%22CLOUD_RUN_DEPLOYMENT%22,%22GKE_WORKLOAD_DEPLOYMENT%22,%22VM_TERMINATION%22,%22CLOUD_SQL_STORAGE%22%5D))
+
+We are using GCP internal monitoring dashboard to track and log where in we are tracking the Vertex AI endpoints (Network Bytes sent and received) and CPU utilization of the VM instance. We are also tracking the memory in the tables which is almost 3.5 GB. We also have the log entries of the Kubernetes Container.
+
+We are using Grafana Cloud to track the data we are getting from the users/patient form. We are showing the visualization in two parts- 1 for the Base records and 1 for the latest 300 records:
+- Total number of users, Average BMI, Average Height, Average Weight.
+- Gender Distribution
+- How Gender and Bloodtype correlates
+- How Severity and Age group correlates
+- 
+
 ## Model Drift Tracking and Alerting
 
 Model drift is monitored in Grafana using the following approach:
