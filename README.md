@@ -8,7 +8,9 @@ Group Members:
 1. [https://northeastern.zoom.us/rec/share/HFf1d277uKP9Kb9_2tgWFIjVbV6hyUSevlLwpkQwsSH-DSDlK-plGogxDqBTx1EJ.wokUQnQATvARIg8_?startTime=1730857443000](https://northeastern.zoom.us/rec/share/bGWaW9QzfYvHs7-oMiOrMJOh471eJXDD0hnewbPJ7EmZoipxNHBM_Gy9ZwY9WVSD.obRnjNr8c8HQWGRS?startTime=1733460520000)
 Passcode: WWJsh4^e
 
-2. https://drive.google.com/file/d/1HXRlsLsneh_j4M3VEFjBcopH_QAH7Pls/view?usp=drive_link
+2. https://drive.google.com/file/d/1HXRlsLsneh_j4M3VEFjBcopH_QAH7Pls/view?usp=drive_link - Tableau Dashboard and GCP Monitoring Recording
+
+3. https://drive.google.com/file/d/1aVxfeet3utsqgyURYuXtaG1CwoQSgG6B/view?usp=sharing -Grafana Cloud Recording
 
 ## Architecture Diagram
 ![Medscript Architecture Diagram](https://github.com/user-attachments/assets/e0567f1b-6210-47a2-90ec-c52a161bf047)
